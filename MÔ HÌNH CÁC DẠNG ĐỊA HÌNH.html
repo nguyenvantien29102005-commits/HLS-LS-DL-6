@@ -1,0 +1,5135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Mô hình 3D các dạng địa hình trên Trái Đất - Khoáng sản
+    </title>
+
+    <!-- =========================================================
+         IMPORT MAP THREE.JS
+         ========================================================= -->
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three":
+            "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+
+            "three/addons/":
+            "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
+        }
+    }
+    </script>
+
+
+    <style>
+
+        /* =========================================================
+           01. HỆ MÀU
+           ========================================================= */
+
+        :root {
+
+            --bg-1: #04130f;
+            --bg-2: #071c16;
+            --bg-3: #0c2b20;
+
+            --forest: #176f4b;
+            --green: #25a96d;
+            --mint: #55e6a5;
+
+            --earth: #855b35;
+            --earth-light: #b68450;
+
+            --gold: #f0c45e;
+            --gold-light: #ffe39a;
+
+            --blue: #49cbe8;
+
+            --white: #ffffff;
+            --text: #dcece5;
+            --muted: #9db9ad;
+
+            --danger: #ff7b72;
+
+            --border:
+                rgba(255,255,255,.11);
+
+            --panel:
+                rgba(8,30,23,.88);
+
+            --panel-2:
+                rgba(12,40,31,.82);
+
+            --shadow:
+                0 18px 55px
+                rgba(0,0,0,.42);
+
+            --radius: 20px;
+        }
+
+
+        /* =========================================================
+           02. RESET
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color:
+                var(--white);
+
+            background:
+
+                radial-gradient(
+                    circle at 20% 10%,
+                    rgba(37,169,109,.16),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(240,196,94,.09),
+                    transparent 24%
+                ),
+
+                linear-gradient(
+                    145deg,
+                    var(--bg-1),
+                    var(--bg-2)
+                );
+        }
+
+
+        button,
+        select {
+
+            font: inherit;
+        }
+
+
+        button {
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           03. APP
+           ========================================================= */
+
+        #app {
+
+            width: 100%;
+            height: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                330px 1fr 340px;
+
+            position: relative;
+        }
+
+
+        /* =========================================================
+           04. PANEL CHUNG
+           ========================================================= */
+
+        .panel {
+
+            position: relative;
+
+            z-index: 20;
+
+            overflow-y: auto;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(5,24,18,.94),
+                    rgba(5,18,15,.91)
+                );
+
+            backdrop-filter:
+                blur(15px);
+        }
+
+
+        .panel-left {
+
+            border-right:
+                1px solid
+                var(--border);
+        }
+
+
+        .panel-right {
+
+            border-left:
+                1px solid
+                var(--border);
+        }
+
+
+        .panel-inner {
+
+            padding: 20px;
+        }
+
+
+        /* =========================================================
+           05. BRAND
+           ========================================================= */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding-bottom:
+                18px;
+
+            border-bottom:
+                1px solid
+                var(--border);
+        }
+
+
+        .brand-icon {
+
+            width: 46px;
+            height: 46px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius:
+                15px;
+
+            font-size: 23px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--forest),
+                    var(--green)
+                );
+
+            box-shadow:
+                0 0 25px
+                rgba(37,169,109,.28);
+        }
+
+
+        .brand small {
+
+            color:
+                var(--gold);
+
+            font-size: 10px;
+
+            letter-spacing:
+                1.8px;
+
+            font-weight: bold;
+        }
+
+
+        .brand h1 {
+
+            font-size: 16px;
+
+            margin-top: 2px;
+        }
+
+
+        /* =========================================================
+           06. GIỚI THIỆU
+           ========================================================= */
+
+        .intro {
+
+            margin-top:
+                18px;
+
+            padding:
+                15px;
+
+            border-radius:
+                15px;
+
+            border:
+                1px solid
+                rgba(85,230,165,.18);
+
+            background:
+                rgba(37,169,109,.065);
+        }
+
+
+        .intro strong {
+
+            color:
+                var(--mint);
+        }
+
+
+        .intro p {
+
+            margin-top:
+                7px;
+
+            font-size:
+                12px;
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.55;
+        }
+
+
+        /* =========================================================
+           07. TIÊU ĐỀ NHÓM
+           ========================================================= */
+
+        .group-title {
+
+            margin:
+                22px 0 10px;
+
+            color:
+                #bdd3ca;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1.6px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        /* =========================================================
+           08. NÚT ĐỊA HÌNH
+           ========================================================= */
+
+        .terrain-buttons {
+
+            display: grid;
+
+            gap: 9px;
+        }
+
+
+        .terrain-btn {
+
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                42px 1fr auto;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding:
+                11px;
+
+            color:
+                var(--text);
+
+            text-align: left;
+
+            border-radius:
+                13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                rgba(255,255,255,.035);
+
+            transition:
+                .22s ease;
+        }
+
+
+        .terrain-btn:hover {
+
+            transform:
+                translateX(3px);
+
+            background:
+                rgba(255,255,255,.065);
+        }
+
+
+        .terrain-btn.active {
+
+            border-color:
+                rgba(85,230,165,.45);
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(37,169,109,.20),
+                    rgba(240,196,94,.06)
+                );
+        }
+
+
+        .terrain-btn .icon {
+
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius:
+                11px;
+
+            background:
+                rgba(255,255,255,.055);
+
+            font-size:
+                21px;
+        }
+
+
+        .terrain-btn strong {
+
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .terrain-btn small {
+
+            display: block;
+
+            color:
+                var(--muted);
+
+            margin-top:
+                2px;
+
+            font-size: 10px;
+        }
+
+
+        .terrain-btn .arrow {
+
+            color:
+                var(--mint);
+        }
+
+
+        /* =========================================================
+           09. CONTROL BUTTONS
+           ========================================================= */
+
+        .control-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 8px;
+        }
+
+
+        .control-btn {
+
+            min-height: 72px;
+
+            padding:
+                10px;
+
+            border-radius:
+                13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            color:
+                #d9e9e2;
+
+            background:
+                rgba(255,255,255,.035);
+
+            transition:
+                .22s ease;
+        }
+
+
+        .control-btn:hover {
+
+            background:
+                rgba(255,255,255,.07);
+        }
+
+
+        .control-btn.active {
+
+            background:
+                rgba(37,169,109,.15);
+
+            border-color:
+                rgba(85,230,165,.40);
+        }
+
+
+        .control-btn span {
+
+            display: block;
+
+            font-size:
+                22px;
+
+            margin-bottom:
+                3px;
+        }
+
+
+        .control-btn small {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+        }
+
+
+        /* =========================================================
+           10. VIEWPORT
+           ========================================================= */
+
+        #viewport {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                #081813;
+        }
+
+
+        #threeContainer {
+
+            width: 100%;
+            height: 100%;
+        }
+
+
+        #threeContainer canvas {
+
+            display: block;
+
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* =========================================================
+           11. TOP HUD
+           ========================================================= */
+
+        .top-hud {
+
+            position: absolute;
+
+            left: 18px;
+            right: 18px;
+            top: 18px;
+
+            z-index: 10;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap: 15px;
+
+            pointer-events:
+                none;
+        }
+
+
+        .hud-card {
+
+            max-width:
+                430px;
+
+            padding:
+                12px 15px;
+
+            border-radius:
+                14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                rgba(4,21,16,.70);
+
+            backdrop-filter:
+                blur(12px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.2);
+        }
+
+
+        .hud-card h2 {
+
+            font-size:
+                15px;
+        }
+
+
+        .hud-card p {
+
+            margin-top:
+                4px;
+
+            color:
+                #adc2b9;
+
+            font-size:
+                11px;
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            padding:
+                5px 8px;
+
+            margin-bottom:
+                7px;
+
+            border-radius:
+                999px;
+
+            color:
+                var(--gold-light);
+
+            border:
+                1px solid
+                rgba(240,196,94,.24);
+
+            background:
+                rgba(240,196,94,.07);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+        }
+
+
+        .camera-help {
+
+            text-align: right;
+        }
+
+
+        /* =========================================================
+           12. BOTTOM MODE BAR
+           ========================================================= */
+
+        .mode-bar {
+
+            position: absolute;
+
+            left: 50%;
+            bottom: 18px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 15;
+
+            display: flex;
+
+            gap: 7px;
+
+            padding: 7px;
+
+            border-radius:
+                15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                rgba(5,23,18,.78);
+
+            backdrop-filter:
+                blur(12px);
+        }
+
+
+        .mode-bar button {
+
+            border: 0;
+
+            padding:
+                8px 11px;
+
+            border-radius:
+                10px;
+
+            color:
+                #b8cec4;
+
+            background:
+                transparent;
+
+            font-size:
+                11px;
+        }
+
+
+        .mode-bar button:hover,
+        .mode-bar button.active {
+
+            color:
+                white;
+
+            background:
+                rgba(37,169,109,.15);
+        }
+
+
+        /* =========================================================
+           13. RIGHT PANEL
+           ========================================================= */
+
+        .info-header {
+
+            padding-bottom:
+                16px;
+
+            border-bottom:
+                1px solid
+                var(--border);
+        }
+
+
+        .info-header small {
+
+            color:
+                var(--gold);
+
+            letter-spacing:
+                1.5px;
+
+            font-size:
+                10px;
+
+            font-weight:
+                bold;
+        }
+
+
+        .info-header h2 {
+
+            margin-top:
+                5px;
+
+            font-size:
+                22px;
+        }
+
+
+        .info-header p {
+
+            margin-top:
+                8px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            line-height:
+                1.55;
+        }
+
+
+        /* =========================================================
+           14. DATA BOX
+           ========================================================= */
+
+        .data-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 8px;
+
+            margin-top:
+                15px;
+        }
+
+
+        .data-box {
+
+            padding:
+                11px;
+
+            border-radius:
+                12px;
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                rgba(255,255,255,.03);
+        }
+
+
+        .data-box small {
+
+            display: block;
+
+            color:
+                #8faea0;
+
+            font-size:
+                9px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1px;
+        }
+
+
+        .data-box strong {
+
+            display: block;
+
+            margin-top:
+                3px;
+
+            color:
+                #e5f3ed;
+
+            font-size:
+                12px;
+        }
+
+
+        /* =========================================================
+           15. LOGIC BOX
+           ========================================================= */
+
+        .logic-box {
+
+            margin-top:
+                15px;
+
+            padding:
+                14px;
+
+            border-radius:
+                14px;
+
+            border-left:
+                3px solid
+                var(--mint);
+
+            background:
+                rgba(37,169,109,.07);
+        }
+
+
+        .logic-box h3 {
+
+            font-size:
+                12px;
+
+            color:
+                var(--mint);
+        }
+
+
+        .logic-box p {
+
+            margin-top:
+                6px;
+
+            color:
+                #adc5bb;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.6;
+        }
+
+
+        /* =========================================================
+           16. KHOÁNG SẢN
+           ========================================================= */
+
+        .mineral-list {
+
+            display: grid;
+
+            gap: 8px;
+
+            margin-top:
+                12px;
+        }
+
+
+        .mineral-item {
+
+            display: grid;
+
+            grid-template-columns:
+                33px 1fr;
+
+            gap: 9px;
+
+            align-items:
+                center;
+
+            padding:
+                9px;
+
+            border-radius:
+                11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                rgba(255,255,255,.025);
+        }
+
+
+        .mineral-item .dot {
+
+            width: 31px;
+            height: 31px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius:
+                9px;
+
+            background:
+                rgba(240,196,94,.09);
+        }
+
+
+        .mineral-item strong {
+
+            display: block;
+
+            font-size:
+                11px;
+        }
+
+
+        .mineral-item small {
+
+            display: block;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+        }
+
+
+        /* =========================================================
+           17. CLICK POPUP
+           ========================================================= */
+
+        #popup {
+
+            position: absolute;
+
+            z-index: 30;
+
+            display: none;
+
+            width: 245px;
+
+            padding: 13px;
+
+            pointer-events:
+                none;
+
+            border-radius:
+                13px;
+
+            border:
+                1px solid
+                rgba(240,196,94,.25);
+
+            background:
+                rgba(4,20,15,.92);
+
+            backdrop-filter:
+                blur(12px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,.4);
+        }
+
+
+        #popup small {
+
+            color:
+                var(--gold);
+
+            font-size:
+                9px;
+
+            letter-spacing:
+                1px;
+        }
+
+
+        #popup h3 {
+
+            margin:
+                3px 0 5px;
+
+            font-size:
+                15px;
+        }
+
+
+        #popup p {
+
+            color:
+                #b3c8bf;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.55;
+        }
+
+
+        /* =========================================================
+           18. LEGEND
+           ========================================================= */
+
+        .legend {
+
+            position: absolute;
+
+            right: 18px;
+            bottom: 18px;
+
+            z-index: 10;
+
+            width: 165px;
+
+            padding:
+                11px;
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(4,20,15,.72);
+
+            border:
+                1px solid
+                var(--border);
+
+            backdrop-filter:
+                blur(10px);
+
+            pointer-events:
+                none;
+        }
+
+
+        .legend strong {
+
+            display: block;
+
+            margin-bottom:
+                7px;
+
+            font-size:
+                10px;
+        }
+
+
+        .legend-row {
+
+            display: flex;
+
+            align-items:
+                center;
+
+            gap: 7px;
+
+            color:
+                #adc4ba;
+
+            font-size:
+                9px;
+
+            margin:
+                5px 0;
+        }
+
+
+        .legend-color {
+
+            width: 20px;
+            height: 8px;
+
+            border-radius:
+                999px;
+        }
+
+
+        /* =========================================================
+           19. LOADING
+           ========================================================= */
+
+        #loading {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            display: grid;
+
+            place-items: center;
+
+            background:
+                #04130f;
+
+            transition:
+                opacity .6s ease;
+        }
+
+
+        .loader-content {
+
+            text-align: center;
+        }
+
+
+        .loader {
+
+            width: 58px;
+            height: 58px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            border:
+                4px solid
+                rgba(255,255,255,.08);
+
+            border-top-color:
+                var(--mint);
+
+            animation:
+                spin 1s linear
+                infinite;
+        }
+
+
+        .loader-content p {
+
+            margin-top:
+                15px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+
+        /* =========================================================
+           20. RESPONSIVE
+           ========================================================= */
+
+        @media(max-width:1100px) {
+
+            #app {
+
+                grid-template-columns:
+                    280px 1fr;
+            }
+
+
+            .panel-right {
+
+                position: absolute;
+
+                right: 0;
+                top: 0;
+                bottom: 0;
+
+                width: 320px;
+
+                transform:
+                    translateX(100%);
+
+                transition:
+                    .3s ease;
+
+                z-index: 60;
+            }
+
+
+            .panel-right.open {
+
+                transform:
+                    translateX(0);
+            }
+        }
+
+
+        @media(max-width:760px) {
+
+            #app {
+
+                display: block;
+            }
+
+
+            .panel-left {
+
+                position: absolute;
+
+                left: 0;
+                top: 0;
+                bottom: 0;
+
+                width: 290px;
+
+                z-index: 60;
+
+                transform:
+                    translateX(-100%);
+
+                transition:
+                    .3s ease;
+            }
+
+
+            .panel-left.open {
+
+                transform:
+                    translateX(0);
+            }
+
+
+            #viewport {
+
+                width: 100%;
+                height: 100%;
+            }
+
+
+            .camera-help {
+
+                display: none;
+            }
+
+
+            .legend {
+
+                display: none;
+            }
+
+
+            .mode-bar {
+
+                max-width:
+                    calc(100% - 25px);
+
+                overflow-x:
+                    auto;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADING
+     ========================================================= -->
+
+<div id="loading">
+
+    <div class="loader-content">
+
+        <div class="loader"></div>
+
+        <p>
+            Đang xây dựng mô hình địa hình 3D...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     APP
+     ========================================================= -->
+
+<div id="app">
+
+
+    <!-- =====================================================
+         LEFT PANEL
+         ===================================================== -->
+
+    <aside class="panel panel-left">
+
+        <div class="panel-inner">
+
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🌍
+                </div>
+
+                <div>
+
+                    <small>
+                        GEO 3D LAB
+                    </small>
+
+                    <h1>
+                        Địa hình & Khoáng sản
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="intro">
+
+                <strong>
+                    🧭 Phòng khám phá 3D
+                </strong>
+
+                <p>
+
+                    Xoay mô hình,
+                    phóng to,
+                    chuyển góc nhìn
+                    và bấm vào từng dạng địa hình
+                    hoặc khoáng sản
+                    để khám phá.
+
+                </p>
+
+            </div>
+
+
+            <!-- ============================
+                 ĐỊA HÌNH
+                 ============================ -->
+
+            <div class="group-title">
+
+                Khám phá dạng địa hình
+
+            </div>
+
+
+            <div class="terrain-buttons">
+
+
+                <button
+                    class="terrain-btn active"
+                    data-focus="overview"
+                >
+
+                    <div class="icon">
+                        🌍
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Toàn cảnh
+                        </strong>
+
+                        <small>
+                            Quan sát 4 dạng địa hình
+                        </small>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="terrain-btn"
+                    data-focus="mountain"
+                >
+
+                    <div class="icon">
+                        ⛰
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Núi
+                        </strong>
+
+                        <small>
+                            Cao - sườn dốc - đỉnh rõ
+                        </small>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="terrain-btn"
+                    data-focus="hill"
+                >
+
+                    <div class="icon">
+                        🌄
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đồi
+                        </strong>
+
+                        <small>
+                            Thấp - đỉnh tròn - sườn thoải
+                        </small>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="terrain-btn"
+                    data-focus="plateau"
+                >
+
+                    <div class="icon">
+                        🏜
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Cao nguyên
+                        </strong>
+
+                        <small>
+                            Cao nhưng mặt khá phẳng
+                        </small>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="terrain-btn"
+                    data-focus="plain"
+                >
+
+                    <div class="icon">
+                        🌾
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đồng bằng
+                        </strong>
+
+                        <small>
+                            Thấp - rộng - tương đối phẳng
+                        </small>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+            </div>
+
+
+            <!-- ============================
+                 CÔNG CỤ
+                 ============================ -->
+
+            <div class="group-title">
+
+                Công cụ quan sát
+
+            </div>
+
+
+            <div class="control-grid">
+
+
+                <button
+                    class="control-btn"
+                    id="btnMinerals"
+                >
+
+                    <span>
+                        💎
+                    </span>
+
+                    Khoáng sản
+
+                    <small>
+                        Bật / tắt lòng đất
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="control-btn"
+                    id="btnLabels"
+                >
+
+                    <span>
+                        📍
+                    </span>
+
+                    Điểm kiến thức
+
+                    <small>
+                        Bật / tắt marker
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="control-btn"
+                    id="btnWire"
+                >
+
+                    <span>
+                        🕸
+                    </span>
+
+                    Lưới địa hình
+
+                    <small>
+                        Quan sát cấu trúc
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="control-btn"
+                    id="btnRotate"
+                >
+
+                    <span>
+                        🔄
+                    </span>
+
+                    Tự xoay
+
+                    <small>
+                        Trình chiếu tự động
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="control-btn"
+                    id="btnSection"
+                >
+
+                    <span>
+                        ✂
+                    </span>
+
+                    Mặt cắt
+
+                    <small>
+                        Nhìn xuyên địa tầng
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="control-btn"
+                    id="btnReset"
+                >
+
+                    <span>
+                        🎯
+                    </span>
+
+                    Đặt lại
+
+                    <small>
+                        Camera mặc định
+                    </small>
+
+                </button>
+
+
+            </div>
+
+
+            <div class="group-title">
+
+                Lưu ý học thuật
+
+            </div>
+
+
+            <div class="intro">
+
+                <strong>
+                    ⚠ Mô hình khái quát
+                </strong>
+
+                <p>
+
+                    Tỉ lệ độ cao,
+                    kích thước địa hình
+                    và vị trí khoáng sản
+                    được phóng đại
+                    để phục vụ quan sát.
+
+                    Đây không phải
+                    bản đồ địa chất
+                    theo tỉ lệ thực.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         3D VIEWPORT
+         ===================================================== -->
+
+    <main id="viewport">
+
+
+        <div id="threeContainer"></div>
+
+
+        <!-- ============================
+             TOP HUD
+             ============================ -->
+
+        <div class="top-hud">
+
+
+            <div class="hud-card">
+
+                <div class="badge">
+                    MÔ HÌNH ĐỊA HÌNH 3D
+                </div>
+
+                <h2 id="hudTitle">
+
+                    Toàn cảnh địa hình Trái Đất
+
+                </h2>
+
+                <p id="hudText">
+
+                    Núi - đồi - cao nguyên -
+                    đồng bằng được đặt cạnh nhau
+                    để học sinh dễ so sánh
+                    độ cao và hình thái.
+
+                </p>
+
+            </div>
+
+
+            <div class="hud-card camera-help">
+
+                <h2>
+                    🖱 Điều khiển
+                </h2>
+
+                <p>
+                    Kéo chuột: xoay
+                    • Cuộn: zoom
+                    • Chuột phải: di chuyển
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ============================
+             POPUP
+             ============================ -->
+
+        <div id="popup">
+
+            <small id="popupType">
+                THÔNG TIN
+            </small>
+
+            <h3 id="popupTitle">
+                Tên điểm
+            </h3>
+
+            <p id="popupText">
+                Nội dung
+            </p>
+
+        </div>
+
+
+        <!-- ============================
+             MODE BAR
+             ============================ -->
+
+        <div class="mode-bar">
+
+            <button
+                class="active"
+                data-view="perspective"
+            >
+                Góc nhìn 3D
+            </button>
+
+            <button
+                data-view="front"
+            >
+                Nhìn ngang
+            </button>
+
+            <button
+                data-view="top"
+            >
+                Nhìn từ trên
+            </button>
+
+            <button
+                data-view="compare"
+            >
+                So sánh độ cao
+            </button>
+
+        </div>
+
+
+        <!-- ============================
+             LEGEND
+             ============================ -->
+
+        <div class="legend">
+
+            <strong>
+                CHÚ GIẢI ĐỘ CAO
+            </strong>
+
+            <div class="legend-row">
+
+                <div
+                    class="legend-color"
+                    style="
+                    background:#216d45;
+                    "
+                ></div>
+
+                Thấp
+
+            </div>
+
+            <div class="legend-row">
+
+                <div
+                    class="legend-color"
+                    style="
+                    background:#79a94a;
+                    "
+                ></div>
+
+                Trung bình
+
+            </div>
+
+            <div class="legend-row">
+
+                <div
+                    class="legend-color"
+                    style="
+                    background:#a07652;
+                    "
+                ></div>
+
+                Cao
+
+            </div>
+
+            <div class="legend-row">
+
+                <div
+                    class="legend-color"
+                    style="
+                    background:#e9e8df;
+                    "
+                ></div>
+
+                Đỉnh rất cao
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         RIGHT PANEL
+         ===================================================== -->
+
+    <aside class="panel panel-right">
+
+        <div class="panel-inner">
+
+
+            <div class="info-header">
+
+                <small id="infoType">
+                    TỔNG QUAN
+                </small>
+
+                <h2 id="infoTitle">
+
+                    Các dạng địa hình chính
+
+                </h2>
+
+                <p id="infoDescription">
+
+                    Bề mặt Trái Đất
+                    có nhiều dạng địa hình.
+
+                    Trong bài học lớp 6,
+                    cần nhận biết
+                    núi, đồi,
+                    cao nguyên
+                    và đồng bằng.
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="data-grid"
+                id="dataGrid"
+            >
+
+
+                <div class="data-box">
+
+                    <small>
+                        Núi
+                    </small>
+
+                    <strong>
+                        Thường > 500 m
+                    </strong>
+
+                </div>
+
+
+                <div class="data-box">
+
+                    <small>
+                        Đồi
+                    </small>
+
+                    <strong>
+                        Thấp hơn núi
+                    </strong>
+
+                </div>
+
+
+                <div class="data-box">
+
+                    <small>
+                        Cao nguyên
+                    </small>
+
+                    <strong>
+                        Cao + mặt khá phẳng
+                    </strong>
+
+                </div>
+
+
+                <div class="data-box">
+
+                    <small>
+                        Đồng bằng
+                    </small>
+
+                    <strong>
+                        Thấp + khá phẳng
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="logic-box">
+
+                <h3>
+                    🧠 Cách tư duy khi nhận diện
+                </h3>
+
+                <p id="logicText">
+
+                    Không chỉ hỏi
+                    “cao bao nhiêu?”.
+
+                    Hãy kết hợp:
+
+                    <br><br>
+
+                    <strong>
+                        ĐỘ CAO
+                        + HÌNH THÁI BỀ MẶT
+                        + ĐỘ DỐC
+                    </strong>
+
+                    để xác định dạng địa hình.
+
+                </p>
+
+            </div>
+
+
+            <div class="group-title">
+
+                Khoáng sản trong mô hình
+
+            </div>
+
+
+            <div class="mineral-list">
+
+
+                <div class="mineral-item">
+
+                    <div class="dot">
+                        ⚙
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Quặng sắt
+                        </strong>
+
+                        <small>
+                            Khoáng sản kim loại
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mineral-item">
+
+                    <div class="dot">
+                        🟠
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Bô-xit
+                        </strong>
+
+                        <small>
+                            Nguyên liệu sản xuất nhôm
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mineral-item">
+
+                    <div class="dot">
+                        ⚫
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Than
+                        </strong>
+
+                        <small>
+                            Khoáng sản năng lượng
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mineral-item">
+
+                    <div class="dot">
+                        🧱
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đá vôi
+                        </strong>
+
+                        <small>
+                            Khoáng sản phi kim
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                class="logic-box"
+                style="
+                border-left-color:
+                var(--gold);
+                "
+            >
+
+                <h3
+                    style="
+                    color:
+                    var(--gold-light);
+                    "
+                >
+
+                    💎 Lưu ý về khoáng sản
+
+                </h3>
+
+                <p>
+
+                    Các thân quặng
+                    trong mô hình
+                    chỉ minh họa
+                    việc khoáng sản
+                    tồn tại trong
+                    vỏ Trái Đất.
+
+                    <br><br>
+
+                    Không nên hiểu rằng
+                    quặng sắt,
+                    bô-xit,
+                    than
+                    và đá vôi
+                    luôn nằm cạnh nhau
+                    ngoài thực tế.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </aside>
+
+
+</div>
+
+
+<!-- =========================================================
+     THREE.JS
+     ========================================================= -->
+
+<script type="module">
+
+    import * as THREE
+    from "three";
+
+
+    import {
+        OrbitControls
+    }
+    from
+    "three/addons/controls/OrbitControls.js";
+
+
+    /* =========================================================
+       01. DOM
+       ========================================================= */
+
+    const container =
+        document.getElementById(
+            "threeContainer"
+        );
+
+
+    const viewport =
+        document.getElementById(
+            "viewport"
+        );
+
+
+    const popup =
+        document.getElementById(
+            "popup"
+        );
+
+
+    /* =========================================================
+       02. SCENE
+       ========================================================= */
+
+    const scene =
+        new THREE.Scene();
+
+
+    scene.background =
+        new THREE.Color(
+            0x0a2119
+        );
+
+
+    scene.fog =
+        new THREE.FogExp2(
+            0x0a2119,
+            0.009
+        );
+
+
+    /* =========================================================
+       03. CAMERA
+       ========================================================= */
+
+    const camera =
+        new THREE.PerspectiveCamera(
+
+            48,
+
+            container.clientWidth /
+            container.clientHeight,
+
+            0.1,
+
+            500
+
+        );
+
+
+    camera.position.set(
+        38,
+        32,
+        44
+    );
+
+
+    /* =========================================================
+       04. RENDERER
+       ========================================================= */
+
+    const renderer =
+        new THREE.WebGLRenderer({
+
+            antialias: true
+
+        });
+
+
+    renderer.setPixelRatio(
+
+        Math.min(
+            window.devicePixelRatio,
+            2
+        )
+
+    );
+
+
+    renderer.setSize(
+
+        container.clientWidth,
+        container.clientHeight
+
+    );
+
+
+    renderer.shadowMap.enabled =
+        true;
+
+
+    renderer.shadowMap.type =
+        THREE.PCFSoftShadowMap;
+
+
+    renderer.outputColorSpace =
+        THREE.SRGBColorSpace;
+
+
+    renderer.toneMapping =
+        THREE.ACESFilmicToneMapping;
+
+
+    renderer.toneMappingExposure =
+        1.05;
+
+
+    container.appendChild(
+        renderer.domElement
+    );
+
+
+    /* =========================================================
+       05. ORBIT CONTROLS
+       ========================================================= */
+
+    const controls =
+        new OrbitControls(
+
+            camera,
+            renderer.domElement
+
+        );
+
+
+    controls.enableDamping =
+        true;
+
+
+    controls.dampingFactor =
+        0.06;
+
+
+    controls.minDistance =
+        12;
+
+
+    controls.maxDistance =
+        110;
+
+
+    controls.maxPolarAngle =
+        Math.PI * 0.48;
+
+
+    controls.target.set(
+        0,
+        2,
+        0
+    );
+
+
+    controls.update();
+
+
+    /* =========================================================
+       06. LIGHTING
+       ========================================================= */
+
+    const hemiLight =
+        new THREE.HemisphereLight(
+
+            0xbfefff,
+            0x3f2a18,
+            2.3
+
+        );
+
+
+    scene.add(
+        hemiLight
+    );
+
+
+    const sunLight =
+        new THREE.DirectionalLight(
+
+            0xffe6b0,
+            4.2
+
+        );
+
+
+    sunLight.position.set(
+        28,
+        50,
+        20
+    );
+
+
+    sunLight.castShadow =
+        true;
+
+
+    sunLight.shadow.mapSize.set(
+        2048,
+        2048
+    );
+
+
+    sunLight.shadow.camera.left =
+        -55;
+
+    sunLight.shadow.camera.right =
+        55;
+
+    sunLight.shadow.camera.top =
+        55;
+
+    sunLight.shadow.camera.bottom =
+        -55;
+
+
+    scene.add(
+        sunLight
+    );
+
+
+    const fillLight =
+        new THREE.DirectionalLight(
+
+            0x5ee6c4,
+            1.3
+
+        );
+
+
+    fillLight.position.set(
+        -30,
+        20,
+        -30
+    );
+
+
+    scene.add(
+        fillLight
+    );
+
+
+    /* =========================================================
+       07. SKY DOME
+       ========================================================= */
+
+    const skyGeometry =
+        new THREE.SphereGeometry(
+            180,
+            32,
+            16
+        );
+
+
+    const skyMaterial =
+        new THREE.MeshBasicMaterial({
+
+            color:
+                0x11382f,
+
+            side:
+                THREE.BackSide
+
+        });
+
+
+    const sky =
+        new THREE.Mesh(
+
+            skyGeometry,
+            skyMaterial
+
+        );
+
+
+    scene.add(
+        sky
+    );
+
+
+    /* =========================================================
+       08. TERRAIN HEIGHT FUNCTION
+       ========================================================= */
+
+    function gaussian(
+        x,
+        z,
+        cx,
+        cz,
+        sx,
+        sz,
+        amp
+    ) {
+
+        const dx =
+            (x - cx) / sx;
+
+        const dz =
+            (z - cz) / sz;
+
+
+        return amp *
+        Math.exp(
+            -(
+                dx * dx +
+                dz * dz
+            )
+        );
+    }
+
+
+    function smoothStep(
+        edge0,
+        edge1,
+        value
+    ) {
+
+        const t =
+            THREE.MathUtils.clamp(
+
+                (
+                    value -
+                    edge0
+                ) /
+
+                (
+                    edge1 -
+                    edge0
+                ),
+
+                0,
+                1
+
+            );
+
+
+        return t *
+        t *
+        (
+            3 -
+            2 * t
+        );
+    }
+
+
+    function plateauShape(
+        x,
+        z
+    ) {
+
+        const cx = 10;
+        const cz = -7;
+
+        const dx =
+            Math.abs(
+                x - cx
+            );
+
+        const dz =
+            Math.abs(
+                z - cz
+            );
+
+
+        const edgeX =
+            1 -
+            smoothStep(
+                7,
+                12,
+                dx
+            );
+
+
+        const edgeZ =
+            1 -
+            smoothStep(
+                5,
+                9,
+                dz
+            );
+
+
+        return (
+            edgeX *
+            edgeZ *
+            7.2
+        );
+    }
+
+
+    function terrainHeight(
+        x,
+        z
+    ) {
+
+        let h = 0;
+
+
+        /* --------------------------
+           NÚI
+           -------------------------- */
+
+        h += gaussian(
+            x,
+            z,
+            -14,
+            -7,
+            7,
+            7,
+            14
+        );
+
+
+        h += gaussian(
+            x,
+            z,
+            -18,
+            -4,
+            5,
+            5,
+            7
+        );
+
+
+        h += gaussian(
+            x,
+            z,
+            -9,
+            -10,
+            5,
+            5,
+            6
+        );
+
+
+        /* --------------------------
+           ĐỒI
+           -------------------------- */
+
+        h += gaussian(
+            x,
+            z,
+            -13,
+            11,
+            8,
+            7,
+            4.5
+        );
+
+
+        h += gaussian(
+            x,
+            z,
+            -6,
+            13,
+            6,
+            5,
+            2.8
+        );
+
+
+        /* --------------------------
+           CAO NGUYÊN
+           -------------------------- */
+
+        h += plateauShape(
+            x,
+            z
+        );
+
+
+        /* --------------------------
+           ĐỒNG BẰNG
+           -------------------------- */
+
+        h +=
+            Math.sin(
+                x * .18
+            ) *
+            Math.cos(
+                z * .16
+            ) *
+            .18;
+
+
+        /* --------------------------
+           THUNG LŨNG NHỎ
+           -------------------------- */
+
+        h -= gaussian(
+            x,
+            z,
+            0,
+            2,
+            4,
+            18,
+            1.1
+        );
+
+
+        return Math.max(
+            h,
+            -0.8
+        );
+    }
+
+
+    /* =========================================================
+       09. TERRAIN GEOMETRY
+       ========================================================= */
+
+    const terrainSize =
+        56;
+
+
+    const terrainSegments =
+        150;
+
+
+    const terrainGeometry =
+        new THREE.PlaneGeometry(
+
+            terrainSize,
+            terrainSize,
+
+            terrainSegments,
+            terrainSegments
+
+        );
+
+
+    terrainGeometry.rotateX(
+        -Math.PI / 2
+    );
+
+
+    const positions =
+        terrainGeometry.attributes.position;
+
+
+    const colors = [];
+
+
+    const color =
+        new THREE.Color();
+
+
+    for(
+        let i = 0;
+        i < positions.count;
+        i++
+    ) {
+
+        const x =
+            positions.getX(i);
+
+        const z =
+            positions.getZ(i);
+
+
+        const y =
+            terrainHeight(
+                x,
+                z
+            );
+
+
+        positions.setY(
+            i,
+            y
+        );
+
+
+        /* --------------------------
+           MÀU THEO ĐỘ CAO
+           -------------------------- */
+
+        if(
+            y < 1
+        ) {
+
+            color.set(
+                0x326f45
+            );
+
+        }
+
+        else if(
+            y < 3.5
+        ) {
+
+            color.set(
+                0x5d9449
+            );
+
+        }
+
+        else if(
+            y < 7
+        ) {
+
+            color.set(
+                0x8a8f4d
+            );
+
+        }
+
+        else if(
+            y < 10
+        ) {
+
+            color.set(
+                0x98704d
+            );
+
+        }
+
+        else {
+
+            color.set(
+                0xdedbd0
+            );
+
+        }
+
+
+        colors.push(
+
+            color.r,
+            color.g,
+            color.b
+
+        );
+
+    }
+
+
+    terrainGeometry.setAttribute(
+
+        "color",
+
+        new THREE.Float32BufferAttribute(
+            colors,
+            3
+        )
+
+    );
+
+
+    terrainGeometry.computeVertexNormals();
+
+
+    const terrainMaterial =
+        new THREE.MeshStandardMaterial({
+
+            vertexColors:
+                true,
+
+            roughness:
+                .90,
+
+            metalness:
+                .02
+
+        });
+
+
+    const terrain =
+        new THREE.Mesh(
+
+            terrainGeometry,
+            terrainMaterial
+
+        );
+
+
+    terrain.receiveShadow =
+        true;
+
+
+    terrain.castShadow =
+        true;
+
+
+    scene.add(
+        terrain
+    );
+
+
+    /* =========================================================
+       10. WATER / SÔNG
+       ========================================================= */
+
+    const waterGeometry =
+        new THREE.PlaneGeometry(
+            17,
+            2.4,
+            10,
+            2
+        );
+
+
+    waterGeometry.rotateX(
+        -Math.PI / 2
+    );
+
+
+    const waterMaterial =
+        new THREE.MeshPhysicalMaterial({
+
+            color:
+                0x39b8dc,
+
+            transparent:
+                true,
+
+            opacity:
+                .75,
+
+            roughness:
+                .15,
+
+            metalness:
+                .05,
+
+            transmission:
+                .08
+
+        });
+
+
+    const river =
+        new THREE.Mesh(
+
+            waterGeometry,
+            waterMaterial
+
+        );
+
+
+    river.position.set(
+        10,
+        .35,
+        12
+    );
+
+
+    river.rotation.y =
+        -.16;
+
+
+    scene.add(
+        river
+    );
+
+
+    /* =========================================================
+       11. GEOLOGICAL BLOCK
+       ========================================================= */
+
+    const geologyGroup =
+        new THREE.Group();
+
+
+    const layerData = [
+
+        {
+            y: -1.6,
+            h: 2.2,
+            color: 0x6d4b2f
+        },
+
+        {
+            y: -3.7,
+            h: 2.0,
+            color: 0x54402f
+        },
+
+        {
+            y: -5.7,
+            h: 2.0,
+            color: 0x3d3440
+        },
+
+        {
+            y: -8.0,
+            h: 2.6,
+            color: 0x282c35
+        }
+
+    ];
+
+
+    layerData.forEach(
+        layer => {
+
+            const geometry =
+                new THREE.BoxGeometry(
+
+                    55,
+                    layer.h,
+                    55
+
+                );
+
+
+            const material =
+                new THREE.MeshStandardMaterial({
+
+                    color:
+                        layer.color,
+
+                    transparent:
+                        true,
+
+                    opacity:
+                        .52,
+
+                    roughness:
+                        .95
+
+                });
+
+
+            const mesh =
+                new THREE.Mesh(
+
+                    geometry,
+                    material
+
+                );
+
+
+            mesh.position.y =
+                layer.y;
+
+
+            mesh.receiveShadow =
+                true;
+
+
+            geologyGroup.add(
+                mesh
+            );
+
+        }
+    );
+
+
+    geologyGroup.visible =
+        false;
+
+
+    scene.add(
+        geologyGroup
+    );
+
+
+    /* =========================================================
+       12. KHOÁNG SẢN
+       ========================================================= */
+
+    const mineralsGroup =
+        new THREE.Group();
+
+
+    const clickableObjects = [];
+
+
+    function createOreBody(
+        options
+    ) {
+
+        const {
+
+            name,
+            category,
+            use,
+            color,
+            position,
+            scale,
+            icon
+
+        } = options;
+
+
+        const group =
+            new THREE.Group();
+
+
+        for(
+            let i = 0;
+            i < 9;
+            i++
+        ) {
+
+            const geometry =
+                new THREE.IcosahedronGeometry(
+
+                    .65 +
+                    Math.random() * .38,
+
+                    1
+
+                );
+
+
+            const material =
+                new THREE.MeshStandardMaterial({
+
+                    color:
+                        color,
+
+                    roughness:
+                        .65,
+
+                    metalness:
+                        category ===
+                        "Khoáng sản kim loại"
+                        ? .55
+                        : .15,
+
+                    emissive:
+                        color,
+
+                    emissiveIntensity:
+                        .07
+
+                });
+
+
+            const stone =
+                new THREE.Mesh(
+
+                    geometry,
+                    material
+
+                );
+
+
+            stone.position.set(
+
+                (
+                    Math.random() -
+                    .5
+                ) * 3.5,
+
+                (
+                    Math.random() -
+                    .5
+                ) * 1.8,
+
+                (
+                    Math.random() -
+                    .5
+                ) * 3.5
+
+            );
+
+
+            stone.scale.multiplyScalar(
+
+                .65 +
+                Math.random() *
+                .65
+
+            );
+
+
+            stone.userData = {
+
+                type:
+                    "mineral",
+
+                name,
+                category,
+                use,
+                icon
+
+            };
+
+
+            clickableObjects.push(
+                stone
+            );
+
+
+            group.add(
+                stone
+            );
+
+        }
+
+
+        group.position.copy(
+            position
+        );
+
+
+        group.scale.setScalar(
+            scale
+        );
+
+
+        mineralsGroup.add(
+            group
+        );
+
+    }
+
+
+    /* --------------------------
+       QUẶNG SẮT
+       -------------------------- */
+
+    createOreBody({
+
+        name:
+            "Quặng sắt",
+
+        category:
+            "Khoáng sản kim loại",
+
+        use:
+            "Nguồn nguyên liệu quan trọng cho luyện kim và sản xuất sắt thép.",
+
+        color:
+            0x8d4434,
+
+        position:
+            new THREE.Vector3(
+                -13,
+                -3.1,
+                -7
+            ),
+
+        scale:
+            1.1,
+
+        icon:
+            "⚙"
+
+    });
+
+
+    /* --------------------------
+       BÔ-XIT
+       -------------------------- */
+
+    createOreBody({
+
+        name:
+            "Bô-xit",
+
+        category:
+            "Khoáng sản kim loại",
+
+        use:
+            "Quặng chính dùng để sản xuất alumin và nhôm.",
+
+        color:
+            0xb95c2d,
+
+        position:
+            new THREE.Vector3(
+                10,
+                -2.8,
+                -7
+            ),
+
+        scale:
+            1.1,
+
+        icon:
+            "🟠"
+
+    });
+
+
+    /* --------------------------
+       THAN
+       -------------------------- */
+
+    createOreBody({
+
+        name:
+            "Than",
+
+        category:
+            "Khoáng sản năng lượng",
+
+        use:
+            "Được sử dụng làm nhiên liệu và trong một số ngành công nghiệp.",
+
+        color:
+            0x252525,
+
+        position:
+            new THREE.Vector3(
+                10,
+                -4.8,
+                12
+            ),
+
+        scale:
+            1.3,
+
+        icon:
+            "⚫"
+
+    });
+
+
+    /* --------------------------
+       ĐÁ VÔI
+       -------------------------- */
+
+    createOreBody({
+
+        name:
+            "Đá vôi",
+
+        category:
+            "Khoáng sản phi kim",
+
+        use:
+            "Nguyên liệu quan trọng cho vật liệu xây dựng và sản xuất xi măng.",
+
+        color:
+            0xc4b99c,
+
+        position:
+            new THREE.Vector3(
+                -11,
+                -4.2,
+                11
+            ),
+
+        scale:
+            1.25,
+
+        icon:
+            "🧱"
+
+    });
+
+
+    mineralsGroup.visible =
+        false;
+
+
+    scene.add(
+        mineralsGroup
+    );
+
+
+    /* =========================================================
+       13. KNOWLEDGE MARKERS
+       ========================================================= */
+
+    const markersGroup =
+        new THREE.Group();
+
+
+    function createMarker(
+        options
+    ) {
+
+        const {
+
+            x,
+            z,
+            label,
+            type,
+            description,
+            color = 0x55e6a5
+
+        } = options;
+
+
+        const y =
+            terrainHeight(
+                x,
+                z
+            ) +
+            1.1;
+
+
+        const geometry =
+            new THREE.SphereGeometry(
+                .42,
+                18,
+                18
+            );
+
+
+        const material =
+            new THREE.MeshStandardMaterial({
+
+                color:
+                    color,
+
+                emissive:
+                    color,
+
+                emissiveIntensity:
+                    .6
+
+            });
+
+
+        const marker =
+            new THREE.Mesh(
+
+                geometry,
+                material
+
+            );
+
+
+        marker.position.set(
+            x,
+            y,
+            z
+        );
+
+
+        marker.userData = {
+
+            type:
+                "terrain-marker",
+
+            name:
+                label,
+
+            category:
+                type,
+
+            use:
+                description
+
+        };
+
+
+        clickableObjects.push(
+            marker
+        );
+
+
+        markersGroup.add(
+            marker
+        );
+
+
+        const ringGeometry =
+            new THREE.RingGeometry(
+
+                .58,
+                .72,
+                24
+
+            );
+
+
+        ringGeometry.rotateX(
+            -Math.PI / 2
+        );
+
+
+        const ringMaterial =
+            new THREE.MeshBasicMaterial({
+
+                color:
+                    color,
+
+                transparent:
+                    true,
+
+                opacity:
+                    .55,
+
+                side:
+                    THREE.DoubleSide
+
+            });
+
+
+        const ring =
+            new THREE.Mesh(
+
+                ringGeometry,
+                ringMaterial
+
+            );
+
+
+        ring.position.set(
+            x,
+            y - .38,
+            z
+        );
+
+
+        markersGroup.add(
+            ring
+        );
+
+    }
+
+
+    createMarker({
+
+        x: -14,
+        z: -7,
+
+        label:
+            "Đỉnh núi",
+
+        type:
+            "NÚI",
+
+        description:
+            "Núi nhô cao rõ rệt, có đỉnh, sườn và chân núi. Trong chương trình lớp 6, núi thường có độ cao trên 500 m.",
+
+        color:
+            0xe9e8df
+
+    });
+
+
+    createMarker({
+
+        x: -13,
+        z: 11,
+
+        label:
+            "Đồi",
+
+        type:
+            "ĐỒI",
+
+        description:
+            "Đồi thấp hơn núi, thường có đỉnh tròn và sườn thoải hơn.",
+
+        color:
+            0x9cd56a
+
+    });
+
+
+    createMarker({
+
+        x: 10,
+        z: -7,
+
+        label:
+            "Mặt cao nguyên",
+
+        type:
+            "CAO NGUYÊN",
+
+        description:
+            "Cao nguyên có độ cao tương đối lớn nhưng bề mặt tương đối bằng phẳng hoặc gợn sóng.",
+
+        color:
+            0xf0c45e
+
+    });
+
+
+    createMarker({
+
+        x: 11,
+        z: 12,
+
+        label:
+            "Đồng bằng",
+
+        type:
+            "ĐỒNG BẰNG",
+
+        description:
+            "Đồng bằng có địa hình nhìn chung thấp và tương đối bằng phẳng.",
+
+        color:
+            0x56dc91
+
+    });
+
+
+    scene.add(
+        markersGroup
+    );
+
+
+    /* =========================================================
+       14. REFERENCE GRID
+       ========================================================= */
+
+    const gridHelper =
+        new THREE.GridHelper(
+
+            60,
+            30,
+
+            0x5d8a76,
+            0x294739
+
+        );
+
+
+    gridHelper.position.y =
+        -.15;
+
+
+    gridHelper.material.opacity =
+        .20;
+
+
+    gridHelper.material.transparent =
+        true;
+
+
+    gridHelper.visible =
+        false;
+
+
+    scene.add(
+        gridHelper
+    );
+
+
+    /* =========================================================
+       15. CAMERA TARGETS
+       ========================================================= */
+
+    const cameraTargets = {
+
+        overview: {
+
+            position:
+                new THREE.Vector3(
+                    38,
+                    32,
+                    44
+                ),
+
+            target:
+                new THREE.Vector3(
+                    0,
+                    2,
+                    0
+                )
+
+        },
+
+
+        mountain: {
+
+            position:
+                new THREE.Vector3(
+                    -5,
+                    22,
+                    11
+                ),
+
+            target:
+                new THREE.Vector3(
+                    -14,
+                    7,
+                    -7
+                )
+
+        },
+
+
+        hill: {
+
+            position:
+                new THREE.Vector3(
+                    -1,
+                    11,
+                    26
+                ),
+
+            target:
+                new THREE.Vector3(
+                    -13,
+                    2,
+                    11
+                )
+
+        },
+
+
+        plateau: {
+
+            position:
+                new THREE.Vector3(
+                    29,
+                    16,
+                    7
+                ),
+
+            target:
+                new THREE.Vector3(
+                    10,
+                    4,
+                    -7
+                )
+
+        },
+
+
+        plain: {
+
+            position:
+                new THREE.Vector3(
+                    30,
+                    9,
+                    27
+                ),
+
+            target:
+                new THREE.Vector3(
+                    11,
+                    .5,
+                    12
+                )
+
+        }
+
+    };
+
+
+    /* =========================================================
+       16. PANEL CONTENT
+       ========================================================= */
+
+    const terrainInfo = {
+
+        overview: {
+
+            type:
+                "TỔNG QUAN",
+
+            title:
+                "Các dạng địa hình chính",
+
+            description:
+                "Núi, đồi, cao nguyên và đồng bằng có thể được phân biệt bằng độ cao kết hợp với đặc điểm hình thái bề mặt.",
+
+            hud:
+                "Núi - đồi - cao nguyên - đồng bằng được đặt cạnh nhau để học sinh dễ so sánh.",
+
+            logic:
+                "Không chỉ hỏi “cao bao nhiêu?”. Hãy kết hợp ĐỘ CAO + HÌNH THÁI + ĐỘ DỐC để nhận diện địa hình.",
+
+            data: [
+
+                [
+                    "Núi",
+                    "Thường > 500 m"
+                ],
+
+                [
+                    "Đồi",
+                    "Thấp hơn núi"
+                ],
+
+                [
+                    "Cao nguyên",
+                    "Cao + mặt khá phẳng"
+                ],
+
+                [
+                    "Đồng bằng",
+                    "Thấp + khá phẳng"
+                ]
+
+            ]
+
+        },
+
+
+        mountain: {
+
+            type:
+                "DẠNG ĐỊA HÌNH",
+
+            title:
+                "⛰ Núi",
+
+            description:
+                "Núi là dạng địa hình nhô cao rõ rệt. Trong kiến thức lớp 6, núi thường có độ cao trên 500 m so với mực nước biển.",
+
+            hud:
+                "Quan sát đỉnh, sườn và chân núi. Độ dốc thay đổi từ đỉnh xuống vùng thấp.",
+
+            logic:
+                "Núi không được nhận biết chỉ vì “cao”. Đặc điểm quan trọng còn là đỉnh, sườn và mức độ chia cắt địa hình.",
+
+            data: [
+
+                [
+                    "Độ cao",
+                    "Thường > 500 m"
+                ],
+
+                [
+                    "Bộ phận",
+                    "Đỉnh - sườn - chân"
+                ],
+
+                [
+                    "Bề mặt",
+                    "Chia cắt rõ"
+                ],
+
+                [
+                    "Sườn",
+                    "Thường dốc"
+                ]
+
+            ]
+
+        },
+
+
+        hill: {
+
+            type:
+                "DẠNG ĐỊA HÌNH",
+
+            title:
+                "🌄 Đồi",
+
+            description:
+                "Đồi là dạng địa hình nhô cao nhưng thường thấp hơn núi, đỉnh tròn và sườn thoải hơn.",
+
+            hud:
+                "So sánh vùng đồi với núi: độ cao thấp hơn và hình thái mềm mại hơn.",
+
+            logic:
+                "Nếu chỉ nhìn thấy một vùng nhô cao thì chưa đủ. Hãy quan sát đỉnh có tròn không và sườn có thoải hơn vùng núi không.",
+
+            data: [
+
+                [
+                    "Độ cao",
+                    "Thấp hơn núi"
+                ],
+
+                [
+                    "Đỉnh",
+                    "Thường tròn"
+                ],
+
+                [
+                    "Sườn",
+                    "Tương đối thoải"
+                ],
+
+                [
+                    "Hình thái",
+                    "Mềm mại hơn núi"
+                ]
+
+            ]
+
+        },
+
+
+        plateau: {
+
+            type:
+                "DẠNG ĐỊA HÌNH",
+
+            title:
+                "🏜 Cao nguyên",
+
+            description:
+                "Cao nguyên có độ cao tương đối lớn nhưng bề mặt tương đối bằng phẳng hoặc gợn sóng; rìa thường chuyển xuống vùng thấp bằng các sườn rõ.",
+
+            hud:
+                "Đây là điểm dễ nhầm: cao nguyên cao nhưng mặt trên lại khá phẳng.",
+
+            logic:
+                "Đồng bằng và cao nguyên đều có thể khá phẳng. Vì vậy phải xét thêm ĐỘ CAO và phần rìa địa hình.",
+
+            data: [
+
+                [
+                    "Độ cao",
+                    "Thường > 500 m"
+                ],
+
+                [
+                    "Mặt trên",
+                    "Khá bằng phẳng"
+                ],
+
+                [
+                    "Rìa",
+                    "Có thể dốc"
+                ],
+
+                [
+                    "Dễ nhầm",
+                    "Với đồng bằng"
+                ]
+
+            ]
+
+        },
+
+
+        plain: {
+
+            type:
+                "DẠNG ĐỊA HÌNH",
+
+            title:
+                "🌾 Đồng bằng",
+
+            description:
+                "Đồng bằng là dạng địa hình nhìn chung thấp, có bề mặt tương đối bằng phẳng hoặc hơi gợn sóng.",
+
+            hud:
+                "Quan sát vùng thấp và khá bằng phẳng bên cạnh dòng sông.",
+
+            logic:
+                "Không phải mọi mặt phẳng đều là đồng bằng. Cao nguyên cũng khá phẳng nhưng nằm ở độ cao lớn hơn.",
+
+            data: [
+
+                [
+                    "Độ cao",
+                    "Nhìn chung thấp"
+                ],
+
+                [
+                    "Bề mặt",
+                    "Khá bằng phẳng"
+                ],
+
+                [
+                    "Độ dốc",
+                    "Nhỏ"
+                ],
+
+                [
+                    "Thuận lợi",
+                    "Cư trú - sản xuất"
+                ]
+
+            ]
+
+        }
+
+    };
+
+
+    /* =========================================================
+       17. CAMERA TWEEN
+       ========================================================= */
+
+    let cameraTween = null;
+
+
+    function moveCamera(
+        position,
+        target
+    ) {
+
+        cameraTween = {
+
+            startPosition:
+                camera.position.clone(),
+
+            endPosition:
+                position.clone(),
+
+            startTarget:
+                controls.target.clone(),
+
+            endTarget:
+                target.clone(),
+
+            progress:
+                0
+
+        };
+
+    }
+
+
+    function updateCameraTween() {
+
+        if(
+            !cameraTween
+        ) {
+
+            return;
+
+        }
+
+
+        cameraTween.progress +=
+            .035;
+
+
+        const t =
+            THREE.MathUtils.clamp(
+
+                cameraTween.progress,
+                0,
+                1
+
+            );
+
+
+        const smooth =
+            t *
+            t *
+            (
+                3 -
+                2 * t
+            );
+
+
+        camera.position.lerpVectors(
+
+            cameraTween.startPosition,
+            cameraTween.endPosition,
+            smooth
+
+        );
+
+
+        controls.target.lerpVectors(
+
+            cameraTween.startTarget,
+            cameraTween.endTarget,
+            smooth
+
+        );
+
+
+        if(
+            t >= 1
+        ) {
+
+            cameraTween =
+                null;
+
+        }
+
+    }
+
+
+    /* =========================================================
+       18. UPDATE INFO PANEL
+       ========================================================= */
+
+    function updateInfo(
+        key
+    ) {
+
+        const info =
+            terrainInfo[key];
+
+
+        document.getElementById(
+            "infoType"
+        ).textContent =
+            info.type;
+
+
+        document.getElementById(
+            "infoTitle"
+        ).textContent =
+            info.title;
+
+
+        document.getElementById(
+            "infoDescription"
+        ).textContent =
+            info.description;
+
+
+        document.getElementById(
+            "hudTitle"
+        ).textContent =
+            info.title;
+
+
+        document.getElementById(
+            "hudText"
+        ).textContent =
+            info.hud;
+
+
+        document.getElementById(
+            "logicText"
+        ).textContent =
+            info.logic;
+
+
+        const dataGrid =
+            document.getElementById(
+                "dataGrid"
+            );
+
+
+        dataGrid.innerHTML =
+            "";
+
+
+        info.data.forEach(
+
+            item => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "data-box";
+
+
+                div.innerHTML = `
+
+                    <small>
+                        ${item[0]}
+                    </small>
+
+                    <strong>
+                        ${item[1]}
+                    </strong>
+
+                `;
+
+
+                dataGrid.appendChild(
+                    div
+                );
+
+            }
+
+        );
+
+    }
+
+
+    /* =========================================================
+       19. TERRAIN BUTTONS
+       ========================================================= */
+
+    document
+    .querySelectorAll(
+        ".terrain-btn"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    document
+                    .querySelectorAll(
+                        ".terrain-btn"
+                    )
+                    .forEach(
+                        btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                    );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    const key =
+                        this.dataset.focus;
+
+
+                    const target =
+                        cameraTargets[key];
+
+
+                    moveCamera(
+
+                        target.position,
+                        target.target
+
+                    );
+
+
+                    updateInfo(
+                        key
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       20. MINERAL TOGGLE
+       ========================================================= */
+
+    const mineralButton =
+        document.getElementById(
+            "btnMinerals"
+        );
+
+
+    mineralButton.addEventListener(
+        "click",
+        function() {
+
+            mineralsGroup.visible =
+                !mineralsGroup.visible;
+
+
+            geologyGroup.visible =
+                mineralsGroup.visible;
+
+
+            this.classList.toggle(
+                "active",
+                mineralsGroup.visible
+            );
+
+
+            if(
+                mineralsGroup.visible
+            ) {
+
+                document.getElementById(
+                    "hudTitle"
+                ).textContent =
+                    "💎 X-quang khoáng sản";
+
+
+                document.getElementById(
+                    "hudText"
+                ).textContent =
+                    "Các thân khoáng sản được phóng đại và đặt trong những lớp đá để minh họa sự tồn tại của khoáng sản trong vỏ Trái Đất.";
+
+
+                moveCamera(
+
+                    new THREE.Vector3(
+                        35,
+                        13,
+                        35
+                    ),
+
+                    new THREE.Vector3(
+                        0,
+                        -2,
+                        0
+                    )
+
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       21. MARKER TOGGLE
+       ========================================================= */
+
+    const labelsButton =
+        document.getElementById(
+            "btnLabels"
+        );
+
+
+    labelsButton.classList.add(
+        "active"
+    );
+
+
+    labelsButton.addEventListener(
+        "click",
+        function() {
+
+            markersGroup.visible =
+                !markersGroup.visible;
+
+
+            this.classList.toggle(
+                "active",
+                markersGroup.visible
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       22. WIREFRAME
+       ========================================================= */
+
+    const wireButton =
+        document.getElementById(
+            "btnWire"
+        );
+
+
+    wireButton.addEventListener(
+        "click",
+        function() {
+
+            terrainMaterial.wireframe =
+                !terrainMaterial.wireframe;
+
+
+            gridHelper.visible =
+                terrainMaterial.wireframe;
+
+
+            this.classList.toggle(
+                "active",
+                terrainMaterial.wireframe
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       23. AUTO ROTATE
+       ========================================================= */
+
+    const rotateButton =
+        document.getElementById(
+            "btnRotate"
+        );
+
+
+    rotateButton.addEventListener(
+        "click",
+        function() {
+
+            controls.autoRotate =
+                !controls.autoRotate;
+
+
+            controls.autoRotateSpeed =
+                .7;
+
+
+            this.classList.toggle(
+                "active",
+                controls.autoRotate
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       24. SECTION MODE
+       ========================================================= */
+
+    const sectionButton =
+        document.getElementById(
+            "btnSection"
+        );
+
+
+    let sectionMode =
+        false;
+
+
+    sectionButton.addEventListener(
+        "click",
+        function() {
+
+            sectionMode =
+                !sectionMode;
+
+
+            geologyGroup.visible =
+                sectionMode;
+
+
+            mineralsGroup.visible =
+                sectionMode;
+
+
+            this.classList.toggle(
+                "active",
+                sectionMode
+            );
+
+
+            mineralButton.classList.toggle(
+                "active",
+                sectionMode
+            );
+
+
+            if(
+                sectionMode
+            ) {
+
+                terrainMaterial.transparent =
+                    true;
+
+                terrainMaterial.opacity =
+                    .72;
+
+
+                moveCamera(
+
+                    new THREE.Vector3(
+                        42,
+                        8,
+                        0
+                    ),
+
+                    new THREE.Vector3(
+                        0,
+                        -2,
+                        0
+                    )
+
+                );
+
+
+                document.getElementById(
+                    "hudTitle"
+                ).textContent =
+                    "✂ Mặt cắt địa hình";
+
+
+                document.getElementById(
+                    "hudText"
+                ).textContent =
+                    "Mặt đất được làm trong để nhìn rõ các lớp đá và thân khoáng sản bên dưới.";
+
+            }
+
+            else {
+
+                terrainMaterial.opacity =
+                    1;
+
+
+                terrainMaterial.transparent =
+                    false;
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       25. RESET
+       ========================================================= */
+
+    document.getElementById(
+        "btnReset"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            controls.autoRotate =
+                false;
+
+
+            rotateButton.classList.remove(
+                "active"
+            );
+
+
+            terrainMaterial.wireframe =
+                false;
+
+
+            terrainMaterial.opacity =
+                1;
+
+
+            terrainMaterial.transparent =
+                false;
+
+
+            gridHelper.visible =
+                false;
+
+
+            geologyGroup.visible =
+                false;
+
+
+            mineralsGroup.visible =
+                false;
+
+
+            mineralButton.classList.remove(
+                "active"
+            );
+
+
+            sectionButton.classList.remove(
+                "active"
+            );
+
+
+            moveCamera(
+
+                cameraTargets
+                .overview
+                .position,
+
+                cameraTargets
+                .overview
+                .target
+
+            );
+
+
+            updateInfo(
+                "overview"
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       26. VIEW MODES
+       ========================================================= */
+
+    document
+    .querySelectorAll(
+        ".mode-bar button"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    document
+                    .querySelectorAll(
+                        ".mode-bar button"
+                    )
+                    .forEach(
+                        btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                    );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    const view =
+                        this.dataset.view;
+
+
+                    if(
+                        view ===
+                        "perspective"
+                    ) {
+
+                        moveCamera(
+
+                            new THREE.Vector3(
+                                38,
+                                32,
+                                44
+                            ),
+
+                            new THREE.Vector3(
+                                0,
+                                2,
+                                0
+                            )
+
+                        );
+
+                    }
+
+
+                    if(
+                        view ===
+                        "front"
+                    ) {
+
+                        moveCamera(
+
+                            new THREE.Vector3(
+                                0,
+                                13,
+                                58
+                            ),
+
+                            new THREE.Vector3(
+                                0,
+                                3,
+                                0
+                            )
+
+                        );
+
+                    }
+
+
+                    if(
+                        view ===
+                        "top"
+                    ) {
+
+                        moveCamera(
+
+                            new THREE.Vector3(
+                                0,
+                                62,
+                                .01
+                            ),
+
+                            new THREE.Vector3(
+                                0,
+                                0,
+                                0
+                            )
+
+                        );
+
+                    }
+
+
+                    if(
+                        view ===
+                        "compare"
+                    ) {
+
+                        moveCamera(
+
+                            new THREE.Vector3(
+                                1,
+                                19,
+                                55
+                            ),
+
+                            new THREE.Vector3(
+                                0,
+                                4,
+                                0
+                            )
+
+                        );
+
+
+                        markersGroup.visible =
+                            true;
+
+
+                        labelsButton.classList.add(
+                            "active"
+                        );
+
+
+                        document.getElementById(
+                            "hudTitle"
+                        ).textContent =
+                            "📏 So sánh độ cao";
+
+
+                        document.getElementById(
+                            "hudText"
+                        ).textContent =
+                            "Quan sát đồng thời độ cao và hình thái: núi cao và dốc; đồi thấp hơn; cao nguyên cao nhưng mặt trên tương đối phẳng; đồng bằng thấp.";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       27. RAYCASTER
+       ========================================================= */
+
+    const raycaster =
+        new THREE.Raycaster();
+
+
+    const pointer =
+        new THREE.Vector2();
+
+
+    renderer.domElement.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            const rect =
+                renderer.domElement
+                .getBoundingClientRect();
+
+
+            pointer.x =
+                (
+                    (
+                        event.clientX -
+                        rect.left
+                    ) /
+                    rect.width
+                ) *
+                2 -
+                1;
+
+
+            pointer.y =
+                -(
+                    (
+                        event.clientY -
+                        rect.top
+                    ) /
+                    rect.height
+                ) *
+                2 +
+                1;
+
+
+            raycaster.setFromCamera(
+                pointer,
+                camera
+            );
+
+
+            const visibleObjects =
+                clickableObjects.filter(
+                    obj =>
+                    obj.visible &&
+                    obj.parent &&
+                    obj.parent.visible
+                );
+
+
+            const intersections =
+                raycaster.intersectObjects(
+
+                    visibleObjects,
+                    false
+
+                );
+
+
+            if(
+                intersections.length === 0
+            ) {
+
+                popup.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            const selected =
+                intersections[0]
+                .object;
+
+
+            const data =
+                selected.userData;
+
+
+            if(
+                !data.name
+            ) {
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "popupType"
+            ).textContent =
+                data.category ||
+                "THÔNG TIN";
+
+
+            document.getElementById(
+                "popupTitle"
+            ).textContent =
+                (
+                    data.icon
+                    ? data.icon + " "
+                    : ""
+                ) +
+                data.name;
+
+
+            document.getElementById(
+                "popupText"
+            ).textContent =
+                data.use ||
+                "";
+
+
+            popup.style.left =
+                Math.min(
+
+                    event.clientX -
+                    rect.left +
+                    12,
+
+                    rect.width -
+                    260
+
+                ) +
+                "px";
+
+
+            popup.style.top =
+                Math.min(
+
+                    event.clientY -
+                    rect.top +
+                    12,
+
+                    rect.height -
+                    150
+
+                ) +
+                "px";
+
+
+            popup.style.display =
+                "block";
+
+        }
+    );
+
+
+    renderer.domElement.addEventListener(
+        "pointermove",
+        function(event) {
+
+            const rect =
+                renderer.domElement
+                .getBoundingClientRect();
+
+
+            pointer.x =
+                (
+                    (
+                        event.clientX -
+                        rect.left
+                    ) /
+                    rect.width
+                ) *
+                2 -
+                1;
+
+
+            pointer.y =
+                -(
+                    (
+                        event.clientY -
+                        rect.top
+                    ) /
+                    rect.height
+                ) *
+                2 +
+                1;
+
+
+            raycaster.setFromCamera(
+                pointer,
+                camera
+            );
+
+
+            const visibleObjects =
+                clickableObjects.filter(
+                    obj =>
+                    obj.visible &&
+                    obj.parent &&
+                    obj.parent.visible
+                );
+
+
+            const hits =
+                raycaster.intersectObjects(
+                    visibleObjects,
+                    false
+                );
+
+
+            renderer.domElement.style.cursor =
+                hits.length
+                ? "pointer"
+                : "grab";
+
+        }
+    );
+
+
+    /* =========================================================
+       28. ANIMATED MARKERS
+       ========================================================= */
+
+    const clock =
+        new THREE.Clock();
+
+
+    function animateMarkers(
+        time
+    ) {
+
+        markersGroup
+        .children
+        .forEach(
+            (
+                child,
+                index
+            ) => {
+
+                if(
+                    child.geometry &&
+                    child.geometry.type ===
+                    "SphereGeometry"
+                ) {
+
+                    const base =
+                        .94 +
+                        Math.sin(
+                            time * 2 +
+                            index
+                        ) *
+                        .08;
+
+
+                    child.scale.setScalar(
+                        base
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       29. ANIMATION LOOP
+       ========================================================= */
+
+    function animate() {
+
+        requestAnimationFrame(
+            animate
+        );
+
+
+        const delta =
+            clock.getDelta();
+
+
+        const elapsed =
+            clock.elapsedTime;
+
+
+        updateCameraTween();
+
+
+        animateMarkers(
+            elapsed
+        );
+
+
+        controls.update(
+            delta
+        );
+
+
+        renderer.render(
+            scene,
+            camera
+        );
+
+    }
+
+
+    animate();
+
+
+    /* =========================================================
+       30. RESIZE
+       ========================================================= */
+
+    function resize() {
+
+        const width =
+            container.clientWidth;
+
+
+        const height =
+            container.clientHeight;
+
+
+        camera.aspect =
+            width /
+            height;
+
+
+        camera.updateProjectionMatrix();
+
+
+        renderer.setSize(
+            width,
+            height
+        );
+
+    }
+
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
+
+
+    /* =========================================================
+       31. LOADING COMPLETE
+       ========================================================= */
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            setTimeout(
+                function() {
+
+                    const loading =
+                        document.getElementById(
+                            "loading"
+                        );
+
+
+                    loading.style.opacity =
+                        "0";
+
+
+                    setTimeout(
+                        function() {
+
+                            loading.style.display =
+                                "none";
+
+                        },
+                        650
+                    );
+
+                },
+                600
+            );
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>

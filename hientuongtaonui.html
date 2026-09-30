@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mô Phỏng Hiện Tượng Tạo Núi Kiến Tạo 3D</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #080b11;
+            color: #e2f5ff;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Giao diện Hologram HUD */
+        .hud-panel {
+            position: absolute;
+            z-index: 10;
+            background: rgba(12, 20, 34, 0.75);
+            border: 1px solid #ff7b00;
+            box-shadow: 0 0 25px rgba(255, 123, 0, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        #header-panel {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            min-width: 520px;
+            border-top: 4px solid #ff7b00;
+        }
+
+        #header-panel h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff9d00;
+            text-shadow: 0 0 12px rgba(255, 157, 0, 0.4);
+            margin-bottom: 4px;
+        }
+
+        #header-panel p {
+            font-size: 0.85rem;
+            color: #ffa464;
+        }
+
+        #control-panel {
+            top: 110px;
+            right: 20px;
+            width: 340px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #ff9d00;
+            border-bottom: 1px solid rgba(255, 123, 0, 0.3);
+            padding-bottom: 6px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .control-group {
+            margin-bottom: 18px;
+        }
+
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #ffcc99;
+        }
+
+        /* Slider Cam Hỏa Ngục */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: rgba(255, 123, 0, 0.1);
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
+            border: 1px solid rgba(255, 123, 0, 0.3);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff7b00;
+            box-shadow: 0 0 10px #ff7b00;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .toggle-btn {
+            background: rgba(255, 123, 0, 0.05);
+            border: 1px solid rgba(255, 123, 0, 0.4);
+            color: #ffcc99;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 123, 0, 0.15);
+            border-color: #ff7b00;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 123, 0, 0.2);
+        }
+
+        .toggle-btn.active {
+            background: rgba(255, 123, 0, 0.3);
+            border-color: #ff9d00;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.5);
+        }
+
+        #guide-panel {
+            bottom: 20px;
+            left: 20px;
+            width: 320px;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            background: rgba(8, 12, 20, 0.85);
+            border: 1px solid rgba(255, 123, 0, 0.3);
+        }
+
+        #guide-panel ul {
+            padding-left: 15px;
+            margin-top: 6px;
+        }
+
+        #back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(255, 123, 0, 0.1);
+            border: 1px solid #ff7b00;
+            color: #ffcc99;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+
+        #back-btn:hover {
+            background: rgba(255, 123, 0, 0.25);
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.3);
+            color: #fff;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+    <a href="index.html" id="back-btn">◀ QUAY LẠI TRANG CHỦ</a>
+
+    <div id="header-panel" class="hud-panel">
+        <h1>Mô Phỏng Hiện Tượng Tạo Núi Kiến Tạo</h1>
+        <p>Giả Lập Lực Nén Ép Nội Sinh - Cơ Chế Chuyển Động Uốn Nếp & Đứt Gãy Địa Chất</p>
+    </div>
+
+    <div id="control-panel" class="hud-panel">
+        <div class="section-title">🌋 Áp Lực Nén Ép Mảng Kiến Tạo</div>
+        
+        <div class="control-group">
+            <label><span>Lực Nén Ép (Compression)</span><span id="stress-val">0%</span></label>
+            <input type="range" id="stress-slider" min="0" max="100" value="0">
+        </div>
+
+        <div class="section-title">🧬 Cơ Chế Tạo Núi</div>
+        <div class="btn-grid">
+            <button class="toggle-btn active" id="btn-folding">CHẾ ĐỘ: UỐN NẾP (FOLDING)</button>
+            <button class="toggle-btn" id="btn-faulting">CHẾ ĐỘ: ĐỨT GÃY (FAULTING)</button>
+        </div>
+
+        <div class="section-title">🔥 Hiệu Ứng Bổ Trợ</div>
+        <div class="btn-grid">
+            <button class="toggle-btn" id="btn-magma">HIỂN THỊ DÒNG MAGMA DƯỚI ĐẤT</button>
+        </div>
+    </div>
+
+    <div id="guide-panel" class="hud-panel">
+        <div style="color: #ff9d00; font-weight: bold; margin-bottom: 5px;">🎮 HƯỚNG DẪN TRỰC QUAN:</div>
+        <ul>
+            <li>Kéo thanh <b>Lực Nén Ép</b> để xem hai mảng lục địa xích lại gần nhau và đùn đất đá cao lên.</li>
+            <li>Chuyển đổi giữa <b>Uốn nếp</b> (địa hình uốn cong mềm mềm) và <b>Đứt gãy</b> (đá nứt và trượt lên nhau).</li>
+            <li>Bật <b>Magma</b> để xem dòng chảy nhiệt năng thúc đẩy từ lớp manti.</li>
+        </ul>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script>
+        // --- 1. SETUP THƯ VIỆN AUDIO SCI-FI BEEP ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playTone(freq, duration, type='sine') {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            osc.start(); osc.stop(audioCtx.currentTime + duration);
+        }
+
+        // --- 2. THIẾT LẬP THREE.JS SCENE ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x05070b);
+        scene.fog = new THREE.FogExp2(0x05070b, 0.03);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 8, 16);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 - 0.02;
+
+        // --- 3. ĐÈN CHIẾU SÁNG MỸ THUẬT (MÀU HỎA NGỤC NỘI SINH) ---
+        const ambientLight = new THREE.AmbientLight(0x1c2436, 1.5);
+        scene.add(ambientLight);
+
+        const topLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        topLight.position.set(5, 15, 5);
+        scene.add(topLight);
+
+        // Đèn Magma hắt từ dưới lên (Màu đỏ cam rực lửa)
+        const magmaLight = new THREE.PointLight(0xff4500, 0, 15);
+        magmaLight.position.set(0, -3, 0);
+        scene.add(magmaLight);
+
+        // --- 4. TẠO KHỐI MÔ HÌNH ĐỊA CHẤT PHÂN LỚP ĐỘNG ---
+        const orogenicGroup = new THREE.Group();
+        scene.add(orogenicGroup);
+
+        // Tạo vật liệu phân lớp địa chất (Mỗi tầng một màu đá khác nhau)
+        const layerColors = [0x5c4033, 0x8b5a2b, 0xcd853f, 0x4a752c]; // Từ đáy lên đỉnh núi (Đá nền -> Trầm tích -> Thảm cỏ)
+        const layerThickness = 0.5;
+        const totalLayers = 4;
+        const width = 10;
+        const depth = 5;
+
+        // Định dạng số lượng lưới phân giải cao để uốn cong mượt mà
+        const segX = 40;
+        const segZ = 10;
+
+        const dynamicLayers = [];
+
+        for (let l = 0; l < totalLayers; l++) {
+            const geo = new THREE.PlaneGeometry(width, depth, segX, segZ);
+            geo.rotateX(-Math.PI / 2); // Nằm ngang
+
+            // Chuyển đổi Plane thành dạng khối có độ dày mỏng theo tầng
+            const mat = new THREE.MeshStandardMaterial({
+                color: layerColors[l],
+                roughness: 0.8,
+                flatShading: true,
+                side: THREE.DoubleSide
+            });
+
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.y = l * layerThickness - 1;
+            orogenicGroup.add(mesh);
+
+            // Lưu trữ vị trí gốc của các đỉnh vertex để tính toán biến dạng thời gian thực
+            const origPos = [];
+            const posAttr = geo.attributes.position;
+            for (let i = 0; i < posAttr.count; i++) {
+                origPos.push(new THREE.Vector3(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i)));
+            }
+
+            dynamicLayers.push({ mesh: mesh, origPos: origPos, baseBY: mesh.position.y });
+        }
+
+        // Tạo 2 tấm mảng kiến tạo 2 bên ép vào (Tectonic Plates Indicators)
+        const plateGeo = new THREE.BoxGeometry(1.5, 0.3, depth);
+        const plateMat = new THREE.MeshStandardMaterial({ color: 0x223344, metalness: 0.5, roughness: 0.2 });
+        
+        const leftPlate = new THREE.Mesh(plateGeo, plateMat);
+        leftPlate.position.set(-5.8, 0, 0);
+        orogenicGroup.add(leftPlate);
+
+        const rightPlate = new THREE.Mesh(plateGeo, plateMat);
+        rightPlate.position.set(5.8, 0, 0);
+        orogenicGroup.add(rightPlate);
+
+        // Thêm mũi tên chỉ hướng lực nén ép phát sáng Hologram
+        const arrowGeo = new THREE.ConeGeometry(0.2, 0.5, 4);
+        arrowGeo.rotateZ(-Math.PI/2);
+        const arrowMat = new THREE.MeshBasicMaterial({ color: 0xff4500 });
+        
+        const arrowL = new THREE.Mesh(arrowGeo, arrowMat); arrowL.position.set(-6.5, 0.6, 0); orogenicGroup.add(arrowL);
+        const arrowR = new THREE.Mesh(arrowGeo, arrowMat); arrowR.rotation.y = Math.PI; arrowR.position.set(6.5, 0.6, 0); orogenicGroup.add(arrowR);
+
+        // Khối Magma phát sáng lỏng bên dưới đáy mô hình
+        const magmaGeo = new THREE.BoxGeometry(width - 0.2, 1.5, depth - 0.2);
+        const magmaMat = new THREE.MeshStandardMaterial({
+            color: 0xff2200,
+            emissive: 0xff3300,
+            emissiveIntensity: 0.0, // Tăng lên khi bật nút Magma
+            transparent: true,
+            opacity: 0.7
+        });
+        const magmaMesh = new THREE.Mesh(magmaGeo, magmaMat);
+        magmaMesh.position.y = -2.2;
+        orogenicGroup.add(magmaMesh);
+
+        // Lưới quét Neon 3D giả lập máy quét phòng thí nghiệm khoa học
+        const scanGrid = new THREE.GridHelper(14, 14, 0xff7b00, 0x442200);
+        scanGrid.position.y = -1.05;
+        scene.add(scanGrid);
+
+
+        // --- 5. HỆ THỐNG HẠT BỤI ĐẤT KHI NÚI ĐÙN LÊN (DUST PARTICLES) ---
+        const dustCount = 80;
+        const dustGeo = new THREE.BufferGeometry();
+        const dustPositions = new Float32Array(dustCount * 3);
+        const dustVels = [];
+
+        for(let i=0; i<dustCount*3; i+=3) {
+            dustPositions[i] = -2 + Math.random() * 4;
+            dustPositions[i+1] = 0;
+            dustPositions[i+2] = -2 + Math.random() * 4;
+            dustVels.push({x: (Math.random()-0.5)*0.02, y: 0.01 + Math.random()*0.03, z: (Math.random()-0.5)*0.02});
+        }
+        dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+        const dustMat = new THREE.PointsMaterial({
+            color: 0xffaa66,
+            size: 0.08,
+            transparent: true,
+            opacity: 0.0
+        });
+        const dustParticles = new THREE.Points(dustGeo, dustMat);
+        orogenicGroup.add(dustParticles);
+
+
+        // --- 6. BIẾN ĐIỀU KHIỂN & LOGIC HOẠT HỌA BIẾN DẠNG ĐỊA CHẤT ---
+        let compressionProgress = 0; // Từ 0.0 đến 1.0 (0% - 100%)
+        let mode = 'folding'; // 'folding' hoặc 'faulting'
+        let showMagma = false;
+
+        document.getElementById('stress-slider').addEventListener('input', (e) => {
+            compressionProgress = e.target.value / 100;
+            document.getElementById('stress-val').innerText = e.target.value + "%";
+            
+            if(e.target.value % 10 === 0) playTone(200 + compressionProgress*300, 0.05, 'triangle'); // Phát tiếng rít cơ học nhỏ
+        });
+
+        const btnFolding = document.getElementById('btn-folding');
+        const btnFaulting = document.getElementById('btn-faulting');
+        const btnMagma = document.getElementById('btn-magma');
+
+        btnFolding.addEventListener('click', () => {
+            mode = 'folding';
+            btnFolding.classList.add('active');
+            btnFaulting.classList.remove('active');
+            playTone(520, 0.15);
+        });
+
+        btnFaulting.addEventListener('click', () => {
+            mode = 'faulting';
+            btnFaulting.classList.add('active');
+            btnFolding.classList.remove('active');
+            playTone(440, 0.15);
+        });
+
+        btnMagma.addEventListener('click', () => {
+            showMagma = !showMagma;
+            btnMagma.classList.toggle('active', showMagma);
+            playTone(showMagma ? 300 : 150, 0.2, 'sine');
+        });
+
+
+        // --- 7. VÒNG LẶP RENDER HOẠT HỌA CHUYỂN ĐỘNG NHƯ THẬT ---
+        const clock = new THREE.Clock();
+
+        function updateGeology() {
+            // Hiệu ứng dịch chuyển của 2 mảng kiến tạo ép vào giữa
+            leftPlate.position.x = -5.8 + (compressionProgress * 1.5);
+            rightPlate.position.x = 5.8 - (compressionProgress * 1.5);
+            
+            // Nhấp nháy mũi tên nén lực
+            arrowL.position.x = -6.5 + Math.sin(clock.getElapsedTime()*8)*0.1 + (compressionProgress * 1.5);
+            arrowR.position.x = 6.5 - Math.sin(clock.getElapsedTime()*8)*0.1 - (compressionProgress * 1.5);
+
+            // Kiểm soát bụi đất cuộn lên dựa trên mức độ nén ép núi
+            if(compressionProgress > 0.1) {
+                dustMat.opacity = Math.min((compressionProgress * 0.6), 0.6);
+            } else {
+                dustMat.opacity = 0;
+            }
+
+            // Duyệt qua từng lớp địa tầng để bóp méo hình học từng đỉnh vertex
+            dynamicLayers.forEach((layer) => {
+                const posAttr = layer.mesh.geometry.attributes.position;
+                
+                for (let i = 0; i < posAttr.count; i++) {
+                    const orig = layer.origPos[i];
+                    let newX = orig.x;
+                    let newY = orig.y;
+
+                    if (mode === 'folding') {
+                        // --- CƠ CHẾ UỐN NẾP (FOLDING) ---
+                        // Áp dụng hàm lượng giác Cosine để uốn cong lượn sóng phần trung tâm
+                        if (Math.abs(orig.x) < 4) {
+                            // Càng nén chặt (compressionProgress cao), nếp uốn dâng lên càng cao và co hẹp lại
+                            const wave = Math.cos((orig.x / 4) * Math.PI);
+                            newY = orig.y + (wave * compressionProgress * 2.2 * (1 - Math.abs(orig.x)*0.15));
+                            newX = orig.x * (1 - compressionProgress * 0.15); // Khối bị co ép chiều ngang
+                        }
+                    } else {
+                        // --- CƠ CHẾ ĐỨT GÃY (FAULTING) ---
+                        // Tạo một mặt trượt đứt gãy nghiêng góc 45 độ ở giữa (x = 0)
+                        // Khối bên phải (x > 0) bị đẩy trượt đứng nghịch lên trên tạo vách đứt gãy sừng sững
+                        if (orig.x >= 0) {
+                            newY = orig.y + (compressionProgress * 1.8);
+                            newX = orig.x - (compressionProgress * 0.4);
+                        } else {
+                            // Khối bên trái giữ nguyên hoặc hơi lún nhẹ xuống dưới
+                            newY = orig.y - (compressionProgress * 0.2);
+                        }
+                    }
+
+                    posAttr.setXYZ(i, newX, newY, orig.z);
+                }
+                posAttr.needsUpdate = true;
+                layer.mesh.geometry.computeVertexNormals(); // Cập nhật đổ bóng góc cạnh đá chân thực
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            // Cập nhật cơ học chuyển động địa chất cấu trúc tạo núi
+            updateGeology();
+
+            // Xử lý hiệu ứng dòng chuyển động Magma ẩn hiện dưới vỏ trái đất
+            if (showMagma) {
+                magmaMat.emissiveIntensity = 0.6 + Math.sin(time * 5) * 0.3; // Nhấp nháy mạch nhiệt magma lung linh
+                magmaLight.intensity = 1.5 + Math.sin(time * 5) * 0.5;
+                magmaMesh.position.y = -2.2 + Math.sin(time * 2) * 0.05; // Dung nham chuyển động cuộn nhè nhẹ
+            } else {
+                magmaMat.emissiveIntensity = THREE.MathUtils.lerp(magmaMat.emissiveIntensity, 0, 0.1);
+                magmaLight.intensity = THREE.MathUtils.lerp(magmaLight.intensity, 0, 0.1);
+            }
+
+            // Hoạt họa chuyển động các hạt bụi đất vàng khi núi nhô lên
+            if(compressionProgress > 0.1) {
+                const dustPosAttr = dustParticles.geometry.attributes.position;
+                for(let i=0; i<dustCount; i++) {
+                    const idx = i * 3;
+                    dustPosAttr.array[idx] += dustVels[i].x;
+                    dustPosAttr.array[idx+1] += dustVels[i].y * (compressionProgress * 1.5);
+                    dustPosAttr.array[idx+2] += dustVels[i].z;
+
+                    // Nếu hạt bay quá cao thì reset về vị trí chân núi
+                    if(dustPosAttr.array[idx+1] > 2.5) {
+                        dustPosAttr.array[idx] = -2 + Math.random() * 4;
+                        dustPosAttr.array[idx+1] = 0;
+                        dustPosAttr.array[idx+2] = -2 + Math.random() * 4;
+                    }
+                }
+                dustPosAttr.needsUpdate = true;
+            }
+
+            // Xoay nhẹ góc nhìn camera toàn cảnh để mô hình luôn sống động tự nhiên
+            orogenicGroup.rotation.y = Math.sin(time * 0.1) * 0.1;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

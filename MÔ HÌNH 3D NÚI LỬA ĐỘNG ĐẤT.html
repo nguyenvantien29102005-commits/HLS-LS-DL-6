@@ -1,0 +1,5789 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mô hình 3D Núi lửa và Động đất</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    overflow:hidden;
+    font-family:"Segoe UI",Arial,sans-serif;
+    color:#fff;
+
+    background:
+        radial-gradient(circle at 10% 10%,rgba(255,65,0,.16),transparent 26%),
+        radial-gradient(circle at 90% 20%,rgba(255,145,0,.09),transparent 28%),
+        radial-gradient(circle at 50% 95%,rgba(76,35,255,.12),transparent 34%),
+        linear-gradient(140deg,#070504,#120805 42%,#150c0a 70%,#050404);
+}
+
+button,input{
+    font-family:inherit;
+}
+
+/* ===============================
+   BACKGROUND
+================================ */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-20;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.16;
+}
+
+.glow.g1{
+    width:520px;
+    height:520px;
+    left:-220px;
+    top:-180px;
+    background:#ff3b00;
+}
+
+.glow.g2{
+    width:600px;
+    height:600px;
+    right:-260px;
+    top:20%;
+    background:#ff9000;
+}
+
+.glow.g3{
+    width:450px;
+    height:450px;
+    bottom:-220px;
+    left:33%;
+    background:#5530ff;
+}
+
+.ember{
+    position:absolute;
+    border-radius:50%;
+    background:#ff7b00;
+    box-shadow:0 0 12px #ff4a00;
+    opacity:.5;
+
+    animation:
+        emberRise 8s linear infinite;
+}
+
+@keyframes emberRise{
+    from{
+        transform:translateY(100vh) scale(.4);
+        opacity:0;
+    }
+
+    15%{
+        opacity:.8;
+    }
+
+    to{
+        transform:
+            translateY(-20vh)
+            translateX(40px)
+            scale(1.5);
+
+        opacity:0;
+    }
+}
+
+/* ===============================
+   THREE
+================================ */
+
+#threeContainer{
+    position:fixed;
+    inset:0;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.topbar{
+    position:fixed;
+
+    top:18px;
+    left:22px;
+    right:22px;
+
+    z-index:60;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    pointer-events:none;
+}
+
+.brand{
+    pointer-events:auto;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:10px 15px;
+
+    border-radius:17px;
+
+    background:
+        rgba(16,8,5,.72);
+
+    border:
+        1px solid rgba(255,117,49,.17);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.27);
+}
+
+.brand-icon{
+    width:45px;
+    height:45px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:14px;
+
+    font-size:23px;
+
+    background:
+        linear-gradient(135deg,#ff3800,#ff9400);
+
+    box-shadow:
+        0 0 25px rgba(255,65,0,.35);
+}
+
+.brand small{
+    display:block;
+    color:#93695c;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.brand strong{
+    display:block;
+    margin-top:3px;
+    font-size:15px;
+}
+
+.helper{
+    display:flex;
+    gap:7px;
+
+    pointer-events:auto;
+}
+
+.help-chip{
+    padding:9px 12px;
+
+    border-radius:100px;
+
+    background:
+        rgba(17,8,6,.65);
+
+    border:
+        1px solid rgba(255,118,55,.12);
+
+    color:#a8887c;
+
+    font-size:9px;
+
+    backdrop-filter:blur(14px);
+}
+
+/* ===============================
+   MODE
+================================ */
+
+.mode-switch{
+    position:fixed;
+
+    z-index:70;
+
+    top:20px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+    gap:6px;
+
+    padding:5px;
+
+    border-radius:16px;
+
+    background:
+        rgba(14,7,6,.80);
+
+    border:
+        1px solid rgba(255,118,55,.15);
+
+    backdrop-filter:blur(18px);
+}
+
+.mode-button{
+    border:0;
+
+    padding:10px 15px;
+
+    border-radius:11px;
+
+    background:transparent;
+
+    color:#97776c;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    transition:.25s;
+}
+
+.mode-button.active{
+    color:white;
+
+    background:
+        linear-gradient(135deg,#ff3900,#ff9000);
+
+    box-shadow:
+        0 7px 22px rgba(255,60,0,.25);
+}
+
+/* ===============================
+   TITLE
+================================ */
+
+.title-box{
+    position:fixed;
+
+    z-index:35;
+
+    top:97px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(720px,58vw);
+
+    text-align:center;
+
+    pointer-events:none;
+}
+
+.title-tag{
+    color:#ff8250;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+}
+
+.title-box h1{
+    margin-top:7px;
+
+    font-size:
+        clamp(26px,3.3vw,46px);
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff7ed,
+            #ffb170,
+            #ff4a10
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.title-box p{
+    margin-top:7px;
+
+    color:#886c63;
+
+    font-size:10px;
+}
+
+/* ===============================
+   PANEL
+================================ */
+
+.panel{
+    position:fixed;
+
+    z-index:50;
+
+    top:92px;
+    right:20px;
+
+    width:315px;
+
+    max-height:
+        calc(100vh - 120px);
+
+    overflow:auto;
+
+    padding:18px;
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            150deg,
+            rgba(20,10,7,.92),
+            rgba(30,13,8,.90)
+        );
+
+    border:
+        1px solid rgba(255,115,48,.17);
+
+    backdrop-filter:blur(22px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.4);
+}
+
+.panel::-webkit-scrollbar{
+    width:4px;
+}
+
+.panel::-webkit-scrollbar-thumb{
+    background:#70402c;
+    border-radius:20px;
+}
+
+.panel-head{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.panel-head-icon{
+    width:39px;
+    height:39px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(135deg,#ff3900,#ff9100);
+}
+
+.panel-head strong{
+    display:block;
+    font-size:14px;
+}
+
+.panel-head small{
+    display:block;
+
+    margin-top:2px;
+
+    color:#845f52;
+
+    font-size:8px;
+}
+
+.control-section{
+    padding:14px 0;
+
+    border-top:
+        1px solid rgba(255,116,55,.08);
+}
+
+.control-title{
+    margin-bottom:10px;
+
+    color:#a97763;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+.control-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:9px 0;
+
+    color:#b5968b;
+
+    font-size:10px;
+}
+
+/* SWITCH */
+
+.switch{
+    position:relative;
+
+    width:39px;
+    height:21px;
+
+    cursor:pointer;
+}
+
+.switch input{
+    display:none;
+}
+
+.switch-slider{
+    position:absolute;
+
+    inset:0;
+
+    border-radius:20px;
+
+    background:#291a15;
+
+    border:1px solid #4a2a20;
+
+    transition:.25s;
+}
+
+.switch-slider::before{
+    content:"";
+
+    position:absolute;
+
+    width:15px;
+    height:15px;
+
+    left:2px;
+    top:2px;
+
+    border-radius:50%;
+
+    background:#886b60;
+
+    transition:.25s;
+}
+
+.switch input:checked + .switch-slider{
+    background:
+        linear-gradient(
+            90deg,
+            #ff3d00,
+            #ff8b00
+        );
+}
+
+.switch input:checked + .switch-slider::before{
+    transform:translateX(18px);
+    background:white;
+}
+
+/* RANGE */
+
+.range{
+    margin-top:12px;
+}
+
+.range-label{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:7px;
+
+    color:#99766a;
+
+    font-size:9px;
+}
+
+input[type="range"]{
+    width:100%;
+
+    accent-color:#ff5900;
+}
+
+/* BUTTONS */
+
+.button-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:7px;
+}
+
+.control-button{
+    padding:9px 7px;
+
+    cursor:pointer;
+
+    border-radius:10px;
+
+    color:#b0968a;
+
+    background:
+        rgba(65,29,17,.31);
+
+    border:
+        1px solid rgba(255,118,55,.12);
+
+    font-size:9px;
+
+    transition:.2s;
+}
+
+.control-button:hover,
+.control-button.active{
+    transform:translateY(-2px);
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3b00,
+            #ff8900
+        );
+}
+
+.big-button{
+    width:100%;
+
+    padding:12px;
+
+    border:0;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3100,
+            #ff9300
+        );
+
+    box-shadow:
+        0 10px 25px rgba(255,62,0,.18);
+
+    transition:.25s;
+}
+
+.big-button:hover{
+    transform:translateY(-2px);
+}
+
+.big-button.stop{
+    background:
+        linear-gradient(
+            135deg,
+            #4d1a13,
+            #8d2a16
+        );
+}
+
+/* ===============================
+   INFO
+================================ */
+
+.info-panel{
+    position:fixed;
+
+    z-index:45;
+
+    left:20px;
+    bottom:22px;
+
+    width:330px;
+
+    padding:18px;
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,9,7,.90),
+            rgba(31,13,8,.87)
+        );
+
+    border:
+        1px solid rgba(255,117,55,.14);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.33);
+}
+
+.info-tag{
+    color:#ff7d46;
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+.info-panel h3{
+    margin:6px 0 8px;
+
+    font-size:19px;
+}
+
+.info-panel p{
+    color:#987c72;
+
+    line-height:1.65;
+
+    font-size:10px;
+}
+
+.info-data{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:6px;
+
+    margin-top:11px;
+}
+
+.data-box{
+    padding:8px;
+
+    border-radius:9px;
+
+    background:
+        rgba(70,31,17,.24);
+
+    border:
+        1px solid rgba(255,118,55,.07);
+}
+
+.data-box small{
+    display:block;
+
+    color:#795b51;
+
+    font-size:7px;
+}
+
+.data-box strong{
+    display:block;
+
+    margin-top:3px;
+
+    color:#d2b4a7;
+
+    font-size:9px;
+}
+
+/* ===============================
+   LEGEND
+================================ */
+
+.legend{
+    position:fixed;
+
+    z-index:40;
+
+    left:20px;
+    top:145px;
+
+    width:225px;
+
+    padding:13px;
+
+    border-radius:16px;
+
+    background:
+        rgba(17,8,6,.62);
+
+    border:
+        1px solid rgba(255,116,55,.10);
+
+    backdrop-filter:blur(14px);
+}
+
+.legend-title{
+    margin-bottom:9px;
+
+    color:#8e685a;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+}
+
+.legend-row{
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+    margin:7px 0;
+
+    color:#9d8176;
+
+    font-size:8px;
+}
+
+.legend-dot{
+    width:10px;
+    height:10px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+}
+
+/* ===============================
+   LABELS
+================================ */
+
+.label3d{
+    position:absolute;
+
+    z-index:45;
+
+    transform:
+        translate(-50%,-50%);
+
+    padding:6px 9px;
+
+    border-radius:8px;
+
+    pointer-events:none;
+
+    white-space:nowrap;
+
+    font-size:8px;
+
+    color:#f5d8c8;
+
+    background:
+        rgba(14,7,5,.82);
+
+    border:
+        1px solid rgba(255,120,56,.17);
+
+    backdrop-filter:blur(8px);
+}
+
+/* ===============================
+   SOUND
+================================ */
+
+.sound-button{
+    position:fixed;
+
+    z-index:65;
+
+    left:50%;
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    padding:10px 15px;
+
+    cursor:pointer;
+
+    border-radius:100px;
+
+    color:#ffe0cf;
+
+    background:
+        rgba(20,9,6,.76);
+
+    border:
+        1px solid rgba(255,123,60,.18);
+
+    backdrop-filter:blur(15px);
+
+    font-size:9px;
+}
+
+.sound-button.enabled{
+    background:
+        linear-gradient(
+            135deg,
+            #ff3b00,
+            #ff8e00
+        );
+
+    color:white;
+}
+
+/* ===============================
+   FLASH
+================================ */
+
+.screen-flash{
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:100;
+
+    opacity:0;
+
+    background:
+        rgba(255,236,200,.15);
+
+    transition:.12s;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media(max-width:950px){
+
+    .panel{
+        width:255px;
+    }
+
+    .legend{
+        display:none;
+    }
+
+    .info-panel{
+        width:255px;
+    }
+
+    .title-box{
+        width:45%;
+        left:38%;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .title-box{
+        display:none;
+    }
+
+    .helper{
+        display:none;
+    }
+
+    .mode-switch{
+        top:82px;
+    }
+
+    .panel{
+        top:135px;
+        right:8px;
+
+        width:225px;
+
+        max-height:470px;
+    }
+
+    .info-panel{
+        left:8px;
+        bottom:8px;
+
+        width:215px;
+    }
+
+    .sound-button{
+        bottom:10px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background" id="background">
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="glow g3"></div>
+</div>
+
+<div id="threeContainer"></div>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🌋
+        </div>
+
+        <div>
+
+            <small>
+                HỌC LIỆU SỐ • ĐỊA LÍ 6
+            </small>
+
+            <strong>
+                Phòng mô phỏng địa chất 3D
+            </strong>
+
+        </div>
+
+    </div>
+
+    <div class="helper">
+
+        <div class="help-chip">
+            🖱 KÉO ĐỂ XOAY
+        </div>
+
+        <div class="help-chip">
+            ◉ CUỘN ĐỂ ZOOM
+        </div>
+
+        <div class="help-chip">
+            👆 NHẤP ĐỂ KHÁM PHÁ
+        </div>
+
+    </div>
+
+</header>
+
+<div class="mode-switch">
+
+    <button
+        class="mode-button active"
+        id="volcanoModeButton"
+    >
+        🌋 NÚI LỬA 3D
+    </button>
+
+    <button
+        class="mode-button"
+        id="earthquakeModeButton"
+    >
+        ⚡ ĐỘNG ĐẤT 3D
+    </button>
+
+</div>
+
+<div class="title-box">
+
+    <div
+        class="title-tag"
+        id="titleTag"
+    >
+        MÔ HÌNH TƯƠNG TÁC 3D
+    </div>
+
+    <h1 id="mainTitle">
+        CẤU TẠO & PHUN TRÀO NÚI LỬA
+    </h1>
+
+    <p id="mainSubtitle">
+        Mô hình nâng cấp • địa tầng • wireframe • magma • tro bụi • cinematic
+    </p>
+
+</div>
+
+<div class="legend">
+
+    <div class="legend-title">
+        CHÚ GIẢI MÔ HÌNH
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="
+                background:#ff3500;
+                box-shadow:0 0 9px #ff3500;
+            "
+        ></div>
+        Magma / dung nham
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="background:#8b6247;"
+        ></div>
+        Đá núi lửa
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="
+                background:#9ceaff;
+                box-shadow:0 0 7px #9ceaff;
+            "
+        ></div>
+        Lưới 3D
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="background:#b89064;"
+        ></div>
+        Địa tầng
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="
+                background:#ffd157;
+                box-shadow:0 0 8px #ffb000;
+            "
+        ></div>
+        Chấn tiêu
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="background:#55c8ff;"
+        ></div>
+        Sóng P
+    </div>
+
+    <div class="legend-row">
+        <div
+            class="legend-dot"
+            style="background:#b067ff;"
+        ></div>
+        Sóng S
+    </div>
+
+</div>
+
+<div class="panel">
+
+    <div class="panel-head">
+
+        <div class="panel-head-icon">
+            ⚙
+        </div>
+
+        <div>
+
+            <strong>
+                Bảng điều khiển
+            </strong>
+
+            <small id="panelSubtitle">
+                VOLCANIC LAB 2.0
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="control-section">
+
+        <div class="control-title">
+            Quan sát
+        </div>
+
+        <div class="control-row">
+
+            <span>
+                Tự động quay
+            </span>
+
+            <label class="switch">
+
+                <input
+                    id="autoRotate"
+                    type="checkbox"
+                    checked
+                >
+
+                <span class="switch-slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="control-row">
+
+            <span>
+                Nhãn cấu tạo
+            </span>
+
+            <label class="switch">
+
+                <input
+                    id="labelsToggle"
+                    type="checkbox"
+                    checked
+                >
+
+                <span class="switch-slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="control-row">
+
+            <span>
+                Hiện mặt cắt
+            </span>
+
+            <label class="switch">
+
+                <input
+                    id="cutawayToggle"
+                    type="checkbox"
+                    checked
+                >
+
+                <span class="switch-slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="range">
+
+            <div class="range-label">
+
+                <span>
+                    Tốc độ quay
+                </span>
+
+                <span id="rotateSpeedText">
+                    0.25
+                </span>
+
+            </div>
+
+            <input
+                id="rotateSpeed"
+                type="range"
+                min="0"
+                max="1"
+                step=".05"
+                value=".25"
+            >
+
+        </div>
+
+    </div>
+
+    <div id="volcanoControls">
+
+        <div class="control-section">
+
+            <div class="control-title">
+                Lớp mô hình
+            </div>
+
+            <div class="control-row">
+
+                <span>
+                    Lưới Wireframe
+                </span>
+
+                <label class="switch">
+
+                    <input
+                        id="wireToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>
+                    Địa tầng
+                </span>
+
+                <label class="switch">
+
+                    <input
+                        id="strataToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>
+                    Vết nứt magma
+                </span>
+
+                <label class="switch">
+
+                    <input
+                        id="crackToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>
+                    Dung nham
+                </span>
+
+                <label class="switch">
+
+                    <input
+                        id="lavaToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>
+                    Tro bụi
+                </span>
+
+                <label class="switch">
+
+                    <input
+                        id="ashToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>
+                    Đá phun
+                </span>
+
+                <label class="switch">
+
+                    <input
+                        id="rockToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="control-section">
+
+            <div class="control-title">
+                Phun trào
+            </div>
+
+            <div class="range">
+
+                <div class="range-label">
+
+                    <span>
+                        Cường độ
+                    </span>
+
+                    <span id="eruptionText">
+                        60%
+                    </span>
+
+                </div>
+
+                <input
+                    id="eruptionSlider"
+                    type="range"
+                    min="10"
+                    max="100"
+                    value="60"
+                >
+
+            </div>
+
+            <div class="range">
+
+                <div class="range-label">
+
+                    <span>
+                        Mức chân thật
+                    </span>
+
+                    <span id="realismText">
+                        80%
+                    </span>
+
+                </div>
+
+                <input
+                    id="realismSlider"
+                    type="range"
+                    min="20"
+                    max="100"
+                    value="80"
+                >
+
+            </div>
+
+            <button
+                class="big-button"
+                id="eruptionButton"
+            >
+                🌋 KÍCH HOẠT PHUN TRÀO
+            </button>
+
+        </div>
+
+        <div class="control-section">
+
+            <div class="control-title">
+                Camera
+            </div>
+
+            <div class="button-grid">
+
+                <button
+                    class="control-button"
+                    data-volcano-view="outside"
+                >
+                    Toàn cảnh
+                </button>
+
+                <button
+                    class="control-button"
+                    data-volcano-view="cut"
+                >
+                    Mặt cắt
+                </button>
+
+                <button
+                    class="control-button"
+                    data-volcano-view="crater"
+                >
+                    Miệng núi
+                </button>
+
+                <button
+                    class="control-button"
+                    data-volcano-view="chamber"
+                >
+                    Buồng magma
+                </button>
+
+            </div>
+
+            <button
+                class="big-button"
+                id="cinematicButton"
+                style="margin-top:8px;"
+            >
+                🎥 CAMERA CINEMATIC
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        id="earthquakeControls"
+        style="display:none;"
+    >
+
+        <div class="control-section">
+
+            <div class="control-title">
+                Động đất
+            </div>
+
+            <div class="range">
+
+                <div class="range-label">
+
+                    <span>
+                        Độ lớn
+                    </span>
+
+                    <span id="magnitudeText">
+                        M 6.0
+                    </span>
+
+                </div>
+
+                <input
+                    id="magnitude"
+                    type="range"
+                    min="3"
+                    max="9"
+                    step=".1"
+                    value="6"
+                >
+
+            </div>
+
+            <div class="range">
+
+                <div class="range-label">
+
+                    <span>
+                        Độ sâu chấn tiêu
+                    </span>
+
+                    <span id="depthText">
+                        20 km
+                    </span>
+
+                </div>
+
+                <input
+                    id="focusDepth"
+                    type="range"
+                    min="5"
+                    max="100"
+                    value="20"
+                >
+
+            </div>
+
+            <div class="control-row">
+
+                <span>Sóng P</span>
+
+                <label class="switch">
+
+                    <input
+                        id="pToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>Sóng S</span>
+
+                <label class="switch">
+
+                    <input
+                        id="sToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="control-row">
+
+                <span>Sóng bề mặt</span>
+
+                <label class="switch">
+
+                    <input
+                        id="surfaceToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="switch-slider"></span>
+
+                </label>
+
+            </div>
+
+            <button
+                class="big-button"
+                id="quakeButton"
+            >
+                ⚡ KÍCH HOẠT ĐỘNG ĐẤT
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="info-panel">
+
+    <div class="info-tag">
+        ĐỐI TƯỢNG ĐANG KHÁM PHÁ
+    </div>
+
+    <h3 id="infoTitle">
+        Núi lửa 3D
+    </h3>
+
+    <p id="infoDescription">
+        Mô hình thể hiện rõ địa tầng, hệ thống dẫn magma,
+        vết nứt, tro bụi và quá trình phun trào.
+    </p>
+
+    <div class="info-data">
+
+        <div class="data-box">
+            <small>QUÁ TRÌNH</small>
+            <strong id="data1">Phun trào</strong>
+        </div>
+
+        <div class="data-box">
+            <small>NĂNG LƯỢNG</small>
+            <strong id="data2">Nội sinh</strong>
+        </div>
+
+        <div class="data-box">
+            <small>VẬT CHẤT</small>
+            <strong id="data3">Magma</strong>
+        </div>
+
+        <div class="data-box">
+            <small>LIÊN HỆ</small>
+            <strong id="data4">Kiến tạo</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<button
+    class="sound-button"
+    id="soundButton"
+>
+    🔊 BẬT ÂM THANH
+</button>
+
+<div
+    class="screen-flash"
+    id="screenFlash"
+></div>
+
+<script type="importmap">
+{
+    "imports":{
+        "three":"https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+        "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+/* ==============================
+   THREE CORE
+============================== */
+
+const container =
+    document.getElementById(
+        "threeContainer"
+    );
+
+const scene =
+    new THREE.Scene();
+
+scene.fog =
+    new THREE.FogExp2(
+        0x070504,
+        .021
+    );
+
+const camera =
+    new THREE.PerspectiveCamera(
+        42,
+        window.innerWidth /
+        window.innerHeight,
+        .1,
+        1000
+    );
+
+camera.position.set(
+    10,
+    6,
+    14
+);
+
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias:true,
+        alpha:true,
+        powerPreference:"high-performance"
+    });
+
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
+);
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+renderer.outputColorSpace =
+    THREE.SRGBColorSpace;
+
+renderer.toneMapping =
+    THREE.ACESFilmicToneMapping;
+
+renderer.toneMappingExposure =
+    1.25;
+
+renderer.shadowMap.enabled =
+    true;
+
+renderer.shadowMap.type =
+    THREE.PCFSoftShadowMap;
+
+container.appendChild(
+    renderer.domElement
+);
+
+const controls =
+    new OrbitControls(
+        camera,
+        renderer.domElement
+    );
+
+controls.enableDamping =
+    true;
+
+controls.dampingFactor =
+    .06;
+
+controls.minDistance =
+    5;
+
+controls.maxDistance =
+    28;
+
+controls.target.set(
+    0,
+    .5,
+    0
+);
+
+/* ==============================
+   LIGHTS
+============================== */
+
+scene.add(
+    new THREE.AmbientLight(
+        0xffffff,
+        .72
+    )
+);
+
+const mainLight =
+    new THREE.DirectionalLight(
+        0xdde8ff,
+        2.8
+    );
+
+mainLight.position.set(
+    -8,
+    10,
+    7
+);
+
+mainLight.castShadow =
+    true;
+
+scene.add(
+    mainLight
+);
+
+const lavaLight =
+    new THREE.PointLight(
+        0xff4300,
+        70,
+        25
+    );
+
+lavaLight.position.set(
+    0,
+    1.2,
+    0
+);
+
+scene.add(
+    lavaLight
+);
+
+const sideLight =
+    new THREE.PointLight(
+        0xffa05a,
+        18,
+        30
+    );
+
+sideLight.position.set(
+    9,
+    4,
+    8
+);
+
+scene.add(
+    sideLight
+);
+
+/* ==============================
+   GROUPS
+============================== */
+
+const volcanoGroup =
+    new THREE.Group();
+
+const earthquakeGroup =
+    new THREE.Group();
+
+scene.add(
+    volcanoGroup,
+    earthquakeGroup
+);
+
+earthquakeGroup.visible =
+    false;
+
+/* ==============================
+   VOLCANO TERRAIN
+============================== */
+
+function createVolcanoGeometry(){
+
+    const geo =
+        new THREE.ConeGeometry(
+            5.2,
+            5.9,
+            190,
+            90,
+            true
+        );
+
+    const positions =
+        geo.attributes.position;
+
+    const v =
+        new THREE.Vector3();
+
+    for(
+        let i=0;
+        i<positions.count;
+        i++
+    ){
+
+        v.fromBufferAttribute(
+            positions,
+            i
+        );
+
+        const radial =
+            Math.sqrt(
+                v.x*v.x
+                +
+                v.z*v.z
+            );
+
+        const noise =
+            Math.sin(
+                v.x*3.2
+            )*.05
+            +
+            Math.cos(
+                v.z*2.8
+            )*.06
+            +
+            Math.sin(
+                (v.x+v.z)*4.2
+            )*.035
+            +
+            Math.sin(
+                radial*5
+            )*.025;
+
+        v.y +=
+            noise
+            *
+            (
+                .55
+                +
+                radial*.17
+            );
+
+        positions.setXYZ(
+            i,
+            v.x,
+            v.y,
+            v.z
+        );
+
+    }
+
+    geo.computeVertexNormals();
+
+    return geo;
+
+}
+
+const volcanoGeometry =
+    createVolcanoGeometry();
+
+const volcanoMaterial =
+    new THREE.MeshPhysicalMaterial({
+
+        color:
+            0x61473a,
+
+        roughness:
+            .9,
+
+        metalness:
+            .02,
+
+        clearcoat:
+            .03
+
+    });
+
+const volcanoMountain =
+    new THREE.Mesh(
+        volcanoGeometry,
+        volcanoMaterial
+    );
+
+volcanoMountain.position.y =
+    1.45;
+
+volcanoMountain.castShadow =
+    true;
+
+volcanoMountain.receiveShadow =
+    true;
+
+volcanoMountain.userData.type =
+    "mountain";
+
+volcanoGroup.add(
+    volcanoMountain
+);
+
+/* ==============================
+   WIREFRAME
+============================== */
+
+const wireframe =
+    new THREE.LineSegments(
+
+        new THREE.WireframeGeometry(
+            volcanoGeometry
+        ),
+
+        new THREE.LineBasicMaterial({
+
+            color:
+                0xa2ebff,
+
+            transparent:
+                true,
+
+            opacity:
+                .22
+
+        })
+
+    );
+
+wireframe.position.copy(
+    volcanoMountain.position
+);
+
+wireframe.scale.setScalar(
+    1.003
+);
+
+volcanoGroup.add(
+    wireframe
+);
+
+/* ==============================
+   BASE
+============================== */
+
+const base =
+    new THREE.Mesh(
+
+        new THREE.CylinderGeometry(
+            7.4,
+            8.2,
+            1.3,
+            140
+        ),
+
+        new THREE.MeshStandardMaterial({
+
+            color:
+                0x39241d,
+
+            roughness:
+                1
+
+        })
+
+    );
+
+base.position.y =
+    -1.65;
+
+base.receiveShadow =
+    true;
+
+volcanoGroup.add(
+    base
+);
+
+/* ==============================
+   STRATA
+============================== */
+
+const strataGroup =
+    new THREE.Group();
+
+volcanoGroup.add(
+    strataGroup
+);
+
+const strataColors = [
+    0x78523d,
+    0x967052,
+    0xae805b,
+    0x77513d,
+    0x9d7656,
+    0xc09263,
+    0x6d4a37
+];
+
+for(
+    let i=0;
+    i<7;
+    i++
+){
+
+    const radius =
+        3.9-i*.34;
+
+    const torus =
+        new THREE.Mesh(
+
+            new THREE.TorusGeometry(
+                radius,
+                .055,
+                10,
+                120
+            ),
+
+            new THREE.MeshStandardMaterial({
+
+                color:
+                    strataColors[i],
+
+                transparent:
+                    true,
+
+                opacity:
+                    .72,
+
+                roughness:
+                    .88
+
+            })
+
+        );
+
+    torus.rotation.x =
+        Math.PI/2;
+
+    torus.position.y =
+        -.1+i*.62;
+
+    strataGroup.add(
+        torus
+    );
+
+}
+
+/* ==============================
+   CRATER
+============================== */
+
+const crater =
+    new THREE.Mesh(
+
+        new THREE.TorusGeometry(
+            .76,
+            .27,
+            32,
+            100
+        ),
+
+        new THREE.MeshStandardMaterial({
+
+            color:
+                0x1f120d,
+
+            roughness:
+                .7
+
+        })
+
+    );
+
+crater.rotation.x =
+    Math.PI/2;
+
+crater.position.y =
+    4.42;
+
+crater.userData.type =
+    "crater";
+
+volcanoGroup.add(
+    crater
+);
+
+/* ==============================
+   MAGMA CHAMBER
+============================== */
+
+const chamber =
+    new THREE.Mesh(
+
+        new THREE.SphereGeometry(
+            1.45,
+            72,
+            54
+        ),
+
+        new THREE.MeshPhysicalMaterial({
+
+            color:
+                0xff4a00,
+
+            emissive:
+                0xff2600,
+
+            emissiveIntensity:
+                3,
+
+            roughness:
+                .22,
+
+            clearcoat:
+                .35
+
+        })
+
+    );
+
+chamber.scale.set(
+    1.55,
+    .75,
+    1.15
+);
+
+chamber.position.y =
+    -1;
+
+chamber.userData.type =
+    "chamber";
+
+volcanoGroup.add(
+    chamber
+);
+
+/* ==============================
+   VENTS
+============================== */
+
+const magmaMaterial =
+    new THREE.MeshPhysicalMaterial({
+
+        color:
+            0xff6900,
+
+        emissive:
+            0xff2c00,
+
+        emissiveIntensity:
+            2.8,
+
+        roughness:
+            .25
+
+    });
+
+const mainVent =
+    new THREE.Mesh(
+
+        new THREE.CylinderGeometry(
+            .2,
+            .58,
+            5.4,
+            52
+        ),
+
+        magmaMaterial
+
+    );
+
+mainVent.position.y =
+    1.55;
+
+mainVent.userData.type =
+    "vent";
+
+volcanoGroup.add(
+    mainVent
+);
+
+const sideVent =
+    new THREE.Mesh(
+
+        new THREE.CylinderGeometry(
+            .12,
+            .23,
+            3,
+            32
+        ),
+
+        magmaMaterial.clone()
+
+    );
+
+sideVent.position.set(
+    1.15,
+    1.2,
+    0
+);
+
+sideVent.rotation.z =
+    Math.PI/3.2;
+
+volcanoGroup.add(
+    sideVent
+);
+
+/* ==============================
+   CUTAWAY
+============================== */
+
+const internalRock =
+    new THREE.Mesh(
+
+        new THREE.ConeGeometry(
+            4.6,
+            5.2,
+            90,
+            34,
+            true,
+            Math.PI*.12,
+            Math.PI*1.16
+        ),
+
+        new THREE.MeshStandardMaterial({
+
+            color:
+                0xa4764d,
+
+            transparent:
+                true,
+
+            opacity:
+                .42,
+
+            side:
+                THREE.DoubleSide,
+
+            roughness:
+                .85
+
+        })
+
+    );
+
+internalRock.position.y =
+    1.43;
+
+internalRock.rotation.y =
+    -.5;
+
+volcanoGroup.add(
+    internalRock
+);
+
+/* ==============================
+   LAVA FLOWS
+============================== */
+
+const lavaMaterial =
+    new THREE.MeshPhysicalMaterial({
+
+        color:
+            0xff6600,
+
+        emissive:
+            0xff2400,
+
+        emissiveIntensity:
+            3,
+
+        roughness:
+            .22,
+
+        clearcoat:
+            .12
+
+    });
+
+function lavaTube(
+    points,
+    radius
+){
+
+    const curve =
+        new THREE.CatmullRomCurve3(
+            points
+        );
+
+    return new THREE.Mesh(
+
+        new THREE.TubeGeometry(
+            curve,
+            120,
+            radius,
+            14,
+            false
+        ),
+
+        lavaMaterial.clone()
+
+    );
+
+}
+
+const lavaFlow1 =
+    lavaTube([
+        new THREE.Vector3(.1,4.2,.1),
+        new THREE.Vector3(.5,3.4,.45),
+        new THREE.Vector3(1.0,2.5,.9),
+        new THREE.Vector3(1.6,1.3,1.4),
+        new THREE.Vector3(2.5,.2,2.0),
+        new THREE.Vector3(3.0,-.65,2.4)
+    ],.17);
+
+lavaFlow1.userData.type =
+    "lava";
+
+volcanoGroup.add(
+    lavaFlow1
+);
+
+const lavaFlow2 =
+    lavaTube([
+        new THREE.Vector3(-.15,4.1,-.15),
+        new THREE.Vector3(-.6,3.3,-.45),
+        new THREE.Vector3(-1.3,2.2,-.9),
+        new THREE.Vector3(-2,1.0,-1.45),
+        new THREE.Vector3(-2.8,-.6,-2.2)
+    ],.12);
+
+volcanoGroup.add(
+    lavaFlow2
+);
+
+/* ==============================
+   MAGMA CRACKS
+============================== */
+
+const crackGroup =
+    new THREE.Group();
+
+volcanoGroup.add(
+    crackGroup
+);
+
+function createCrack(
+    coords
+){
+
+    const curve =
+        new THREE.CatmullRomCurve3(
+            coords
+        );
+
+    const crack =
+        new THREE.Mesh(
+
+            new THREE.TubeGeometry(
+                curve,
+                80,
+                .045,
+                8,
+                false
+            ),
+
+            new THREE.MeshPhysicalMaterial({
+
+                color:
+                    0xff7b00,
+
+                emissive:
+                    0xff3100,
+
+                emissiveIntensity:
+                    4,
+
+                roughness:
+                    .25
+
+            })
+
+        );
+
+    crackGroup.add(
+        crack
+    );
+
+}
+
+createCrack([
+    new THREE.Vector3(.15,3.95,.1),
+    new THREE.Vector3(.55,3.3,.5),
+    new THREE.Vector3(.9,2.7,.75),
+    new THREE.Vector3(1.35,1.8,1.1)
+]);
+
+createCrack([
+    new THREE.Vector3(-.05,4,-.1),
+    new THREE.Vector3(-.5,3.3,-.5),
+    new THREE.Vector3(-.9,2.55,-.85),
+    new THREE.Vector3(-1.45,1.55,-1.1)
+]);
+
+createCrack([
+    new THREE.Vector3(.1,4,-.1),
+    new THREE.Vector3(.5,3.25,-.45),
+    new THREE.Vector3(.95,2.3,-1),
+    new THREE.Vector3(1.5,1.25,-1.5)
+]);
+
+/* ==============================
+   ASH CLOUD
+============================== */
+
+const ashCount =
+    1500;
+
+const ashPositions =
+    new Float32Array(
+        ashCount*3
+    );
+
+const ashVelocity =
+    [];
+
+for(
+    let i=0;
+    i<ashCount;
+    i++
+){
+
+    ashPositions[i*3] =
+        THREE.MathUtils.randFloat(
+            -.35,.35
+        );
+
+    ashPositions[i*3+1] =
+        4.5
+        +
+        Math.random()*.4;
+
+    ashPositions[i*3+2] =
+        THREE.MathUtils.randFloat(
+            -.35,.35
+        );
+
+    ashVelocity.push({
+
+        x:
+            THREE.MathUtils.randFloat(
+                -.018,.018
+            ),
+
+        y:
+            THREE.MathUtils.randFloat(
+                .012,.05
+            ),
+
+        z:
+            THREE.MathUtils.randFloat(
+                -.018,.018
+            )
+
+    });
+
+}
+
+const ashGeometry =
+    new THREE.BufferGeometry();
+
+ashGeometry.setAttribute(
+
+    "position",
+
+    new THREE.BufferAttribute(
+        ashPositions,
+        3
+    )
+
+);
+
+const ashMaterial =
+    new THREE.PointsMaterial({
+
+        color:
+            0x857b77,
+
+        size:
+            .09,
+
+        transparent:
+            true,
+
+        opacity:
+            .62,
+
+        depthWrite:
+            false
+
+    });
+
+const ashCloud =
+    new THREE.Points(
+        ashGeometry,
+        ashMaterial
+    );
+
+volcanoGroup.add(
+    ashCloud
+);
+
+/* ==============================
+   HOT EMBERS
+============================== */
+
+const sparkCount =
+    300;
+
+const sparkPositions =
+    new Float32Array(
+        sparkCount*3
+    );
+
+const sparkVelocity =
+    [];
+
+for(
+    let i=0;
+    i<sparkCount;
+    i++
+){
+
+    sparkPositions[i*3] =
+        THREE.MathUtils.randFloat(
+            -.2,.2
+        );
+
+    sparkPositions[i*3+1] =
+        4.5;
+
+    sparkPositions[i*3+2] =
+        THREE.MathUtils.randFloat(
+            -.2,.2
+        );
+
+    sparkVelocity.push({
+
+        x:
+            THREE.MathUtils.randFloat(
+                -.04,.04
+            ),
+
+        y:
+            THREE.MathUtils.randFloat(
+                .05,.12
+            ),
+
+        z:
+            THREE.MathUtils.randFloat(
+                -.04,.04
+            )
+
+    });
+
+}
+
+const sparkGeometry =
+    new THREE.BufferGeometry();
+
+sparkGeometry.setAttribute(
+
+    "position",
+
+    new THREE.BufferAttribute(
+        sparkPositions,
+        3
+    )
+
+);
+
+const sparkCloud =
+    new THREE.Points(
+
+        sparkGeometry,
+
+        new THREE.PointsMaterial({
+
+            color:
+                0xffa000,
+
+            size:
+                .075,
+
+            transparent:
+                true,
+
+            opacity:
+                .95
+
+        })
+
+    );
+
+volcanoGroup.add(
+    sparkCloud
+);
+
+/* ==============================
+   VOLCANIC ROCKS
+============================== */
+
+const rockGroup =
+    new THREE.Group();
+
+volcanoGroup.add(
+    rockGroup
+);
+
+const rockVelocity =
+    [];
+
+for(
+    let i=0;
+    i<80;
+    i++
+){
+
+    const rock =
+        new THREE.Mesh(
+
+            new THREE.DodecahedronGeometry(
+                THREE.MathUtils.randFloat(
+                    .04,.13
+                ),
+                0
+            ),
+
+            new THREE.MeshStandardMaterial({
+
+                color:
+                    0x4e2418,
+
+                emissive:
+                    0x5e1000,
+
+                emissiveIntensity:
+                    .45,
+
+                roughness:
+                    .9
+
+            })
+
+        );
+
+    rock.visible =
+        false;
+
+    rock.position.set(
+        0,
+        4.5,
+        0
+    );
+
+    rockVelocity.push({
+
+        x:
+            THREE.MathUtils.randFloat(
+                -.08,.08
+            ),
+
+        y:
+            THREE.MathUtils.randFloat(
+                .1,.18
+            ),
+
+        z:
+            THREE.MathUtils.randFloat(
+                -.08,.08
+            )
+
+    });
+
+    rockGroup.add(
+        rock
+    );
+
+}
+
+/* ==============================
+   VOLCANO LIGHT
+============================== */
+
+const craterLight =
+    new THREE.PointLight(
+        0xff4500,
+        35,
+        18
+    );
+
+craterLight.position.set(
+    0,
+    4.7,
+    0
+);
+
+volcanoGroup.add(
+    craterLight
+);
+
+/* ==============================
+   EARTHQUAKE MODEL
+============================== */
+
+const quakeBase =
+    new THREE.Mesh(
+
+        new THREE.BoxGeometry(
+            13,
+            2.4,
+            10
+        ),
+
+        new THREE.MeshStandardMaterial({
+
+            color:
+                0x5d4236,
+
+            roughness:
+                .98
+
+        })
+
+    );
+
+quakeBase.position.y =
+    -.3;
+
+earthquakeGroup.add(
+    quakeBase
+);
+
+const surface =
+    new THREE.Mesh(
+
+        new THREE.PlaneGeometry(
+            13,
+            10,
+            50,
+            50
+        ),
+
+        new THREE.MeshStandardMaterial({
+
+            color:
+                0x677653,
+
+            roughness:
+                .95,
+
+            side:
+                THREE.DoubleSide
+
+        })
+
+    );
+
+surface.rotation.x =
+    -Math.PI/2;
+
+surface.position.y =
+    .92;
+
+earthquakeGroup.add(
+    surface
+);
+
+const leftBlock =
+    new THREE.Mesh(
+
+        new THREE.BoxGeometry(
+            6.2,
+            2.3,
+            9.8
+        ),
+
+        new THREE.MeshStandardMaterial({
+
+            color:
+                0x6d4a3a,
+
+            roughness:
+                .95
+
+        })
+
+    );
+
+leftBlock.position.set(
+    -3.2,
+    -.25,
+    0
+);
+
+leftBlock.userData.type =
+    "faultBlock";
+
+earthquakeGroup.add(
+    leftBlock
+);
+
+const rightBlock =
+    leftBlock.clone();
+
+rightBlock.position.x =
+    3.2;
+
+rightBlock.userData.type =
+    "faultBlock";
+
+earthquakeGroup.add(
+    rightBlock
+);
+
+const faultPlane =
+    new THREE.Mesh(
+
+        new THREE.PlaneGeometry(
+            10,
+            5
+        ),
+
+        new THREE.MeshPhysicalMaterial({
+
+            color:
+                0x120a08,
+
+            transparent:
+                true,
+
+            opacity:
+                .65,
+
+            side:
+                THREE.DoubleSide
+
+        })
+
+    );
+
+faultPlane.rotation.y =
+    Math.PI/2;
+
+faultPlane.rotation.z =
+    -.18;
+
+faultPlane.position.y =
+    -.4;
+
+faultPlane.userData.type =
+    "fault";
+
+earthquakeGroup.add(
+    faultPlane
+);
+
+const focusSphere =
+    new THREE.Mesh(
+
+        new THREE.SphereGeometry(
+            .24,
+            40,
+            32
+        ),
+
+        new THREE.MeshBasicMaterial({
+
+            color:
+                0xffcf45
+
+        })
+
+    );
+
+focusSphere.position.set(
+    0,
+    -1.1,
+    0
+);
+
+focusSphere.userData.type =
+    "focus";
+
+earthquakeGroup.add(
+    focusSphere
+);
+
+const focusLight =
+    new THREE.PointLight(
+        0xffc23f,
+        45,
+        15
+    );
+
+focusLight.position.copy(
+    focusSphere.position
+);
+
+earthquakeGroup.add(
+    focusLight
+);
+
+const epicenter =
+    new THREE.Mesh(
+
+        new THREE.TorusGeometry(
+            .42,
+            .055,
+            12,
+            80
+        ),
+
+        new THREE.MeshBasicMaterial({
+
+            color:
+                0xffd65c
+
+        })
+
+    );
+
+epicenter.rotation.x =
+    Math.PI/2;
+
+epicenter.position.set(
+    0,
+    1.03,
+    0
+);
+
+epicenter.userData.type =
+    "epicenter";
+
+earthquakeGroup.add(
+    epicenter
+);
+
+/* ==============================
+   WAVES
+============================== */
+
+const pWaveGroup =
+    new THREE.Group();
+
+const sWaveGroup =
+    new THREE.Group();
+
+const surfaceWaveGroup =
+    new THREE.Group();
+
+earthquakeGroup.add(
+    pWaveGroup,
+    sWaveGroup,
+    surfaceWaveGroup
+);
+
+for(
+    let i=0;
+    i<8;
+    i++
+){
+
+    const wave =
+        new THREE.Mesh(
+
+            new THREE.SphereGeometry(
+                .8+i*.5,
+                45,
+                28
+            ),
+
+            new THREE.MeshBasicMaterial({
+
+                color:
+                    0x48c8ff,
+
+                wireframe:
+                    true,
+
+                transparent:
+                    true,
+
+                opacity:
+                    .14
+
+            })
+
+        );
+
+    wave.position.copy(
+        focusSphere.position
+    );
+
+    wave.scale.setScalar(
+        .1
+    );
+
+    pWaveGroup.add(
+        wave
+    );
+
+}
+
+for(
+    let i=0;
+    i<7;
+    i++
+){
+
+    const wave =
+        new THREE.Mesh(
+
+            new THREE.SphereGeometry(
+                1+i*.55,
+                40,
+                25
+            ),
+
+            new THREE.MeshBasicMaterial({
+
+                color:
+                    0xaf63ff,
+
+                wireframe:
+                    true,
+
+                transparent:
+                    true,
+
+                opacity:
+                    .12
+
+            })
+
+        );
+
+    wave.position.copy(
+        focusSphere.position
+    );
+
+    wave.scale.setScalar(
+        .1
+    );
+
+    sWaveGroup.add(
+        wave
+    );
+
+}
+
+for(
+    let i=0;
+    i<8;
+    i++
+){
+
+    const wave =
+        new THREE.Mesh(
+
+            new THREE.TorusGeometry(
+                1+i*.55,
+                .025,
+                8,
+                100
+            ),
+
+            new THREE.MeshBasicMaterial({
+
+                color:
+                    0xffd25d,
+
+                transparent:
+                    true,
+
+                opacity:
+                    .35
+
+            })
+
+        );
+
+    wave.rotation.x =
+        Math.PI/2;
+
+    wave.position.y =
+        1.02;
+
+    wave.scale.setScalar(
+        .1
+    );
+
+    surfaceWaveGroup.add(
+        wave
+    );
+
+}
+
+/* ==============================
+   BUILDINGS
+============================== */
+
+const buildingGroup =
+    new THREE.Group();
+
+earthquakeGroup.add(
+    buildingGroup
+);
+
+[
+    [-4,-2.5,1.4],
+    [-2.7,2.4,1.6],
+    [3.3,-2.6,1.8],
+    [4.2,2.3,2.2],
+    [1.7,3.1,1.5]
+]
+.forEach(
+    (
+        data,
+        index
+    )=>{
+
+        const building =
+            new THREE.Mesh(
+
+                new THREE.BoxGeometry(
+                    .9,
+                    data[2],
+                    .9
+                ),
+
+                new THREE.MeshStandardMaterial({
+
+                    color:
+                        index%2===0
+                        ?
+                        0x8f949b
+                        :
+                        0x70767d,
+
+                    roughness:
+                        .75
+
+                })
+
+            );
+
+        building.position.set(
+            data[0],
+            .92+data[2]/2,
+            data[1]
+        );
+
+        building.castShadow =
+            true;
+
+        buildingGroup.add(
+            building
+        );
+
+    }
+);
+
+/* ==============================
+   LABELS
+============================== */
+
+function createLabel(
+    text
+){
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+    element.className =
+        "label3d";
+
+    element.textContent =
+        text;
+
+    document.body.appendChild(
+        element
+    );
+
+    return element;
+
+}
+
+const volcanoLabels = {
+
+    crater:{
+        element:
+            createLabel(
+                "Miệng núi lửa"
+            ),
+        object:
+            crater
+    },
+
+    chamber:{
+        element:
+            createLabel(
+                "Buồng magma"
+            ),
+        object:
+            chamber
+    },
+
+    vent:{
+        element:
+            createLabel(
+                "Ống dẫn magma"
+            ),
+        object:
+            mainVent
+    },
+
+    lava:{
+        element:
+            createLabel(
+                "Dòng dung nham"
+            ),
+        object:
+            lavaFlow1
+    }
+
+};
+
+const quakeLabels = {
+
+    focus:{
+        element:
+            createLabel(
+                "Chấn tiêu"
+            ),
+        object:
+            focusSphere
+    },
+
+    epicenter:{
+        element:
+            createLabel(
+                "Tâm chấn"
+            ),
+        object:
+            epicenter
+    },
+
+    fault:{
+        element:
+            createLabel(
+                "Mặt đứt gãy"
+            ),
+        object:
+            faultPlane
+    }
+
+};
+
+function updateLabels(){
+
+    const labels =
+        currentMode==="volcano"
+        ?
+        volcanoLabels
+        :
+        quakeLabels;
+
+    const hidden =
+        currentMode==="volcano"
+        ?
+        quakeLabels
+        :
+        volcanoLabels;
+
+    for(
+        const key
+        in labels
+    ){
+
+        const data =
+            labels[key];
+
+        const world =
+            new THREE.Vector3();
+
+        data.object
+            .getWorldPosition(
+                world
+            );
+
+        world.project(
+            camera
+        );
+
+        const x =
+            (
+                world.x*.5
+                +.5
+            )
+            *
+            window.innerWidth;
+
+        const y =
+            (
+                -world.y*.5
+                +.5
+            )
+            *
+            window.innerHeight;
+
+        data.element.style.left =
+            x+"px";
+
+        data.element.style.top =
+            y+"px";
+
+        data.element.style.display =
+            labelsToggle.checked
+            ?
+            "block"
+            :
+            "none";
+
+    }
+
+    for(
+        const key
+        in hidden
+    ){
+
+        hidden[key]
+            .element
+            .style
+            .display =
+            "none";
+
+    }
+
+}
+
+/* ==============================
+   INFO
+============================== */
+
+const infoData = {
+
+    mountain:{
+        title:
+            "Thân núi lửa",
+
+        description:
+            "Khối núi được hình thành do dung nham, tro và vật liệu núi lửa tích tụ qua nhiều lần phun trào.",
+
+        a:"Tích tụ",
+        b:"Nội sinh",
+        c:"Đá núi lửa",
+        d:"Địa hình"
+    },
+
+    crater:{
+        title:
+            "Miệng núi lửa",
+
+        description:
+            "Nơi magma, khí, tro và vật liệu núi lửa có thể thoát ra ngoài.",
+
+        a:"Cửa thoát",
+        b:"Áp suất",
+        c:"Magma",
+        d:"Phun trào"
+    },
+
+    chamber:{
+        title:
+            "Buồng magma",
+
+        description:
+            "Vùng tích tụ magma phía dưới núi lửa trước khi magma di chuyển lên hệ thống dẫn.",
+
+        a:"Tích tụ",
+        b:"Nhiệt cao",
+        c:"Magma",
+        d:"Nguồn phun"
+    },
+
+    vent:{
+        title:
+            "Ống dẫn magma",
+
+        description:
+            "Con đường giúp magma và khí dịch chuyển từ sâu bên dưới lên gần bề mặt.",
+
+        a:"Dẫn magma",
+        b:"Áp suất",
+        c:"Khí + magma",
+        d:"Miệng núi"
+    },
+
+    lava:{
+        title:
+            "Dung nham",
+
+        description:
+            "Magma đã thoát ra bề mặt. Khi nguội, dung nham đông cứng thành đá núi lửa.",
+
+        a:"Dòng chảy",
+        b:"Rất nóng",
+        c:"Dung nham",
+        d:"Đá mới"
+    },
+
+    focus:{
+        title:
+            "Chấn tiêu",
+
+        description:
+            "Vị trí bên trong Trái Đất nơi quá trình phá vỡ hoặc trượt gây động đất bắt đầu.",
+
+        a:"Nguồn",
+        b:"Năng lượng",
+        c:"Địa chấn",
+        d:"Bên dưới"
+    },
+
+    epicenter:{
+        title:
+            "Tâm chấn",
+
+        description:
+            "Điểm trên bề mặt nằm gần như thẳng đứng phía trên chấn tiêu.",
+
+        a:"Bề mặt",
+        b:"Rung lắc",
+        c:"Vị trí",
+        d:"Trên chấn tiêu"
+    },
+
+    fault:{
+        title:
+            "Mặt đứt gãy",
+
+        description:
+            "Bề mặt nơi các khối đá dịch chuyển tương đối với nhau. Sự trượt đột ngột có thể gây động đất.",
+
+        a:"Trượt",
+        b:"Ứng suất",
+        c:"Khối đá",
+        d:"Động đất"
+    },
+
+    faultBlock:{
+        title:
+            "Khối đá",
+
+        description:
+            "Ứng suất kiến tạo có thể làm các khối đá biến dạng và dịch chuyển tương đối.",
+
+        a:"Dịch chuyển",
+        b:"Ma sát",
+        c:"Ứng suất",
+        d:"Đứt gãy"
+    }
+
+};
+
+function showInfo(
+    key
+){
+
+    const data =
+        infoData[key];
+
+    if(!data){
+        return;
+    }
+
+    document
+        .getElementById(
+            "infoTitle"
+        )
+        .textContent =
+        data.title;
+
+    document
+        .getElementById(
+            "infoDescription"
+        )
+        .textContent =
+        data.description;
+
+    document
+        .getElementById(
+            "data1"
+        )
+        .textContent =
+        data.a;
+
+    document
+        .getElementById(
+            "data2"
+        )
+        .textContent =
+        data.b;
+
+    document
+        .getElementById(
+            "data3"
+        )
+        .textContent =
+        data.c;
+
+    document
+        .getElementById(
+            "data4"
+        )
+        .textContent =
+        data.d;
+
+}
+
+/* ==============================
+   CLICK
+============================== */
+
+const raycaster =
+    new THREE.Raycaster();
+
+const pointer =
+    new THREE.Vector2();
+
+renderer.domElement
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            pointer.x =
+                (
+                    event.clientX/
+                    window.innerWidth
+                )
+                *2
+                -1;
+
+            pointer.y =
+                -(
+                    event.clientY/
+                    window.innerHeight
+                )
+                *2
+                +1;
+
+            raycaster.setFromCamera(
+                pointer,
+                camera
+            );
+
+            const targets =
+                currentMode==="volcano"
+                ?
+                [
+                    volcanoMountain,
+                    crater,
+                    chamber,
+                    mainVent,
+                    lavaFlow1
+                ]
+                :
+                [
+                    focusSphere,
+                    epicenter,
+                    faultPlane,
+                    leftBlock,
+                    rightBlock
+                ];
+
+            const hits =
+                raycaster.intersectObjects(
+                    targets,
+                    false
+                );
+
+            if(
+                hits.length
+            ){
+
+                const type =
+                    hits[0]
+                    .object
+                    .userData
+                    .type;
+
+                if(type){
+
+                    showInfo(
+                        type
+                    );
+
+                    pulseObject(
+                        hits[0]
+                        .object
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+/* ==============================
+   PULSE
+============================== */
+
+let selectedObject =
+    null;
+
+let pulseTime =
+    0;
+
+function pulseObject(
+    object
+){
+
+    selectedObject =
+        object;
+
+    pulseTime =
+        0;
+
+}
+
+/* ==============================
+   AUDIO
+============================== */
+
+let audioContext =
+    null;
+
+let masterGain =
+    null;
+
+let rumbleOsc =
+    null;
+
+let soundEnabled =
+    false;
+
+function initAudio(){
+
+    if(
+        audioContext
+    ){
+        return;
+    }
+
+    audioContext =
+        new(
+            window.AudioContext
+            ||
+            window.webkitAudioContext
+        )();
+
+    masterGain =
+        audioContext
+        .createGain();
+
+    masterGain.gain.value =
+        .35;
+
+    masterGain.connect(
+        audioContext.destination
+    );
+
+}
+
+function startRumble(
+    freq=40,
+    volume=.15
+){
+
+    if(
+        !soundEnabled
+        ||
+        !audioContext
+    ){
+        return;
+    }
+
+    stopRumble();
+
+    rumbleOsc =
+        audioContext
+        .createOscillator();
+
+    const gain =
+        audioContext
+        .createGain();
+
+    const filter =
+        audioContext
+        .createBiquadFilter();
+
+    rumbleOsc.type =
+        "sawtooth";
+
+    rumbleOsc.frequency.value =
+        freq;
+
+    filter.type =
+        "lowpass";
+
+    filter.frequency.value =
+        130;
+
+    gain.gain.value =
+        volume;
+
+    rumbleOsc.connect(
+        filter
+    );
+
+    filter.connect(
+        gain
+    );
+
+    gain.connect(
+        masterGain
+    );
+
+    rumbleOsc.start();
+
+}
+
+function stopRumble(){
+
+    if(
+        rumbleOsc
+    ){
+
+        try{
+            rumbleOsc.stop();
+        }
+        catch(e){}
+
+        rumbleOsc =
+            null;
+
+    }
+
+}
+
+function noiseBurst(
+    duration=.6,
+    volume=.2
+){
+
+    if(
+        !soundEnabled
+        ||
+        !audioContext
+    ){
+        return;
+    }
+
+    const bufferSize =
+        audioContext.sampleRate
+        *
+        duration;
+
+    const buffer =
+        audioContext
+        .createBuffer(
+            1,
+            bufferSize,
+            audioContext.sampleRate
+        );
+
+    const data =
+        buffer
+        .getChannelData(
+            0
+        );
+
+    for(
+        let i=0;
+        i<bufferSize;
+        i++
+    ){
+
+        data[i] =
+            (
+                Math.random()*2
+                -1
+            )
+            *
+            (
+                1
+                -
+                i/bufferSize
+            );
+
+    }
+
+    const source =
+        audioContext
+        .createBufferSource();
+
+    source.buffer =
+        buffer;
+
+    const filter =
+        audioContext
+        .createBiquadFilter();
+
+    filter.type =
+        "lowpass";
+
+    filter.frequency.value =
+        700;
+
+    const gain =
+        audioContext
+        .createGain();
+
+    gain.gain.value =
+        volume;
+
+    source.connect(
+        filter
+    );
+
+    filter.connect(
+        gain
+    );
+
+    gain.connect(
+        masterGain
+    );
+
+    source.start();
+
+}
+
+/* ==============================
+   CONTROLS
+============================== */
+
+const autoRotate =
+    document.getElementById(
+        "autoRotate"
+    );
+
+const labelsToggle =
+    document.getElementById(
+        "labelsToggle"
+    );
+
+const cutawayToggle =
+    document.getElementById(
+        "cutawayToggle"
+    );
+
+const rotateSpeed =
+    document.getElementById(
+        "rotateSpeed"
+    );
+
+const wireToggle =
+    document.getElementById(
+        "wireToggle"
+    );
+
+const strataToggle =
+    document.getElementById(
+        "strataToggle"
+    );
+
+const crackToggle =
+    document.getElementById(
+        "crackToggle"
+    );
+
+const lavaToggle =
+    document.getElementById(
+        "lavaToggle"
+    );
+
+const ashToggle =
+    document.getElementById(
+        "ashToggle"
+    );
+
+const rockToggle =
+    document.getElementById(
+        "rockToggle"
+    );
+
+const eruptionSlider =
+    document.getElementById(
+        "eruptionSlider"
+    );
+
+const realismSlider =
+    document.getElementById(
+        "realismSlider"
+    );
+
+const magnitude =
+    document.getElementById(
+        "magnitude"
+    );
+
+const focusDepth =
+    document.getElementById(
+        "focusDepth"
+    );
+
+const pToggle =
+    document.getElementById(
+        "pToggle"
+    );
+
+const sToggle =
+    document.getElementById(
+        "sToggle"
+    );
+
+const surfaceToggle =
+    document.getElementById(
+        "surfaceToggle"
+    );
+
+rotateSpeed.addEventListener(
+    "input",
+    ()=>{
+
+        document
+            .getElementById(
+                "rotateSpeedText"
+            )
+            .textContent =
+            Number(
+                rotateSpeed.value
+            )
+            .toFixed(2);
+
+    }
+);
+
+eruptionSlider.addEventListener(
+    "input",
+    ()=>{
+
+        document
+            .getElementById(
+                "eruptionText"
+            )
+            .textContent =
+            eruptionSlider.value
+            +"%";
+
+    }
+);
+
+realismSlider.addEventListener(
+    "input",
+    ()=>{
+
+        document
+            .getElementById(
+                "realismText"
+            )
+            .textContent =
+            realismSlider.value
+            +"%";
+
+    }
+);
+
+wireToggle.addEventListener(
+    "change",
+    ()=>{
+
+        wireframe.visible =
+            wireToggle.checked;
+
+    }
+);
+
+strataToggle.addEventListener(
+    "change",
+    ()=>{
+
+        strataGroup.visible =
+            strataToggle.checked;
+
+    }
+);
+
+crackToggle.addEventListener(
+    "change",
+    ()=>{
+
+        crackGroup.visible =
+            crackToggle.checked;
+
+    }
+);
+
+lavaToggle.addEventListener(
+    "change",
+    ()=>{
+
+        lavaFlow1.visible =
+            lavaToggle.checked;
+
+        lavaFlow2.visible =
+            lavaToggle.checked;
+
+    }
+);
+
+ashToggle.addEventListener(
+    "change",
+    ()=>{
+
+        ashCloud.visible =
+            ashToggle.checked;
+
+    }
+);
+
+cutawayToggle.addEventListener(
+    "change",
+    ()=>{
+
+        internalRock.visible =
+            cutawayToggle.checked;
+
+        chamber.visible =
+            cutawayToggle.checked;
+
+        mainVent.visible =
+            cutawayToggle.checked;
+
+        sideVent.visible =
+            cutawayToggle.checked;
+
+        if(
+            currentMode==="earthquake"
+        ){
+
+            faultPlane.visible =
+                cutawayToggle.checked;
+
+            focusSphere.visible =
+                cutawayToggle.checked;
+
+        }
+
+    }
+);
+
+pToggle.addEventListener(
+    "change",
+    ()=>{
+
+        pWaveGroup.visible =
+            pToggle.checked;
+
+    }
+);
+
+sToggle.addEventListener(
+    "change",
+    ()=>{
+
+        sWaveGroup.visible =
+            sToggle.checked;
+
+    }
+);
+
+surfaceToggle.addEventListener(
+    "change",
+    ()=>{
+
+        surfaceWaveGroup.visible =
+            surfaceToggle.checked;
+
+    }
+);
+
+magnitude.addEventListener(
+    "input",
+    ()=>{
+
+        quakeMagnitude =
+            Number(
+                magnitude.value
+            );
+
+        document
+            .getElementById(
+                "magnitudeText"
+            )
+            .textContent =
+            "M "
+            +
+            quakeMagnitude
+            .toFixed(1);
+
+    }
+);
+
+focusDepth.addEventListener(
+    "input",
+    ()=>{
+
+        document
+            .getElementById(
+                "depthText"
+            )
+            .textContent =
+            focusDepth.value
+            +" km";
+
+        const depth =
+            THREE.MathUtils.mapLinear(
+                Number(
+                    focusDepth.value
+                ),
+                5,
+                100,
+                -.45,
+                -1.8
+            );
+
+        focusSphere.position.y =
+            depth;
+
+        focusLight.position.copy(
+            focusSphere.position
+        );
+
+        pWaveGroup.children
+            .forEach(
+                wave=>
+                wave.position.copy(
+                    focusSphere.position
+                )
+            );
+
+        sWaveGroup.children
+            .forEach(
+                wave=>
+                wave.position.copy(
+                    focusSphere.position
+                )
+            );
+
+    }
+);
+
+/* ==============================
+   SOUND BUTTON
+============================== */
+
+document
+    .getElementById(
+        "soundButton"
+    )
+    .addEventListener(
+        "click",
+        async event=>{
+
+            initAudio();
+
+            if(
+                audioContext.state
+                ===
+                "suspended"
+            ){
+
+                await audioContext.resume();
+
+            }
+
+            soundEnabled =
+                !soundEnabled;
+
+            event.currentTarget
+                .classList.toggle(
+                    "enabled",
+                    soundEnabled
+                );
+
+            event.currentTarget
+                .textContent =
+                soundEnabled
+                ?
+                "🔊 ÂM THANH ĐANG BẬT"
+                :
+                "🔇 ÂM THANH ĐANG TẮT";
+
+            if(
+                !soundEnabled
+            ){
+
+                stopRumble();
+
+            }
+
+        }
+    );
+
+/* ==============================
+   VOLCANO ERUPTION
+============================== */
+
+let eruptionActive =
+    false;
+
+let eruptionTime =
+    0;
+
+document
+    .getElementById(
+        "eruptionButton"
+    )
+    .addEventListener(
+        "click",
+        ()=>{
+
+            eruptionActive =
+                !eruptionActive;
+
+            eruptionTime =
+                0;
+
+            const button =
+                document
+                .getElementById(
+                    "eruptionButton"
+                );
+
+            if(
+                eruptionActive
+            ){
+
+                button.textContent =
+                    "⏹ DỪNG PHUN TRÀO";
+
+                button.classList.add(
+                    "stop"
+                );
+
+                rockGroup.children
+                    .forEach(
+                        (
+                            rock,
+                            i
+                        )=>{
+
+                            rock.visible =
+                                rockToggle.checked;
+
+                            rock.position.set(
+                                THREE.MathUtils.randFloat(
+                                    -.18,.18
+                                ),
+                                4.6,
+                                THREE.MathUtils.randFloat(
+                                    -.18,.18
+                                )
+                            );
+
+                            rockVelocity[i].x =
+                                THREE.MathUtils.randFloat(
+                                    -.09,.09
+                                );
+
+                            rockVelocity[i].y =
+                                THREE.MathUtils.randFloat(
+                                    .11,.19
+                                );
+
+                            rockVelocity[i].z =
+                                THREE.MathUtils.randFloat(
+                                    -.09,.09
+                                );
+
+                        }
+                    );
+
+                startRumble(
+                    45,
+                    .13
+                );
+
+                noiseBurst(
+                    .8,
+                    .24
+                );
+
+            }
+
+            else{
+
+                button.textContent =
+                    "🌋 KÍCH HOẠT PHUN TRÀO";
+
+                button.classList.remove(
+                    "stop"
+                );
+
+                stopRumble();
+
+            }
+
+        }
+    );
+
+/* ==============================
+   EARTHQUAKE
+============================== */
+
+let quakeActive =
+    false;
+
+let quakeTime =
+    0;
+
+let quakeMagnitude =
+    6;
+
+document
+    .getElementById(
+        "quakeButton"
+    )
+    .addEventListener(
+        "click",
+        ()=>{
+
+            quakeActive =
+                true;
+
+            quakeTime =
+                0;
+
+            quakeMagnitude =
+                Number(
+                    magnitude.value
+                );
+
+            startRumble(
+                30,
+                .1
+                +
+                (
+                    quakeMagnitude-3
+                )*.025
+            );
+
+            noiseBurst(
+                .65,
+                .17
+                +
+                (
+                    quakeMagnitude-3
+                )*.03
+            );
+
+            const flash =
+                document
+                .getElementById(
+                    "screenFlash"
+                );
+
+            flash.style.opacity =
+                .65;
+
+            setTimeout(
+                ()=>{
+
+                    flash.style.opacity =
+                        0;
+
+                },
+                120
+            );
+
+        }
+    );
+
+/* ==============================
+   MODES
+============================== */
+
+let currentMode =
+    "volcano";
+
+function setMode(
+    mode
+){
+
+    currentMode =
+        mode;
+
+    eruptionActive =
+        false;
+
+    quakeActive =
+        false;
+
+    stopRumble();
+
+    volcanoGroup.visible =
+        mode==="volcano";
+
+    earthquakeGroup.visible =
+        mode==="earthquake";
+
+    document
+        .getElementById(
+            "volcanoControls"
+        )
+        .style.display =
+        mode==="volcano"
+        ?
+        "block"
+        :
+        "none";
+
+    document
+        .getElementById(
+            "earthquakeControls"
+        )
+        .style.display =
+        mode==="earthquake"
+        ?
+        "block"
+        :
+        "none";
+
+    document
+        .getElementById(
+            "volcanoModeButton"
+        )
+        .classList.toggle(
+            "active",
+            mode==="volcano"
+        );
+
+    document
+        .getElementById(
+            "earthquakeModeButton"
+        )
+        .classList.toggle(
+            "active",
+            mode==="earthquake"
+        );
+
+    if(
+        mode==="volcano"
+    ){
+
+        document
+            .getElementById(
+                "mainTitle"
+            )
+            .textContent =
+            "CẤU TẠO & PHUN TRÀO NÚI LỬA";
+
+        document
+            .getElementById(
+                "mainSubtitle"
+            )
+            .textContent =
+            "Mô hình nâng cấp • địa tầng • wireframe • magma • tro bụi • cinematic";
+
+        document
+            .getElementById(
+                "panelSubtitle"
+            )
+            .textContent =
+            "VOLCANIC LAB 2.0";
+
+        camera.position.set(
+            10,
+            6,
+            14
+        );
+
+        controls.target.set(
+            0,
+            .5,
+            0
+        );
+
+        showInfo(
+            "mountain"
+        );
+
+    }
+
+    else{
+
+        document
+            .getElementById(
+                "mainTitle"
+            )
+            .textContent =
+            "CHẤN TIÊU • TÂM CHẤN • SÓNG ĐỊA CHẤN";
+
+        document
+            .getElementById(
+                "mainSubtitle"
+            )
+            .textContent =
+            "Mô phỏng đứt gãy • sóng P • sóng S • rung mặt đất";
+
+        document
+            .getElementById(
+                "panelSubtitle"
+            )
+            .textContent =
+            "SEISMIC LAB";
+
+        camera.position.set(
+            11,
+            8,
+            13
+        );
+
+        controls.target.set(
+            0,
+            0,
+            0
+        );
+
+        showInfo(
+            "focus"
+        );
+
+    }
+
+    controls.update();
+
+}
+
+document
+    .getElementById(
+        "volcanoModeButton"
+    )
+    .addEventListener(
+        "click",
+        ()=>setMode("volcano")
+    );
+
+document
+    .getElementById(
+        "earthquakeModeButton"
+    )
+    .addEventListener(
+        "click",
+        ()=>setMode("earthquake")
+    );
+
+/* ==============================
+   CAMERA
+============================== */
+
+document
+    .querySelectorAll(
+        "[data-volcano-view]"
+    )
+    .forEach(
+        button=>{
+
+            button.addEventListener(
+                "click",
+                ()=>{
+
+                    cinematicActive =
+                        false;
+
+                    const view =
+                        button.dataset
+                        .volcanoView;
+
+                    if(
+                        view==="outside"
+                    ){
+
+                        camera.position.set(
+                            10,
+                            6,
+                            14
+                        );
+
+                        controls.target.set(
+                            0,
+                            .5,
+                            0
+                        );
+
+                    }
+
+                    if(
+                        view==="cut"
+                    ){
+
+                        camera.position.set(
+                            7,
+                            3,
+                            8
+                        );
+
+                        controls.target.set(
+                            0,
+                            1,
+                            0
+                        );
+
+                        cutawayToggle.checked =
+                            true;
+
+                    }
+
+                    if(
+                        view==="crater"
+                    ){
+
+                        camera.position.set(
+                            2,
+                            7.5,
+                            3
+                        );
+
+                        controls.target.set(
+                            0,
+                            3.9,
+                            0
+                        );
+
+                    }
+
+                    if(
+                        view==="chamber"
+                    ){
+
+                        camera.position.set(
+                            5,
+                            0,
+                            6
+                        );
+
+                        controls.target.set(
+                            0,
+                            -.7,
+                            0
+                        );
+
+                    }
+
+                    controls.update();
+
+                }
+            );
+
+        }
+    );
+
+/* ==============================
+   CINEMATIC CAMERA
+============================== */
+
+let cinematicActive =
+    false;
+
+document
+    .getElementById(
+        "cinematicButton"
+    )
+    .addEventListener(
+        "click",
+        ()=>{
+
+            cinematicActive =
+                !cinematicActive;
+
+            document
+                .getElementById(
+                    "cinematicButton"
+                )
+                .textContent =
+                cinematicActive
+                ?
+                "⏹ DỪNG CINEMATIC"
+                :
+                "🎥 CAMERA CINEMATIC";
+
+        }
+    );
+
+/* ==============================
+   ASH
+============================== */
+
+function updateAsh(
+    intensity
+){
+
+    if(
+        !ashCloud.visible
+    ){
+        return;
+    }
+
+    const pos =
+        ashGeometry
+        .attributes
+        .position
+        .array;
+
+    for(
+        let i=0;
+        i<ashCount;
+        i++
+    ){
+
+        pos[i*3] +=
+            ashVelocity[i].x
+            *
+            intensity;
+
+        pos[i*3+1] +=
+            ashVelocity[i].y
+            *
+            intensity;
+
+        pos[i*3+2] +=
+            ashVelocity[i].z
+            *
+            intensity;
+
+        if(
+            pos[i*3+1]>9
+            ||
+            Math.abs(
+                pos[i*3]
+            )>5
+            ||
+            Math.abs(
+                pos[i*3+2]
+            )>5
+        ){
+
+            pos[i*3] =
+                THREE.MathUtils.randFloat(
+                    -.3,.3
+                );
+
+            pos[i*3+1] =
+                4.55;
+
+            pos[i*3+2] =
+                THREE.MathUtils.randFloat(
+                    -.3,.3
+                );
+
+        }
+
+    }
+
+    ashGeometry
+        .attributes
+        .position
+        .needsUpdate =
+        true;
+
+}
+
+/* ==============================
+   SPARKS
+============================== */
+
+function updateSparks(
+    intensity
+){
+
+    const pos =
+        sparkGeometry
+        .attributes
+        .position
+        .array;
+
+    for(
+        let i=0;
+        i<sparkCount;
+        i++
+    ){
+
+        pos[i*3] +=
+            sparkVelocity[i].x
+            *
+            intensity;
+
+        pos[i*3+1] +=
+            sparkVelocity[i].y
+            *
+            intensity;
+
+        pos[i*3+2] +=
+            sparkVelocity[i].z
+            *
+            intensity;
+
+        sparkVelocity[i].y -=
+            .0012
+            *
+            intensity;
+
+        if(
+            pos[i*3+1]<3
+            ||
+            pos[i*3+1]>8
+        ){
+
+            pos[i*3] =
+                THREE.MathUtils.randFloat(
+                    -.18,.18
+                );
+
+            pos[i*3+1] =
+                4.55;
+
+            pos[i*3+2] =
+                THREE.MathUtils.randFloat(
+                    -.18,.18
+                );
+
+            sparkVelocity[i].x =
+                THREE.MathUtils.randFloat(
+                    -.04,.04
+                );
+
+            sparkVelocity[i].y =
+                THREE.MathUtils.randFloat(
+                    .05,.12
+                );
+
+            sparkVelocity[i].z =
+                THREE.MathUtils.randFloat(
+                    -.04,.04
+                );
+
+        }
+
+    }
+
+    sparkGeometry
+        .attributes
+        .position
+        .needsUpdate =
+        true;
+
+}
+
+/* ==============================
+   ROCKS
+============================== */
+
+function updateRocks(
+    intensity
+){
+
+    if(
+        !eruptionActive
+    ){
+        return;
+    }
+
+    rockGroup.children
+        .forEach(
+            (
+                rock,
+                index
+            )=>{
+
+                if(
+                    !rockToggle.checked
+                ){
+
+                    rock.visible =
+                        false;
+
+                    return;
+
+                }
+
+                rock.visible =
+                    true;
+
+                const v =
+                    rockVelocity[index];
+
+                rock.position.x +=
+                    v.x*intensity;
+
+                rock.position.y +=
+                    v.y*intensity;
+
+                rock.position.z +=
+                    v.z*intensity;
+
+                v.y -=
+                    .0033
+                    *
+                    intensity;
+
+                rock.rotation.x +=
+                    .08;
+
+                rock.rotation.y +=
+                    .07;
+
+                if(
+                    rock.position.y
+                    <
+                    -.9
+                ){
+
+                    rock.position.set(
+                        THREE.MathUtils.randFloat(
+                            -.15,.15
+                        ),
+                        4.6,
+                        THREE.MathUtils.randFloat(
+                            -.15,.15
+                        )
+                    );
+
+                    v.x =
+                        THREE.MathUtils.randFloat(
+                            -.09,.09
+                        );
+
+                    v.y =
+                        THREE.MathUtils.randFloat(
+                            .11,.19
+                        );
+
+                    v.z =
+                        THREE.MathUtils.randFloat(
+                            -.09,.09
+                        );
+
+                }
+
+            }
+        );
+
+}
+
+/* ==============================
+   WAVES
+============================== */
+
+function updateSeismicWaves(
+    time,
+    magnitudeValue
+){
+
+    const strength =
+        THREE.MathUtils.mapLinear(
+            magnitudeValue,
+            3,
+            9,
+            .5,
+            1.8
+        );
+
+    pWaveGroup.children
+        .forEach(
+            (
+                wave,
+                index
+            )=>{
+
+                const phase =
+                    (
+                        time*1.9
+                        -
+                        index*.35
+                    )
+                    %
+                    4;
+
+                const scale =
+                    Math.max(
+                        .05,
+                        phase
+                    )
+                    *
+                    strength;
+
+                wave.scale.setScalar(
+                    scale
+                );
+
+                wave.material.opacity =
+                    Math.max(
+                        0,
+                        .16
+                        -
+                        phase*.035
+                    );
+
+            }
+        );
+
+    sWaveGroup.children
+        .forEach(
+            (
+                wave,
+                index
+            )=>{
+
+                const phase =
+                    (
+                        time*1.35
+                        -
+                        index*.42
+                    )
+                    %
+                    4;
+
+                const scale =
+                    Math.max(
+                        .05,
+                        phase
+                    )
+                    *
+                    strength;
+
+                wave.scale.setScalar(
+                    scale
+                );
+
+                wave.material.opacity =
+                    Math.max(
+                        0,
+                        .15
+                        -
+                        phase*.035
+                    );
+
+            }
+        );
+
+    surfaceWaveGroup.children
+        .forEach(
+            (
+                wave,
+                index
+            )=>{
+
+                const phase =
+                    (
+                        time*1.15
+                        -
+                        index*.45
+                    )
+                    %
+                    5;
+
+                const scale =
+                    Math.max(
+                        .05,
+                        phase
+                    )
+                    *
+                    strength;
+
+                wave.scale.setScalar(
+                    scale
+                );
+
+                wave.material.opacity =
+                    Math.max(
+                        0,
+                        .35
+                        -
+                        phase*.07
+                    );
+
+            }
+        );
+
+}
+
+/* ==============================
+   QUAKE MOTION
+============================== */
+
+function updateQuake(
+    time,
+    mag
+){
+
+    const amp =
+        THREE.MathUtils.mapLinear(
+            mag,
+            3,
+            9,
+            .01,
+            .17
+        );
+
+    const decay =
+        Math.max(
+            0,
+            1-time/8
+        );
+
+    const shake =
+        amp
+        *
+        decay;
+
+    leftBlock.position.z =
+        Math.sin(
+            time*28
+        )
+        *
+        shake;
+
+    rightBlock.position.z =
+        -Math.sin(
+            time*28
+        )
+        *
+        shake;
+
+    leftBlock.position.x =
+        -3.2
+        +
+        Math.sin(
+            time*17
+        )
+        *
+        shake*.7;
+
+    rightBlock.position.x =
+        3.2
+        -
+        Math.sin(
+            time*17
+        )
+        *
+        shake*.7;
+
+    buildingGroup.children
+        .forEach(
+            (
+                building,
+                index
+            )=>{
+
+                const freq =
+                    17
+                    +
+                    index*2;
+
+                building.rotation.z =
+                    Math.sin(
+                        time*freq
+                    )
+                    *
+                    shake*.85;
+
+                building.rotation.x =
+                    Math.cos(
+                        time*freq*.7
+                    )
+                    *
+                    shake*.45;
+
+            }
+        );
+
+}
+
+/* ==============================
+   REALISM
+============================== */
+
+function updateRealism(){
+
+    const realism =
+        Number(
+            realismSlider.value
+        )
+        /
+        100;
+
+    volcanoMaterial.roughness =
+        .98
+        -
+        realism*.18;
+
+    wireframe.material.opacity =
+        wireToggle.checked
+        ?
+        .08
+        +
+        realism*.22
+        :
+        0;
+
+    ashMaterial.opacity =
+        .3
+        +
+        realism*.4;
+
+    chamber.material.emissiveIntensity =
+        2
+        +
+        realism*2;
+
+    lavaFlow1.material.emissiveIntensity =
+        1.8
+        +
+        realism*2.5;
+
+    lavaFlow2.material.emissiveIntensity =
+        1.8
+        +
+        realism*2.5;
+
+    crackGroup.children
+        .forEach(
+            (
+                crack,
+                index
+            )=>{
+
+                crack.material.emissiveIntensity =
+                    2.4
+                    +
+                    realism*2.8
+                    +
+                    Math.sin(
+                        performance.now()*.002
+                        +
+                        index
+                    )*.35;
+
+            }
+        );
+
+}
+
+/* ==============================
+   MAIN LOOP
+============================== */
+
+const clock =
+    new THREE.Clock();
+
+function animate(){
+
+    requestAnimationFrame(
+        animate
+    );
+
+    const delta =
+        clock.getDelta();
+
+    const elapsed =
+        clock.elapsedTime;
+
+    /* AUTO ROTATE */
+
+    if(
+        autoRotate.checked
+    ){
+
+        const speed =
+            Number(
+                rotateSpeed.value
+            )
+            *
+            delta
+            *
+            .2;
+
+        if(
+            currentMode==="volcano"
+        ){
+
+            volcanoGroup.rotation.y +=
+                speed;
+
+        }
+
+        else{
+
+            earthquakeGroup.rotation.y +=
+                speed*.35;
+
+        }
+
+    }
+
+    /* CINEMATIC */
+
+    if(
+        cinematicActive
+        &&
+        currentMode==="volcano"
+    ){
+
+        const radius =
+            12
+            +
+            Math.sin(
+                elapsed*.25
+            )
+            *.8;
+
+        camera.position.x =
+            Math.cos(
+                elapsed*.18
+            )
+            *
+            radius;
+
+        camera.position.z =
+            Math.sin(
+                elapsed*.18
+            )
+            *
+            radius;
+
+        camera.position.y =
+            5
+            +
+            Math.sin(
+                elapsed*.32
+            )
+            *
+            1.3;
+
+        controls.target.set(
+            0,
+            1.2,
+            0
+        );
+
+    }
+
+    updateRealism();
+
+    /* VOLCANO IDLE */
+
+    chamber.material
+        .emissiveIntensity =
+        2.6
+        +
+        Math.sin(
+            elapsed*2.6
+        )*.7;
+
+    craterLight.intensity =
+        30
+        +
+        Math.sin(
+            elapsed*3
+        )*9;
+
+    /* ERUPTION */
+
+    if(
+        eruptionActive
+    ){
+
+        eruptionTime +=
+            delta;
+
+        const intensity =
+            Number(
+                eruptionSlider.value
+            )
+            /
+            55;
+
+        updateAsh(
+            intensity
+        );
+
+        updateSparks(
+            intensity
+        );
+
+        updateRocks(
+            intensity
+        );
+
+        lavaLight.intensity =
+            70
+            +
+            intensity*55
+            +
+            Math.sin(
+                elapsed*8
+            )*18;
+
+        craterLight.intensity =
+            55
+            +
+            intensity*45;
+
+        lavaFlow1.scale.y =
+            1
+            +
+            Math.sin(
+                elapsed*5
+            )*.035;
+
+        lavaFlow2.scale.y =
+            1
+            +
+            Math.cos(
+                elapsed*5
+            )*.035;
+
+        crackGroup.children
+            .forEach(
+                (
+                    crack,
+                    i
+                )=>{
+
+                    crack.scale.setScalar(
+                        1
+                        +
+                        Math.sin(
+                            elapsed*6+i
+                        )*.02
+                    );
+
+                }
+            );
+
+        /* CAMERA SHAKE */
+
+        if(
+            Number(
+                eruptionSlider.value
+            )
+            >70
+            &&
+            !cinematicActive
+        ){
+
+            camera.position.x +=
+                (
+                    Math.random()-.5
+                )*.012*intensity;
+
+            camera.position.y +=
+                (
+                    Math.random()-.5
+                )*.006*intensity;
+
+        }
+
+        if(
+            soundEnabled
+            &&
+            Math.random()
+            <
+            .006*intensity
+        ){
+
+            noiseBurst(
+                .12,
+                .05
+            );
+
+        }
+
+    }
+
+    /* EARTHQUAKE */
+
+    if(
+        quakeActive
+    ){
+
+        quakeTime +=
+            delta;
+
+        updateSeismicWaves(
+            quakeTime,
+            quakeMagnitude
+        );
+
+        updateQuake(
+            quakeTime,
+            quakeMagnitude
+        );
+
+        focusSphere
+            .scale
+            .setScalar(
+                1
+                +
+                Math.sin(
+                    elapsed*14
+                )*.28
+            );
+
+        epicenter
+            .scale
+            .setScalar(
+                1
+                +
+                Math.sin(
+                    elapsed*10
+                )*.07
+            );
+
+        if(
+            quakeTime>8
+        ){
+
+            quakeActive =
+                false;
+
+            stopRumble();
+
+            leftBlock.position.set(
+                -3.2,
+                -.25,
+                0
+            );
+
+            rightBlock.position.set(
+                3.2,
+                -.25,
+                0
+            );
+
+            buildingGroup.children
+                .forEach(
+                    building=>{
+
+                        building.rotation.set(
+                            0,
+                            0,
+                            0
+                        );
+
+                    }
+                );
+
+        }
+
+    }
+
+    /* SELECTED */
+
+    if(
+        selectedObject
+    ){
+
+        pulseTime +=
+            delta*5;
+
+        const scale =
+            1
+            +
+            Math.sin(
+                pulseTime
+            )*.04;
+
+        selectedObject
+            .scale
+            .setScalar(
+                scale
+            );
+
+        if(
+            pulseTime
+            >
+            Math.PI*2
+        ){
+
+            selectedObject
+                .scale
+                .set(
+                    1,
+                    1,
+                    1
+                );
+
+            selectedObject =
+                null;
+
+        }
+
+    }
+
+    controls.update();
+
+    updateLabels();
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+animate();
+
+/* ==============================
+   RESIZE
+============================== */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        camera.aspect =
+            window.innerWidth
+            /
+            window.innerHeight;
+
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+
+        renderer.setPixelRatio(
+            Math.min(
+                window.devicePixelRatio,
+                2
+            )
+        );
+
+    }
+);
+
+setMode(
+    "volcano"
+);
+
+</script>
+
+<script>
+
+/* BACKGROUND EMBERS */
+
+const background =
+    document.getElementById(
+        "background"
+    );
+
+for(
+    let i=0;
+    i<80;
+    i++
+){
+
+    const ember =
+        document.createElement(
+            "div"
+        );
+
+    ember.className =
+        "ember";
+
+    const size =
+        Math.random()*4
+        +.5;
+
+    ember.style.width =
+        size+"px";
+
+    ember.style.height =
+        size+"px";
+
+    ember.style.left =
+        Math.random()*100
+        +"%";
+
+    ember.style.animationDelay =
+        Math.random()*8
+        +"s";
+
+    ember.style.animationDuration =
+        (
+            5
+            +
+            Math.random()*8
+        )
+        +"s";
+
+    background.appendChild(
+        ember
+    );
+
+}
+
+</script>
+
+</body>
+</html>

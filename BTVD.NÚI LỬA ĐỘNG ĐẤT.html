@@ -1,0 +1,5467 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Thử thách Núi lửa và Động đất | Địa lí 6
+</title>
+
+
+<style>
+
+/* =========================================================
+   01. HỆ MÀU
+========================================================= */
+
+:root {
+
+    --bg-1: #100f18;
+    --bg-2: #181521;
+    --bg-3: #211922;
+
+    --lava: #ff6a2b;
+    --lava-2: #ff9f43;
+    --magma: #ffcb52;
+
+    --earth: #7a5a45;
+    --rock: #3f444f;
+
+    --red: #ff6b61;
+    --green: #52d99b;
+
+    --blue: #57b9e8;
+    --cyan: #6ee7ef;
+
+    --purple: #9b75e8;
+
+    --white: #ffffff;
+    --text: #eee9e7;
+    --muted: #b4a9aa;
+
+    --line: rgba(255,255,255,.11);
+
+    --panel:
+        rgba(34,28,36,.90);
+
+    --panel-2:
+        rgba(54,42,44,.72);
+
+    --shadow:
+        0 20px 55px rgba(0,0,0,.38);
+
+    --radius:
+        22px;
+}
+
+
+/* =========================================================
+   02. RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:
+        var(--text);
+
+    line-height: 1.6;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 5%,
+            rgba(255,106,43,.16),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 8%,
+            rgba(87,185,232,.11),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(155,117,232,.10),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            145deg,
+            var(--bg-1),
+            var(--bg-2)
+        );
+
+    overflow-x: hidden;
+
+}
+
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: -1;
+
+    opacity: .08;
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8)
+            0 1px,
+            transparent 1.4px
+        );
+
+    background-size:
+        90px 90px;
+
+}
+
+
+button,
+textarea,
+select,
+input {
+
+    font: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+.container {
+
+    width:
+        min(
+            1160px,
+            92%
+        );
+
+    margin: auto;
+
+}
+
+
+section {
+
+    padding: 38px 0;
+
+}
+
+
+.card {
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(42,35,43,.92),
+            rgba(21,18,26,.94)
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+/* =========================================================
+   03. HEADER
+========================================================= */
+
+header {
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    border-bottom:
+        1px solid var(--line);
+
+    background:
+        rgba(12,11,17,.88);
+
+    backdrop-filter:
+        blur(16px);
+
+}
+
+
+.nav {
+
+    min-height: 70px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+}
+
+
+.brand {
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: 900;
+
+}
+
+
+.brand-icon {
+
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--lava),
+            #a73326
+        );
+
+    box-shadow:
+        0 0 25px rgba(255,106,43,.28);
+
+    font-size: 23px;
+
+}
+
+
+.hud {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+}
+
+
+.hud-item {
+
+    padding: 7px 11px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 999px;
+
+    color:
+        #d3c9c9;
+
+    background:
+        rgba(255,255,255,.035);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   04. HERO
+========================================================= */
+
+.hero {
+
+    padding:
+        66px 0 46px;
+
+    text-align: center;
+
+}
+
+
+.hero-badge {
+
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    padding:
+        7px 12px;
+
+    border:
+        1px solid rgba(255,159,67,.28);
+
+    border-radius: 999px;
+
+    color:
+        #ffd7a5;
+
+    background:
+        rgba(255,159,67,.065);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+.hero h1 {
+
+    max-width: 950px;
+
+    margin: auto;
+
+    font-size:
+
+        clamp(
+            40px,
+            6vw,
+            70px
+        );
+
+    line-height: 1.04;
+
+    letter-spacing: -2px;
+
+}
+
+
+.gradient {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--lava),
+            var(--magma),
+            var(--cyan)
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.hero p {
+
+    max-width: 790px;
+
+    margin:
+        18px auto 0;
+
+    color:
+        var(--muted);
+
+    font-size: 16px;
+
+}
+
+
+/* =========================================================
+   05. PROGRESS
+========================================================= */
+
+.progress-wrap {
+
+    max-width: 780px;
+
+    margin:
+        28px auto 0;
+
+}
+
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+
+    color:
+        #bdb2b1;
+
+    font-size: 11px;
+
+}
+
+
+.progress-track {
+
+    height: 13px;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+.progress-bar {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--lava),
+            var(--magma),
+            var(--cyan)
+        );
+
+    transition:
+        width .4s ease;
+
+}
+
+
+/* =========================================================
+   06. CHALLENGE
+========================================================= */
+
+.challenge-head {
+
+    display: grid;
+
+    grid-template-columns:
+        56px 1fr auto;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 22px;
+
+    border-bottom:
+        1px solid var(--line);
+
+}
+
+
+.challenge-number {
+
+    width: 54px;
+    height: 54px;
+
+    display: grid;
+    place-items: center;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 16px;
+
+    color:
+        #ffd59f;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,106,43,.20),
+            rgba(155,117,232,.11)
+        );
+
+    font-weight: 900;
+
+}
+
+
+.challenge-head h2 {
+
+    font-size: 23px;
+
+}
+
+
+.challenge-head p {
+
+    margin-top: 3px;
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+.level {
+
+    padding: 6px 9px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:
+        #c3b8b9;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+.challenge-body {
+
+    padding: 25px;
+
+}
+
+
+.instruction {
+
+    margin-bottom: 20px;
+
+    padding: 14px 16px;
+
+    border-left:
+        4px solid var(--lava-2);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,159,67,.055);
+
+    color:
+        #d9cbca;
+
+}
+
+
+/* =========================================================
+   07. BUTTONS
+========================================================= */
+
+.btn {
+
+    min-height: 43px;
+
+    padding:
+        10px 15px;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    color: white;
+
+    font-weight: bold;
+
+    transition: .2s;
+
+}
+
+
+.btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.btn-primary {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--lava),
+            #bf4030
+        );
+
+}
+
+
+.btn-secondary {
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(255,255,255,.04);
+
+}
+
+
+.button-row {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 16px;
+
+}
+
+
+/* =========================================================
+   08. FEEDBACK
+========================================================= */
+
+.feedback {
+
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 14px;
+
+    border-radius: 13px;
+
+}
+
+
+.feedback.correct {
+
+    display: block;
+
+    border:
+        1px solid rgba(82,217,155,.30);
+
+    background:
+        rgba(82,217,155,.075);
+
+    color:
+        #c9edde;
+
+}
+
+
+.feedback.wrong {
+
+    display: block;
+
+    border:
+        1px solid rgba(255,107,97,.30);
+
+    background:
+        rgba(255,107,97,.07);
+
+    color:
+        #f1cac7;
+
+}
+
+
+.feedback.info {
+
+    display: block;
+
+    border:
+        1px solid rgba(87,185,232,.27);
+
+    background:
+        rgba(87,185,232,.065);
+
+    color:
+        #c5dfe9;
+
+}
+
+
+/* =========================================================
+   09. CHALLENGE 1 - PHÂN LOẠI
+========================================================= */
+
+.event-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 14px;
+
+}
+
+
+.event-card {
+
+    padding: 19px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.028);
+
+}
+
+
+.event-icon {
+
+    font-size: 34px;
+
+}
+
+
+.event-card h3 {
+
+    margin:
+        8px 0 5px;
+
+}
+
+
+.event-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+.choice-row {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 7px;
+
+    margin-top: 12px;
+
+}
+
+
+.choice-row button {
+
+    min-height: 42px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 10px;
+
+    color:
+        #ddd4d3;
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+.choice-row button.good {
+
+    border-color:
+        var(--green);
+
+    background:
+        rgba(82,217,155,.10);
+
+}
+
+
+.choice-row button.bad {
+
+    border-color:
+        var(--red);
+
+    background:
+        rgba(255,107,97,.10);
+
+}
+
+
+/* =========================================================
+   10. VOLCANO DIAGRAM
+========================================================= */
+
+.volcano-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        1.05fr .95fr;
+
+    gap: 18px;
+
+}
+
+
+.volcano-model {
+
+    position: relative;
+
+    min-height: 420px;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 17px;
+
+    background:
+
+        linear-gradient(
+            #24323c 0 53%,
+            #594437 53%
+        );
+
+}
+
+
+.volcano-body {
+
+    position: absolute;
+
+    left: 15%;
+    right: 15%;
+
+    bottom: 95px;
+
+    height: 220px;
+
+    clip-path:
+
+        polygon(
+            50% 0,
+            100% 100%,
+            0 100%
+        );
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #55473f,
+            #806655,
+            #504139
+        );
+
+}
+
+
+.volcano-crater {
+
+    position: absolute;
+
+    width: 84px;
+    height: 28px;
+
+    left: 50%;
+    top: 87px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        #201d1d;
+
+    border:
+        4px solid #665248;
+
+}
+
+
+.volcano-conduit {
+
+    position: absolute;
+
+    width: 28px;
+    height: 215px;
+
+    left: 50%;
+
+    bottom: 68px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+
+        linear-gradient(
+            #ffad3c,
+            #ff5c28
+        );
+
+}
+
+
+.magma-chamber {
+
+    position: absolute;
+
+    width: 180px;
+    height: 70px;
+
+    left: 50%;
+
+    bottom: 35px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            #ffd256,
+            #ff792c 60%,
+            #e14027
+        );
+
+}
+
+
+.lava-flow {
+
+    position: absolute;
+
+    width: 160px;
+    height: 18px;
+
+    top: 146px;
+    left: 49%;
+
+    transform:
+        rotate(31deg);
+
+    border-radius: 999px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ffd64c,
+            #ff6128
+        );
+
+}
+
+
+.volcano-hotspot {
+
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    color:
+        #211207;
+
+    background:
+        var(--magma);
+
+    font-weight: bold;
+
+    box-shadow:
+        0 0 15px rgba(255,203,82,.45);
+
+}
+
+
+.hot-1 {
+
+    left: 47%;
+    top: 72px;
+
+}
+
+
+.hot-2 {
+
+    left: 48%;
+    top: 205px;
+
+}
+
+
+.hot-3 {
+
+    left: 41%;
+    bottom: 45px;
+
+}
+
+
+.hot-4 {
+
+    left: 72%;
+    top: 145px;
+
+}
+
+
+.volcano-question {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.volcano-question h3 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.volcano-answer {
+
+    padding: 10px;
+
+    margin: 7px 0;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 9px;
+
+    color:
+        #ddd4d2;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+/* =========================================================
+   11. SEQUENCE
+========================================================= */
+
+.sequence-bank {
+
+    display: grid;
+
+    gap: 9px;
+
+}
+
+
+.sequence-card {
+
+    padding: 13px 15px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    cursor: pointer;
+
+}
+
+
+.sequence-card.selected {
+
+    outline:
+        2px solid var(--magma);
+
+}
+
+
+.sequence-slots {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 10px;
+
+    margin-top: 17px;
+
+}
+
+
+.sequence-slot {
+
+    min-height: 155px;
+
+    padding: 12px;
+
+    border:
+        1px dashed rgba(255,255,255,.22);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.02);
+
+}
+
+
+.sequence-slot strong {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color:
+        #ffd69d;
+
+}
+
+
+/* =========================================================
+   12. EARTHQUAKE DIAGRAM
+========================================================= */
+
+.quake-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr .9fr;
+
+    gap: 18px;
+
+}
+
+
+.quake-model {
+
+    position: relative;
+
+    min-height: 390px;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 17px;
+
+    background:
+
+        linear-gradient(
+            #283640 0 27%,
+            #725a47 27% 57%,
+            #564638 57%
+        );
+
+}
+
+
+.surface-line {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 27%;
+
+    height: 4px;
+
+    background:
+        #d3bd8e;
+
+}
+
+
+.fault-line {
+
+    position: absolute;
+
+    width: 6px;
+    height: 300px;
+
+    left: 48%;
+    top: 70px;
+
+    transform:
+        rotate(24deg);
+
+    background:
+        #d76b58;
+
+}
+
+
+.focus-point {
+
+    position: absolute;
+
+    width: 25px;
+    height: 25px;
+
+    left: 52%;
+    top: 58%;
+
+    border-radius: 50%;
+
+    background:
+        #ff624e;
+
+    box-shadow:
+
+        0 0 0 12px rgba(255,98,78,.10),
+        0 0 0 26px rgba(255,98,78,.06);
+
+}
+
+
+.epicenter-point {
+
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    left: 52%;
+    top: 22%;
+
+    border-radius: 50%;
+
+    background:
+        var(--magma);
+
+    box-shadow:
+        0 0 16px rgba(255,203,82,.5);
+
+}
+
+
+.wave {
+
+    position: absolute;
+
+    border:
+        2px solid rgba(87,185,232,.6);
+
+    border-radius: 50%;
+}
+
+
+.wave1 {
+
+    width: 80px;
+    height: 80px;
+
+    left: 48%;
+    top: 52%;
+}
+
+
+.wave2 {
+
+    width: 140px;
+    height: 140px;
+
+    left: 44%;
+    top: 45%;
+}
+
+
+.quake-marker {
+
+    position: absolute;
+
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+    place-items: center;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    font-weight: bold;
+
+    color: #171016;
+
+    background:
+        var(--cyan);
+
+}
+
+
+.q1 {
+
+    left: 51%;
+    top: 18%;
+}
+
+
+.q2 {
+
+    left: 51%;
+    top: 55%;
+}
+
+
+.quake-question {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+/* =========================================================
+   13. SCENARIO
+========================================================= */
+
+.scenario-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 13px;
+
+}
+
+
+.scenario {
+
+    padding: 17px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.scenario-icon {
+
+    font-size: 31px;
+
+}
+
+
+.scenario h3 {
+
+    margin:
+        7px 0 5px;
+
+}
+
+
+.scenario p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+.scenario-options {
+
+    display: grid;
+
+    gap: 6px;
+
+    margin-top: 11px;
+
+}
+
+
+.scenario-options button {
+
+    padding: 9px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 9px;
+
+    color:
+        #dcd1d1;
+
+    text-align: left;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+/* =========================================================
+   14. PLATE REASONING
+========================================================= */
+
+.plate-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 13px;
+
+}
+
+
+.plate-card {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.plate-visual {
+
+    height: 110px;
+
+    position: relative;
+
+    margin-bottom: 11px;
+
+    overflow: hidden;
+
+    border-radius: 11px;
+
+    background:
+        #262832;
+
+}
+
+
+.plate-block {
+
+    position: absolute;
+
+    width: 45%;
+    height: 30px;
+
+    top: 40px;
+
+    background:
+        #665346;
+}
+
+
+.left-block {
+
+    left: 3%;
+
+}
+
+
+.right-block {
+
+    right: 3%;
+
+}
+
+
+.arrow {
+
+    position: absolute;
+
+    top: 20px;
+
+    font-size: 25px;
+
+    color:
+        var(--cyan);
+
+}
+
+
+.arrow-left {
+
+    left: 28%;
+}
+
+
+.arrow-right {
+
+    right: 28%;
+}
+
+
+.plate-card button {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    margin-top: 10px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 9px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+/* =========================================================
+   15. SAFETY
+========================================================= */
+
+.safety-list {
+
+    display: grid;
+
+    gap: 9px;
+
+}
+
+
+.safety-item {
+
+    padding: 14px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.safety-actions {
+
+    display: flex;
+
+    gap: 7px;
+
+    margin-top: 9px;
+
+}
+
+
+.safety-actions button {
+
+    min-width: 100px;
+
+    min-height: 40px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 9px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.035);
+
+}
+
+
+/* =========================================================
+   16. OPEN RESPONSE
+========================================================= */
+
+.reasoning-card {
+
+    padding: 18px;
+
+    margin-bottom: 13px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.reasoning-card h3 {
+
+    margin-bottom: 7px;
+
+}
+
+
+.reasoning-card p {
+
+    color:
+        #cfc3c2;
+
+}
+
+
+textarea {
+
+    width: 100%;
+
+    min-height: 115px;
+
+    margin-top: 12px;
+
+    padding: 13px;
+
+    resize: vertical;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    color: white;
+
+    background:
+        rgba(8,7,10,.48);
+
+}
+
+
+textarea:focus {
+
+    border-color:
+        var(--lava-2);
+
+}
+
+
+.hint {
+
+    display: none;
+
+    margin-top: 9px;
+
+    padding: 10px;
+
+    border:
+        1px solid rgba(255,203,82,.20);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,203,82,.055);
+
+    color:
+        #ddcba3;
+
+}
+
+
+/* =========================================================
+   17. FINAL
+========================================================= */
+
+.final {
+
+    padding:
+        44px 25px;
+
+    text-align: center;
+
+}
+
+
+.final-icon {
+
+    font-size: 62px;
+
+}
+
+
+.final-score {
+
+    margin:
+        12px 0;
+
+    color:
+        #ffd598;
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+}
+
+
+.final p {
+
+    max-width: 670px;
+
+    margin: auto;
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   18. RESPONSIVE
+========================================================= */
+
+@media(max-width:900px) {
+
+    .volcano-layout,
+    .quake-layout {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .event-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .scenario-grid,
+    .plate-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .sequence-slots {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+
+    .challenge-head {
+
+        grid-template-columns:
+            55px 1fr;
+
+    }
+
+
+    .level {
+
+        grid-column: 2;
+
+        justify-self: start;
+
+    }
+
+}
+
+
+@media(max-width:600px) {
+
+    .hud {
+
+        display: none;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 39px;
+
+    }
+
+
+    .sequence-slots {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .choice-row {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .challenge-head,
+    .challenge-body {
+
+        padding: 17px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+<div class="container nav">
+
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🌋
+        </div>
+
+        GEO HAZARD LAB
+
+    </div>
+
+
+    <div class="hud">
+
+
+        <div class="hud-item">
+
+            ⭐ XP:
+            <strong id="xp">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="hud-item">
+
+            ✅ Nhiệm vụ:
+            <strong id="completed">
+                0/8
+            </strong>
+
+        </div>
+
+
+        <div class="hud-item">
+
+            🏅 Cấp:
+            <strong id="rank">
+                Nhà quan sát
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+<div class="container">
+
+
+    <div class="hero-badge">
+
+        ĐỊA LÍ 6 • THỬ THÁCH TƯƠNG TÁC
+
+    </div>
+
+
+    <h1>
+
+        Giải mã
+
+        <span class="gradient">
+            Núi lửa & Động đất
+        </span>
+
+    </h1>
+
+
+    <p>
+
+        Nhận diện hiện tượng,
+        khám phá cấu tạo núi lửa,
+        xác định chấn tiêu – tâm chấn,
+        giải thích mối liên hệ với mảng kiến tạo
+        và lựa chọn cách ứng phó an toàn.
+
+    </p>
+
+
+    <div class="progress-wrap">
+
+
+        <div class="progress-info">
+
+            <span>
+                Tiến trình học tập
+            </span>
+
+            <span id="progressText">
+                0%
+            </span>
+
+        </div>
+
+
+        <div class="progress-track">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     01. NHẬN DIỆN
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            01
+        </div>
+
+
+        <div>
+
+            <h2>
+                Truy tìm hiện tượng địa chất
+            </h2>
+
+            <p>
+                Phân biệt núi lửa và động đất
+                từ dấu hiệu quan sát.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            NHẬN BIẾT → PHÂN TÍCH
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Đọc từng mô tả.
+            Hãy xác định hiện tượng
+            có liên quan chủ yếu đến
+            <strong>núi lửa</strong>
+            hay
+            <strong>động đất</strong>.
+
+        </div>
+
+
+        <div class="event-grid">
+
+
+            <div class="event-card">
+
+                <div class="event-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Hiện tượng A
+                </h3>
+
+                <p>
+
+                    Vật chất nóng chảy,
+                    khí và tro
+                    thoát từ bên trong Trái Đất
+                    lên bề mặt.
+
+                </p>
+
+
+                <div
+                    class="choice-row event-question"
+                    data-answer="volcano"
+                >
+
+                    <button data-value="volcano">
+                        🌋 Núi lửa
+                    </button>
+
+                    <button data-value="quake">
+                        🌎 Động đất
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="event-card">
+
+                <div class="event-icon">
+                    🏚
+                </div>
+
+                <h3>
+                    Hiện tượng B
+                </h3>
+
+                <p>
+
+                    Mặt đất rung chuyển
+                    đột ngột do năng lượng
+                    được giải phóng
+                    trong vỏ Trái Đất.
+
+                </p>
+
+
+                <div
+                    class="choice-row event-question"
+                    data-answer="quake"
+                >
+
+                    <button data-value="volcano">
+                        🌋 Núi lửa
+                    </button>
+
+                    <button data-value="quake">
+                        🌎 Động đất
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="event-card">
+
+                <div class="event-icon">
+                    🌫
+                </div>
+
+                <h3>
+                    Hiện tượng C
+                </h3>
+
+                <p>
+
+                    Tro bụi,
+                    dung nham,
+                    khí nóng
+                    có thể được phun ra
+                    từ miệng núi.
+
+                </p>
+
+
+                <div
+                    class="choice-row event-question"
+                    data-answer="volcano"
+                >
+
+                    <button data-value="volcano">
+                        🌋 Núi lửa
+                    </button>
+
+                    <button data-value="quake">
+                        🌎 Động đất
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="event-card">
+
+                <div class="event-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Hiện tượng D
+                </h3>
+
+                <p>
+
+                    Năng lượng từ một điểm
+                    trong lòng đất
+                    lan truyền ra xung quanh
+                    dưới dạng sóng địa chấn.
+
+                </p>
+
+
+                <div
+                    class="choice-row event-question"
+                    data-answer="quake"
+                >
+
+                    <button data-value="volcano">
+                        🌋 Núi lửa
+                    </button>
+
+                    <button data-value="quake">
+                        🌎 Động đất
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="eventFeedback"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     02. CẤU TẠO NÚI LỬA
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            02
+        </div>
+
+
+        <div>
+
+            <h2>
+                Giải phẫu một núi lửa
+            </h2>
+
+            <p>
+                Bấm đúng vị trí
+                của từng bộ phận.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            QUAN SÁT MÔ HÌNH
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Mô hình bên dưới
+            là sơ đồ khái quát.
+
+            Hãy xác định:
+            <strong>
+                miệng núi lửa,
+                ống dẫn,
+                buồng magma
+                và dòng dung nham.
+            </strong>
+
+        </div>
+
+
+        <div class="volcano-layout">
+
+
+            <div class="volcano-model">
+
+
+                <div class="volcano-body"></div>
+
+                <div class="volcano-conduit"></div>
+
+                <div class="magma-chamber"></div>
+
+                <div class="volcano-crater"></div>
+
+                <div class="lava-flow"></div>
+
+
+                <button
+                    class="volcano-hotspot hot-1"
+                    data-part="crater"
+                >
+                    1
+                </button>
+
+
+                <button
+                    class="volcano-hotspot hot-2"
+                    data-part="conduit"
+                >
+                    2
+                </button>
+
+
+                <button
+                    class="volcano-hotspot hot-3"
+                    data-part="chamber"
+                >
+                    3
+                </button>
+
+
+                <button
+                    class="volcano-hotspot hot-4"
+                    data-part="lava"
+                >
+                    4
+                </button>
+
+
+            </div>
+
+
+            <div class="volcano-question">
+
+
+                <h3 id="volcanoPrompt">
+                    Câu 1: Miệng núi lửa ở vị trí nào?
+                </h3>
+
+
+                <div
+                    class="feedback info"
+                    id="volcanoFeedback"
+                >
+
+                    Bấm một số trên mô hình.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Miệng núi lửa
+                    </strong>
+
+                    là nơi vật chất
+                    từ bên trong
+                    thoát ra bề mặt.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Ống dẫn
+                    </strong>
+
+                    là đường
+                    magma di chuyển
+                    lên trên.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Buồng magma
+                    </strong>
+
+                    là nơi magma
+                    tích tụ dưới sâu.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Dung nham
+                    </strong>
+
+                    là magma
+                    đã phun ra
+                    bề mặt.
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     03. TRÌNH TỰ PHUN TRÀO
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            03
+        </div>
+
+
+        <div>
+
+            <h2>
+                Chuỗi sự kiện phun trào
+            </h2>
+
+            <p>
+                Sắp xếp quá trình
+                theo logic nguyên nhân – kết quả.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            TRÌNH TỰ
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Chạm một thẻ,
+            rồi chạm vào vị trí
+            1 → 4 tương ứng.
+
+        </div>
+
+
+        <div
+            class="sequence-bank"
+            id="sequenceBank"
+        >
+
+
+            <div
+                class="sequence-card"
+                data-order="3"
+            >
+
+                🌋 Magma,
+                khí và tro
+                thoát lên qua miệng núi.
+
+            </div>
+
+
+            <div
+                class="sequence-card"
+                data-order="1"
+            >
+
+                🔥 Magma
+                tích tụ bên dưới
+                vỏ Trái Đất.
+
+            </div>
+
+
+            <div
+                class="sequence-card"
+                data-order="4"
+            >
+
+                🪨 Dung nham nguội đi,
+                tạo thêm vật liệu
+                trên bề mặt.
+
+            </div>
+
+
+            <div
+                class="sequence-card"
+                data-order="2"
+            >
+
+                ⬆ Áp suất
+                và lực đẩy
+                đưa magma
+                di chuyển lên trên.
+
+            </div>
+
+
+        </div>
+
+
+        <div class="sequence-slots">
+
+
+            <div
+                class="sequence-slot"
+                data-slot="1"
+            >
+
+                <strong>
+                    ① Bắt đầu
+                </strong>
+
+            </div>
+
+
+            <div
+                class="sequence-slot"
+                data-slot="2"
+            >
+
+                <strong>
+                    ② Tiếp theo
+                </strong>
+
+            </div>
+
+
+            <div
+                class="sequence-slot"
+                data-slot="3"
+            >
+
+                <strong>
+                    ③ Phun trào
+                </strong>
+
+            </div>
+
+
+            <div
+                class="sequence-slot"
+                data-slot="4"
+            >
+
+                <strong>
+                    ④ Sau phun trào
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="btn btn-primary"
+                id="checkSequence"
+            >
+                Kiểm tra
+            </button>
+
+
+            <button
+                class="btn btn-secondary"
+                id="resetSequence"
+            >
+                Làm lại
+            </button>
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="sequenceFeedback"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     04. CHẤN TIÊU - TÂM CHẤN
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            04
+        </div>
+
+
+        <div>
+
+            <h2>
+                Truy tìm nguồn động đất
+            </h2>
+
+            <p>
+                Phân biệt chấn tiêu
+                và tâm chấn.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            KHÁI NIỆM → KHÔNG GIAN
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Hãy xác định:
+
+            <strong>
+                chấn tiêu
+            </strong>
+            là điểm phát sinh động đất
+            trong lòng đất,
+
+            còn
+
+            <strong>
+                tâm chấn
+            </strong>
+            là điểm trên bề mặt
+            nằm gần như thẳng đứng
+            phía trên chấn tiêu.
+
+        </div>
+
+
+        <div class="quake-layout">
+
+
+            <div class="quake-model">
+
+
+                <div class="surface-line"></div>
+
+                <div class="fault-line"></div>
+
+                <div class="focus-point"></div>
+
+                <div class="epicenter-point"></div>
+
+                <div class="wave wave1"></div>
+
+                <div class="wave wave2"></div>
+
+
+                <button
+                    class="quake-marker q1"
+                    data-point="epicenter"
+                >
+                    A
+                </button>
+
+
+                <button
+                    class="quake-marker q2"
+                    data-point="focus"
+                >
+                    B
+                </button>
+
+
+            </div>
+
+
+            <div class="quake-question">
+
+
+                <h3 id="quakePrompt">
+                    Bấm vào vị trí của CHẤN TIÊU.
+                </h3>
+
+
+                <div
+                    class="feedback info"
+                    id="quakeFeedback"
+                >
+
+                    Hãy bấm A hoặc B.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Chấn tiêu
+                    </strong>
+
+                    nằm bên trong Trái Đất,
+                    nơi năng lượng
+                    được giải phóng.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Tâm chấn
+                    </strong>
+
+                    nằm trên bề mặt,
+                    phía trên chấn tiêu.
+
+                </div>
+
+
+                <div class="volcano-answer">
+
+                    <strong>
+                        Sóng địa chấn
+                    </strong>
+
+                    truyền năng lượng
+                    từ khu vực phát sinh
+                    ra xung quanh.
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     05. TÌNH HUỐNG ĐỘNG ĐẤT
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            05
+        </div>
+
+
+        <div>
+
+            <h2>
+                Bác sĩ địa chất
+            </h2>
+
+            <p>
+                Đọc dấu hiệu
+                và đưa ra nhận định.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            SUY LUẬN
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Mỗi tình huống
+            có một dữ kiện quan trọng.
+
+            Chọn cách giải thích
+            hợp lí nhất.
+
+        </div>
+
+
+        <div class="scenario-grid">
+
+
+            <!-- 1 -->
+
+            <div class="scenario">
+
+
+                <div class="scenario-icon">
+                    🏠
+                </div>
+
+
+                <h3>
+                    Tình huống A
+                </h3>
+
+
+                <p>
+
+                    Nhà cửa rung lắc mạnh
+                    trong vài chục giây,
+                    nhưng không có
+                    dung nham hay tro bụi.
+
+                </p>
+
+
+                <div
+                    class="scenario-options"
+                    data-answer="quake"
+                >
+
+                    <button data-value="quake">
+                        Đây có thể là động đất.
+                    </button>
+
+                    <button data-value="volcano">
+                        Chắc chắn là núi lửa.
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- 2 -->
+
+            <div class="scenario">
+
+
+                <div class="scenario-icon">
+                    🌋
+                </div>
+
+
+                <h3>
+                    Tình huống B
+                </h3>
+
+
+                <p>
+
+                    Một ngọn núi
+                    phun tro,
+                    khí nóng
+                    và dòng dung nham.
+
+                </p>
+
+
+                <div
+                    class="scenario-options"
+                    data-answer="volcano"
+                >
+
+                    <button data-value="quake">
+                        Đây chỉ là động đất.
+                    </button>
+
+                    <button data-value="volcano">
+                        Đây là hoạt động núi lửa.
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- 3 -->
+
+            <div class="scenario">
+
+
+                <div class="scenario-icon">
+                    🌊
+                </div>
+
+
+                <h3>
+                    Tình huống C
+                </h3>
+
+
+                <p>
+
+                    Một trận động đất lớn
+                    xảy ra dưới đáy biển,
+                    làm khối nước bị dịch chuyển mạnh.
+
+                </p>
+
+
+                <div
+                    class="scenario-options"
+                    data-answer="tsunami"
+                >
+
+                    <button data-value="rain">
+                        Chỉ có thể gây mưa lớn.
+                    </button>
+
+                    <button data-value="tsunami">
+                        Có khả năng tạo sóng thần
+                        nếu đủ điều kiện.
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="scenarioFeedback"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     06. MẢNG KIẾN TẠO
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            06
+        </div>
+
+
+        <div>
+
+            <h2>
+                Mật mã mảng kiến tạo
+            </h2>
+
+            <p>
+                Liên hệ núi lửa,
+                động đất
+                với chuyển động mảng.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            GIẢI THÍCH NGUYÊN NHÂN
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Núi lửa và động đất
+            thường tập trung mạnh
+            gần ranh giới
+            các mảng kiến tạo.
+
+            Chọn nhận định
+            hợp lí nhất
+            cho từng mô hình.
+
+        </div>
+
+
+        <div class="plate-grid">
+
+
+            <!-- CONVERGENT -->
+
+            <div class="plate-card">
+
+
+                <div class="plate-visual">
+
+                    <div class="plate-block left-block"></div>
+
+                    <div class="plate-block right-block"></div>
+
+                    <div class="arrow arrow-left">
+                        →
+                    </div>
+
+                    <div class="arrow arrow-right">
+                        ←
+                    </div>
+
+                </div>
+
+
+                <h3>
+                    Hai mảng tiến lại gần
+                </h3>
+
+
+                <p>
+
+                    Lực nén lớn,
+                    có thể gây biến dạng,
+                    hút chìm
+                    và hoạt động địa chất mạnh.
+
+                </p>
+
+
+                <button
+                    data-plate-answer="true"
+                >
+
+                    Có thể liên quan
+                    động đất và núi lửa mạnh.
+
+                </button>
+
+
+            </div>
+
+
+            <!-- DIVERGENT -->
+
+            <div class="plate-card">
+
+
+                <div class="plate-visual">
+
+                    <div class="plate-block left-block"></div>
+
+                    <div class="plate-block right-block"></div>
+
+                    <div
+                        class="arrow arrow-left"
+                        style="transform:rotate(180deg)"
+                    >
+                        →
+                    </div>
+
+                    <div
+                        class="arrow arrow-right"
+                        style="transform:rotate(180deg)"
+                    >
+                        ←
+                    </div>
+
+                </div>
+
+
+                <h3>
+                    Hai mảng tách xa
+                </h3>
+
+
+                <p>
+
+                    Vật chất nóng
+                    từ sâu bên dưới
+                    có thể dâng lên
+                    tạo vỏ mới.
+
+                </p>
+
+
+                <button
+                    data-plate-answer="true"
+                >
+
+                    Có thể xuất hiện
+                    núi lửa và động đất.
+
+                </button>
+
+
+            </div>
+
+
+            <!-- INTERIOR -->
+
+            <div class="plate-card">
+
+
+                <div class="plate-visual">
+
+                    <div
+                        class="plate-block"
+                        style="
+                        width:90%;
+                        left:5%;
+                        "
+                    ></div>
+
+                </div>
+
+
+                <h3>
+                    Sâu trong lòng mảng
+                </h3>
+
+
+                <p>
+
+                    Không nằm trực tiếp
+                    trên một ranh giới mảng.
+
+                </p>
+
+
+                <button
+                    data-plate-answer="false"
+                >
+
+                    Không thể khẳng định
+                    nơi này tuyệt đối
+                    không bao giờ có động đất.
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="plateFeedback"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     07. AN TOÀN
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            07
+        </div>
+
+
+        <div>
+
+            <h2>
+                Phòng điều hành khẩn cấp
+            </h2>
+
+            <p>
+                Chọn hành động
+                an toàn hơn khi động đất.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            VẬN DỤNG THỰC TIỄN
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <div class="instruction">
+
+            Hãy đánh giá
+            mỗi hành động
+            là
+
+            <strong>
+                NÊN
+            </strong>
+
+            hay
+
+            <strong>
+                KHÔNG NÊN
+            </strong>
+
+            trong tình huống động đất.
+
+        </div>
+
+
+        <div class="safety-list">
+
+
+            <div
+                class="safety-item"
+                data-correct="yes"
+            >
+
+                <strong>
+                    1.
+                </strong>
+
+                Nếu đang ở trong nhà,
+                cúi thấp,
+                che đầu và cổ,
+                trú dưới bàn chắc
+                nếu phù hợp.
+
+                <div class="safety-actions">
+
+                    <button data-value="yes">
+                        ✅ Nên
+                    </button>
+
+                    <button data-value="no">
+                        ❌ Không nên
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="safety-item"
+                data-correct="no"
+            >
+
+                <strong>
+                    2.
+                </strong>
+
+                Khi đang rung lắc mạnh,
+                chạy ngay vào thang máy
+                để thoát nhanh.
+
+                <div class="safety-actions">
+
+                    <button data-value="yes">
+                        ✅ Nên
+                    </button>
+
+                    <button data-value="no">
+                        ❌ Không nên
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="safety-item"
+                data-correct="yes"
+            >
+
+                <strong>
+                    3.
+                </strong>
+
+                Nếu ở ngoài trời,
+                tránh xa tường,
+                kính,
+                cột điện
+                và vật có thể rơi.
+
+                <div class="safety-actions">
+
+                    <button data-value="yes">
+                        ✅ Nên
+                    </button>
+
+                    <button data-value="no">
+                        ❌ Không nên
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="safety-item"
+                data-correct="no"
+            >
+
+                <strong>
+                    4.
+                </strong>
+
+                Đứng sát cửa kính
+                để quan sát bên ngoài.
+
+                <div class="safety-actions">
+
+                    <button data-value="yes">
+                        ✅ Nên
+                    </button>
+
+                    <button data-value="no">
+                        ❌ Không nên
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="safetyFeedback"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     08. VẬN DỤNG CAO
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+
+    <div class="challenge-head">
+
+
+        <div class="challenge-number">
+            08
+        </div>
+
+
+        <div>
+
+            <h2>
+                Nhà khoa học địa chất trẻ
+            </h2>
+
+            <p>
+                Giải thích bằng lập luận,
+                không chỉ nhớ khái niệm.
+            </p>
+
+        </div>
+
+
+        <div class="level">
+            TƯ DUY BẬC CAO
+        </div>
+
+
+    </div>
+
+
+    <div class="challenge-body">
+
+
+        <!-- Q1 -->
+
+        <div class="reasoning-card">
+
+
+            <h3>
+                🧠 Câu 1
+            </h3>
+
+
+            <p>
+
+                Một học sinh nói:
+
+                <strong>
+                    “Núi lửa chỉ có hại.”
+                </strong>
+
+                <br><br>
+
+                Em có đồng ý không?
+
+                Hãy nêu
+                cả mặt nguy hiểm
+                và một số lợi ích
+                có thể có
+                của hoạt động núi lửa.
+
+            </p>
+
+
+            <textarea
+                id="reason1"
+                placeholder="Viết câu trả lời..."
+            ></textarea>
+
+
+            <div class="button-row">
+
+                <button
+                    class="btn btn-secondary hint-btn"
+                    data-hint="hint1"
+                >
+                    💡 Gợi ý
+                </button>
+
+            </div>
+
+
+            <div
+                class="hint"
+                id="hint1"
+            >
+
+                Nghĩ đến:
+                dung nham,
+                tro nóng,
+                khí độc,
+                thiệt hại...
+
+                nhưng cũng có
+                đất bazan màu mỡ,
+                địa nhiệt,
+                cảnh quan,
+                khoáng sản.
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Q2 -->
+
+        <div class="reasoning-card">
+
+
+            <h3>
+                🧠 Câu 2
+            </h3>
+
+
+            <p>
+
+                Vì sao
+                hai địa điểm
+                cùng cách tâm chấn
+                gần như nhau
+                vẫn có thể
+                chịu mức thiệt hại khác nhau?
+
+            </p>
+
+
+            <textarea
+                id="reason2"
+                placeholder="Gợi ý: công trình, nền đất, độ sâu chấn tiêu..."
+            ></textarea>
+
+
+        </div>
+
+
+        <!-- Q3 -->
+
+        <div class="reasoning-card">
+
+
+            <h3>
+                🧠 Câu 3
+            </h3>
+
+
+            <p>
+
+                Một khu vực
+                nằm gần ranh giới
+                hai mảng kiến tạo.
+
+                Có thể kết luận
+                chắc chắn rằng
+                ngày mai sẽ xảy ra
+                một trận động đất lớn
+                hay không?
+
+                Vì sao?
+
+            </p>
+
+
+            <textarea
+                id="reason3"
+                placeholder="Viết lập luận của em..."
+            ></textarea>
+
+
+            <div class="button-row">
+
+                <button
+                    class="btn btn-secondary hint-btn"
+                    data-hint="hint3"
+                >
+                    💡 Gợi ý
+                </button>
+
+            </div>
+
+
+            <div
+                class="hint"
+                id="hint3"
+            >
+
+                Nguy cơ cao
+                không đồng nghĩa
+                với dự đoán chính xác
+                thời điểm xảy ra.
+
+            </div>
+
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="btn btn-primary"
+                id="evaluateReasoning"
+            >
+
+                Phân tích câu trả lời
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="reasonFeedback"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="card final">
+
+
+    <div class="final-icon">
+        🏆
+    </div>
+
+
+    <h2>
+        HOÀN THÀNH GEO HAZARD LAB
+    </h2>
+
+
+    <div
+        class="final-score"
+        id="finalScore"
+    >
+        0 XP
+    </div>
+
+
+    <p id="finalText">
+
+        Hoàn thành các nhiệm vụ
+        để nhận đánh giá cuối bài.
+
+    </p>
+
+
+    <div
+        class="button-row"
+        style="justify-content:center"
+    >
+
+        <button
+            class="btn btn-primary"
+            id="showResult"
+        >
+            Xem đánh giá
+        </button>
+
+
+        <button
+            class="btn btn-secondary"
+            id="restart"
+        >
+            Làm lại toàn bộ
+        </button>
+
+    </div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   01. STATE
+========================================================= */
+
+let xp =
+    0;
+
+
+const completed =
+    new Set();
+
+
+const TOTAL =
+    8;
+
+
+function completeTask(
+    id,
+    points
+) {
+
+    if(
+        completed.has(id)
+    ) {
+
+        return;
+
+    }
+
+
+    completed.add(id);
+
+    xp +=
+        points;
+
+
+    updateHud();
+
+}
+
+
+/* =========================================================
+   02. HUD
+========================================================= */
+
+function updateHud() {
+
+
+    document
+        .getElementById(
+            "xp"
+        )
+        .textContent =
+            xp;
+
+
+    document
+        .getElementById(
+            "completed"
+        )
+        .textContent =
+            completed.size +
+            "/" +
+            TOTAL;
+
+
+    const percent =
+        Math.round(
+
+            completed.size /
+            TOTAL *
+            100
+
+        );
+
+
+    document
+        .getElementById(
+            "progressBar"
+        )
+        .style
+        .width =
+            percent +
+            "%";
+
+
+    document
+        .getElementById(
+            "progressText"
+        )
+        .textContent =
+            percent +
+            "%";
+
+
+    document
+        .getElementById(
+            "finalScore"
+        )
+        .textContent =
+            xp +
+            " XP";
+
+
+    let rank =
+        "Nhà quan sát";
+
+
+    if(
+        completed.size >=
+        3
+    ) {
+
+        rank =
+            "Nhà địa chất trẻ";
+
+    }
+
+
+    if(
+        completed.size >=
+        6
+    ) {
+
+        rank =
+            "Chuyên gia thiên tai";
+
+    }
+
+
+    if(
+        completed.size ===
+        TOTAL
+    ) {
+
+        rank =
+            "Bậc thầy địa chất";
+
+    }
+
+
+    document
+        .getElementById(
+            "rank"
+        )
+        .textContent =
+            rank;
+
+}
+
+
+/* =========================================================
+   03. CHALLENGE 1
+========================================================= */
+
+const eventDone =
+    new Set();
+
+
+document
+    .querySelectorAll(
+        ".event-question"
+    )
+    .forEach(
+        group => {
+
+
+            group
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    button => {
+
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+
+                                if(
+                                    eventDone.has(
+                                        group
+                                    )
+                                ) {
+
+                                    return;
+
+                                }
+
+
+                                if(
+                                    this.dataset.value ===
+                                    group.dataset.answer
+                                ) {
+
+
+                                    this.classList.add(
+                                        "good"
+                                    );
+
+
+                                    eventDone.add(
+                                        group
+                                    );
+
+
+                                    if(
+                                        eventDone.size ===
+                                        4
+                                    ) {
+
+
+                                        const feedback =
+                                            document.getElementById(
+                                                "eventFeedback"
+                                            );
+
+
+                                        feedback.className =
+                                            "feedback correct";
+
+
+                                        feedback.innerHTML = `
+
+                                            ✅ Hoàn thành.
+
+                                            <br><br>
+
+                                            <strong>Núi lửa</strong>
+                                            liên quan đến
+                                            magma,
+                                            dung nham,
+                                            khí và tro.
+
+                                            <br><br>
+
+                                            <strong>Động đất</strong>
+                                            là sự rung chuyển
+                                            do năng lượng
+                                            được giải phóng
+                                            trong Trái Đất
+                                            và truyền đi
+                                            dưới dạng sóng địa chấn.
+
+                                        `;
+
+
+                                        completeTask(
+                                            "event",
+                                            110
+                                        );
+
+                                    }
+
+                                }
+
+                                else {
+
+
+                                    this.classList.add(
+                                        "bad"
+                                    );
+
+
+                                    setTimeout(
+                                        () => {
+
+                                            this.classList.remove(
+                                                "bad"
+                                            );
+
+                                        },
+                                        650
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+
+/* =========================================================
+   04. VOLCANO PARTS
+========================================================= */
+
+const volcanoQuestions = [
+
+    {
+        text:
+            "Câu 1: Miệng núi lửa ở vị trí nào?",
+        answer:
+            "crater"
+    },
+
+    {
+        text:
+            "Câu 2: Ống dẫn magma ở vị trí nào?",
+        answer:
+            "conduit"
+    },
+
+    {
+        text:
+            "Câu 3: Buồng magma ở vị trí nào?",
+        answer:
+            "chamber"
+    },
+
+    {
+        text:
+            "Câu 4: Dòng dung nham ở vị trí nào?",
+        answer:
+            "lava"
+    }
+
+];
+
+
+let volcanoIndex =
+    0;
+
+
+document
+    .querySelectorAll(
+        ".volcano-hotspot"
+    )
+    .forEach(
+        button => {
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    if(
+                        volcanoIndex >=
+                        volcanoQuestions.length
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const question =
+                        volcanoQuestions[
+                            volcanoIndex
+                        ];
+
+
+                    const feedback =
+                        document.getElementById(
+                            "volcanoFeedback"
+                        );
+
+
+                    if(
+                        this.dataset.part ===
+                        question.answer
+                    ) {
+
+
+                        feedback.className =
+                            "feedback correct";
+
+
+                        feedback.textContent =
+                            "✅ Chính xác.";
+
+
+                        volcanoIndex++;
+
+
+                        if(
+                            volcanoIndex ===
+                            volcanoQuestions.length
+                        ) {
+
+
+                            document.getElementById(
+                                "volcanoPrompt"
+                            ).textContent =
+                                "Hoàn thành cấu tạo núi lửa!";
+
+
+                            feedback.innerHTML = `
+
+                                ✅ Em đã xác định đúng
+                                4 bộ phận cơ bản.
+
+                                <br><br>
+
+                                Hãy nhớ:
+
+                                <strong>
+                                    magma
+                                </strong>
+                                ở bên dưới;
+
+                                khi vật chất nóng chảy
+                                ra tới bề mặt,
+                                ta gọi là
+
+                                <strong>
+                                    dung nham.
+                                </strong>
+
+                            `;
+
+
+                            completeTask(
+                                "volcano",
+                                130
+                            );
+
+                        }
+
+                        else {
+
+
+                            document.getElementById(
+                                "volcanoPrompt"
+                            ).textContent =
+                                volcanoQuestions[
+                                    volcanoIndex
+                                ].text;
+
+                        }
+
+                    }
+
+                    else {
+
+
+                        feedback.className =
+                            "feedback wrong";
+
+
+                        feedback.textContent =
+                            "❌ Chưa đúng. Quan sát lại mô hình.";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   05. SEQUENCE
+========================================================= */
+
+let selectedSequence =
+    null;
+
+
+document
+    .querySelectorAll(
+        ".sequence-card"
+    )
+    .forEach(
+        card => {
+
+
+            card.addEventListener(
+                "click",
+                function () {
+
+
+                    document
+                        .querySelectorAll(
+                            ".sequence-card"
+                        )
+                        .forEach(
+                            item =>
+                                item.classList.remove(
+                                    "selected"
+                                )
+                        );
+
+
+                    selectedSequence =
+                        this;
+
+
+                    this.classList.add(
+                        "selected"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        ".sequence-slot"
+    )
+    .forEach(
+        slot => {
+
+
+            slot.addEventListener(
+                "click",
+                function () {
+
+
+                    if(
+                        !selectedSequence
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    this.appendChild(
+                        selectedSequence
+                    );
+
+
+                    selectedSequence.classList.remove(
+                        "selected"
+                    );
+
+
+                    selectedSequence =
+                        null;
+
+                }
+            );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "checkSequence"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            let correct =
+                0;
+
+
+            document
+                .querySelectorAll(
+                    ".sequence-card"
+                )
+                .forEach(
+                    card => {
+
+
+                        const slot =
+                            card.closest(
+                                ".sequence-slot"
+                            );
+
+
+                        if(
+                            slot &&
+                            slot.dataset.slot ===
+                            card.dataset.order
+                        ) {
+
+                            correct++;
+
+                        }
+
+                    }
+                );
+
+
+            const feedback =
+                document.getElementById(
+                    "sequenceFeedback"
+                );
+
+
+            if(
+                correct ===
+                4
+            ) {
+
+
+                feedback.className =
+                    "feedback correct";
+
+
+                feedback.innerHTML = `
+
+                    ✅ Đúng trình tự.
+
+                    <br><br>
+
+                    <strong>
+                    Magma tích tụ
+                    → magma di chuyển lên
+                    → phun trào
+                    → dung nham nguội.
+                    </strong>
+
+                    <br><br>
+
+                    Đây là mô hình khái quát;
+                    thực tế mỗi núi lửa
+                    có thể có cơ chế
+                    và kiểu phun trào khác nhau.
+
+                `;
+
+
+                completeTask(
+                    "sequence",
+                    130
+                );
+
+            }
+
+            else {
+
+
+                feedback.className =
+                    "feedback wrong";
+
+
+                feedback.innerHTML = `
+
+                    ❌ Hiện có
+                    <strong>${correct}/4</strong>
+                    vị trí đúng.
+
+                `;
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "resetSequence"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            const bank =
+                document.getElementById(
+                    "sequenceBank"
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".sequence-card"
+                )
+                .forEach(
+                    card => {
+
+
+                        card.classList.remove(
+                            "selected"
+                        );
+
+
+                        bank.appendChild(
+                            card
+                        );
+
+                    }
+                );
+
+
+            selectedSequence =
+                null;
+
+
+            document.getElementById(
+                "sequenceFeedback"
+            ).className =
+                "feedback";
+
+        }
+    );
+
+
+/* =========================================================
+   06. QUAKE FOCUS / EPICENTER
+========================================================= */
+
+let quakeStage =
+    0;
+
+
+const quakeStages = [
+
+    {
+        question:
+            "Bấm vào vị trí của CHẤN TIÊU.",
+        answer:
+            "focus"
+    },
+
+    {
+        question:
+            "Bấm vào vị trí của TÂM CHẤN.",
+        answer:
+            "epicenter"
+    }
+
+];
+
+
+document
+    .querySelectorAll(
+        ".quake-marker"
+    )
+    .forEach(
+        button => {
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    if(
+                        quakeStage >=
+                        quakeStages.length
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const current =
+                        quakeStages[
+                            quakeStage
+                        ];
+
+
+                    const feedback =
+                        document.getElementById(
+                            "quakeFeedback"
+                        );
+
+
+                    if(
+                        this.dataset.point ===
+                        current.answer
+                    ) {
+
+
+                        feedback.className =
+                            "feedback correct";
+
+
+                        feedback.textContent =
+                            "✅ Chính xác.";
+
+
+                        quakeStage++;
+
+
+                        if(
+                            quakeStage ===
+                            2
+                        ) {
+
+
+                            document.getElementById(
+                                "quakePrompt"
+                            ).textContent =
+                                "Hoàn thành!";
+
+
+                            feedback.innerHTML = `
+
+                                ✅ Em đã phân biệt đúng.
+
+                                <br><br>
+
+                                <strong>Chấn tiêu:</strong>
+                                điểm phát sinh động đất
+                                trong lòng đất.
+
+                                <br>
+
+                                <strong>Tâm chấn:</strong>
+                                điểm trên mặt đất
+                                phía trên chấn tiêu.
+
+                            `;
+
+
+                            completeTask(
+                                "quake",
+                                140
+                            );
+
+                        }
+
+                        else {
+
+
+                            document.getElementById(
+                                "quakePrompt"
+                            ).textContent =
+                                quakeStages[
+                                    quakeStage
+                                ].question;
+
+                        }
+
+                    }
+
+                    else {
+
+
+                        feedback.className =
+                            "feedback wrong";
+
+
+                        feedback.textContent =
+                            "❌ Chưa chính xác.";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   07. SCENARIO
+========================================================= */
+
+const scenarioDone =
+    new Set();
+
+
+document
+    .querySelectorAll(
+        ".scenario-options"
+    )
+    .forEach(
+        group => {
+
+
+            group
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    button => {
+
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+
+                                if(
+                                    scenarioDone.has(
+                                        group
+                                    )
+                                ) {
+
+                                    return;
+
+                                }
+
+
+                                if(
+                                    this.dataset.value ===
+                                    group.dataset.answer
+                                ) {
+
+
+                                    scenarioDone.add(
+                                        group
+                                    );
+
+
+                                    this.style.borderColor =
+                                        "var(--green)";
+
+
+                                    this.style.background =
+                                        "rgba(82,217,155,.10)";
+
+
+                                    if(
+                                        scenarioDone.size ===
+                                        3
+                                    ) {
+
+
+                                        const feedback =
+                                            document.getElementById(
+                                                "scenarioFeedback"
+                                            );
+
+
+                                        feedback.className =
+                                            "feedback correct";
+
+
+                                        feedback.innerHTML = `
+
+                                            ✅ Hoàn thành.
+
+                                            <br><br>
+
+                                            Lưu ý:
+                                            một trận động đất
+                                            dưới đáy biển
+                                            <strong>
+                                                không phải lúc nào
+                                                cũng gây sóng thần.
+                                            </strong>
+
+                                            Nó còn phụ thuộc
+                                            độ lớn,
+                                            độ sâu,
+                                            kiểu dịch chuyển đáy biển
+                                            và nhiều yếu tố khác.
+
+                                        `;
+
+
+                                        completeTask(
+                                            "scenario",
+                                            140
+                                        );
+
+                                    }
+
+                                }
+
+                                else {
+
+
+                                    const feedback =
+                                        document.getElementById(
+                                            "scenarioFeedback"
+                                        );
+
+
+                                    feedback.className =
+                                        "feedback wrong";
+
+
+                                    feedback.textContent =
+                                        "❌ Hãy đọc lại dữ kiện của tình huống.";
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+
+/* =========================================================
+   08. PLATE
+========================================================= */
+
+const plateButtons =
+    document.querySelectorAll(
+        "[data-plate-answer]"
+    );
+
+
+let plateCount =
+    0;
+
+
+plateButtons.forEach(
+    button => {
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+
+                if(
+                    this.dataset.done ===
+                    "yes"
+                ) {
+
+                    return;
+
+                }
+
+
+                this.dataset.done =
+                    "yes";
+
+
+                this.style.borderColor =
+                    "var(--green)";
+
+
+                this.style.background =
+                    "rgba(82,217,155,.10)";
+
+
+                plateCount++;
+
+
+                if(
+                    plateCount ===
+                    plateButtons.length
+                ) {
+
+
+                    const feedback =
+                        document.getElementById(
+                            "plateFeedback"
+                        );
+
+
+                    feedback.className =
+                        "feedback correct";
+
+
+                    feedback.innerHTML = `
+
+                        ✅ Chính xác.
+
+                        <br><br>
+
+                        Nhiều động đất
+                        và núi lửa
+                        tập trung dọc
+                        ranh giới mảng,
+                        nhưng không nên hiểu
+                        rằng mọi động đất
+                        đều chỉ xảy ra
+                        đúng trên đường ranh giới.
+
+                    `;
+
+
+                    completeTask(
+                        "plates",
+                        150
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   09. SAFETY
+========================================================= */
+
+const safetyDone =
+    new Set();
+
+
+document
+    .querySelectorAll(
+        ".safety-item"
+    )
+    .forEach(
+        item => {
+
+
+            item
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    button => {
+
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+
+                                if(
+                                    safetyDone.has(
+                                        item
+                                    )
+                                ) {
+
+                                    return;
+
+                                }
+
+
+                                const feedback =
+                                    document.getElementById(
+                                        "safetyFeedback"
+                                    );
+
+
+                                if(
+                                    this.dataset.value ===
+                                    item.dataset.correct
+                                ) {
+
+
+                                    safetyDone.add(
+                                        item
+                                    );
+
+
+                                    this.style.borderColor =
+                                        "var(--green)";
+
+
+                                    this.style.background =
+                                        "rgba(82,217,155,.10)";
+
+
+                                    if(
+                                        safetyDone.size ===
+                                        4
+                                    ) {
+
+
+                                        feedback.className =
+                                            "feedback correct";
+
+
+                                        feedback.innerHTML = `
+
+                                            ✅ Hoàn thành.
+
+                                            <br><br>
+
+                                            Nguyên tắc quan trọng
+                                            khi động đất:
+
+                                            <strong>
+                                            giữ bình tĩnh,
+                                            che đầu – cổ,
+                                            tránh kính
+                                            và vật có thể rơi,
+                                            không dùng thang máy
+                                            khi đang rung lắc.
+                                            </strong>
+
+                                        `;
+
+
+                                        completeTask(
+                                            "safety",
+                                            160
+                                        );
+
+                                    }
+
+                                }
+
+                                else {
+
+
+                                    feedback.className =
+                                        "feedback wrong";
+
+
+                                    feedback.textContent =
+                                        "❌ Hành động này chưa an toàn.";
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+
+/* =========================================================
+   10. HINT
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".hint-btn"
+    )
+    .forEach(
+        button => {
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    document.getElementById(
+                        this.dataset.hint
+                    ).style.display =
+                        "block";
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   11. REASONING
+========================================================= */
+
+function containsAny(
+    text,
+    words
+) {
+
+
+    const lower =
+        text.toLowerCase();
+
+
+    return words.some(
+        word =>
+            lower.includes(
+                word
+            )
+    );
+
+}
+
+
+document
+    .getElementById(
+        "evaluateReasoning"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            const a1 =
+                document.getElementById(
+                    "reason1"
+                ).value.trim();
+
+
+            const a2 =
+                document.getElementById(
+                    "reason2"
+                ).value.trim();
+
+
+            const a3 =
+                document.getElementById(
+                    "reason3"
+                ).value.trim();
+
+
+            const feedback =
+                document.getElementById(
+                    "reasonFeedback"
+                );
+
+
+            if(
+                a1.length < 45 ||
+                a2.length < 45 ||
+                a3.length < 45
+            ) {
+
+
+                feedback.className =
+                    "feedback wrong";
+
+
+                feedback.innerHTML = `
+
+                    ⚠ Câu trả lời
+                    còn quá ngắn.
+
+                    <br><br>
+
+                    Hãy trình bày theo cấu trúc:
+
+                    <strong>
+                        nhận định
+                        → chứng cứ
+                        → giải thích
+                        → kết luận.
+                    </strong>
+
+                `;
+
+                return;
+
+            }
+
+
+            let score =
+                0;
+
+
+            if(
+
+                containsAny(
+                    a1,
+                    [
+                        "nguy hiểm",
+                        "thiệt hại",
+                        "dung nham",
+                        "tro",
+                        "khí"
+                    ]
+                )
+
+                &&
+
+                containsAny(
+                    a1,
+                    [
+                        "đất",
+                        "bazan",
+                        "địa nhiệt",
+                        "du lịch",
+                        "khoáng"
+                    ]
+                )
+
+            ) {
+
+                score++;
+
+            }
+
+
+            if(
+                containsAny(
+                    a2,
+                    [
+                        "nền đất",
+                        "công trình",
+                        "độ sâu",
+                        "địa chất",
+                        "xây dựng"
+                    ]
+                )
+            ) {
+
+                score++;
+
+            }
+
+
+            if(
+
+                containsAny(
+                    a3,
+                    [
+                        "không",
+                        "không thể",
+                        "chưa thể"
+                    ]
+                )
+
+                &&
+
+                containsAny(
+                    a3,
+                    [
+                        "dự đoán",
+                        "thời điểm",
+                        "nguy cơ",
+                        "xác suất"
+                    ]
+                )
+
+            ) {
+
+                score++;
+
+            }
+
+
+            if(
+                score >=
+                2
+            ) {
+
+
+                feedback.className =
+                    "feedback correct";
+
+
+                feedback.innerHTML = `
+
+                    ✅ Lập luận đạt yêu cầu.
+
+                    <br><br>
+
+                    <strong>Câu 1:</strong>
+                    núi lửa có thể
+                    gây thiệt hại lớn,
+                    nhưng vật liệu núi lửa
+                    cũng có thể tạo đất màu mỡ,
+                    cung cấp địa nhiệt,
+                    khoáng sản
+                    và tạo cảnh quan.
+
+                    <br><br>
+
+                    <strong>Câu 2:</strong>
+                    thiệt hại động đất
+                    không chỉ phụ thuộc
+                    khoảng cách tới tâm chấn,
+                    mà còn liên quan
+                    nền đất,
+                    chất lượng công trình,
+                    độ sâu chấn tiêu,
+                    cường độ rung
+                    và khả năng ứng phó.
+
+                    <br><br>
+
+                    <strong>Câu 3:</strong>
+                    biết một nơi
+                    có nguy cơ động đất cao
+                    không đồng nghĩa
+                    với dự đoán chính xác
+                    ngày giờ
+                    của một trận động đất lớn.
+
+                `;
+
+
+                completeTask(
+                    "reasoning",
+                    190
+                );
+
+            }
+
+            else {
+
+
+                feedback.className =
+                    "feedback wrong";
+
+
+                feedback.innerHTML = `
+
+                    🔎 Em đã viết đủ,
+                    nhưng cần bổ sung
+                    thêm bằng chứng cụ thể.
+
+                `;
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   12. FINAL
+========================================================= */
+
+document
+    .getElementById(
+        "showResult"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            const text =
+                document.getElementById(
+                    "finalText"
+                );
+
+
+            if(
+                completed.size ===
+                TOTAL
+            ) {
+
+
+                text.innerHTML = `
+
+                    🌟 <strong>
+                        Xuất sắc!
+                    </strong>
+
+                    <br><br>
+
+                    Em đã hoàn thành
+                    cả 8 nhiệm vụ.
+
+                    Em đã biết:
+
+                    <br><br>
+
+                    • phân biệt núi lửa – động đất;
+
+                    <br>
+
+                    • nhận diện cấu tạo núi lửa;
+
+                    <br>
+
+                    • sắp xếp quá trình phun trào;
+
+                    <br>
+
+                    • phân biệt chấn tiêu – tâm chấn;
+
+                    <br>
+
+                    • đọc tình huống thiên tai;
+
+                    <br>
+
+                    • liên hệ với mảng kiến tạo;
+
+                    <br>
+
+                    • lựa chọn biện pháp an toàn;
+
+                    <br>
+
+                    • giải thích hiện tượng
+                    bằng lập luận địa lí.
+
+                `;
+
+            }
+
+            else if(
+                completed.size >=
+                5
+            ) {
+
+
+                text.innerHTML = `
+
+                    👍 Em đã hoàn thành
+
+                    <strong>
+                        ${completed.size}/8
+                    </strong>
+
+                    nhiệm vụ.
+
+                    <br><br>
+
+                    Kiến thức đã khá chắc.
+                    Hãy hoàn thành
+                    các nhiệm vụ còn lại
+                    để đạt 100%.
+
+                `;
+
+            }
+
+            else {
+
+
+                text.innerHTML = `
+
+                    🚀 Hiện em hoàn thành
+
+                    <strong>
+                        ${completed.size}/8
+                    </strong>
+
+                    nhiệm vụ.
+
+                    <br><br>
+
+                    Hãy tiếp tục
+                    để mở khóa
+                    các thử thách vận dụng cao.
+
+                `;
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   13. RESTART
+========================================================= */
+
+document
+    .getElementById(
+        "restart"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+            location.reload();
+
+        }
+    );
+
+
+/* =========================================================
+   14. INITIAL
+========================================================= */
+
+updateHud();
+
+</script>
+
+
+</body>
+
+</html>

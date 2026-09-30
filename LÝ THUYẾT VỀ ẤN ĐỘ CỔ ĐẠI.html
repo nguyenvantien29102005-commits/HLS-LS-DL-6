@@ -1,0 +1,6739 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Ấn Độ cổ đại | Học liệu số Lịch sử 6
+</title>
+
+
+<style>
+
+/* =========================================================
+   01. HỆ MÀU ẤN ĐỘ CỔ ĐẠI
+========================================================= */
+
+:root {
+
+    --bg-dark: #160d08;
+    --bg-deep: #21120b;
+    --bg-card: rgba(53, 28, 16, .84);
+
+    --saffron: #f59e0b;
+    --saffron-light: #ffc857;
+
+    --terracotta: #c65d36;
+    --brick: #8f3f2c;
+
+    --turquoise: #21b6a8;
+    --turquoise-light: #65e6d6;
+
+    --gold: #e8bd55;
+    --cream: #fff1d1;
+
+    --red: #b93838;
+
+    --white: #ffffff;
+    --text: #f3e9dc;
+    --muted: #c2aa96;
+
+    --line: rgba(255,255,255,.12);
+
+    --shadow:
+        0 22px 60px
+        rgba(0,0,0,.38);
+
+    --radius: 22px;
+}
+
+
+/* =========================================================
+   02. RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior:
+        smooth;
+
+}
+
+
+body {
+
+    min-height:
+        100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:
+        var(--white);
+
+    line-height:
+        1.68;
+
+    background:
+
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(245,158,11,.18),
+            transparent 26%
+        ),
+
+        radial-gradient(
+            circle at 92% 10%,
+            rgba(33,182,168,.11),
+            transparent 24%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(198,93,54,.14),
+            transparent 34%
+        ),
+
+        linear-gradient(
+            145deg,
+            #120b07,
+            #21120b 48%,
+            #140c08
+        );
+
+    overflow-x:
+        hidden;
+
+}
+
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events:
+        none;
+
+    z-index: -1;
+
+    opacity: .08;
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.7)
+            0 1px,
+            transparent 1.5px
+        );
+
+    background-size:
+        90px 90px;
+
+}
+
+
+a {
+
+    color: inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+button {
+
+    font: inherit;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   03. KHUNG CHUNG
+========================================================= */
+
+.container {
+
+    width:
+        min(
+            1180px,
+            92%
+        );
+
+    margin: auto;
+
+}
+
+
+section {
+
+    padding:
+        84px 0;
+
+}
+
+
+.glass {
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        var(--radius);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(65,35,20,.84),
+            rgba(31,16,10,.88)
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.section-heading {
+
+    max-width:
+        900px;
+
+    margin-bottom:
+        36px;
+
+}
+
+
+.section-label {
+
+    margin-bottom:
+        9px;
+
+    color:
+        var(--saffron-light);
+
+    font-size:
+        12px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        2px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.section-heading h2 {
+
+    margin-bottom:
+        13px;
+
+    font-size:
+
+        clamp(
+            31px,
+            4vw,
+            49px
+        );
+
+    line-height:
+        1.15;
+
+}
+
+
+.section-heading p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        17px;
+
+}
+
+
+.gradient-text {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ffc857,
+            #ff8c42,
+            #65e6d6
+        );
+
+    -webkit-background-clip:
+        text;
+
+    color:
+        transparent;
+
+}
+
+
+/* =========================================================
+   04. NAVIGATION
+========================================================= */
+
+header {
+
+    position:
+        sticky;
+
+    top: 0;
+
+    z-index:
+        999;
+
+    border-bottom:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(19,10,7,.84);
+
+    backdrop-filter:
+        blur(16px);
+
+}
+
+
+.nav {
+
+    min-height:
+        72px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+}
+
+
+.brand {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        11px;
+
+    font-weight:
+        900;
+
+}
+
+
+.brand-icon {
+
+    width:
+        44px;
+
+    height:
+        44px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        14px;
+
+    font-size:
+        22px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--saffron),
+            var(--terracotta)
+        );
+
+    box-shadow:
+
+        0 0 25px
+        rgba(245,158,11,.3);
+
+}
+
+
+.nav-links {
+
+    display:
+        flex;
+
+    gap:
+        5px;
+
+    flex-wrap:
+        wrap;
+
+}
+
+
+.nav-links a {
+
+    padding:
+        9px 11px;
+
+    border-radius:
+        10px;
+
+    color:
+        #d4bda7;
+
+    font-size:
+        13px;
+
+    transition:
+        .2s;
+
+}
+
+
+.nav-links a:hover {
+
+    color:
+        white;
+
+    background:
+        rgba(255,255,255,.07);
+
+}
+
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero {
+
+    min-height:
+        calc(100vh - 72px);
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.08fr .92fr;
+
+    align-items:
+        center;
+
+    gap:
+        55px;
+
+    padding:
+        70px 0;
+
+}
+
+
+.hero-badge {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    margin-bottom:
+        18px;
+
+    padding:
+        8px 13px;
+
+    border-radius:
+        999px;
+
+    border:
+        1px solid
+        rgba(245,158,11,.28);
+
+    background:
+        rgba(245,158,11,.07);
+
+    color:
+        #ffe3a4;
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.hero h1 {
+
+    margin-bottom:
+        22px;
+
+    font-size:
+
+        clamp(
+            48px,
+            7vw,
+            82px
+        );
+
+    line-height:
+        1.02;
+
+    letter-spacing:
+        -3px;
+
+}
+
+
+.hero p {
+
+    max-width:
+        720px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        18px;
+
+}
+
+
+.hero-actions {
+
+    display:
+        flex;
+
+    gap:
+        11px;
+
+    flex-wrap:
+        wrap;
+
+    margin-top:
+        28px;
+
+}
+
+
+.btn {
+
+    border:
+        0;
+
+    padding:
+        13px 18px;
+
+    border-radius:
+        12px;
+
+    color:
+        white;
+
+    font-weight:
+        bold;
+
+    transition:
+        .22s;
+
+}
+
+
+.btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.btn-primary {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--saffron),
+            var(--terracotta)
+        );
+
+    box-shadow:
+
+        0 12px 28px
+        rgba(245,158,11,.22);
+
+}
+
+
+.btn-secondary {
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+.hero-tags {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+    margin-top:
+        24px;
+
+}
+
+
+.tag {
+
+    padding:
+        7px 10px;
+
+    border-radius:
+        999px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:
+        #d8c0ac;
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================================
+   06. HERO VISUAL
+========================================================= */
+
+.india-visual {
+
+    position:
+        relative;
+
+    min-height:
+        520px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        32px;
+
+    border:
+        1px solid
+        var(--line);
+
+    box-shadow:
+        var(--shadow);
+
+    background:
+
+        radial-gradient(
+            circle at 75% 15%,
+            rgba(255,196,87,.17),
+            transparent 20%
+        ),
+
+        linear-gradient(
+            #472515,
+            #2c160d
+        );
+
+}
+
+
+.sun {
+
+    position:
+        absolute;
+
+    width:
+        110px;
+
+    height:
+        110px;
+
+    right:
+        55px;
+
+    top:
+        55px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--saffron-light);
+
+    box-shadow:
+
+        0 0 40px
+        rgba(255,200,87,.35),
+
+        0 0 100px
+        rgba(255,200,87,.12);
+
+}
+
+
+.temple-back {
+
+    position:
+        absolute;
+
+    left:
+        70px;
+
+    bottom:
+        90px;
+
+    width:
+        190px;
+
+    height:
+        260px;
+
+    clip-path:
+
+        polygon(
+            50% 0,
+            63% 25%,
+            74% 25%,
+            74% 38%,
+            84% 38%,
+            84% 52%,
+            94% 52%,
+            100% 100%,
+            0 100%,
+            6% 52%,
+            16% 52%,
+            16% 38%,
+            26% 38%,
+            26% 25%,
+            37% 25%
+        );
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #d98a4b,
+            #8c442c
+        );
+
+}
+
+
+.indus-city {
+
+    position:
+        absolute;
+
+    right:
+        25px;
+
+    bottom:
+        52px;
+
+    width:
+        300px;
+
+    height:
+        180px;
+
+}
+
+
+.house {
+
+    position:
+        absolute;
+
+    bottom:
+        0;
+
+    background:
+        #9e5835;
+
+    border:
+        3px solid
+        #693522;
+
+}
+
+
+.house::before,
+.house::after {
+
+    content: "";
+
+    position:
+        absolute;
+
+    background:
+        #4d2b20;
+
+}
+
+
+.house::before {
+
+    width:
+        24px;
+
+    height:
+        38px;
+
+    bottom:
+        0;
+
+    left:
+        18px;
+
+}
+
+
+.house::after {
+
+    width:
+        22px;
+
+    height:
+        18px;
+
+    top:
+        20px;
+
+    right:
+        20px;
+
+}
+
+
+.house1 {
+
+    width:
+        110px;
+
+    height:
+        105px;
+
+    left:
+        0;
+
+}
+
+
+.house2 {
+
+    width:
+        115px;
+
+    height:
+        145px;
+
+    left:
+        95px;
+
+}
+
+
+.house3 {
+
+    width:
+        95px;
+
+    height:
+        85px;
+
+    right:
+        0;
+
+}
+
+
+.river {
+
+    position:
+        absolute;
+
+    bottom:
+        0;
+
+    left:
+        -50px;
+
+    width:
+        650px;
+
+    height:
+        78px;
+
+    border-radius:
+        50%;
+
+    transform:
+        rotate(-5deg);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #1f918d,
+            #53d7cf
+        );
+
+    opacity:
+        .78;
+
+}
+
+
+.visual-label {
+
+    position:
+        absolute;
+
+    padding:
+        8px 11px;
+
+    border-radius:
+        11px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(24,11,7,.75);
+
+    backdrop-filter:
+        blur(8px);
+
+    color:
+        #ecd9c5;
+
+    font-size:
+        12px;
+
+}
+
+
+.label1 {
+
+    left:
+        22px;
+
+    top:
+        36px;
+
+}
+
+
+.label2 {
+
+    right:
+        25px;
+
+    top:
+        225px;
+
+}
+
+
+.label3 {
+
+    left:
+        40px;
+
+    bottom:
+        28px;
+
+}
+
+
+/* =========================================================
+   07. MỤC TIÊU
+========================================================= */
+
+.goal-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:
+        16px;
+
+}
+
+
+.goal-card {
+
+    padding:
+        23px;
+
+}
+
+
+.goal-number {
+
+    color:
+        var(--saffron-light);
+
+    font-size:
+        33px;
+
+    font-weight:
+        900;
+
+}
+
+
+.goal-card h3 {
+
+    margin:
+        5px 0 7px;
+
+}
+
+
+.goal-card p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================================
+   08. TIMELINE
+========================================================= */
+
+.timeline {
+
+    position:
+        relative;
+
+    display:
+        grid;
+
+    gap:
+        18px;
+
+}
+
+
+.timeline::before {
+
+    content: "";
+
+    position:
+        absolute;
+
+    left:
+        24px;
+
+    top:
+        10px;
+
+    bottom:
+        10px;
+
+    width:
+        3px;
+
+    background:
+
+        linear-gradient(
+            var(--saffron),
+            var(--terracotta),
+            var(--turquoise)
+        );
+
+}
+
+
+.timeline-item {
+
+    position:
+        relative;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        50px 1fr;
+
+    gap:
+        17px;
+
+}
+
+
+.timeline-dot {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    width:
+        50px;
+
+    height:
+        50px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    border:
+        4px solid
+        #25130c;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--saffron),
+            var(--terracotta)
+        );
+
+    color:
+        white;
+
+    font-weight:
+        900;
+
+}
+
+
+.timeline-content {
+
+    padding:
+        21px;
+
+}
+
+
+.timeline-date {
+
+    color:
+        var(--saffron-light);
+
+    font-size:
+        12px;
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+.timeline-content h3 {
+
+    margin:
+        4px 0 7px;
+
+    font-size:
+        21px;
+
+}
+
+
+.timeline-content p {
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   09. NATURAL CONDITIONS
+========================================================= */
+
+.nature-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:
+        18px;
+
+}
+
+
+.nature-card {
+
+    padding:
+        25px;
+
+}
+
+
+.nature-icon {
+
+    width:
+        52px;
+
+    height:
+        52px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        15px;
+
+    margin-bottom:
+        13px;
+
+    font-size:
+        27px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(245,158,11,.16),
+            rgba(33,182,168,.12)
+        );
+
+    border:
+        1px solid
+        var(--line);
+
+}
+
+
+.nature-card h3 {
+
+    margin-bottom:
+        7px;
+
+}
+
+
+.nature-card p {
+
+    color:
+        var(--muted);
+
+}
+
+
+.fact-list {
+
+    display:
+        grid;
+
+    gap:
+        9px;
+
+    margin-top:
+        14px;
+
+}
+
+
+.fact {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        27px 1fr;
+
+    gap:
+        9px;
+
+    padding:
+        7px 0;
+
+    border-bottom:
+        1px dashed
+        rgba(255,255,255,.08);
+
+}
+
+
+.fact:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+.fact-icon {
+
+    width:
+        25px;
+
+    height:
+        25px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        8px;
+
+    color:
+        var(--turquoise-light);
+
+    background:
+        rgba(33,182,168,.10);
+
+}
+
+
+.fact span {
+
+    color:
+        #ccb5a1;
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================================
+   10. NOTE
+========================================================= */
+
+.note {
+
+    margin-top:
+        20px;
+
+    padding:
+        18px;
+
+    border-radius:
+        15px;
+
+    border-left:
+        4px solid
+        var(--saffron);
+
+    background:
+        rgba(245,158,11,.06);
+
+    color:
+        #dcc8b5;
+
+}
+
+
+.note strong {
+
+    color:
+        var(--cream);
+
+}
+
+
+/* =========================================================
+   11. INDUS CITY
+========================================================= */
+
+.city-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        .9fr 1.1fr;
+
+    gap:
+        22px;
+
+}
+
+
+.city-info {
+
+    padding:
+        27px;
+
+}
+
+
+.city-info h3 {
+
+    font-size:
+        27px;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.city-info p {
+
+    color:
+        var(--muted);
+
+}
+
+
+.city-features {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:
+        10px;
+
+    margin-top:
+        18px;
+
+}
+
+
+.feature {
+
+    padding:
+        13px;
+
+    border-radius:
+        12px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+.feature strong {
+
+    display:
+        block;
+
+    margin-bottom:
+        3px;
+
+    color:
+        var(--saffron-light);
+
+}
+
+
+.feature span {
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+}
+
+
+.city-diagram {
+
+    position:
+        relative;
+
+    min-height:
+        400px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        var(--radius);
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        #6a3926;
+
+}
+
+
+.street-horizontal {
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    top:
+        47%;
+
+    height:
+        48px;
+
+    background:
+        #c99767;
+
+}
+
+
+.street-vertical {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    left:
+        48%;
+
+    width:
+        48px;
+
+    background:
+        #c99767;
+
+}
+
+
+.block {
+
+    position:
+        absolute;
+
+    border:
+        3px solid
+        #51291c;
+
+    background:
+        #9b5032;
+
+}
+
+
+.block1 {
+
+    left:
+        5%;
+
+    top:
+        6%;
+
+    width:
+        38%;
+
+    height:
+        35%;
+
+}
+
+
+.block2 {
+
+    right:
+        5%;
+
+    top:
+        7%;
+
+    width:
+        38%;
+
+    height:
+        34%;
+
+}
+
+
+.block3 {
+
+    left:
+        5%;
+
+    bottom:
+        6%;
+
+    width:
+        38%;
+
+    height:
+        34%;
+
+}
+
+
+.block4 {
+
+    right:
+        5%;
+
+    bottom:
+        6%;
+
+    width:
+        38%;
+
+    height:
+        34%;
+
+}
+
+
+.drain {
+
+    position:
+        absolute;
+
+    z-index:
+        3;
+
+    background:
+        var(--turquoise);
+
+    opacity:
+        .8;
+
+}
+
+
+.drain1 {
+
+    width:
+        8px;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    left:
+        42%;
+
+}
+
+
+.drain2 {
+
+    height:
+        8px;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    top:
+        41%;
+
+}
+
+
+.diagram-label {
+
+    position:
+        absolute;
+
+    z-index:
+        5;
+
+    padding:
+        6px 9px;
+
+    border-radius:
+        8px;
+
+    color:
+        white;
+
+    background:
+        rgba(0,0,0,.4);
+
+    font-size:
+        10px;
+
+}
+
+
+.d1 {
+
+    left:
+        10%;
+
+    top:
+        14%;
+
+}
+
+
+.d2 {
+
+    right:
+        8%;
+
+    top:
+        50%;
+
+}
+
+
+.d3 {
+
+    left:
+        52%;
+
+    bottom:
+        10%;
+
+}
+
+
+/* =========================================================
+   12. SOCIAL SYSTEM
+========================================================= */
+
+.social-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr .95fr;
+
+    gap:
+        25px;
+
+    align-items:
+        center;
+
+}
+
+
+.varna-pyramid {
+
+    display:
+        grid;
+
+    gap:
+        5px;
+
+}
+
+
+.varna {
+
+    margin:
+        auto;
+
+    padding:
+        17px 20px;
+
+    text-align:
+        center;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    transition:
+        .25s;
+
+    cursor:
+        pointer;
+
+}
+
+
+.varna:hover,
+.varna.active {
+
+    transform:
+        scale(1.025);
+
+    filter:
+        brightness(1.12);
+
+}
+
+
+.brahmin {
+
+    width:
+        48%;
+
+    background:
+        #e5b94c;
+
+    color:
+        #2d1a09;
+
+}
+
+
+.kshatriya {
+
+    width:
+        62%;
+
+    background:
+        #bd553a;
+
+}
+
+
+.vaishya {
+
+    width:
+        78%;
+
+    background:
+        #448e7a;
+
+}
+
+
+.shudra {
+
+    width:
+        94%;
+
+    background:
+        #695447;
+
+}
+
+
+.varna strong {
+
+    display:
+        block;
+
+    font-size:
+        17px;
+
+}
+
+
+.varna small {
+
+    display:
+        block;
+
+    margin-top:
+        3px;
+
+    font-size:
+        11px;
+
+}
+
+
+.social-info {
+
+    padding:
+        26px;
+
+}
+
+
+.social-info h3 {
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.social-info p {
+
+    color:
+        var(--muted);
+
+}
+
+
+#varnaDetail {
+
+    margin-top:
+        17px;
+
+    min-height:
+        130px;
+
+    padding:
+        16px;
+
+    border-radius:
+        13px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:
+        #dbc8b7;
+
+}
+
+
+/* =========================================================
+   13. DYNASTIES
+========================================================= */
+
+.dynasty-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        18px;
+
+}
+
+
+.dynasty-card {
+
+    padding:
+        25px;
+
+}
+
+
+.dynasty-year {
+
+    display:
+        inline-block;
+
+    margin-bottom:
+        11px;
+
+    padding:
+        6px 9px;
+
+    border-radius:
+        999px;
+
+    color:
+        var(--saffron-light);
+
+    background:
+        rgba(245,158,11,.08);
+
+    border:
+        1px solid
+        rgba(245,158,11,.2);
+
+    font-size:
+        11px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.dynasty-card h3 {
+
+    margin-bottom:
+        7px;
+
+}
+
+
+.dynasty-card p {
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   14. ASHOKA FEATURE
+========================================================= */
+
+.ashoka {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        .75fr 1.25fr;
+
+    gap:
+        22px;
+
+}
+
+
+.ashoka-symbol {
+
+    min-height:
+        360px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+}
+
+
+.wheel {
+
+    width:
+        190px;
+
+    height:
+        190px;
+
+    position:
+        relative;
+
+    border-radius:
+        50%;
+
+    border:
+        13px solid
+        var(--turquoise);
+
+    animation:
+        wheelSpin
+        35s linear
+        infinite;
+
+}
+
+
+.wheel::before,
+.wheel::after {
+
+    content: "";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    top:
+        50%;
+
+    width:
+        150px;
+
+    height:
+        4px;
+
+    background:
+        var(--turquoise);
+
+    transform:
+        translate(-50%,-50%);
+
+}
+
+
+.wheel::after {
+
+    transform:
+        translate(-50%,-50%)
+        rotate(90deg);
+
+}
+
+
+.spoke {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    top:
+        50%;
+
+    width:
+        150px;
+
+    height:
+        3px;
+
+    background:
+        var(--turquoise);
+
+    transform-origin:
+        center;
+
+}
+
+
+.s1 {
+    transform:
+        translate(-50%,-50%)
+        rotate(30deg);
+}
+
+.s2 {
+    transform:
+        translate(-50%,-50%)
+        rotate(60deg);
+}
+
+.s3 {
+    transform:
+        translate(-50%,-50%)
+        rotate(120deg);
+}
+
+.s4 {
+    transform:
+        translate(-50%,-50%)
+        rotate(150deg);
+}
+
+
+@keyframes wheelSpin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+.ashoka-info {
+
+    padding:
+        28px;
+
+}
+
+
+.ashoka-info h3 {
+
+    font-size:
+        29px;
+
+    margin-bottom:
+        11px;
+
+}
+
+
+.ashoka-info p {
+
+    color:
+        var(--muted);
+
+}
+
+
+.ashoka-points {
+
+    margin-top:
+        18px;
+
+    display:
+        grid;
+
+    gap:
+        9px;
+
+}
+
+
+.ashoka-point {
+
+    padding:
+        11px;
+
+    border-radius:
+        11px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:
+        #d1bdab;
+
+}
+
+
+/* =========================================================
+   15. CULTURE TABS
+========================================================= */
+
+.tabs {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+    margin-bottom:
+        17px;
+
+}
+
+
+.tab {
+
+    padding:
+        9px 13px;
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid
+        var(--line);
+
+    color:
+        #d7c3b0;
+
+    background:
+        rgba(255,255,255,.035);
+
+}
+
+
+.tab.active {
+
+    color:
+        white;
+
+    border-color:
+        rgba(245,158,11,.35);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(245,158,11,.18),
+            rgba(198,93,54,.13)
+        );
+
+}
+
+
+.tab-content {
+
+    display:
+        none;
+
+    padding:
+        27px;
+
+}
+
+
+.tab-content.active {
+
+    display:
+        block;
+
+}
+
+
+.culture-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:
+        13px;
+
+}
+
+
+.culture-card {
+
+    padding:
+        17px;
+
+    border-radius:
+        14px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+.culture-card h4 {
+
+    margin-bottom:
+        5px;
+
+    color:
+        var(--saffron-light);
+
+}
+
+
+.culture-card p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================================
+   16. EXTENDED KNOWLEDGE
+========================================================= */
+
+.extra-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        16px;
+
+}
+
+
+.extra-card {
+
+    padding:
+        23px;
+
+}
+
+
+.extra-icon {
+
+    font-size:
+        31px;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.extra-card h3 {
+
+    margin-bottom:
+        6px;
+
+}
+
+
+.extra-card p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================================
+   17. DETAILS
+========================================================= */
+
+details {
+
+    padding:
+        0 17px;
+
+    border-radius:
+        14px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+details + details {
+
+    margin-top:
+        9px;
+
+}
+
+
+summary {
+
+    padding:
+        15px 0;
+
+    cursor:
+        pointer;
+
+    font-weight:
+        bold;
+
+}
+
+
+details p {
+
+    padding-bottom:
+        16px;
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   18. QUIZ
+========================================================= */
+
+.quiz-box {
+
+    padding:
+        27px;
+
+}
+
+
+.question {
+
+    padding:
+        20px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.question:last-of-type {
+
+    border-bottom:
+        0;
+
+}
+
+
+.question h3 {
+
+    margin-bottom:
+        12px;
+
+    font-size:
+        17px;
+
+}
+
+
+.option {
+
+    display:
+        block;
+
+    margin:
+        8px 0;
+
+    padding:
+        11px 13px;
+
+    border-radius:
+        11px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:
+        #d9c8b7;
+
+    cursor:
+        pointer;
+
+}
+
+
+.option:hover {
+
+    background:
+        rgba(255,255,255,.06);
+
+}
+
+
+.option input {
+
+    margin-right:
+        8px;
+
+}
+
+
+.quiz-result {
+
+    display:
+        none;
+
+    margin-top:
+        18px;
+
+    padding:
+        16px;
+
+    border-radius:
+        13px;
+
+    border:
+        1px solid
+        rgba(33,182,168,.25);
+
+    background:
+        rgba(33,182,168,.07);
+
+}
+
+
+/* =========================================================
+   19. FOOTER
+========================================================= */
+
+footer {
+
+    padding:
+        45px 0 60px;
+
+    border-top:
+        1px solid
+        var(--line);
+
+    color:
+        #b19b88;
+
+}
+
+
+.footer-sources {
+
+    margin-top:
+        13px;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   20. BACK TOP
+========================================================= */
+
+#backTop {
+
+    position:
+        fixed;
+
+    right:
+        22px;
+
+    bottom:
+        22px;
+
+    width:
+        47px;
+
+    height:
+        47px;
+
+    display:
+        none;
+
+    place-items:
+        center;
+
+    border-radius:
+        14px;
+
+    border:
+        1px solid
+        var(--line);
+
+    color:
+        white;
+
+    background:
+        rgba(63,31,17,.9);
+
+    z-index:
+        999;
+
+}
+
+
+/* =========================================================
+   21. RESPONSIVE
+========================================================= */
+
+@media(max-width:980px) {
+
+    .nav-links {
+
+        display:
+            none;
+
+    }
+
+
+    .hero {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .goal-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+
+    .nature-grid,
+    .city-layout,
+    .social-layout,
+    .ashoka {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .dynasty-grid,
+    .extra-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media(max-width:650px) {
+
+    section {
+
+        padding:
+            60px 0;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            45px;
+
+    }
+
+
+    .goal-grid,
+    .culture-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .city-features {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .india-visual {
+
+        min-height:
+            420px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<header>
+
+<div class="container nav">
+
+    <a
+        href="#home"
+        class="brand"
+    >
+
+        <div class="brand-icon">
+            🪷
+        </div>
+
+        <span>
+            HISTORY LAB 6
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="#timeline">
+            Tiến trình
+        </a>
+
+        <a href="#nature">
+            Tự nhiên
+        </a>
+
+        <a href="#society">
+            Xã hội
+        </a>
+
+        <a href="#states">
+            Nhà nước
+        </a>
+
+        <a href="#culture">
+            Văn hóa
+        </a>
+
+        <a href="#extra">
+            Mở rộng
+        </a>
+
+        <a href="#quiz">
+            Kiểm tra
+        </a>
+
+    </nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section id="home">
+
+<div class="container hero">
+
+
+    <div>
+
+
+        <div class="hero-badge">
+
+            🪷 LỊCH SỬ 6 • VĂN MINH PHƯƠNG ĐÔNG
+
+        </div>
+
+
+        <h1>
+
+            <span class="gradient-text">
+                Ấn Độ
+            </span>
+
+            cổ đại
+
+        </h1>
+
+
+        <p>
+
+            Từ những đô thị quy hoạch
+            của văn minh sông Ấn,
+            xã hội thời Veda,
+            các vương quốc và đế chế lớn,
+            đến Phật giáo,
+            Hindu giáo,
+            chữ viết,
+            văn học,
+            toán học và nghệ thuật —
+            Ấn Độ cổ đại đã tạo nên
+            một trong những trung tâm văn minh
+            có ảnh hưởng sâu rộng nhất châu Á.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a
+                href="#objectives"
+                class="btn btn-primary"
+            >
+
+                Bắt đầu khám phá
+
+            </a>
+
+
+            <a
+                href="#timeline"
+                class="btn btn-secondary"
+            >
+
+                Xem tiến trình lịch sử
+
+            </a>
+
+        </div>
+
+
+        <div class="hero-tags">
+
+            <span class="tag">
+                🏙 Văn minh sông Ấn
+            </span>
+
+            <span class="tag">
+                📜 Thời Veda
+            </span>
+
+            <span class="tag">
+                👑 Maurya
+            </span>
+
+            <span class="tag">
+                ☸ Phật giáo
+            </span>
+
+            <span class="tag">
+                🕉 Hindu giáo
+            </span>
+
+            <span class="tag">
+                ० Số học
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="india-visual">
+
+        <div class="sun"></div>
+
+        <div class="temple-back"></div>
+
+
+        <div class="indus-city">
+
+            <div class="house house1"></div>
+
+            <div class="house house2"></div>
+
+            <div class="house house3"></div>
+
+        </div>
+
+
+        <div class="river"></div>
+
+
+        <div class="visual-label label1">
+
+            🏔 Himalaya
+
+        </div>
+
+
+        <div class="visual-label label2">
+
+            🏙 Đô thị sông Ấn
+
+        </div>
+
+
+        <div class="visual-label label3">
+
+            🌊 Các lưu vực sông lớn
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MỤC TIÊU
+========================================================= -->
+
+<section id="objectives">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            01 • Mục tiêu học tập
+        </div>
+
+        <h2>
+            Học xong bài này,
+            em cần hiểu được điều gì?
+        </h2>
+
+        <p>
+
+            Bài học không chỉ yêu cầu
+            ghi nhớ tên triều đại,
+            mà cần nhìn thấy
+            mối quan hệ giữa
+            <strong>
+                môi trường tự nhiên,
+                sự phát triển xã hội,
+                nhà nước
+                và văn hóa.
+            </strong>
+
+        </p>
+
+    </div>
+
+
+    <div class="goal-grid">
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                01
+            </div>
+
+            <h3>
+                Xác định tiến trình
+            </h3>
+
+            <p>
+
+                Nhận biết các giai đoạn lớn
+                từ văn minh sông Ấn,
+                thời Veda,
+                các Mahajanapada,
+                Maurya đến Gupta.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                02
+            </div>
+
+            <h3>
+                Phân tích tự nhiên
+            </h3>
+
+            <p>
+
+                Giải thích vai trò
+                của sông Ấn,
+                sông Hằng,
+                đồng bằng,
+                gió mùa
+                và các điều kiện địa lí.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                03
+            </div>
+
+            <h3>
+                Hiểu xã hội
+            </h3>
+
+            <p>
+
+                Trình bày được
+                sự phân hóa xã hội
+                và khái quát hệ thống
+                varna trong Ấn Độ cổ đại.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                04
+            </div>
+
+            <h3>
+                Nhận diện văn hóa
+            </h3>
+
+            <p>
+
+                Nêu được
+                những thành tựu tiêu biểu
+                về tôn giáo,
+                chữ viết,
+                văn học,
+                toán học,
+                kiến trúc
+                và nghệ thuật.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     TIẾN TRÌNH LỊCH SỬ
+========================================================= -->
+
+<section id="timeline">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            02 • Tiến trình lịch sử
+        </div>
+
+        <h2>
+
+            Từ những đô thị đầu tiên
+            đến các đế chế lớn
+
+        </h2>
+
+        <p>
+
+            Lịch sử Ấn Độ cổ đại
+            kéo dài qua nhiều giai đoạn.
+
+            Các mốc dưới đây
+            được trình bày khái quát
+            để phù hợp với học sinh THCS.
+
+        </p>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <!-- 1 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot">
+                1
+            </div>
+
+
+            <div class="timeline-content glass">
+
+                <div class="timeline-date">
+
+                    KHOẢNG 2600 – 1900 TCN
+
+                </div>
+
+                <h3>
+                    Văn minh sông Ấn phát triển rực rỡ
+                </h3>
+
+                <p>
+
+                    Tại vùng lưu vực sông Ấn
+                    và các khu vực lân cận,
+                    xuất hiện nhiều đô thị lớn
+                    như Harappa
+                    và Mohenjo-daro.
+
+                    Các thành phố này
+                    nổi bật với quy hoạch đường phố,
+                    nhà xây bằng gạch,
+                    giếng nước,
+                    hệ thống thoát nước
+                    và hoạt động thủ công,
+                    trao đổi hàng hóa phát triển.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 2 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot">
+                2
+            </div>
+
+
+            <div class="timeline-content glass">
+
+                <div class="timeline-date">
+
+                    KHOẢNG THẾ KỈ XV – VI TCN
+
+                </div>
+
+                <h3>
+                    Thời Veda
+                </h3>
+
+                <p>
+
+                    Các cộng đồng nói ngôn ngữ
+                    Ấn-Arya hiện diện
+                    ngày càng rõ ở miền Bắc Ấn Độ.
+
+                    Những bài tụng ca
+                    và nghi lễ
+                    về sau được tập hợp
+                    thành các bộ Veda.
+
+                    Trong thời gian này,
+                    xã hội,
+                    tôn giáo,
+                    kinh tế
+                    và tổ chức chính trị
+                    có nhiều biến đổi.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 3 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot">
+                3
+            </div>
+
+
+            <div class="timeline-content glass">
+
+                <div class="timeline-date">
+
+                    KHOẢNG THẾ KỈ VI – IV TCN
+
+                </div>
+
+                <h3>
+                    Các Mahajanapada
+                </h3>
+
+                <p>
+
+                    Nhiều quốc gia
+                    và liên minh chính trị lớn
+                    hình thành ở miền Bắc Ấn Độ.
+
+                    Đây cũng là thời kì
+                    đô thị,
+                    thương mại
+                    và các tư tưởng tôn giáo mới
+                    phát triển mạnh.
+
+                    Phật giáo
+                    và Jain giáo
+                    xuất hiện trong bối cảnh đó.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 4 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot">
+                4
+            </div>
+
+
+            <div class="timeline-content glass">
+
+                <div class="timeline-date">
+
+                    KHOẢNG 322 – 185 TCN
+
+                </div>
+
+                <h3>
+                    Đế chế Maurya
+                </h3>
+
+                <p>
+
+                    Chandragupta Maurya
+                    xây dựng một đế chế lớn.
+
+                    Dưới thời Ashoka,
+                    quyền lực Maurya
+                    mở rộng trên phần lớn
+                    tiểu lục địa.
+
+                    Sau cuộc chiến Kalinga,
+                    Ashoka đề cao
+                    đường lối đạo đức
+                    gọi là
+                    <em>dhamma</em>
+                    và bảo trợ mạnh
+                    cho Phật giáo.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 5 -->
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot">
+                5
+            </div>
+
+
+            <div class="timeline-content glass">
+
+                <div class="timeline-date">
+
+                    KHOẢNG THẾ KỈ IV – VI
+
+                </div>
+
+                <h3>
+                    Thời Gupta
+                </h3>
+
+                <p>
+
+                    Vương triều Gupta
+                    kiểm soát phần lớn
+                    miền Bắc Ấn Độ.
+
+                    Đây là giai đoạn
+                    có nhiều thành tựu
+                    nổi bật về
+                    Sanskrit,
+                    văn học,
+                    toán học,
+                    thiên văn học,
+                    điêu khắc
+                    và Hindu giáo.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Lưu ý về niên đại:
+        </strong>
+
+        Những mốc trên là
+        các khoảng thời gian khái quát.
+
+        Lịch sử Ấn Độ cổ đại
+        không chuyển từ giai đoạn này
+        sang giai đoạn khác
+        trong cùng một thời điểm
+        ở mọi khu vực.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     ĐIỀU KIỆN TỰ NHIÊN
+========================================================= -->
+
+<section id="nature">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            03 • Điều kiện tự nhiên
+        </div>
+
+        <h2>
+
+            Thiên nhiên đã tác động
+            đến lịch sử Ấn Độ như thế nào?
+
+        </h2>
+
+        <p>
+
+            Ấn Độ cổ đại phát triển
+            trên một không gian rộng lớn.
+
+            Điều kiện tự nhiên
+            vừa tạo ra
+            những vùng cư trú thuận lợi,
+            vừa tác động đến
+            giao thông,
+            sản xuất
+            và quan hệ giữa các khu vực.
+
+        </p>
+
+    </div>
+
+
+    <div class="nature-grid">
+
+
+        <!-- HIMALAYA -->
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                🏔
+            </div>
+
+            <h3>
+                Dãy Himalaya
+            </h3>
+
+            <p>
+
+                Phía Bắc tiểu lục địa
+                được giới hạn
+                bởi hệ thống Himalaya
+                và các vùng núi cao.
+
+            </p>
+
+
+            <div class="fact-list">
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Tạo nên
+                        một ranh giới tự nhiên lớn
+                        giữa tiểu lục địa
+                        với Trung Á.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Là nơi bắt nguồn
+                        hoặc cung cấp nước
+                        cho nhiều hệ thống sông lớn.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Không hoàn toàn cô lập
+                        Ấn Độ:
+                        vẫn tồn tại
+                        các hành lang
+                        và đường giao lưu
+                        qua vùng Tây Bắc.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- INDUS -->
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                🌊
+            </div>
+
+            <h3>
+                Lưu vực sông Ấn
+            </h3>
+
+            <p>
+
+                Đây là một trong
+                những trung tâm
+                hình thành đô thị
+                sớm nhất Nam Á.
+
+            </p>
+
+
+            <div class="fact-list">
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Nguồn nước
+                        phục vụ sinh hoạt
+                        và sản xuất nông nghiệp.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Đồng bằng
+                        thuận lợi
+                        cho cư trú
+                        và nông nghiệp.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Tạo điều kiện
+                        cho sự phát triển
+                        của các đô thị Harappa.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- GANGES -->
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                🌱
+            </div>
+
+            <h3>
+                Đồng bằng sông Hằng
+            </h3>
+
+            <p>
+
+                Về sau,
+                trọng tâm cư trú
+                và chính trị
+                dịch chuyển mạnh
+                về phía đông
+                tới lưu vực sông Hằng.
+
+            </p>
+
+
+            <div class="fact-list">
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Đất phù sa,
+                        nguồn nước
+                        và khí hậu gió mùa
+                        tạo điều kiện
+                        cho nông nghiệp.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Nhiều vương quốc lớn
+                        hình thành
+                        trong vùng này.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Magadha
+                        nổi lên
+                        như một trung tâm
+                        chính trị quan trọng.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- MONSOON -->
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                🌧
+            </div>
+
+            <h3>
+                Khí hậu gió mùa
+            </h3>
+
+            <p>
+
+                Lượng mưa
+                và sự phân bố mưa
+                theo mùa
+                có ảnh hưởng lớn
+                đến sản xuất nông nghiệp.
+
+            </p>
+
+
+            <div class="fact-list">
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Gió mùa
+                        mang lượng mưa lớn
+                        đến nhiều khu vực.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Mùa mưa thuận lợi
+                        cho canh tác
+                        nhưng cũng có thể
+                        gây lũ lụt.
+
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-icon">
+                        ✓
+                    </div>
+
+                    <span>
+
+                        Nhịp mùa
+                        ảnh hưởng sâu sắc
+                        đến đời sống
+                        của cư dân nông nghiệp.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Mối quan hệ lịch sử – địa lí:
+        </strong>
+
+        các lưu vực sông lớn
+        không tự động tạo ra văn minh.
+
+        Chúng tạo ra
+        <strong>
+            những điều kiện thuận lợi,
+        </strong>
+        còn sự phát triển xã hội
+        phụ thuộc vào
+        lao động,
+        kỹ thuật,
+        tổ chức cộng đồng
+        và nhiều yếu tố khác.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     VĂN MINH SÔNG ẤN
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            04 • Văn minh sông Ấn
+        </div>
+
+        <h2>
+
+            Những đô thị
+            cách đây hơn 4.000 năm
+
+        </h2>
+
+        <p>
+
+            Harappa
+            và Mohenjo-daro
+            là hai địa điểm
+            nổi tiếng nhất
+            của nền văn minh
+            thường gọi là
+            văn minh Harappa
+            hoặc văn minh sông Ấn.
+
+        </p>
+
+    </div>
+
+
+    <div class="city-layout">
+
+
+        <div class="city-info glass">
+
+
+            <h3>
+                🏙 Một nền văn minh đô thị
+            </h3>
+
+
+            <p>
+
+                Các cuộc khai quật
+                cho thấy cư dân Harappa
+                có trình độ tổ chức
+                đô thị rất đáng chú ý.
+
+                Nhiều thành phố
+                được xây dựng
+                theo mặt bằng tương đối quy củ,
+                sử dụng gạch,
+                có đường phố,
+                giếng nước
+                và hệ thống thoát nước.
+
+            </p>
+
+
+            <div class="city-features">
+
+
+                <div class="feature">
+
+                    <strong>
+                        🧱 Gạch
+                    </strong>
+
+                    <span>
+
+                        Gạch được sử dụng
+                        rộng rãi
+                        trong công trình.
+
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        🚰 Nước
+                    </strong>
+
+                    <span>
+
+                        Nhiều giếng
+                        và công trình
+                        liên quan đến nước.
+
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        🚿 Thoát nước
+                    </strong>
+
+                    <span>
+
+                        Hệ thống cống
+                        là một đặc điểm
+                        rất nổi bật.
+
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        ⚖ Đo lường
+                    </strong>
+
+                    <span>
+
+                        Tìm thấy
+                        nhiều quả cân
+                        có quy chuẩn.
+
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        🛠 Thủ công
+                    </strong>
+
+                    <span>
+
+                        Chế tác
+                        kim loại,
+                        đá,
+                        đồ trang sức,
+                        gốm...
+
+                    </span>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <strong>
+                        🚢 Trao đổi
+                    </strong>
+
+                    <span>
+
+                        Có bằng chứng
+                        về mạng lưới
+                        thương mại đường dài.
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="city-diagram">
+
+
+            <div class="street-horizontal"></div>
+
+            <div class="street-vertical"></div>
+
+
+            <div class="block block1"></div>
+
+            <div class="block block2"></div>
+
+            <div class="block block3"></div>
+
+            <div class="block block4"></div>
+
+
+            <div class="drain drain1"></div>
+
+            <div class="drain drain2"></div>
+
+
+            <div class="diagram-label d1">
+
+                Khu nhà
+
+            </div>
+
+
+            <div class="diagram-label d2">
+
+                Đường phố
+
+            </div>
+
+
+            <div class="diagram-label d3">
+
+                Cống thoát nước
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Điều chưa giải mã hoàn toàn:
+        </strong>
+
+        chữ viết Harappa
+        vẫn chưa được giải mã
+        một cách chắc chắn.
+
+        Vì vậy,
+        hiểu biết của chúng ta
+        về chính trị,
+        tôn giáo
+        và ngôn ngữ
+        của cư dân này
+        chủ yếu dựa vào khảo cổ học.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     THỜI VEDA
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            05 • Thời Veda
+        </div>
+
+        <h2>
+
+            Một giai đoạn chuyển biến
+            quan trọng của xã hội Ấn Độ
+
+        </h2>
+
+        <p>
+
+            Sau thời kì
+            các đô thị Harappa suy giảm,
+            miền Bắc Ấn Độ
+            trải qua những biến đổi lâu dài.
+
+            Các cộng đồng nói
+            ngôn ngữ Indo-Aryan
+            hiện diện ngày càng rõ,
+            tạo nên môi trường văn hóa
+            gắn với các bộ Veda.
+
+        </p>
+
+    </div>
+
+
+    <div class="nature-grid">
+
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                📜
+            </div>
+
+            <h3>
+                Veda là gì?
+            </h3>
+
+            <p>
+
+                Veda
+                là một tập hợp
+                các văn bản tôn giáo
+                cổ bằng Sanskrit Veda.
+
+                Trong đó,
+                Rigveda
+                thường được xem
+                là bộ sưu tập
+                sớm nhất.
+
+            </p>
+
+        </article>
+
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                🐄
+            </div>
+
+            <h3>
+                Kinh tế
+            </h3>
+
+            <p>
+
+                Ở giai đoạn sớm,
+                chăn nuôi
+                giữ vai trò quan trọng.
+
+                Về sau,
+                khi cư dân mở rộng
+                vào đồng bằng sông Hằng,
+                nông nghiệp
+                ngày càng phát triển.
+
+            </p>
+
+        </article>
+
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                👑
+            </div>
+
+            <h3>
+                Chính trị
+            </h3>
+
+            <p>
+
+                Các cộng đồng bộ lạc
+                dần phát triển
+                thành những đơn vị
+                chính trị lớn hơn.
+
+                Về sau,
+                nhiều vương quốc
+                xuất hiện
+                ở miền Bắc Ấn Độ.
+
+            </p>
+
+        </article>
+
+
+        <article class="nature-card glass">
+
+            <div class="nature-icon">
+                🕉
+            </div>
+
+            <h3>
+                Tôn giáo
+            </h3>
+
+            <p>
+
+                Nghi lễ tế tự
+                và vai trò
+                của giới Bà-la-môn
+                phát triển.
+
+                Các tư tưởng
+                về nghiệp,
+                luân hồi
+                và giải thoát
+                tiếp tục được phát triển
+                trong truyền thống
+                tôn giáo Ấn Độ.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Lưu ý học thuật:
+        </strong>
+
+        hiện nay không nên
+        giản lược quá trình này
+        thành câu
+        “người Aryan xâm lược
+        và lập tức thay thế
+        cư dân bản địa”.
+
+        Quá trình hình thành
+        xã hội Veda
+        kéo dài,
+        phức tạp,
+        có di cư,
+        giao lưu
+        và biến đổi văn hóa.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     XÃ HỘI
+========================================================= -->
+
+<section id="society">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            06 • Chế độ xã hội
+        </div>
+
+        <h2>
+
+            Varna —
+            sự phân chia xã hội
+            trong Ấn Độ cổ đại
+
+        </h2>
+
+        <p>
+
+            Trong các văn bản
+            Brahman giáo,
+            xã hội được mô tả
+            theo bốn nhóm
+            varna chính.
+
+            Đây là một hệ thống
+            phân loại xã hội –
+            tôn giáo,
+            không nên hiểu
+            là hoàn toàn giống
+            với mọi cộng đồng
+            và mọi thời kì
+            trong thực tế lịch sử.
+
+        </p>
+
+    </div>
+
+
+    <div class="social-layout">
+
+
+        <div class="varna-pyramid">
+
+
+            <div
+                class="varna brahmin active"
+                data-varna="brahmin"
+            >
+
+                <strong>
+                    BRAHMIN
+                </strong>
+
+                <small>
+                    Bà-la-môn
+                </small>
+
+            </div>
+
+
+            <div
+                class="varna kshatriya"
+                data-varna="kshatriya"
+            >
+
+                <strong>
+                    KSHATRIYA
+                </strong>
+
+                <small>
+                    Chiến binh – tầng lớp cai trị
+                </small>
+
+            </div>
+
+
+            <div
+                class="varna vaishya"
+                data-varna="vaishya"
+            >
+
+                <strong>
+                    VAISHYA
+                </strong>
+
+                <small>
+                    Nông dân – chăn nuôi – thương nhân
+                </small>
+
+            </div>
+
+
+            <div
+                class="varna shudra"
+                data-varna="shudra"
+            >
+
+                <strong>
+                    SHUDRA
+                </strong>
+
+                <small>
+                    Lao động phục vụ
+                </small>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="social-info glass">
+
+
+            <h3>
+                Nhấn vào từng varna
+                để tìm hiểu
+            </h3>
+
+
+            <p>
+
+                Việc phân chia này
+                gắn với
+                địa vị xã hội,
+                nghề nghiệp,
+                nghi lễ
+                và quan niệm tôn giáo.
+
+            </p>
+
+
+            <div id="varnaDetail">
+
+                <strong>
+                    Brahmin – Bà-la-môn
+                </strong>
+
+                <br><br>
+
+                Nhóm gắn với
+                hoạt động tế lễ,
+                học tập
+                và truyền dạy
+                các văn bản thiêng.
+
+                Trong hệ tư tưởng
+                varna,
+                họ được xếp
+                ở vị trí cao.
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Varna và caste không hoàn toàn đồng nhất.
+        </strong>
+
+        Bốn varna
+        là mô hình phân loại
+        được trình bày
+        trong nhiều văn bản cổ.
+
+        Trong đời sống xã hội thực tế,
+        Ấn Độ còn tồn tại
+        rất nhiều cộng đồng nghề nghiệp
+        và nhóm xã hội gọi là
+        <em>jati</em>.
+
+        Vì vậy,
+        không nên hiểu
+        toàn bộ xã hội Ấn Độ
+        chỉ gồm đúng bốn nhóm
+        đơn giản như sơ đồ.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     NHÀ NƯỚC
+========================================================= -->
+
+<section id="states">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            07 • Nhà nước và đế chế
+        </div>
+
+        <h2>
+
+            Từ các vương quốc
+            đến những đế chế rộng lớn
+
+        </h2>
+
+    </div>
+
+
+    <div class="dynasty-grid">
+
+
+        <article class="dynasty-card glass">
+
+            <div class="dynasty-year">
+
+                THẾ KỈ VI – IV TCN
+
+            </div>
+
+            <h3>
+                Mahajanapada
+            </h3>
+
+            <p>
+
+                Miền Bắc Ấn Độ
+                tồn tại nhiều quốc gia
+                và liên minh chính trị.
+
+                Trong số đó,
+                Magadha
+                dần trở thành
+                một thế lực mạnh.
+
+            </p>
+
+        </article>
+
+
+        <article class="dynasty-card glass">
+
+            <div class="dynasty-year">
+
+                322 – 185 TCN
+
+            </div>
+
+            <h3>
+                Đế chế Maurya
+            </h3>
+
+            <p>
+
+                Chandragupta Maurya
+                xây dựng
+                một chính quyền lớn
+                tại miền Bắc Ấn Độ.
+
+                Maurya
+                là một trong
+                những đế chế rộng nhất
+                trong lịch sử
+                Ấn Độ cổ đại.
+
+            </p>
+
+        </article>
+
+
+        <article class="dynasty-card glass">
+
+            <div class="dynasty-year">
+
+                KHOẢNG 320 – 550
+
+            </div>
+
+            <h3>
+                Vương triều Gupta
+            </h3>
+
+            <p>
+
+                Gupta
+                kiểm soát nhiều vùng
+                ở miền Bắc Ấn Độ.
+
+                Thời kì này
+                nổi bật bởi
+                sự phát triển
+                của văn học Sanskrit,
+                toán học,
+                thiên văn,
+                tôn giáo
+                và nghệ thuật.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     ASHOKA
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            08 • Nhân vật lịch sử
+        </div>
+
+        <h2>
+            Ashoka và đế chế Maurya
+        </h2>
+
+    </div>
+
+
+    <div class="ashoka">
+
+
+        <div class="ashoka-symbol glass">
+
+            <div class="wheel">
+
+                <div class="spoke s1"></div>
+                <div class="spoke s2"></div>
+                <div class="spoke s3"></div>
+                <div class="spoke s4"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="ashoka-info glass">
+
+
+            <h3>
+                👑 Hoàng đế Ashoka
+            </h3>
+
+
+            <p>
+
+                Ashoka
+                trị vì Maurya
+                vào thế kỉ III TCN.
+
+                Sau cuộc chiến
+                chinh phục Kalinga,
+                các bia ký
+                và sắc lệnh của ông
+                cho thấy
+                nhà vua nhấn mạnh
+                đường lối
+                <em>dhamma</em>:
+                đề cao
+                đạo đức,
+                lòng khoan dung,
+                sự tự chủ
+                và quan tâm đến
+                thần dân.
+
+            </p>
+
+
+            <div class="ashoka-points">
+
+
+                <div class="ashoka-point">
+
+                    ⚔
+                    Cuộc chiến Kalinga
+                    trở thành một dấu mốc
+                    quan trọng
+                    trong triều đại của ông.
+
+                </div>
+
+
+                <div class="ashoka-point">
+
+                    🪨
+                    Nhiều thông điệp
+                    được khắc
+                    trên đá
+                    và cột đá.
+
+                </div>
+
+
+                <div class="ashoka-point">
+
+                    ☸
+                    Ashoka
+                    bảo trợ mạnh mẽ
+                    cho Phật giáo.
+
+                </div>
+
+
+                <div class="ashoka-point">
+
+                    🌏
+                    Phật giáo
+                    tiếp tục lan truyền
+                    tới nhiều khu vực
+                    của châu Á.
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Không nên hiểu đơn giản
+            rằng Ashoka
+            “từ bỏ toàn bộ việc cai trị
+            và chỉ làm nhà tu”.
+        </strong>
+
+        Ông vẫn là
+        một hoàng đế
+        điều hành đế chế,
+        nhưng các sắc lệnh
+        phản ánh
+        sự thay đổi rõ
+        trong quan niệm
+        về chiến tranh,
+        đạo đức
+        và trách nhiệm
+        của người cai trị.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     VĂN HÓA
+========================================================= -->
+
+<section id="culture">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            09 • Thành tựu văn hóa
+        </div>
+
+        <h2>
+
+            Những di sản
+            có ảnh hưởng lâu dài
+
+        </h2>
+
+        <p>
+
+            Văn hóa Ấn Độ cổ đại
+            phát triển trên nhiều lĩnh vực
+            và có ảnh hưởng sâu rộng
+            tới Nam Á,
+            Đông Nam Á
+            và nhiều khu vực khác.
+
+        </p>
+
+    </div>
+
+
+    <div class="tabs">
+
+
+        <button
+            class="tab active"
+            data-tab="religion"
+        >
+            🕉 Tôn giáo
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="writing"
+        >
+            📜 Chữ viết
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="literature"
+        >
+            📚 Văn học
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="science"
+        >
+            🔢 Khoa học
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="art"
+        >
+            🛕 Nghệ thuật
+        </button>
+
+
+    </div>
+
+
+    <!-- TÔN GIÁO -->
+
+    <div
+        class="tab-content glass active"
+        id="religion"
+    >
+
+        <div class="culture-grid">
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🕉 Hindu giáo
+                </h4>
+
+                <p>
+
+                    Phát triển
+                    từ nhiều truyền thống
+                    tôn giáo cổ,
+                    trong đó có
+                    di sản Veda
+                    và các tư tưởng
+                    Brahman giáo.
+
+                    Các khái niệm
+                    như nghiệp,
+                    luân hồi,
+                    dharma
+                    và giải thoát
+                    có vị trí quan trọng.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    ☸ Phật giáo
+                </h4>
+
+                <p>
+
+                    Xuất hiện
+                    vào khoảng
+                    thế kỉ VI – V TCN
+                    gắn với
+                    Siddhartha Gautama.
+
+                    Phật giáo
+                    nhấn mạnh con đường
+                    vượt qua khổ đau
+                    thông qua tu tập,
+                    đạo đức
+                    và trí tuệ.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    Jain giáo
+                </h4>
+
+                <p>
+
+                    Là một truyền thống
+                    tôn giáo lớn khác
+                    của Ấn Độ cổ đại,
+                    đề cao đặc biệt
+                    nguyên tắc
+                    không gây hại
+                    đối với sinh vật.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🌏 Ảnh hưởng
+                </h4>
+
+                <p>
+
+                    Các tôn giáo
+                    có nguồn gốc Ấn Độ
+                    được truyền bá
+                    theo thương mại,
+                    giao lưu
+                    và hoạt động
+                    của tăng sĩ,
+                    học giả
+                    đến nhiều vùng châu Á.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- CHỮ VIẾT -->
+
+    <div
+        class="tab-content glass"
+        id="writing"
+    >
+
+        <div class="culture-grid">
+
+
+            <div class="culture-card">
+
+                <h4>
+                    Harappa
+                </h4>
+
+                <p>
+
+                    Nhiều dấu hiệu chữ viết
+                    xuất hiện trên
+                    con dấu
+                    và hiện vật,
+                    nhưng hệ thống này
+                    vẫn chưa được
+                    giải mã chắc chắn.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    Brahmi
+                </h4>
+
+                <p>
+
+                    Là một hệ chữ viết
+                    rất quan trọng
+                    trong lịch sử Ấn Độ.
+
+                    Nhiều sắc lệnh
+                    của Ashoka
+                    được viết
+                    bằng các dạng chữ
+                    Brahmi.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    Sanskrit
+                </h4>
+
+                <p>
+
+                    Sanskrit
+                    là một ngôn ngữ
+                    văn học,
+                    tôn giáo
+                    và học thuật
+                    có vai trò đặc biệt
+                    trong văn hóa Ấn Độ.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    Pali và Prakrit
+                </h4>
+
+                <p>
+
+                    Bên cạnh Sanskrit,
+                    các ngôn ngữ
+                    Ấn-Arya Trung đại
+                    như Prakrit
+                    và Pali
+                    cũng đóng vai trò
+                    quan trọng
+                    trong văn học
+                    và tôn giáo.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- VĂN HỌC -->
+
+    <div
+        class="tab-content glass"
+        id="literature"
+    >
+
+        <div class="culture-grid">
+
+
+            <div class="culture-card">
+
+                <h4>
+                    📖 Veda
+                </h4>
+
+                <p>
+
+                    Là những văn bản
+                    tôn giáo rất cổ,
+                    gồm các bài tụng,
+                    nghi lễ
+                    và tư tưởng.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    ⚔ Mahabharata
+                </h4>
+
+                <p>
+
+                    Một trong
+                    những sử thi lớn
+                    của Ấn Độ.
+
+                    Tác phẩm chứa
+                    nhiều lớp
+                    truyện kể,
+                    đạo đức,
+                    tôn giáo
+                    và triết học.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🏹 Ramayana
+                </h4>
+
+                <p>
+
+                    Sử thi kể
+                    về Rama,
+                    Sita
+                    và cuộc hành trình
+                    có ảnh hưởng lớn
+                    tới văn hóa
+                    nhiều nước châu Á.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    ✍ Kalidasa
+                </h4>
+
+                <p>
+
+                    Là một trong
+                    những tên tuổi
+                    tiêu biểu
+                    của văn học Sanskrit,
+                    thường gắn với
+                    thời Gupta.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- SCIENCE -->
+
+    <div
+        class="tab-content glass"
+        id="science"
+    >
+
+        <div class="culture-grid">
+
+
+            <div class="culture-card">
+
+                <h4>
+                    ० Số 0
+                </h4>
+
+                <p>
+
+                    Các nhà toán học Ấn Độ
+                    có đóng góp đặc biệt
+                    trong sự phát triển
+                    hệ thống ghi số
+                    theo vị trí
+                    và việc sử dụng
+                    số 0.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🔢 Hệ chữ số
+                </h4>
+
+                <p>
+
+                    Hệ chữ số
+                    phát triển ở Ấn Độ
+                    về sau được
+                    các học giả
+                    trong thế giới Hồi giáo
+                    tiếp nhận
+                    và truyền sang châu Âu.
+
+                    Ngày nay
+                    thường gọi là
+                    hệ chữ số
+                    Hindu–Arabic.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🌌 Thiên văn
+                </h4>
+
+                <p>
+
+                    Các học giả Ấn Độ
+                    nghiên cứu
+                    chuyển động thiên thể,
+                    lịch pháp
+                    và các vấn đề
+                    toán – thiên văn.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🧮 Aryabhata
+                </h4>
+
+                <p>
+
+                    Aryabhata
+                    là nhà toán học
+                    và thiên văn học
+                    tiêu biểu
+                    đầu thế kỉ VI.
+
+                    Ông có nhiều đóng góp
+                    về số học,
+                    lượng giác
+                    và thiên văn.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ART -->
+
+    <div
+        class="tab-content glass"
+        id="art"
+    >
+
+        <div class="culture-grid">
+
+
+            <div class="culture-card">
+
+                <h4>
+                    ☸ Stupa
+                </h4>
+
+                <p>
+
+                    Kiến trúc stupa
+                    gắn với Phật giáo,
+                    được xây dựng
+                    để lưu giữ xá lợi
+                    hoặc tưởng niệm
+                    những sự kiện,
+                    nhân vật quan trọng.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🪨 Cột đá Ashoka
+                </h4>
+
+                <p>
+
+                    Nhiều cột đá
+                    mang sắc lệnh
+                    của Ashoka
+                    được dựng
+                    tại các địa điểm
+                    trong đế chế.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🛕 Đền Hindu
+                </h4>
+
+                <p>
+
+                    Kiến trúc
+                    và điêu khắc Hindu
+                    phát triển mạnh,
+                    đặc biệt
+                    trong và sau
+                    thời Gupta.
+
+                </p>
+
+            </div>
+
+
+            <div class="culture-card">
+
+                <h4>
+                    🎨 Ajanta
+                </h4>
+
+                <p>
+
+                    Các hang động Ajanta
+                    nổi tiếng
+                    với kiến trúc đá,
+                    điêu khắc
+                    và hội họa Phật giáo.
+
+                    Nhiều tác phẩm
+                    mang ảnh hưởng
+                    nghệ thuật Gupta.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     KIẾN THỨC MỞ RỘNG
+========================================================= -->
+
+<section id="extra">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            10 • Kiến thức mở rộng
+        </div>
+
+        <h2>
+
+            Những điều thú vị
+            ngoài kiến thức cơ bản
+
+        </h2>
+
+        <p>
+
+            Phần này giúp học sinh
+            mở rộng hiểu biết
+            nhưng không bắt buộc
+            ghi nhớ toàn bộ.
+
+        </p>
+
+    </div>
+
+
+    <div class="extra-grid">
+
+
+        <article class="extra-card glass">
+
+            <div class="extra-icon">
+                🔤
+            </div>
+
+            <h3>
+                Chữ Harappa
+            </h3>
+
+            <p>
+
+                Hàng nghìn
+                bản khắc ngắn
+                đã được phát hiện,
+                chủ yếu trên con dấu.
+
+                Nhưng vì chưa có
+                văn bản song ngữ
+                và nội dung thường rất ngắn,
+                cách đọc của hệ chữ này
+                vẫn là vấn đề
+                gây tranh luận.
+
+            </p>
+
+        </article>
+
+
+        <article class="extra-card glass">
+
+            <div class="extra-icon">
+                🛁
+            </div>
+
+            <h3>
+                Great Bath
+            </h3>
+
+            <p>
+
+                Tại Mohenjo-daro,
+                các nhà khảo cổ
+                phát hiện
+                một công trình
+                thường gọi là
+                “Great Bath”.
+
+                Đây là một bể xây
+                rất công phu,
+                có thể liên quan
+                tới hoạt động
+                nghi lễ hoặc cộng đồng.
+
+            </p>
+
+        </article>
+
+
+        <article class="extra-card glass">
+
+            <div class="extra-icon">
+                🚢
+            </div>
+
+            <h3>
+                Lothal
+            </h3>
+
+            <p>
+
+                Lothal
+                là một trung tâm Harappa
+                ở Gujarat.
+
+                Nơi đây nổi tiếng
+                với hoạt động
+                thủ công,
+                kho chứa,
+                con dấu
+                và một công trình
+                thường được giải thích
+                như bến tàu.
+
+            </p>
+
+        </article>
+
+
+        <article class="extra-card glass">
+
+            <div class="extra-icon">
+                🪷
+            </div>
+
+            <h3>
+                Lotus – hoa sen
+            </h3>
+
+            <p>
+
+                Hoa sen
+                xuất hiện thường xuyên
+                trong nghệ thuật
+                và biểu tượng
+                tôn giáo Ấn Độ.
+
+                Nó có ý nghĩa
+                trong cả Hindu giáo
+                và Phật giáo.
+
+            </p>
+
+        </article>
+
+
+        <article class="extra-card glass">
+
+            <div class="extra-icon">
+                🌏
+            </div>
+
+            <h3>
+                Ảnh hưởng đến Đông Nam Á
+            </h3>
+
+            <p>
+
+                Thương nhân,
+                tăng sĩ
+                và các mạng lưới
+                giao lưu hàng hải
+                góp phần truyền bá
+                chữ viết,
+                tôn giáo,
+                nghệ thuật
+                và tư tưởng Ấn Độ
+                tới Đông Nam Á.
+
+            </p>
+
+        </article>
+
+
+        <article class="extra-card glass">
+
+            <div class="extra-icon">
+                🔢
+            </div>
+
+            <h3>
+                Vì sao gọi là “số Ả Rập”?
+            </h3>
+
+            <p>
+
+                Hệ chữ số
+                mà nhiều nước sử dụng
+                ngày nay
+                có nguồn gốc
+                phát triển mạnh
+                từ toán học Ấn Độ.
+
+                Sau đó,
+                các học giả
+                thế giới Hồi giáo
+                tiếp nhận
+                và truyền sang châu Âu.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     NHỮNG ĐIỂM DỄ NHẦM
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            11 • Học đúng lịch sử
+        </div>
+
+        <h2>
+            Những điểm rất dễ hiểu sai
+        </h2>
+
+    </div>
+
+
+    <details>
+
+        <summary>
+            Ấn Độ cổ đại có phải chỉ nằm trong lãnh thổ Ấn Độ ngày nay?
+        </summary>
+
+        <p>
+
+            Không.
+
+            Không gian của
+            các nền văn minh
+            Nam Á cổ đại
+            vượt qua biên giới
+            quốc gia hiện nay.
+
+            Ví dụ,
+            Harappa
+            và Mohenjo-daro
+            đều nằm
+            trong lãnh thổ Pakistan ngày nay.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Harappa có phải là nền văn minh do người Veda xây dựng?
+        </summary>
+
+        <p>
+
+            Không nên đồng nhất.
+
+            Văn minh Harappa
+            đạt đỉnh
+            trước giai đoạn
+            văn hóa Veda
+            hàng nhiều thế kỉ.
+
+            Mối quan hệ
+            giữa các cộng đồng
+            và những chuyển biến
+            sau khi đô thị Harappa suy giảm
+            là vấn đề phức tạp.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Có phải xã hội Ấn Độ cổ đại chỉ có đúng bốn “đẳng cấp”?
+        </summary>
+
+        <p>
+
+            Không hoàn toàn.
+
+            Bốn varna
+            là một mô hình
+            phân loại xã hội
+            trong nhiều văn bản.
+
+            Thực tế xã hội
+            còn có vô số
+            nhóm nghề nghiệp,
+            cộng đồng
+            và jati khác nhau.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Phật giáo có thay thế hoàn toàn Hindu giáo ở Ấn Độ không?
+        </summary>
+
+        <p>
+
+            Không.
+
+            Nhiều truyền thống
+            tôn giáo
+            cùng tồn tại
+            và tác động lẫn nhau.
+
+            Hindu giáo,
+            Phật giáo,
+            Jain giáo
+            và các dòng tư tưởng khác
+            đều có những giai đoạn
+            phát triển mạnh.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Người Ấn Độ có “phát minh ra mọi chữ số” đang dùng hiện nay không?
+        </summary>
+
+        <p>
+
+            Cách nói chính xác hơn là:
+
+            các nhà toán học Ấn Độ
+            có đóng góp nền tảng
+            trong việc phát triển
+            hệ thống chữ số
+            theo vị trí
+            và khái niệm số 0.
+
+            Hệ thống này
+            sau đó tiếp tục được
+            truyền bá
+            và phát triển
+            qua thế giới Hồi giáo
+            trước khi phổ biến
+            tại châu Âu.
+
+        </p>
+
+    </details>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     QUIZ
+========================================================= -->
+
+<section id="quiz">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            12 • Tự kiểm tra
+        </div>
+
+        <h2>
+            Em đã hiểu Ấn Độ cổ đại chưa?
+        </h2>
+
+    </div>
+
+
+    <div class="quiz-box glass">
+
+
+        <!-- Q1 -->
+
+        <div
+            class="question"
+            data-answer="b"
+        >
+
+            <h3>
+
+                Câu 1.
+                Hai đô thị nổi tiếng
+                của văn minh sông Ấn là:
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="a"
+                >
+
+                Athens và Sparta.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="b"
+                >
+
+                Harappa và Mohenjo-daro.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="c"
+                >
+
+                Memphis và Thebes.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="d"
+                >
+
+                Rome và Pompeii.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q2 -->
+
+        <div
+            class="question"
+            data-answer="c"
+        >
+
+            <h3>
+
+                Câu 2.
+                Đặc điểm nổi bật
+                của Mohenjo-daro là:
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="a"
+                >
+
+                Thành phố
+                xây hoàn toàn
+                bằng đá cẩm thạch.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="b"
+                >
+
+                Không có
+                quy hoạch đường phố.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="c"
+                >
+
+                Quy hoạch đô thị
+                và hệ thống thoát nước
+                phát triển.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="d"
+                >
+
+                Chỉ là
+                một làng nông nghiệp nhỏ.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q3 -->
+
+        <div
+            class="question"
+            data-answer="a"
+        >
+
+            <h3>
+
+                Câu 3.
+                Nhóm nào
+                thuộc hệ thống
+                bốn varna?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="a"
+                >
+
+                Brahmin,
+                Kshatriya,
+                Vaishya,
+                Shudra.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="b"
+                >
+
+                Pharaoh,
+                vizier,
+                scribe,
+                slave.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="c"
+                >
+
+                Patrician,
+                plebeian,
+                consul,
+                slave.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="d"
+                >
+
+                King,
+                senate,
+                citizen,
+                metic.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q4 -->
+
+        <div
+            class="question"
+            data-answer="d"
+        >
+
+            <h3>
+
+                Câu 4.
+                Đế chế nào
+                gắn với
+                hoàng đế Ashoka?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="a"
+                >
+
+                Gupta.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="b"
+                >
+
+                Kushan.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="c"
+                >
+
+                Harappa.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="d"
+                >
+
+                Maurya.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q5 -->
+
+        <div
+            class="question"
+            data-answer="c"
+        >
+
+            <h3>
+
+                Câu 5.
+                Thành tựu nào
+                có ảnh hưởng đặc biệt
+                đến toán học thế giới?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="a"
+                >
+
+                Chữ tượng hình Ai Cập.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="b"
+                >
+
+                Luật XII bảng.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="c"
+                >
+
+                Hệ thống ghi số
+                theo vị trí
+                và sự phát triển
+                khái niệm số 0.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="d"
+                >
+
+                Bảng chữ cái Phoenicia.
+
+            </label>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            id="checkQuiz"
+        >
+
+            Kiểm tra kết quả
+
+        </button>
+
+
+        <div
+            class="quiz-result"
+            id="quizResult"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="container">
+
+
+    <strong>
+
+        HISTORY LAB 6
+        • HỌC LIỆU SỐ LỊCH SỬ
+
+    </strong>
+
+
+    <p>
+
+        Chủ đề:
+        Ấn Độ cổ đại.
+
+    </p>
+
+
+    <div class="footer-sources">
+
+        Nguồn tham khảo định hướng:
+        UNESCO World Heritage Centre;
+        NCERT – National Council of Educational Research and Training;
+        Metropolitan Museum of Art –
+        tài liệu giáo dục về nghệ thuật Nam Á.
+
+    </div>
+
+
+</div>
+
+</footer>
+
+
+<button
+    id="backTop"
+    aria-label="Lên đầu trang"
+>
+
+    ↑
+
+</button>
+
+
+<script>
+
+/* =========================================================
+   01. VARNA INTERACTION
+========================================================= */
+
+const varnaData = {
+
+    brahmin: {
+
+        title:
+            "Brahmin – Bà-la-môn",
+
+        text:
+            `Nhóm gắn với hoạt động tế lễ,
+            học tập và truyền dạy
+            các văn bản thiêng.
+            Trong hệ tư tưởng varna,
+            Brahmin được xếp
+            ở vị trí cao.`
+
+    },
+
+
+    kshatriya: {
+
+        title:
+            "Kshatriya",
+
+        text:
+            `Nhóm gắn với chiến binh,
+            người cai trị
+            và bảo vệ cộng đồng.
+            Nhiều vua chúa
+            và tầng lớp quân sự
+            được đặt trong varna này.`
+
+    },
+
+
+    vaishya: {
+
+        title:
+            "Vaishya",
+
+        text:
+            `Nhóm thường được liên hệ
+            với nông nghiệp,
+            chăn nuôi,
+            buôn bán
+            và các hoạt động kinh tế.`
+
+    },
+
+
+    shudra: {
+
+        title:
+            "Shudra",
+
+        text:
+            `Trong mô hình varna,
+            Shudra thường được mô tả
+            là nhóm lao động phục vụ
+            các varna phía trên.
+            Địa vị xã hội của họ
+            thấp hơn trong hệ thống này.`
+
+    }
+
+};
+
+
+document
+.querySelectorAll(
+    ".varna"
+)
+.forEach(
+
+    item => {
+
+        item
+        .addEventListener(
+            "click",
+            function() {
+
+                document
+                .querySelectorAll(
+                    ".varna"
+                )
+                .forEach(
+
+                    v =>
+                    v.classList.remove(
+                        "active"
+                    )
+
+                );
+
+
+                this
+                .classList
+                .add(
+                    "active"
+                );
+
+
+                const data =
+                    varnaData[
+                        this.dataset.varna
+                    ];
+
+
+                document
+                .getElementById(
+                    "varnaDetail"
+                )
+                .innerHTML = `
+
+                    <strong>
+                        ${data.title}
+                    </strong>
+
+                    <br><br>
+
+                    ${data.text}
+
+                `;
+
+            }
+        );
+
+    }
+
+);
+
+
+/* =========================================================
+   02. CULTURE TABS
+========================================================= */
+
+document
+.querySelectorAll(
+    ".tab"
+)
+.forEach(
+
+    button => {
+
+        button
+        .addEventListener(
+            "click",
+            function() {
+
+                document
+                .querySelectorAll(
+                    ".tab"
+                )
+                .forEach(
+
+                    tab =>
+                    tab.classList.remove(
+                        "active"
+                    )
+
+                );
+
+
+                document
+                .querySelectorAll(
+                    ".tab-content"
+                )
+                .forEach(
+
+                    content =>
+                    content.classList.remove(
+                        "active"
+                    )
+
+                );
+
+
+                this
+                .classList
+                .add(
+                    "active"
+                );
+
+
+                document
+                .getElementById(
+                    this.dataset.tab
+                )
+                .classList
+                .add(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+);
+
+
+/* =========================================================
+   03. QUIZ
+========================================================= */
+
+document
+.getElementById(
+    "checkQuiz"
+)
+.addEventListener(
+    "click",
+    function() {
+
+        const questions =
+            document
+            .querySelectorAll(
+                ".question"
+            );
+
+
+        let score =
+            0;
+
+        let answered =
+            0;
+
+
+        questions
+        .forEach(
+
+            question => {
+
+                const selected =
+                    question
+                    .querySelector(
+                        "input:checked"
+                    );
+
+
+                if(selected) {
+
+                    answered++;
+
+
+                    if(
+                        selected.value ===
+                        question.dataset.answer
+                    ) {
+
+                        score++;
+
+                    }
+
+                }
+
+            }
+
+        );
+
+
+        const result =
+            document
+            .getElementById(
+                "quizResult"
+            );
+
+
+        result.style.display =
+            "block";
+
+
+        if(
+            answered <
+            questions.length
+        ) {
+
+            result.innerHTML = `
+
+                ⚠ Em mới hoàn thành
+
+                <strong>
+                    ${answered}/${questions.length}
+                </strong>
+
+                câu hỏi.
+
+                Hãy trả lời đủ
+                trước khi kiểm tra.
+
+            `;
+
+            return;
+
+        }
+
+
+        const percent =
+            Math.round(
+
+                score /
+                questions.length *
+                100
+
+            );
+
+
+        let message = "";
+
+
+        if(
+            percent ===
+            100
+        ) {
+
+            message = `
+
+                🌟 Xuất sắc!
+
+                Em đã nắm rất chắc
+                tiến trình,
+                xã hội
+                và văn hóa
+                Ấn Độ cổ đại.
+
+            `;
+
+        }
+
+        else if(
+            percent >=
+            80
+        ) {
+
+            message = `
+
+                👍 Rất tốt!
+
+                Em đã hiểu
+                phần lớn nội dung bài học.
+
+            `;
+
+        }
+
+        else if(
+            percent >=
+            60
+        ) {
+
+            message = `
+
+                📚 Khá tốt.
+
+                Hãy xem lại
+                phần tiến trình lịch sử,
+                varna
+                và thành tựu văn hóa.
+
+            `;
+
+        }
+
+        else {
+
+            message = `
+
+                🔎 Em nên quay lại
+                các phần:
+
+                văn minh sông Ấn,
+                Maurya,
+                xã hội varna
+                và thành tựu văn hóa
+                rồi thử lại.
+
+            `;
+
+        }
+
+
+        result.innerHTML = `
+
+            <strong>
+
+                Kết quả:
+                ${score}/${questions.length}
+                câu đúng
+                (${percent}%)
+
+            </strong>
+
+            <br><br>
+
+            ${message}
+
+        `;
+
+    }
+);
+
+
+/* =========================================================
+   04. BACK TOP
+========================================================= */
+
+const backTop =
+    document
+    .getElementById(
+        "backTop"
+    );
+
+
+window
+.addEventListener(
+    "scroll",
+    function() {
+
+        if(
+            window.scrollY >
+            500
+        ) {
+
+            backTop.style.display =
+                "grid";
+
+        }
+
+        else {
+
+            backTop.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+backTop
+.addEventListener(
+    "click",
+    function() {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior:
+                "smooth"
+
+        });
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,6134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Lược đồ tương tác Ấn Độ cổ đại và hiện nay
+</title>
+
+<!-- =========================================================
+     D3 + TOPOJSON
+     DÙNG SCRIPT THÔNG THƯỜNG
+     KHÔNG DÙNG IMPORT MAP / MODULE JSON
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"
+></script>
+
+
+<style>
+
+/* =========================================================
+   01. COLOR SYSTEM
+========================================================= */
+
+:root {
+
+    --bg:
+        #111b2c;
+
+    --bg-dark:
+        #091221;
+
+    --surface:
+        rgba(19,31,52,.94);
+
+    --surface-soft:
+        rgba(30,45,70,.84);
+
+    --border:
+        rgba(255,255,255,.11);
+
+    --text:
+        #eef5ff;
+
+    --muted:
+        #9eacc4;
+
+    --blue:
+        #2d75d5;
+
+    --blue-light:
+        #53b8ff;
+
+    --orange:
+        #f39b36;
+
+    --orange-light:
+        #ffc669;
+
+    --green:
+        #50c28a;
+
+    --purple:
+        #a16bea;
+
+    --red:
+        #e9655b;
+
+    --yellow:
+        #f9d65c;
+
+    --sea:
+        #152943;
+
+    --shadow:
+        0 20px 55px rgba(0,0,0,.35);
+
+    --radius:
+        20px;
+}
+
+
+/* =========================================================
+   02. RESET
+========================================================= */
+
+* {
+
+    box-sizing:
+        border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+html {
+
+    scroll-behavior:
+        smooth;
+
+}
+
+
+body {
+
+    min-height:
+        100vh;
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:
+        var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 18% 6%,
+            rgba(45,117,213,.16),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 82% 10%,
+            rgba(161,107,234,.13),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            150deg,
+            #0a1322,
+            #111d31 52%,
+            #0b1423
+        );
+
+    line-height:
+        1.55;
+
+    overflow-x:
+        hidden;
+
+}
+
+
+button {
+
+    font: inherit;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   03. HEADER
+========================================================= */
+
+.header {
+
+    position:
+        sticky;
+
+    top: 0;
+
+    z-index:
+        1000;
+
+    min-height:
+        72px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        18px;
+
+    padding:
+        0 28px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    background:
+        rgba(7,15,28,.91);
+
+    backdrop-filter:
+        blur(17px);
+
+}
+
+
+.logo {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.logo-icon {
+
+    width:
+        45px;
+
+    height:
+        45px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        14px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #2c70cd,
+            #154987
+        );
+
+    box-shadow:
+        0 0 24px rgba(66,147,255,.24);
+
+    font-size:
+        22px;
+
+}
+
+
+.logo strong {
+
+    display:
+        block;
+
+    font-size:
+        16px;
+
+}
+
+
+.logo small {
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+.header-actions {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+}
+
+
+.top-btn {
+
+    min-height:
+        38px;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    color:
+        #d7e3f4;
+
+    background:
+        rgba(255,255,255,.035);
+
+}
+
+
+/* =========================================================
+   04. INTRO
+========================================================= */
+
+.intro {
+
+    width:
+        min(1500px,96%);
+
+    margin:
+        auto;
+
+    padding:
+        30px 0 20px;
+
+}
+
+
+.intro-row {
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        space-between;
+
+    gap:
+        24px;
+
+}
+
+
+.intro h1 {
+
+    font-size:
+
+        clamp(
+            30px,
+            4vw,
+            52px
+        );
+
+    line-height:
+        1.06;
+
+    letter-spacing:
+        -1.5px;
+
+}
+
+
+.orange {
+
+    color:
+        var(--orange-light);
+
+}
+
+
+.intro p {
+
+    max-width:
+        780px;
+
+    margin-top:
+        10px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+}
+
+
+.status {
+
+    min-width:
+        230px;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid
+        rgba(80,194,138,.24);
+
+    border-radius:
+        13px;
+
+    background:
+        rgba(80,194,138,.06);
+
+    color:
+        #b7dcc8;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   05. MAIN LAYOUT
+========================================================= */
+
+.app {
+
+    width:
+        min(1500px,96%);
+
+    margin:
+        10px auto 70px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        260px minmax(0,1fr) 310px;
+
+    gap:
+        13px;
+
+    align-items:
+        start;
+
+}
+
+
+/* =========================================================
+   06. PANEL
+========================================================= */
+
+.panel {
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(20,34,57,.95),
+            rgba(11,22,40,.94)
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.left-panel,
+.right-panel {
+
+    position:
+        sticky;
+
+    top:
+        88px;
+
+    padding:
+        18px;
+
+}
+
+
+.panel-kicker {
+
+    color:
+        var(--blue-light);
+
+    font-size:
+        9px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.7px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.panel h2 {
+
+    margin:
+        5px 0 6px;
+
+    font-size:
+        20px;
+
+}
+
+
+.panel-description {
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   07. PERIOD LIST
+========================================================= */
+
+.period-title {
+
+    margin:
+        20px 0 8px;
+
+    color:
+        #b9c6db;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.2px;
+
+}
+
+
+.period-list {
+
+    display:
+        grid;
+
+    gap:
+        8px;
+
+}
+
+
+.period-btn {
+
+    width:
+        100%;
+
+    padding:
+        11px 12px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        35px 1fr;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    color:
+        #d6e0ef;
+
+    text-align:
+        left;
+
+    background:
+        rgba(255,255,255,.025);
+
+    transition:
+        .2s ease;
+
+}
+
+
+.period-btn:hover {
+
+    transform:
+        translateX(3px);
+
+    background:
+        rgba(255,255,255,.055);
+
+}
+
+
+.period-btn.active {
+
+    border-color:
+        rgba(243,155,54,.55);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(243,155,54,.18),
+            rgba(45,117,213,.10)
+        );
+
+}
+
+
+.period-icon {
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+.period-btn strong {
+
+    display:
+        block;
+
+    font-size:
+        12px;
+
+}
+
+
+.period-btn small {
+
+    display:
+        block;
+
+    margin-top:
+        1px;
+
+    color:
+        #8fa0ba;
+
+    font-size:
+        9px;
+
+}
+
+
+/* =========================================================
+   08. LAYERS
+========================================================= */
+
+.layer-button {
+
+    width:
+        100%;
+
+    min-height:
+        40px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    margin:
+        6px 0;
+
+    padding:
+        9px 10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    color:
+        #bdc9db;
+
+    text-align:
+        left;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.layer-button.active {
+
+    color:
+        white;
+
+    border-color:
+        rgba(83,184,255,.40);
+
+    background:
+        rgba(45,117,213,.13);
+
+}
+
+
+.color-dot {
+
+    width:
+        10px;
+
+    height:
+        10px;
+
+    flex:
+        0 0 10px;
+
+    border-radius:
+        50%;
+
+}
+
+
+/* =========================================================
+   09. MAP PANEL
+========================================================= */
+
+.center {
+
+    min-width:
+        0;
+
+}
+
+
+.compare-bar {
+
+    min-height:
+        52px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        10px;
+
+    padding:
+        9px 11px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(17,31,52,.72);
+
+}
+
+
+.mode-buttons {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        6px;
+
+}
+
+
+.mode-btn {
+
+    padding:
+        8px 11px;
+
+    border:
+        1px solid transparent;
+
+    border-radius:
+        9px;
+
+    color:
+        #9daec6;
+
+    background:
+        transparent;
+
+}
+
+
+.mode-btn.active {
+
+    color:
+        white;
+
+    border-color:
+        rgba(83,184,255,.25);
+
+    background:
+        rgba(45,117,213,.14);
+
+}
+
+
+.sync-btn {
+
+    padding:
+        8px 11px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    color:
+        #c8d3e5;
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+/* =========================================================
+   10. MAPS
+========================================================= */
+
+.maps {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        11px;
+
+}
+
+
+.map-card {
+
+    min-width:
+        0;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        18px;
+
+    background:
+        #112239;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.map-title {
+
+    min-height:
+        57px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    padding:
+        10px 13px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    background:
+        rgba(9,20,36,.88);
+
+}
+
+
+.map-title strong {
+
+    display:
+        block;
+
+    font-size:
+        13px;
+
+}
+
+
+.map-title span {
+
+    color:
+        #8797af;
+
+    font-size:
+        9px;
+
+}
+
+
+.map-tag {
+
+    padding:
+        5px 7px;
+
+    border-radius:
+        999px;
+
+    border:
+        1px solid
+        rgba(243,155,54,.25);
+
+    color:
+        #ffd59b !important;
+
+    background:
+        rgba(243,155,54,.07);
+
+}
+
+
+.map-box {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(83,184,255,.08),
+            transparent 28%
+        ),
+
+        var(--sea);
+
+}
+
+
+svg {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        1 / 1.07;
+
+    cursor:
+        grab;
+
+    touch-action:
+        none;
+
+}
+
+
+svg:active {
+
+    cursor:
+        grabbing;
+
+}
+
+
+/* =========================================================
+   11. MAP OBJECTS
+========================================================= */
+
+.country {
+
+    stroke:
+        rgba(219,232,249,.55);
+
+    stroke-width:
+        .7;
+
+    vector-effect:
+        non-scaling-stroke;
+
+    cursor:
+        pointer;
+
+    transition:
+        fill .2s;
+
+}
+
+
+.modern-normal {
+
+    fill:
+        #293e5d;
+
+}
+
+
+.modern-neighbor {
+
+    fill:
+        #344d70;
+
+}
+
+
+.modern-india {
+
+    fill:
+        #d47a37;
+
+}
+
+
+.modern-sea-neighbor {
+
+    fill:
+        #46647d;
+
+}
+
+
+.country:hover {
+
+    filter:
+        brightness(1.22);
+
+}
+
+
+.country.selected {
+
+    stroke:
+        #ffffff;
+
+    stroke-width:
+        2.2;
+
+}
+
+
+.ancient-base-country {
+
+    fill:
+        #263a55;
+
+    opacity:
+        .76;
+
+    stroke:
+        rgba(255,255,255,.25);
+
+    stroke-width:
+        .6;
+
+    vector-effect:
+        non-scaling-stroke;
+
+}
+
+
+.ancient-zone {
+
+    fill:
+        rgba(243,155,54,.42);
+
+    stroke:
+        #ffc164;
+
+    stroke-width:
+        2.2;
+
+    stroke-dasharray:
+        6 4;
+
+    vector-effect:
+        non-scaling-stroke;
+
+}
+
+
+.ancient-zone-core {
+
+    fill:
+        rgba(221,91,72,.48);
+
+    stroke:
+        #ff8472;
+
+    stroke-width:
+        2.2;
+
+    vector-effect:
+        non-scaling-stroke;
+
+}
+
+
+.ancient-zone-influence {
+
+    fill:
+        rgba(161,107,234,.21);
+
+    stroke:
+        #c19cf4;
+
+    stroke-width:
+        1.8;
+
+    stroke-dasharray:
+        5 4;
+
+    vector-effect:
+        non-scaling-stroke;
+
+}
+
+
+.river {
+
+    fill:
+        none;
+
+    stroke:
+        #42c7f1;
+
+    stroke-width:
+        2.3;
+
+    opacity:
+        .9;
+
+    vector-effect:
+        non-scaling-stroke;
+
+}
+
+
+.site {
+
+    fill:
+        #fce17a;
+
+    stroke:
+        #172338;
+
+    stroke-width:
+        1.7;
+
+    vector-effect:
+        non-scaling-stroke;
+
+    cursor:
+        pointer;
+
+}
+
+
+.site.capital {
+
+    fill:
+        #ff6d62;
+
+}
+
+
+.site.buddhist {
+
+    fill:
+        #a875ec;
+
+}
+
+
+.region-dot {
+
+    fill:
+        #5be2bd;
+
+    stroke:
+        #112c29;
+
+    stroke-width:
+        1.5;
+
+    vector-effect:
+        non-scaling-stroke;
+
+    cursor:
+        pointer;
+
+}
+
+
+.svg-label {
+
+    fill:
+        #f2f6ff;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    pointer-events:
+        none;
+
+    paint-order:
+        stroke;
+
+    stroke:
+        #102034;
+
+    stroke-width:
+        3px;
+
+}
+
+
+.svg-label.small {
+
+    font-size:
+        7px;
+
+}
+
+
+.svg-label.river-label {
+
+    fill:
+        #8ce5ff;
+
+    font-style:
+        italic;
+
+}
+
+
+/* =========================================================
+   12. MAP CONTROLS
+========================================================= */
+
+.map-controls {
+
+    position:
+        absolute;
+
+    top:
+        11px;
+
+    right:
+        11px;
+
+    display:
+        grid;
+
+    gap:
+        5px;
+
+    z-index:
+        30;
+
+}
+
+
+.map-controls button {
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        9px;
+
+    color:
+        white;
+
+    background:
+        rgba(7,17,31,.84);
+
+}
+
+
+/* =========================================================
+   13. SCALE INFO
+========================================================= */
+
+.map-hint {
+
+    position:
+        absolute;
+
+    left:
+        11px;
+
+    bottom:
+        10px;
+
+    max-width:
+        220px;
+
+    padding:
+        7px 9px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(7,16,28,.72);
+
+    color:
+        #9cadc5;
+
+    font-size:
+        8px;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* =========================================================
+   14. LEGEND
+========================================================= */
+
+.legend {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+    margin-top:
+        10px;
+
+    padding:
+        11px 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        13px;
+
+    color:
+        #a9b8cd;
+
+    background:
+        rgba(17,31,52,.60);
+
+    font-size:
+        9px;
+
+}
+
+
+.legend-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+}
+
+
+.swatch {
+
+    width:
+        19px;
+
+    height:
+        9px;
+
+    border-radius:
+        999px;
+
+}
+
+
+.round {
+
+    width:
+        9px;
+
+    height:
+        9px;
+
+    border-radius:
+        50%;
+
+}
+
+
+/* =========================================================
+   15. PERIOD DESCRIPTION
+========================================================= */
+
+.period-summary {
+
+    margin-top:
+        11px;
+
+    padding:
+        16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(17,31,52,.69);
+
+}
+
+
+.period-summary h3 {
+
+    color:
+        var(--orange-light);
+
+    font-size:
+        16px;
+
+}
+
+
+.period-summary p {
+
+    margin-top:
+        5px;
+
+    color:
+        #aebbd0;
+
+    font-size:
+        11px;
+
+}
+
+
+.accuracy-note {
+
+    margin-top:
+        10px;
+
+    padding:
+        11px 12px;
+
+    border-left:
+        3px solid var(--yellow);
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(249,214,92,.055);
+
+    color:
+        #c7bd9d;
+
+    font-size:
+        10px;
+
+}
+
+
+/* =========================================================
+   16. RIGHT INFO PANEL
+========================================================= */
+
+.info-type {
+
+    color:
+        var(--blue-light);
+
+    font-size:
+        9px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.5px;
+
+}
+
+
+#infoTitle {
+
+    margin:
+        5px 0 8px;
+
+    font-size:
+        22px;
+
+}
+
+
+#infoDescription {
+
+    color:
+        #a7b6ca;
+
+    font-size:
+        11px;
+
+}
+
+
+.info-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        7px;
+
+    margin-top:
+        14px;
+
+}
+
+
+.info-item {
+
+    min-width:
+        0;
+
+    padding:
+        9px 10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.info-item small {
+
+    display:
+        block;
+
+    color:
+        #7589a5;
+
+    font-size:
+        8px;
+
+    letter-spacing:
+        .7px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.info-item strong {
+
+    display:
+        block;
+
+    margin-top:
+        2px;
+
+    overflow-wrap:
+        anywhere;
+
+    color:
+        #dce6f4;
+
+    font-size:
+        10px;
+
+}
+
+
+.insight {
+
+    margin-top:
+        13px;
+
+    padding:
+        12px;
+
+    border-left:
+        3px solid
+        var(--green);
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(80,194,138,.055);
+
+    color:
+        #accbbd;
+
+    font-size:
+        10px;
+
+}
+
+
+.neighbor-list {
+
+    margin-top:
+        12px;
+
+}
+
+
+.neighbor-list strong {
+
+    font-size:
+        11px;
+
+}
+
+
+.chip-list {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        5px;
+
+    margin-top:
+        7px;
+
+}
+
+
+.chip {
+
+    padding:
+        5px 7px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        999px;
+
+    color:
+        #aebed2;
+
+    background:
+        rgba(255,255,255,.025);
+
+    font-size:
+        8px;
+
+}
+
+
+/* =========================================================
+   17. COMPARISON TABLE
+========================================================= */
+
+.table-card {
+
+    margin-top:
+        11px;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(17,31,52,.64);
+
+}
+
+
+.table-title {
+
+    padding:
+        12px 14px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    font-size:
+        11px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.table-scroll {
+
+    overflow-x:
+        auto;
+
+}
+
+
+table {
+
+    width:
+        100%;
+
+    min-width:
+        730px;
+
+    border-collapse:
+        collapse;
+
+}
+
+
+th,
+td {
+
+    padding:
+        10px 12px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    text-align:
+        left;
+
+    vertical-align:
+        top;
+
+}
+
+
+th {
+
+    color:
+        #9db4d1;
+
+    background:
+        rgba(45,117,213,.07);
+
+    font-size:
+        9px;
+
+}
+
+
+td {
+
+    color:
+        #a8b5c9;
+
+    font-size:
+        9px;
+
+}
+
+
+/* =========================================================
+   18. LOADING / ERROR
+========================================================= */
+
+#loading {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        5000;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    background:
+        #091321;
+
+    transition:
+        opacity .35s;
+
+}
+
+
+.loader {
+
+    text-align:
+        center;
+
+}
+
+
+.loader-ring {
+
+    width:
+        56px;
+
+    height:
+        56px;
+
+    margin:
+        auto;
+
+    border:
+        4px solid rgba(255,255,255,.08);
+
+    border-top-color:
+        var(--blue-light);
+
+    border-radius:
+        50%;
+
+    animation:
+        rotate 1s linear infinite;
+
+}
+
+
+.loader p {
+
+    margin-top:
+        12px;
+
+    color:
+        #92a6c0;
+
+    font-size:
+        11px;
+
+}
+
+
+@keyframes rotate {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+.error-box {
+
+    display:
+        none;
+
+    margin:
+        12px;
+
+    padding:
+        16px;
+
+    border:
+        1px solid
+        rgba(233,101,91,.35);
+
+    border-radius:
+        13px;
+
+    color:
+        #e5b3af;
+
+    background:
+        rgba(233,101,91,.07);
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   19. RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px) {
+
+    .app {
+
+        grid-template-columns:
+            230px minmax(0,1fr);
+
+    }
+
+
+    .right-panel {
+
+        grid-column:
+            1 / -1;
+
+        position:
+            static;
+
+    }
+
+}
+
+
+@media(max-width:860px) {
+
+    .app {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .left-panel {
+
+        position:
+            static;
+
+    }
+
+
+    .period-list {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+
+    .maps {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .intro-row {
+
+        display:
+            block;
+
+    }
+
+
+    .status {
+
+        margin-top:
+            14px;
+
+    }
+
+}
+
+
+@media(max-width:540px) {
+
+    .header {
+
+        padding:
+            0 14px;
+
+    }
+
+
+    .header-actions {
+
+        display:
+            none;
+
+    }
+
+
+    .period-list {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .compare-bar {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .intro h1 {
+
+        font-size:
+            34px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div id="loading">
+
+    <div class="loader">
+
+        <div class="loader-ring"></div>
+
+        <p>
+            Đang tải dữ liệu lược đồ Nam Á...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🗺
+        </div>
+
+        <div>
+
+            <strong>
+                HISTORY MAP LAB
+            </strong>
+
+            <small>
+                ẤN ĐỘ CỔ ĐẠI
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+            class="top-btn"
+            id="resetAllTop"
+        >
+            🎯 Đặt lại
+        </button>
+
+        <button
+            class="top-btn"
+            id="helpButton"
+        >
+            ❔ Hướng dẫn
+        </button>
+
+    </div>
+
+
+</header>
+
+
+<!-- =========================================================
+     INTRO
+========================================================= -->
+
+<section class="intro">
+
+
+    <div class="intro-row">
+
+
+        <div>
+
+            <h1>
+
+                Lược đồ tương tác
+
+                <span class="orange">
+                    Ấn Độ cổ đại
+                </span>
+
+                ⇄ Hiện nay
+
+            </h1>
+
+
+            <p>
+
+                Khám phá sự thay đổi
+                của không gian lịch sử Nam Á
+                qua bốn giai đoạn lớn;
+                bấm vào quốc gia,
+                thành phố,
+                sông và vùng lịch sử
+                để xem thông tin chi tiết.
+
+            </p>
+
+        </div>
+
+
+        <div
+            class="status"
+            id="mapStatus"
+        >
+
+            🟢 Đang chuẩn bị dữ liệu biên giới...
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<div class="app">
+
+
+<!-- =========================================================
+     LEFT PANEL
+========================================================= -->
+
+<aside class="panel left-panel">
+
+
+    <div class="panel-kicker">
+        Dòng thời gian
+    </div>
+
+
+    <h2>
+        Chọn thời kì
+    </h2>
+
+
+    <p class="panel-description">
+
+        Phạm vi trên bản đồ cổ đại
+        sẽ thay đổi theo từng giai đoạn.
+
+    </p>
+
+
+    <div class="period-list">
+
+
+        <button
+            class="period-btn active"
+            data-period="harappa"
+        >
+
+            <span class="period-icon">
+                🏙
+            </span>
+
+            <span>
+
+                <strong>
+                    Văn minh Harappa
+                </strong>
+
+                <small>
+                    khoảng 2600–1900 TCN
+                </small>
+
+            </span>
+
+        </button>
+
+
+        <button
+            class="period-btn"
+            data-period="mahajanapada"
+        >
+
+            <span class="period-icon">
+                🏛
+            </span>
+
+            <span>
+
+                <strong>
+                    Mahajanapada
+                </strong>
+
+                <small>
+                    khoảng TK VI–IV TCN
+                </small>
+
+            </span>
+
+        </button>
+
+
+        <button
+            class="period-btn"
+            data-period="maurya"
+        >
+
+            <span class="period-icon">
+                ☸
+            </span>
+
+            <span>
+
+                <strong>
+                    Đế chế Maurya
+                </strong>
+
+                <small>
+                    khoảng 322–185 TCN
+                </small>
+
+            </span>
+
+        </button>
+
+
+        <button
+            class="period-btn"
+            data-period="gupta"
+        >
+
+            <span class="period-icon">
+                📜
+            </span>
+
+            <span>
+
+                <strong>
+                    Vương triều Gupta
+                </strong>
+
+                <small>
+                    khoảng TK IV–VI
+                </small>
+
+            </span>
+
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         LAYERS
+    ====================================================== -->
+
+    <div class="period-title">
+        LỚP THÔNG TIN
+    </div>
+
+
+    <button
+        class="layer-button active"
+        id="riverToggle"
+    >
+
+        <span
+            class="color-dot"
+            style="background:#42c7f1"
+        ></span>
+
+        Hệ thống sông
+
+    </button>
+
+
+    <button
+        class="layer-button active"
+        id="siteToggle"
+    >
+
+        <span
+            class="color-dot"
+            style="background:#fce17a"
+        ></span>
+
+        Thành phố / di tích
+
+    </button>
+
+
+    <button
+        class="layer-button active"
+        id="modernBoundaryToggle"
+    >
+
+        <span
+            class="color-dot"
+            style="background:#7589a9"
+        ></span>
+
+        Biên giới hiện nay
+
+    </button>
+
+
+    <button
+        class="layer-button"
+        id="regionToggle"
+    >
+
+        <span
+            class="color-dot"
+            style="background:#5be2bd"
+        ></span>
+
+        Chính thể cổ
+
+    </button>
+
+
+    <div class="period-title">
+        KÍ HIỆU
+    </div>
+
+
+    <div class="chip-list">
+
+        <span class="chip">
+            ● Đô thị
+        </span>
+
+        <span class="chip">
+            ★ Kinh đô
+        </span>
+
+        <span class="chip">
+            ☸ Phật giáo
+        </span>
+
+    </div>
+
+
+</aside>
+
+
+<!-- =========================================================
+     CENTER
+========================================================= -->
+
+<main class="center">
+
+
+    <!-- =====================================================
+         TOOLBAR
+    ====================================================== -->
+
+    <div class="compare-bar">
+
+
+        <div class="mode-buttons">
+
+            <button
+                class="mode-btn active"
+                id="compareMode"
+            >
+                ⇄ So sánh Cổ – Kim
+            </button>
+
+
+            <button
+                class="mode-btn"
+                id="ancientMode"
+            >
+                🏺 Chỉ cổ đại
+            </button>
+
+
+            <button
+                class="mode-btn"
+                id="modernMode"
+            >
+                🌏 Chỉ hiện nay
+            </button>
+
+        </div>
+
+
+        <button
+            class="sync-btn"
+            id="syncButton"
+        >
+            🔗 Đồng bộ zoom
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         MAPS
+    ====================================================== -->
+
+    <div
+        class="maps"
+        id="mapGrid"
+    >
+
+
+        <!-- =================================================
+             ANCIENT
+        ================================================== -->
+
+        <section
+            class="map-card"
+            id="ancientCard"
+        >
+
+
+            <div class="map-title">
+
+                <div>
+
+                    <strong>
+                        🏺 LƯỢC ĐỒ CỔ ĐẠI
+                    </strong>
+
+                    <span id="ancientSubtitle">
+                        Văn minh Harappa
+                    </span>
+
+                </div>
+
+
+                <span class="map-tag">
+                    Phạm vi tương đối
+                </span>
+
+            </div>
+
+
+            <div class="map-box">
+
+
+                <svg
+                    id="ancientMap"
+                    viewBox="0 0 700 745"
+                    aria-label="Lược đồ Ấn Độ cổ đại"
+                ></svg>
+
+
+                <div class="map-controls">
+
+                    <button
+                        data-map="ancient"
+                        data-action="in"
+                        title="Phóng to"
+                    >
+                        +
+                    </button>
+
+
+                    <button
+                        data-map="ancient"
+                        data-action="out"
+                        title="Thu nhỏ"
+                    >
+                        −
+                    </button>
+
+
+                    <button
+                        data-map="ancient"
+                        data-action="reset"
+                        title="Đặt lại"
+                    >
+                        ⌂
+                    </button>
+
+                </div>
+
+
+                <div class="map-hint">
+
+                    Kéo để di chuyển •
+                    Cuộn để phóng to •
+                    Bấm điểm / vùng để xem
+
+                </div>
+
+
+                <div
+                    class="error-box"
+                    id="ancientError"
+                ></div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             MODERN
+        ================================================== -->
+
+        <section
+            class="map-card"
+            id="modernCard"
+        >
+
+
+            <div class="map-title">
+
+                <div>
+
+                    <strong>
+                        🌏 ẤN ĐỘ HIỆN NAY
+                    </strong>
+
+                    <span>
+                        Quốc gia và khu vực lân cận
+                    </span>
+
+                </div>
+
+
+                <span
+                    class="map-tag"
+                    style="
+                        border-color:rgba(83,184,255,.25);
+                        color:#a8d9ff!important;
+                        background:rgba(45,117,213,.06);
+                    "
+                >
+                    Biên giới hiện đại
+                </span>
+
+            </div>
+
+
+            <div class="map-box">
+
+
+                <svg
+                    id="modernMap"
+                    viewBox="0 0 700 745"
+                    aria-label="Bản đồ Ấn Độ hiện nay"
+                ></svg>
+
+
+                <div class="map-controls">
+
+                    <button
+                        data-map="modern"
+                        data-action="in"
+                    >
+                        +
+                    </button>
+
+
+                    <button
+                        data-map="modern"
+                        data-action="out"
+                    >
+                        −
+                    </button>
+
+
+                    <button
+                        data-map="modern"
+                        data-action="reset"
+                    >
+                        ⌂
+                    </button>
+
+                </div>
+
+
+                <div class="map-hint">
+
+                    Bấm vào Ấn Độ
+                    hoặc một quốc gia lân cận
+                    để xem thông tin
+
+                </div>
+
+
+                <div
+                    class="error-box"
+                    id="modernError"
+                ></div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         LEGEND
+    ====================================================== -->
+
+    <div class="legend">
+
+
+        <div class="legend-item">
+
+            <span
+                class="swatch"
+                style="background:rgba(243,155,54,.6)"
+            ></span>
+
+            Phạm vi cổ đại khái quát
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="swatch"
+                style="background:#d47a37"
+            ></span>
+
+            Ấn Độ hiện nay
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="swatch"
+                style="background:#344d70"
+            ></span>
+
+            Quốc gia lân cận
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="round"
+                style="background:#fce17a"
+            ></span>
+
+            Đô thị / di tích
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="round"
+                style="background:#ff6d62"
+            ></span>
+
+            Kinh đô
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="swatch"
+                style="background:#42c7f1"
+            ></span>
+
+            Sông lớn
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         PERIOD SUMMARY
+    ====================================================== -->
+
+    <section class="period-summary">
+
+
+        <h3 id="periodTitle">
+
+            Văn minh Harappa / sông Ấn
+
+        </h3>
+
+
+        <p id="periodDescription">
+
+            Khoảng 2600–1900 TCN,
+            các đô thị Harappa phát triển mạnh
+            tại lưu vực sông Ấn
+            và những vùng phụ cận.
+
+        </p>
+
+
+        <div
+            class="accuracy-note"
+            id="accuracyNote"
+        >
+
+            ⚠ Phần màu cổ đại
+            biểu diễn không gian lịch sử
+            ở mức khái quát,
+            không phải biên giới quốc gia
+            theo nghĩa hiện đại.
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         TABLE
+    ====================================================== -->
+
+    <section class="table-card">
+
+
+        <div class="table-title">
+
+            🔎 ĐỐI CHIẾU
+            ĐỊA ĐIỂM CỔ ĐẠI ⇄ QUỐC GIA HIỆN NAY
+
+        </div>
+
+
+        <div class="table-scroll">
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Địa điểm
+                        </th>
+
+                        <th>
+                            Không gian cổ đại
+                        </th>
+
+                        <th>
+                            Hiện nay
+                        </th>
+
+                        <th>
+                            Ý nghĩa
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Harappa
+                        </td>
+
+                        <td>
+                            Văn minh sông Ấn
+                        </td>
+
+                        <td>
+                            Pakistan
+                        </td>
+
+                        <td>
+                            Đô thị lớn của văn minh Harappa
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Mohenjo-daro
+                        </td>
+
+                        <td>
+                            Văn minh sông Ấn
+                        </td>
+
+                        <td>
+                            Pakistan
+                        </td>
+
+                        <td>
+                            Quy hoạch đô thị,
+                            cống thoát nước nổi bật
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Dholavira
+                        </td>
+
+                        <td>
+                            Văn minh Harappa
+                        </td>
+
+                        <td>
+                            Ấn Độ
+                        </td>
+
+                        <td>
+                            Trung tâm đô thị,
+                            quản lí nước
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Taxila
+                        </td>
+
+                        <td>
+                            Gandhara
+                        </td>
+
+                        <td>
+                            Pakistan
+                        </td>
+
+                        <td>
+                            Trung tâm giao lưu Tây Bắc
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Pataliputra
+                        </td>
+
+                        <td>
+                            Magadha / Maurya
+                        </td>
+
+                        <td>
+                            Ấn Độ
+                        </td>
+
+                        <td>
+                            Kinh đô Maurya
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Lumbini
+                        </td>
+
+                        <td>
+                            Vùng Himalaya cổ
+                        </td>
+
+                        <td>
+                            Nepal
+                        </td>
+
+                        <td>
+                            Gắn với cuộc đời Đức Phật
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     RIGHT
+========================================================= -->
+
+<aside class="panel right-panel">
+
+
+    <div
+        class="info-type"
+        id="infoType"
+    >
+        HƯỚNG DẪN
+    </div>
+
+
+    <h2 id="infoTitle">
+        Khám phá bản đồ
+    </h2>
+
+
+    <p id="infoDescription">
+
+        Bấm vào quốc gia,
+        thành phố,
+        di tích
+        hoặc chính thể cổ
+        để xem thông tin tại đây.
+
+    </p>
+
+
+    <div
+        class="info-grid"
+        id="infoGrid"
+    >
+
+
+        <div class="info-item">
+
+            <small>
+                Cổ đại
+            </small>
+
+            <strong>
+                4 thời kì
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <small>
+                Hiện đại
+            </small>
+
+            <strong>
+                Nam Á
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <small>
+                Thao tác
+            </small>
+
+            <strong>
+                Click / Zoom
+            </strong>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <small>
+                Mục tiêu
+            </small>
+
+            <strong>
+                So sánh Cổ – Kim
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="insight">
+
+        💡 <strong>Mẹo học:</strong>
+
+        bấm vào
+        <strong>Harappa</strong>
+        hoặc
+        <strong>Mohenjo-daro</strong>,
+        sau đó nhìn bản đồ hiện nay.
+
+        Hai địa điểm này
+        hiện nằm tại Pakistan,
+        không phải trong
+        Cộng hòa Ấn Độ ngày nay.
+
+    </div>
+
+
+    <div class="neighbor-list">
+
+        <strong>
+            Biên giới đất liền
+            của Ấn Độ hiện nay:
+        </strong>
+
+
+        <div class="chip-list">
+
+            <span class="chip">
+                Pakistan
+            </span>
+
+            <span class="chip">
+                Trung Quốc
+            </span>
+
+            <span class="chip">
+                Nepal
+            </span>
+
+            <span class="chip">
+                Bhutan
+            </span>
+
+            <span class="chip">
+                Bangladesh
+            </span>
+
+            <span class="chip">
+                Myanmar
+            </span>
+
+            <span class="chip">
+                Afghanistan*
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="accuracy-note">
+
+        * Danh sách trên
+        theo công bố chính thức
+        của Bộ Nội vụ Ấn Độ.
+
+        Một số đường biên hiện đại
+        có tranh chấp;
+        bản đồ này phục vụ
+        dạy học lịch sử,
+        không phải tài liệu pháp lí
+        về biên giới.
+
+    </div>
+
+
+</aside>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   01. GLOBALS
+========================================================= */
+
+(function () {
+
+"use strict";
+
+
+const WIDTH =
+    700;
+
+const HEIGHT =
+    745;
+
+
+/* =========================================================
+   02. DOM
+========================================================= */
+
+const ancientSvg =
+    d3.select(
+        "#ancientMap"
+    );
+
+
+const modernSvg =
+    d3.select(
+        "#modernMap"
+    );
+
+
+const status =
+    document.getElementById(
+        "mapStatus"
+    );
+
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+/* =========================================================
+   03. GROUPS
+========================================================= */
+
+const ancientRoot =
+    ancientSvg
+    .append("g");
+
+
+const modernRoot =
+    modernSvg
+    .append("g");
+
+
+const ancientCountryLayer =
+    ancientRoot
+    .append("g");
+
+
+const ancientZoneLayer =
+    ancientRoot
+    .append("g");
+
+
+const ancientRiverLayer =
+    ancientRoot
+    .append("g");
+
+
+const ancientRegionLayer =
+    ancientRoot
+    .append("g");
+
+
+const ancientSiteLayer =
+    ancientRoot
+    .append("g");
+
+
+const ancientLabelLayer =
+    ancientRoot
+    .append("g");
+
+
+const modernCountryLayer =
+    modernRoot
+    .append("g");
+
+
+const modernLabelLayer =
+    modernRoot
+    .append("g");
+
+
+/* =========================================================
+   04. PROJECTIONS
+========================================================= */
+
+function createProjection() {
+
+    return d3
+        .geoMercator()
+        .center([
+            79.5,
+            22.5
+        ])
+        .scale(
+            740
+        )
+        .translate([
+            WIDTH / 2,
+            HEIGHT / 2
+        ]);
+
+}
+
+
+const ancientProjection =
+    createProjection();
+
+
+const modernProjection =
+    createProjection();
+
+
+const ancientPath =
+    d3.geoPath(
+        ancientProjection
+    );
+
+
+const modernPath =
+    d3.geoPath(
+        modernProjection
+    );
+
+
+/* =========================================================
+   05. CURRENT COUNTRY DATA
+========================================================= */
+
+const countryData = {
+
+    "356": {
+
+        name:
+            "Ấn Độ",
+
+        status:
+            "Quốc gia hiện đại",
+
+        capital:
+            "New Delhi",
+
+        relation:
+            "Trung tâm lớn của tiểu lục địa Nam Á.",
+
+        history:
+            "Phần lớn các trung tâm Magadha, Maurya, Gupta, Sanchi, Ujjain và nhiều di tích cổ nằm trong lãnh thổ Ấn Độ hiện nay."
+
+    },
+
+
+    "586": {
+
+        name:
+            "Pakistan",
+
+        status:
+            "Láng giềng phía tây",
+
+        capital:
+            "Islamabad",
+
+        relation:
+            "Có biên giới đất liền với Ấn Độ.",
+
+        history:
+            "Harappa, Mohenjo-daro và Taxila đều nằm trong Pakistan ngày nay. Vì vậy không thể đồng nhất văn minh sông Ấn với lãnh thổ Ấn Độ hiện đại."
+
+    },
+
+
+    "156": {
+
+        name:
+            "Trung Quốc",
+
+        status:
+            "Láng giềng phía bắc / đông bắc",
+
+        capital:
+            "Beijing",
+
+        relation:
+            "Có đường biên giới hiện đại với Ấn Độ; một số khu vực biên giới đang có tranh chấp.",
+
+        history:
+            "Himalaya và cao nguyên Tây Tạng là ranh giới tự nhiên lớn, đồng thời không ngăn cản hoàn toàn giao lưu lịch sử."
+
+    },
+
+
+    "524": {
+
+        name:
+            "Nepal",
+
+        status:
+            "Láng giềng Himalaya",
+
+        capital:
+            "Kathmandu",
+
+        relation:
+            "Có biên giới đất liền với Ấn Độ.",
+
+        history:
+            "Lumbini ở Nepal ngày nay được truyền thống Phật giáo xác định là nơi sinh của Siddhartha Gautama."
+
+    },
+
+
+    "64": {
+
+        name:
+            "Bhutan",
+
+        status:
+            "Láng giềng Himalaya",
+
+        capital:
+            "Thimphu",
+
+        relation:
+            "Có biên giới đất liền với Ấn Độ.",
+
+        history:
+            "Nằm trong không gian Himalaya phía đông; không phải trung tâm chính của Maurya hay Gupta."
+
+    },
+
+
+    "50": {
+
+        name:
+            "Bangladesh",
+
+        status:
+            "Láng giềng phía đông",
+
+        capital:
+            "Dhaka",
+
+        relation:
+            "Có biên giới đất liền dài với Ấn Độ.",
+
+        history:
+            "Nằm trong khu vực Bengal và đồng bằng sông Hằng – Brahmaputra, một vùng quan trọng trong lịch sử Nam Á."
+
+    },
+
+
+    "104": {
+
+        name:
+            "Myanmar",
+
+        status:
+            "Láng giềng phía đông",
+
+        capital:
+            "Naypyidaw",
+
+        relation:
+            "Có biên giới đất liền với Ấn Độ.",
+
+        history:
+            "Là không gian kết nối Nam Á với Đông Nam Á; ảnh hưởng tôn giáo và văn hóa Ấn Độ lan truyền qua nhiều thế kỉ."
+
+    },
+
+
+    "4": {
+
+        name:
+            "Afghanistan",
+
+        status:
+            "Không gian Tây Bắc",
+
+        capital:
+            "Kabul",
+
+        relation:
+            "Bộ Nội vụ Ấn Độ liệt kê biên giới Ấn–Afghanistan dài 106 km theo lập trường chính thức của Ấn Độ.",
+
+        history:
+            "Vùng Afghanistan ngày nay từng gắn với không gian Gandhara và các tuyến giao lưu nối Nam Á với Trung Á."
+
+    },
+
+
+    "144": {
+
+        name:
+            "Sri Lanka",
+
+        status:
+            "Quốc gia lân cận qua biển",
+
+        capital:
+            "Sri Jayawardenepura Kotte",
+
+        relation:
+            "Không có biên giới đất liền với Ấn Độ.",
+
+        history:
+            "Sri Lanka có quan hệ lâu đời với Nam Ấn Độ và giữ vai trò rất quan trọng trong lịch sử truyền bá Phật giáo."
+
+    }
+
+};
+
+
+const desiredCountryIds =
+    new Set(
+        Object.keys(
+            countryData
+        )
+    );
+
+
+/* =========================================================
+   06. MODERN LABELS
+========================================================= */
+
+const modernLabels = [
+
+    {
+        name:
+            "ẤN ĐỘ",
+        lon:
+            79,
+        lat:
+            21.5
+    },
+
+    {
+        name:
+            "PAKISTAN",
+        lon:
+            69,
+        lat:
+            30
+    },
+
+    {
+        name:
+            "AFGHANISTAN",
+        lon:
+            66.7,
+        lat:
+            34
+    },
+
+    {
+        name:
+            "TRUNG QUỐC",
+        lon:
+            88.5,
+        lat:
+            34
+    },
+
+    {
+        name:
+            "NEPAL",
+        lon:
+            84,
+        lat:
+            28.2
+    },
+
+    {
+        name:
+            "BHUTAN",
+        lon:
+            90.4,
+        lat:
+            27.6
+    },
+
+    {
+        name:
+            "BANGLADESH",
+        lon:
+            90.4,
+        lat:
+            23.7
+    },
+
+    {
+        name:
+            "MYANMAR",
+        lon:
+            96,
+        lat:
+            21
+    },
+
+    {
+        name:
+            "SRI LANKA",
+        lon:
+            80.7,
+        lat:
+            7.4
+    }
+
+];
+
+
+/* =========================================================
+   07. RIVERS
+   ĐƯỜNG SÔNG GIẢN LƯỢC PHỤC VỤ DẠY HỌC
+========================================================= */
+
+const rivers = [
+
+    {
+
+        name:
+            "Sông Ấn",
+
+        coords: [
+
+            [78.5,34],
+            [75.8,34.8],
+            [73.2,33.5],
+            [71.5,31.4],
+            [70.2,29],
+            [69.4,26.7],
+            [68.0,24.3]
+
+        ]
+
+    },
+
+
+    {
+
+        name:
+            "Sông Hằng",
+
+        coords: [
+
+            [78.5,30.1],
+            [79.8,28.2],
+            [82,26.6],
+            [84.7,25.6],
+            [87.1,25],
+            [89.5,23.8]
+
+        ]
+
+    },
+
+
+    {
+
+        name:
+            "Brahmaputra",
+
+        coords: [
+
+            [94.6,29.3],
+            [94,27.8],
+            [92.4,26],
+            [90.8,25.2],
+            [90,23.5]
+
+        ]
+
+    }
+
+];
+
+
+/* =========================================================
+   08. HISTORICAL SITES
+========================================================= */
+
+const sites = {
+
+
+    harappa: [
+
+        {
+            name:
+                "Harappa",
+            lon:
+                72.86,
+            lat:
+                30.63,
+            current:
+                "Pakistan",
+            type:
+                "Đô thị Harappa",
+            description:
+                "Một trong những đô thị tiêu biểu nhất của văn minh Harappa; tên của di chỉ cũng được dùng để gọi nền văn minh Harappa."
+        },
+
+        {
+            name:
+                "Mohenjo-daro",
+            lon:
+                68.14,
+            lat:
+                27.32,
+            current:
+                "Pakistan",
+            type:
+                "Đô thị Harappa",
+            description:
+                "Đô thị nổi tiếng với quy hoạch đường phố, kiến trúc gạch, giếng nước và hệ thống thoát nước."
+        },
+
+        {
+            name:
+                "Dholavira",
+            lon:
+                70.21,
+            lat:
+                23.89,
+            current:
+                "Ấn Độ",
+            type:
+                "Đô thị Harappa",
+            description:
+                "Di chỉ lớn ở Gujarat ngày nay, nổi bật với tổ chức đô thị và quản lí nguồn nước."
+        },
+
+        {
+            name:
+                "Lothal",
+            lon:
+                72.25,
+            lat:
+                22.52,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm Harappa",
+            description:
+                "Trung tâm thủ công và thương mại quan trọng ở Gujarat."
+        }
+
+    ],
+
+
+    mahajanapada: [
+
+        {
+            name:
+                "Taxila",
+            lon:
+                72.84,
+            lat:
+                33.75,
+            current:
+                "Pakistan",
+            type:
+                "Gandhara",
+            description:
+                "Trung tâm lớn ở Tây Bắc, nằm trên các tuyến giao lưu giữa Nam Á, Trung Á và Tây Á."
+        },
+
+        {
+            name:
+                "Varanasi",
+            lon:
+                83,
+            lat:
+                25.32,
+            current:
+                "Ấn Độ",
+            type:
+                "Kasi",
+            description:
+                "Thành phố cổ nằm bên sông Hằng, gắn với Mahajanapada Kasi."
+        },
+
+        {
+            name:
+                "Rajagriha",
+            lon:
+                85.42,
+            lat:
+                25.03,
+            current:
+                "Ấn Độ",
+            type:
+                "Magadha",
+            description:
+                "Một trung tâm chính trị sớm của Magadha."
+        },
+
+        {
+            name:
+                "Ujjain",
+            lon:
+                75.79,
+            lat:
+                23.18,
+            current:
+                "Ấn Độ",
+            type:
+                "Avanti",
+            description:
+                "Trung tâm lớn của Avanti và mạng lưới thương mại miền trung Ấn Độ."
+        },
+
+        {
+            name:
+                "Lumbini",
+            lon:
+                83.28,
+            lat:
+                27.48,
+            current:
+                "Nepal",
+            type:
+                "Địa điểm Phật giáo",
+            buddhist:
+                true,
+            description:
+                "Địa điểm ở Nepal ngày nay gắn với nơi sinh của Siddhartha Gautama theo truyền thống Phật giáo."
+        }
+
+    ],
+
+
+    maurya: [
+
+        {
+            name:
+                "Pataliputra",
+            lon:
+                85.14,
+            lat:
+                25.61,
+            current:
+                "Ấn Độ",
+            type:
+                "Kinh đô Maurya",
+            capital:
+                true,
+            description:
+                "Kinh đô lớn của đế chế Maurya, gần thành phố Patna ngày nay."
+        },
+
+        {
+            name:
+                "Taxila",
+            lon:
+                72.84,
+            lat:
+                33.75,
+            current:
+                "Pakistan",
+            type:
+                "Trung tâm Tây Bắc",
+            description:
+                "Trung tâm chiến lược của vùng Tây Bắc Maurya."
+        },
+
+        {
+            name:
+                "Ujjain",
+            lon:
+                75.79,
+            lat:
+                23.18,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm Maurya",
+            description:
+                "Trung tâm hành chính và thương mại quan trọng."
+        },
+
+        {
+            name:
+                "Sanchi",
+            lon:
+                77.74,
+            lat:
+                23.49,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm Phật giáo",
+            buddhist:
+                true,
+            description:
+                "Nổi tiếng với quần thể stupa; truyền thống xây dựng gắn với Ashoka và những giai đoạn sau."
+        },
+
+        {
+            name:
+                "Kalinga",
+            lon:
+                85.8,
+            lat:
+                20.3,
+            current:
+                "Ấn Độ",
+            type:
+                "Kalinga",
+            description:
+                "Vùng phía đông gắn với cuộc chiến Kalinga trong triều đại Ashoka."
+        }
+
+    ],
+
+
+    gupta: [
+
+        {
+            name:
+                "Pataliputra",
+            lon:
+                85.14,
+            lat:
+                25.61,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm Gupta",
+            capital:
+                true,
+            description:
+                "Một trung tâm chính trị quan trọng của vương triều Gupta."
+        },
+
+        {
+            name:
+                "Ujjain",
+            lon:
+                75.79,
+            lat:
+                23.18,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm văn hóa",
+            description:
+                "Trung tâm thương mại, văn hóa và thiên văn quan trọng."
+        },
+
+        {
+            name:
+                "Mathura",
+            lon:
+                77.67,
+            lat:
+                27.49,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm nghệ thuật",
+            description:
+                "Một trung tâm lớn của nghệ thuật và tôn giáo Bắc Ấn."
+        },
+
+        {
+            name:
+                "Nalanda",
+            lon:
+                85.44,
+            lat:
+                25.14,
+            current:
+                "Ấn Độ",
+            type:
+                "Trung tâm học thuật",
+            buddhist:
+                true,
+            description:
+                "Trung tâm Phật giáo và học thuật lớn, phát triển mạnh trong và sau thời Gupta."
+        }
+
+    ]
+
+};
+
+
+/* =========================================================
+   09. MAHAJANAPADA POINTS
+   ĐÂY LÀ VỊ TRÍ KHÁI QUÁT,
+   KHÔNG PHẢI BIÊN GIỚI CHÍNH XÁC.
+========================================================= */
+
+const mahajanapadas = [
+
+    ["Gandhara",71.8,34],
+    ["Kamboja",70.1,35],
+    ["Kuru",77.1,29.4],
+    ["Panchala",79.4,28.1],
+    ["Matsya",76.4,26.7],
+    ["Surasena",77.7,27.4],
+    ["Vatsa",81.8,25.5],
+    ["Kasi",83,25.3],
+    ["Kosala",81.5,27.1],
+    ["Vajji",85.3,26.2],
+    ["Malla",83.7,26.7],
+    ["Magadha",85.3,25.1],
+    ["Anga",87.1,25.1],
+    ["Avanti",75.8,23.2],
+    ["Chedi",80.2,24.4],
+    ["Assaka",78.5,20.1]
+
+];
+
+
+/* =========================================================
+   10. ANCIENT PERIOD TEXT
+========================================================= */
+
+const periods = {
+
+    harappa: {
+
+        subtitle:
+            "Văn minh Harappa",
+
+        title:
+            "Văn minh sông Ấn / Harappa",
+
+        description:
+            "Trong giai đoạn trưởng thành khoảng 2600–1900 TCN, mạng lưới các đô thị Harappa trải rộng trên lưu vực sông Ấn và vùng Tây Bắc tiểu lục địa. Harappa và Mohenjo-daro hiện thuộc Pakistan; Dholavira và Lothal hiện thuộc Ấn Độ.",
+
+        note:
+            "Màu cam thể hiện phạm vi phân bố khái quát của các di chỉ Harappa, không phải một quốc gia có biên giới cố định."
+
+    },
+
+
+    mahajanapada: {
+
+        subtitle:
+            "Các Mahajanapada",
+
+        title:
+            "Miền Bắc Ấn Độ thời Mahajanapada",
+
+        description:
+            "Khoảng thế kỉ VI–IV TCN, miền Bắc tiểu lục địa gồm nhiều vương quốc và liên minh chính trị. Magadha, Kosala, Vatsa, Avanti và Gandhara là những trung tâm quan trọng. Đây chưa phải một quốc gia Ấn Độ thống nhất.",
+
+        note:
+            "Các điểm xanh biểu thị vị trí khái quát của 16 Mahajanapada; không nên nối các điểm thành biên giới quốc gia hiện đại."
+
+    },
+
+
+    maurya: {
+
+        subtitle:
+            "Đế chế Maurya",
+
+        title:
+            "Đế chế Maurya – thời Ashoka",
+
+        description:
+            "Maurya là một trong những đế chế rộng lớn nhất của lịch sử Ấn Độ cổ đại. Dưới Ashoka ở thế kỉ III TCN, quyền lực Maurya trải rộng trên phần lớn tiểu lục địa và tới vùng Tây Bắc.",
+
+        note:
+            "Đường viền Maurya là phục dựng khái quát phục vụ dạy học. Mức độ kiểm soát chính trị không đồng đều và không tương đương biên giới quốc gia hiện đại."
+
+    },
+
+
+    gupta: {
+
+        subtitle:
+            "Vương triều Gupta",
+
+        title:
+            "Không gian quyền lực Gupta",
+
+        description:
+            "Từ thế kỉ IV đến đầu thế kỉ VI, Gupta kiểm soát nhiều vùng ở miền Bắc, miền Trung và miền Tây Ấn Độ. Quyền lực trực tiếp của triều đình và phạm vi các nước chư hầu hay vùng chịu ảnh hưởng không hoàn toàn giống nhau.",
+
+        note:
+            "Bản đồ sử dụng hai lớp: vùng lõi đậm hơn và vùng ảnh hưởng/chư hầu nhạt hơn để tránh hiểu rằng toàn bộ không gian đều được quản lí giống nhau."
+
+    }
+
+};
+
+
+/* =========================================================
+   11. ANCIENT AREA POLYGONS
+   GIẢN LƯỢC CHO DẠY HỌC
+========================================================= */
+
+const polygons = {
+
+
+    harappa: [
+
+        {
+
+            className:
+                "ancient-zone",
+
+            geometry: {
+
+                type:
+                    "Polygon",
+
+                coordinates: [[
+
+                    [61.5,28],
+                    [63,32],
+                    [67,34],
+                    [72,33],
+                    [76,31],
+                    [78,27],
+                    [76.5,23],
+                    [72.5,21],
+                    [67.5,22.5],
+                    [64,25],
+                    [61.5,28]
+
+                ]]
+
+            }
+
+        }
+
+    ],
+
+
+    maurya: [
+
+        {
+
+            className:
+                "ancient-zone",
+
+            geometry: {
+
+                type:
+                    "Polygon",
+
+                coordinates: [[
+
+                    [65,34],
+                    [69,36],
+                    [74,35.5],
+                    [78,33],
+                    [82,30],
+                    [87,27],
+                    [90,24],
+                    [87,21],
+                    [84,19],
+                    [80,15],
+                    [77,13],
+                    [74,17],
+                    [70,20],
+                    [67,24],
+                    [64.5,29],
+                    [65,34]
+
+                ]]
+
+            }
+
+        }
+
+    ],
+
+
+    gupta: [
+
+        {
+
+            className:
+                "ancient-zone-core",
+
+            geometry: {
+
+                type:
+                    "Polygon",
+
+                coordinates: [[
+
+                    [73,27],
+                    [76,30],
+                    [81,30],
+                    [86,28],
+                    [89,25],
+                    [87,22],
+                    [83,21],
+                    [78,21],
+                    [75,23],
+                    [73,27]
+
+                ]]
+
+            }
+
+        },
+
+
+        {
+
+            className:
+                "ancient-zone-influence",
+
+            geometry: {
+
+                type:
+                    "Polygon",
+
+                coordinates: [[
+
+                    [69.5,29],
+                    [75,32],
+                    [82,31],
+                    [89,27],
+                    [91,24],
+                    [88,20],
+                    [83,18],
+                    [77,19],
+                    [72,22],
+                    [69.5,29]
+
+                ]]
+
+            }
+
+        }
+
+    ]
+
+};
+
+
+/* =========================================================
+   12. STATE
+========================================================= */
+
+let currentPeriod =
+    "harappa";
+
+
+let worldCountries =
+    [];
+
+
+let relevantCountries =
+    [];
+
+
+let riversVisible =
+    true;
+
+
+let sitesVisible =
+    true;
+
+
+let modernBordersVisible =
+    true;
+
+
+let regionsVisible =
+    false;
+
+
+let syncZoom =
+    false;
+
+
+let synchronizing =
+    false;
+
+
+/* =========================================================
+   13. FETCH WORLD DATA
+========================================================= */
+
+async function loadMapData() {
+
+    try {
+
+        if(
+            typeof d3 ===
+            "undefined" ||
+            typeof topojson ===
+            "undefined"
+        ) {
+
+            throw new Error(
+                "Không tải được thư viện D3 hoặc TopoJSON."
+            );
+
+        }
+
+
+        status.innerHTML =
+            "🟡 Đang tải dữ liệu biên giới...";
+
+
+        const response =
+            await fetch(
+                "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json"
+            );
+
+
+        if(
+            !response.ok
+        ) {
+
+            throw new Error(
+                "Không tải được dữ liệu World Atlas."
+            );
+
+        }
+
+
+        const topology =
+            await response.json();
+
+
+        worldCountries =
+            topojson.feature(
+                topology,
+                topology.objects.countries
+            ).features;
+
+
+        relevantCountries =
+            worldCountries.filter(
+                feature => {
+
+                    return desiredCountryIds.has(
+                        String(
+                            Number(
+                                feature.id
+                            )
+                        )
+                    );
+
+                }
+            );
+
+
+        drawCountryMaps();
+
+        drawRivers();
+
+        drawPeriod(
+            currentPeriod
+        );
+
+
+        status.innerHTML =
+            "🟢 Bản đồ đã sẵn sàng • Bấm vào quốc gia hoặc địa điểm để khám phá";
+
+
+        hideLoading();
+
+    }
+
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+
+        status.innerHTML =
+            "🔴 Chưa tải được dữ liệu biên giới";
+
+
+        showMapFailure(
+            error.message
+        );
+
+
+        /*
+            VẪN VẼ CÁC ĐIỂM LỊCH SỬ
+            VÀ SÔNG ĐỂ TRANG KHÔNG TRẮNG.
+        */
+
+        drawRivers();
+
+        drawPeriod(
+            currentPeriod
+        );
+
+
+        hideLoading();
+
+    }
+
+}
+
+
+/* =========================================================
+   14. MAP FAILURE MESSAGE
+========================================================= */
+
+function showMapFailure(
+    message
+) {
+
+    [
+        "ancientError",
+        "modernError"
+    ]
+    .forEach(
+        id => {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+
+            element.style.display =
+                "block";
+
+
+            element.innerHTML = `
+
+                ⚠ <strong>
+                    Chưa tải được lớp biên giới.
+                </strong>
+
+                <br><br>
+
+                ${message}
+
+                <br><br>
+
+                Hãy kiểm tra kết nối Internet
+                rồi tải lại trang.
+
+                Các điểm lịch sử
+                vẫn được hiển thị.
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   15. COUNTRY MAP DRAWING
+========================================================= */
+
+function drawCountryMaps() {
+
+
+    ancientCountryLayer
+        .selectAll("*")
+        .remove();
+
+
+    modernCountryLayer
+        .selectAll("*")
+        .remove();
+
+
+    modernLabelLayer
+        .selectAll("*")
+        .remove();
+
+
+    /* =====================================================
+       ANCIENT BACKGROUND:
+       CURRENT BOUNDARIES, MUTED
+    ====================================================== */
+
+    ancientCountryLayer
+        .selectAll("path")
+        .data(
+            relevantCountries
+        )
+        .join("path")
+        .attr(
+            "class",
+            "ancient-base-country"
+        )
+        .attr(
+            "d",
+            ancientPath
+        )
+        .on(
+            "click",
+            function(
+                event,
+                feature
+            ) {
+
+                showCountry(
+                    feature
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       MODERN
+    ====================================================== */
+
+    modernCountryLayer
+        .selectAll("path")
+        .data(
+            relevantCountries
+        )
+        .join("path")
+        .attr(
+            "class",
+            feature => {
+
+                const id =
+                    String(
+                        Number(
+                            feature.id
+                        )
+                    );
+
+
+                if(
+                    id ===
+                    "356"
+                ) {
+
+                    return "country modern-india";
+
+                }
+
+
+                if(
+                    id ===
+                    "144"
+                ) {
+
+                    return "country modern-sea-neighbor";
+
+                }
+
+
+                return "country modern-neighbor";
+
+            }
+        )
+        .attr(
+            "d",
+            modernPath
+        )
+        .on(
+            "click",
+            function(
+                event,
+                feature
+            ) {
+
+                modernCountryLayer
+                    .selectAll(
+                        ".country"
+                    )
+                    .classed(
+                        "selected",
+                        false
+                    );
+
+
+                d3.select(
+                    this
+                )
+                .classed(
+                    "selected",
+                    true
+                );
+
+
+                showCountry(
+                    feature
+                );
+
+            }
+        );
+
+
+    addModernLabels();
+
+}
+
+
+/* =========================================================
+   16. MODERN LABELS
+========================================================= */
+
+function addModernLabels() {
+
+
+    modernLabelLayer
+        .selectAll("text")
+        .data(
+            modernLabels
+        )
+        .join("text")
+        .attr(
+            "class",
+            "svg-label"
+        )
+        .attr(
+            "x",
+            d =>
+                modernProjection([
+                    d.lon,
+                    d.lat
+                ])[0]
+        )
+        .attr(
+            "y",
+            d =>
+                modernProjection([
+                    d.lon,
+                    d.lat
+                ])[1]
+        )
+        .attr(
+            "text-anchor",
+            "middle"
+        )
+        .text(
+            d =>
+                d.name
+        );
+
+}
+
+
+/* =========================================================
+   17. RIVERS
+========================================================= */
+
+function drawRivers() {
+
+
+    ancientRiverLayer
+        .selectAll("*")
+        .remove();
+
+
+    ancientRiverLayer
+        .selectAll("path")
+        .data(
+            rivers
+        )
+        .join("path")
+        .attr(
+            "class",
+            "river"
+        )
+        .attr(
+            "d",
+            d => {
+
+                return ancientPath({
+
+                    type:
+                        "LineString",
+
+                    coordinates:
+                        d.coords
+
+                });
+
+            }
+        );
+
+
+    ancientRiverLayer
+        .selectAll("text")
+        .data(
+            rivers
+        )
+        .join("text")
+        .attr(
+            "class",
+            "svg-label river-label"
+        )
+        .attr(
+            "x",
+            d => {
+
+                const point =
+                    d.coords[
+                        Math.floor(
+                            d.coords.length /
+                            2
+                        )
+                    ];
+
+
+                return ancientProjection(
+                    point
+                )[0];
+
+            }
+        )
+        .attr(
+            "y",
+            d => {
+
+                const point =
+                    d.coords[
+                        Math.floor(
+                            d.coords.length /
+                            2
+                        )
+                    ];
+
+
+                return ancientProjection(
+                    point
+                )[1] - 7;
+
+            }
+        )
+        .text(
+            d =>
+                d.name
+        );
+
+}
+
+
+/* =========================================================
+   18. DRAW PERIOD
+========================================================= */
+
+function drawPeriod(
+    period
+) {
+
+
+    currentPeriod =
+        period;
+
+
+    ancientZoneLayer
+        .selectAll("*")
+        .remove();
+
+
+    ancientRegionLayer
+        .selectAll("*")
+        .remove();
+
+
+    ancientSiteLayer
+        .selectAll("*")
+        .remove();
+
+
+    ancientLabelLayer
+        .selectAll("*")
+        .remove();
+
+
+    /* =====================================================
+       ZONES
+    ====================================================== */
+
+    const zones =
+        polygons[
+            period
+        ] || [];
+
+
+    ancientZoneLayer
+        .selectAll("path")
+        .data(
+            zones
+        )
+        .join("path")
+        .attr(
+            "class",
+            d =>
+                d.className
+        )
+        .attr(
+            "d",
+            d =>
+                ancientPath(
+                    d.geometry
+                )
+        );
+
+
+    /* =====================================================
+       MAHAJANAPADA
+    ====================================================== */
+
+    if(
+        period ===
+        "mahajanapada"
+    ) {
+
+        drawRegions();
+
+    }
+
+
+    /* =====================================================
+       SITES
+    ====================================================== */
+
+    drawSites(
+        period
+    );
+
+
+    updatePeriodText(
+        period
+    );
+
+
+    updateLayers();
+
+}
+
+
+/* =========================================================
+   19. SITES
+========================================================= */
+
+function drawSites(
+    period
+) {
+
+
+    const data =
+        sites[
+            period
+        ] || [];
+
+
+    ancientSiteLayer
+        .selectAll("circle")
+        .data(
+            data
+        )
+        .join("circle")
+        .attr(
+            "class",
+            d => {
+
+                if(
+                    d.capital
+                ) {
+
+                    return "site capital";
+
+                }
+
+
+                if(
+                    d.buddhist
+                ) {
+
+                    return "site buddhist";
+
+                }
+
+
+                return "site";
+
+            }
+        )
+        .attr(
+            "cx",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[0]
+        )
+        .attr(
+            "cy",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[1]
+        )
+        .attr(
+            "r",
+            5.5
+        )
+        .on(
+            "click",
+            function(
+                event,
+                d
+            ) {
+
+                event.stopPropagation();
+
+                showSite(
+                    d
+                );
+
+            }
+        );
+
+
+    ancientSiteLayer
+        .selectAll("text")
+        .data(
+            data
+        )
+        .join("text")
+        .attr(
+            "class",
+            "svg-label"
+        )
+        .attr(
+            "x",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[0] +
+                8
+        )
+        .attr(
+            "y",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[1] -
+                6
+        )
+        .text(
+            d =>
+                d.name
+        );
+
+}
+
+
+/* =========================================================
+   20. MAHAJANAPADA
+========================================================= */
+
+function drawRegions() {
+
+
+    const data =
+        mahajanapadas.map(
+            row => {
+
+                return {
+
+                    name:
+                        row[0],
+
+                    lon:
+                        row[1],
+
+                    lat:
+                        row[2]
+
+                };
+
+            }
+        );
+
+
+    ancientRegionLayer
+        .selectAll("circle")
+        .data(
+            data
+        )
+        .join("circle")
+        .attr(
+            "class",
+            "region-dot"
+        )
+        .attr(
+            "cx",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[0]
+        )
+        .attr(
+            "cy",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[1]
+        )
+        .attr(
+            "r",
+            4
+        )
+        .on(
+            "click",
+            function(
+                event,
+                d
+            ) {
+
+                event.stopPropagation();
+
+                showRegion(
+                    d
+                );
+
+            }
+        );
+
+
+    ancientRegionLayer
+        .selectAll("text")
+        .data(
+            data
+        )
+        .join("text")
+        .attr(
+            "class",
+            "svg-label small"
+        )
+        .attr(
+            "x",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[0] +
+                5
+        )
+        .attr(
+            "y",
+            d =>
+                ancientProjection([
+                    d.lon,
+                    d.lat
+                ])[1] -
+                4
+        )
+        .text(
+            d =>
+                d.name
+        );
+
+}
+
+
+/* =========================================================
+   21. PERIOD TEXT
+========================================================= */
+
+function updatePeriodText(
+    period
+) {
+
+
+    const data =
+        periods[
+            period
+        ];
+
+
+    document.getElementById(
+        "ancientSubtitle"
+    ).textContent =
+        data.subtitle;
+
+
+    document.getElementById(
+        "periodTitle"
+    ).textContent =
+        data.title;
+
+
+    document.getElementById(
+        "periodDescription"
+    ).textContent =
+        data.description;
+
+
+    document.getElementById(
+        "accuracyNote"
+    ).textContent =
+        "⚠ " +
+        data.note;
+
+}
+
+
+/* =========================================================
+   22. RIGHT PANEL
+========================================================= */
+
+function setInfo(
+    type,
+    title,
+    description,
+    rows
+) {
+
+
+    document.getElementById(
+        "infoType"
+    ).textContent =
+        type;
+
+
+    document.getElementById(
+        "infoTitle"
+    ).textContent =
+        title;
+
+
+    document.getElementById(
+        "infoDescription"
+    ).textContent =
+        description;
+
+
+    const grid =
+        document.getElementById(
+            "infoGrid"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    rows.forEach(
+        row => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "info-item";
+
+
+            item.innerHTML = `
+
+                <small>
+                    ${row.label}
+                </small>
+
+                <strong>
+                    ${row.value}
+                </strong>
+
+            `;
+
+
+            grid.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   23. COUNTRY INFO
+========================================================= */
+
+function showCountry(
+    feature
+) {
+
+
+    const id =
+        String(
+            Number(
+                feature.id
+            )
+        );
+
+
+    const data =
+        countryData[
+            id
+        ];
+
+
+    if(
+        !data
+    ) {
+
+        return;
+
+    }
+
+
+    setInfo(
+
+        "QUỐC GIA / KHÔNG GIAN HIỆN NAY",
+
+        data.name,
+
+        data.history,
+
+        [
+
+            {
+                label:
+                    "Thủ đô",
+                value:
+                    data.capital
+            },
+
+            {
+                label:
+                    "Vị trí",
+                value:
+                    data.status
+            },
+
+            {
+                label:
+                    "Quan hệ với Ấn Độ",
+                value:
+                    data.relation
+            },
+
+            {
+                label:
+                    "Loại bản đồ",
+                value:
+                    "Hiện đại"
+            }
+
+        ]
+
+    );
+
+}
+
+
+/* =========================================================
+   24. SITE INFO
+========================================================= */
+
+function showSite(
+    data
+) {
+
+
+    setInfo(
+
+        "ĐỊA ĐIỂM LỊCH SỬ",
+
+        data.name,
+
+        data.description,
+
+        [
+
+            {
+                label:
+                    "Vai trò",
+                value:
+                    data.type
+            },
+
+            {
+                label:
+                    "Hiện thuộc",
+                value:
+                    data.current
+            },
+
+            {
+                label:
+                    "Thời kì đang xem",
+                value:
+                    periods[
+                        currentPeriod
+                    ].subtitle
+            },
+
+            {
+                label:
+                    "Loại",
+                value:
+                    "Địa điểm cổ"
+            }
+
+        ]
+
+    );
+
+}
+
+
+/* =========================================================
+   25. REGION INFO
+========================================================= */
+
+function showRegion(
+    data
+) {
+
+
+    setInfo(
+
+        "MAHAJANAPADA",
+
+        data.name,
+
+        `${data.name} là một trong các chính thể
+        được truyền thống lịch sử Ấn Độ
+        xếp trong nhóm Mahajanapada
+        khoảng thế kỉ VI–IV TCN.
+        Điểm trên lược đồ chỉ thể hiện
+        vị trí khái quát.`,
+
+        [
+
+            {
+                label:
+                    "Giai đoạn",
+                value:
+                    "TK VI–IV TCN"
+            },
+
+            {
+                label:
+                    "Loại",
+                value:
+                    "Chính thể cổ"
+            },
+
+            {
+                label:
+                    "Biên giới",
+                value:
+                    "Không cố định như hiện nay"
+            },
+
+            {
+                label:
+                    "Hiển thị",
+                value:
+                    "Vị trí khái quát"
+            }
+
+        ]
+
+    );
+
+}
+
+
+/* =========================================================
+   26. PERIOD BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".period-btn"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    document
+                        .querySelectorAll(
+                            ".period-btn"
+                        )
+                        .forEach(
+                            element =>
+                                element.classList.remove(
+                                    "active"
+                                )
+                        );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    drawPeriod(
+                        this.dataset.period
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   27. LAYER TOGGLES
+========================================================= */
+
+function updateLayers() {
+
+
+    ancientRiverLayer
+        .style(
+            "display",
+            riversVisible
+            ? null
+            : "none"
+        );
+
+
+    ancientSiteLayer
+        .style(
+            "display",
+            sitesVisible
+            ? null
+            : "none"
+        );
+
+
+    ancientCountryLayer
+        .style(
+            "display",
+            modernBordersVisible
+            ? null
+            : "none"
+        );
+
+
+    ancientRegionLayer
+        .style(
+            "display",
+            regionsVisible
+            ? null
+            : "none"
+        );
+
+}
+
+
+function toggleButton(
+    id,
+    callback
+) {
+
+
+    const button =
+        document.getElementById(
+            id
+        );
+
+
+    button.addEventListener(
+        "click",
+        function () {
+
+
+            const active =
+                callback();
+
+
+            this.classList.toggle(
+                "active",
+                active
+            );
+
+
+            updateLayers();
+
+        }
+    );
+
+}
+
+
+toggleButton(
+
+    "riverToggle",
+
+    function () {
+
+        riversVisible =
+            !riversVisible;
+
+        return riversVisible;
+
+    }
+
+);
+
+
+toggleButton(
+
+    "siteToggle",
+
+    function () {
+
+        sitesVisible =
+            !sitesVisible;
+
+        return sitesVisible;
+
+    }
+
+);
+
+
+toggleButton(
+
+    "modernBoundaryToggle",
+
+    function () {
+
+        modernBordersVisible =
+            !modernBordersVisible;
+
+        return modernBordersVisible;
+
+    }
+
+);
+
+
+toggleButton(
+
+    "regionToggle",
+
+    function () {
+
+        regionsVisible =
+            !regionsVisible;
+
+        return regionsVisible;
+
+    }
+
+);
+
+
+/* =========================================================
+   28. ZOOM
+========================================================= */
+
+const ancientZoom =
+    d3.zoom()
+        .scaleExtent([
+            1,
+            8
+        ])
+        .on(
+            "zoom",
+            function (event) {
+
+
+                ancientRoot.attr(
+                    "transform",
+                    event.transform
+                );
+
+
+                if(
+                    syncZoom &&
+                    !synchronizing
+                ) {
+
+                    synchronizing =
+                        true;
+
+
+                    modernSvg.call(
+                        modernZoom.transform,
+                        event.transform
+                    );
+
+
+                    synchronizing =
+                        false;
+
+                }
+
+            }
+        );
+
+
+const modernZoom =
+    d3.zoom()
+        .scaleExtent([
+            1,
+            8
+        ])
+        .on(
+            "zoom",
+            function (event) {
+
+
+                modernRoot.attr(
+                    "transform",
+                    event.transform
+                );
+
+
+                if(
+                    syncZoom &&
+                    !synchronizing
+                ) {
+
+                    synchronizing =
+                        true;
+
+
+                    ancientSvg.call(
+                        ancientZoom.transform,
+                        event.transform
+                    );
+
+
+                    synchronizing =
+                        false;
+
+                }
+
+            }
+        );
+
+
+ancientSvg.call(
+    ancientZoom
+);
+
+
+modernSvg.call(
+    modernZoom
+);
+
+
+/* =========================================================
+   29. ZOOM CONTROLS
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".map-controls button"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    const mapName =
+                        this.dataset.map;
+
+
+                    const action =
+                        this.dataset.action;
+
+
+                    const svg =
+                        mapName ===
+                        "ancient"
+                        ? ancientSvg
+                        : modernSvg;
+
+
+                    const zoom =
+                        mapName ===
+                        "ancient"
+                        ? ancientZoom
+                        : modernZoom;
+
+
+                    if(
+                        action ===
+                        "in"
+                    ) {
+
+                        svg
+                            .transition()
+                            .duration(250)
+                            .call(
+                                zoom.scaleBy,
+                                1.45
+                            );
+
+                    }
+
+
+                    if(
+                        action ===
+                        "out"
+                    ) {
+
+                        svg
+                            .transition()
+                            .duration(250)
+                            .call(
+                                zoom.scaleBy,
+                                1 / 1.45
+                            );
+
+                    }
+
+
+                    if(
+                        action ===
+                        "reset"
+                    ) {
+
+                        svg
+                            .transition()
+                            .duration(350)
+                            .call(
+                                zoom.transform,
+                                d3.zoomIdentity
+                            );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   30. SYNC
+========================================================= */
+
+document
+    .getElementById(
+        "syncButton"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            syncZoom =
+                !syncZoom;
+
+
+            this.classList.toggle(
+                "active",
+                syncZoom
+            );
+
+
+            this.textContent =
+                syncZoom
+                ? "🔗 Đang đồng bộ"
+                : "🔗 Đồng bộ zoom";
+
+        }
+    );
+
+
+/* =========================================================
+   31. VIEW MODES
+========================================================= */
+
+const mapGrid =
+    document.getElementById(
+        "mapGrid"
+    );
+
+
+function clearMode() {
+
+    [
+        "compareMode",
+        "ancientMode",
+        "modernMode"
+    ]
+    .forEach(
+        id => {
+
+            document
+                .getElementById(
+                    id
+                )
+                .classList.remove(
+                    "active"
+                );
+
+        }
+    );
+
+}
+
+
+document
+    .getElementById(
+        "compareMode"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            clearMode();
+
+            this.classList.add(
+                "active"
+            );
+
+
+            mapGrid.style.gridTemplateColumns =
+                "1fr 1fr";
+
+
+            document.getElementById(
+                "ancientCard"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "modernCard"
+            ).style.display =
+                "block";
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "ancientMode"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            clearMode();
+
+            this.classList.add(
+                "active"
+            );
+
+
+            mapGrid.style.gridTemplateColumns =
+                "1fr";
+
+
+            document.getElementById(
+                "ancientCard"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "modernCard"
+            ).style.display =
+                "none";
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "modernMode"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            clearMode();
+
+            this.classList.add(
+                "active"
+            );
+
+
+            mapGrid.style.gridTemplateColumns =
+                "1fr";
+
+
+            document.getElementById(
+                "ancientCard"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "modernCard"
+            ).style.display =
+                "block";
+
+        }
+    );
+
+
+/* =========================================================
+   32. RESET
+========================================================= */
+
+function resetMaps() {
+
+
+    ancientSvg
+        .transition()
+        .duration(350)
+        .call(
+            ancientZoom.transform,
+            d3.zoomIdentity
+        );
+
+
+    modernSvg
+        .transition()
+        .duration(350)
+        .call(
+            modernZoom.transform,
+            d3.zoomIdentity
+        );
+
+
+    modernCountryLayer
+        .selectAll(
+            ".country"
+        )
+        .classed(
+            "selected",
+            false
+        );
+
+}
+
+
+document
+    .getElementById(
+        "resetAllTop"
+    )
+    .addEventListener(
+        "click",
+        resetMaps
+    );
+
+
+/* =========================================================
+   33. HELP
+========================================================= */
+
+document
+    .getElementById(
+        "helpButton"
+    )
+    .addEventListener(
+        "click",
+        function () {
+
+
+            setInfo(
+
+                "HƯỚNG DẪN",
+
+                "Cách sử dụng lược đồ",
+
+                `1. Chọn một thời kì ở bên trái.
+                2. Kéo hoặc zoom bản đồ.
+                3. Bấm vào điểm lịch sử.
+                4. Bấm quốc gia hiện nay để đối chiếu.
+                5. Bật Đồng bộ zoom nếu muốn hai bản đồ di chuyển cùng nhau.`,
+
+                [
+
+                    {
+                        label:
+                            "Bản đồ trái",
+                        value:
+                            "Cổ đại"
+                    },
+
+                    {
+                        label:
+                            "Bản đồ phải",
+                        value:
+                            "Hiện nay"
+                    },
+
+                    {
+                        label:
+                            "Màu cam",
+                        value:
+                            "Phạm vi cổ"
+                    },
+
+                    {
+                        label:
+                            "Chấm vàng",
+                        value:
+                            "Địa điểm cổ"
+                    }
+
+                ]
+
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   34. LOADING
+========================================================= */
+
+function hideLoading() {
+
+
+    loading.style.opacity =
+        "0";
+
+
+    setTimeout(
+        function () {
+
+            loading.style.display =
+                "none";
+
+        },
+        380
+    );
+
+}
+
+
+/* =========================================================
+   35. INITIALIZE
+========================================================= */
+
+/*
+    VẼ ĐƯỢC THÔNG TIN LỊCH SỬ
+    NGAY CẢ TRƯỚC KHI WORLD MAP TẢI XONG.
+*/
+
+drawRivers();
+
+drawPeriod(
+    currentPeriod
+);
+
+
+loadMapData();
+
+
+})();
+
+</script>
+
+
+</body>
+</html>

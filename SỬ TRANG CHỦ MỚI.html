@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Xã hội cổ đại - Học liệu số Lịch sử và Địa lí 6</title>
+
+  <!-- FONT MỚI - HỖ TRỢ TIẾNG VIỆT TỐT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      font-family: "Be Vietnam Pro", sans-serif;
+
+      color: #fff0c8;
+
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(255, 183, 68, 0.14),
+          transparent 28%
+        ),
+
+        radial-gradient(
+          circle at 85% 18%,
+          rgba(151, 71, 22, 0.18),
+          transparent 28%
+        ),
+
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(255, 195, 71, 0.08),
+          transparent 38%
+        ),
+
+        linear-gradient(
+          135deg,
+          #080503,
+          #1c1008 45%,
+          #110a06 72%,
+          #070403
+        );
+    }
+
+    button,
+    a {
+      font-family: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :root {
+      --gold: #f4c96b;
+      --gold-light: #ffe4a0;
+      --gold-dark: #a7651c;
+      --cream: #fff0c7;
+      --brown: #3b210f;
+      --border: rgba(255, 220, 135, 0.24);
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    /* =========================================================
+       NỀN
+    ========================================================= */
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -10;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 230, 170, 0.025) 1px,
+          transparent 1px
+        ),
+
+        linear-gradient(
+          90deg,
+          rgba(255, 230, 170, 0.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 46px 46px;
+    }
+
+    .glow {
+      position: fixed;
+
+      width: 500px;
+      height: 500px;
+
+      border-radius: 50%;
+
+      filter: blur(110px);
+
+      opacity: 0.12;
+
+      pointer-events: none;
+
+      z-index: -9;
+    }
+
+    .glow.one {
+      background: #ffad3f;
+      left: -220px;
+      top: -150px;
+    }
+
+    .glow.two {
+      background: #d17b21;
+      right: -220px;
+      bottom: -180px;
+    }
+
+    /* =========================================================
+       HẠT ÁNH SÁNG
+    ========================================================= */
+
+    #particles {
+      position: fixed;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: -5;
+    }
+
+    .particle {
+      position: absolute;
+
+      width: 3px;
+      height: 3px;
+
+      border-radius: 50%;
+
+      background: #ffd878;
+
+      box-shadow:
+        0 0 6px #ffd878,
+        0 0 12px rgba(255, 213, 112, 0.5);
+
+      animation: particleMove linear infinite;
+    }
+
+    @keyframes particleMove {
+
+      from {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 0.7;
+      }
+
+      85% {
+        opacity: 0.35;
+      }
+
+      to {
+        transform: translateY(-20vh);
+        opacity: 0;
+      }
+    }
+
+    /* =========================================================
+       HỆ THỐNG TRANG
+    ========================================================= */
+
+    .page {
+      display: none;
+
+      width: 100%;
+
+      min-height: 100vh;
+
+      padding: 34px 5vw 55px;
+
+      animation: pageAppear 0.65s ease;
+    }
+
+    .page.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes pageAppear {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(18px)
+          scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
+
+    /* =========================================================
+       TRANG CHỦ
+    ========================================================= */
+
+    #homePage {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .ancient-frame {
+      width: min(1080px, 93vw);
+
+      min-height: 620px;
+
+      padding: 65px 45px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 38px;
+
+      border:
+        2px solid rgba(255, 216, 126, 0.3);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 224, 157, 0.065),
+          rgba(255, 255, 255, 0.015)
+        );
+
+      box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.58),
+        inset 0 0 70px rgba(255, 195, 70, 0.03);
+    }
+
+    .ancient-frame::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 15px;
+
+      border-radius: 28px;
+
+      border:
+        1px solid rgba(255, 218, 131, 0.13);
+    }
+
+    .ancient-frame::after {
+      content: "𓂀  ⚱  🪷  🏯  🏛";
+
+      position: absolute;
+
+      bottom: 18px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      font-size: 22px;
+
+      letter-spacing: 16px;
+
+      color:
+        rgba(255, 213, 124, 0.28);
+
+      white-space: nowrap;
+    }
+
+    .home-content {
+      position: relative;
+      z-index: 3;
+    }
+
+    .main-icon {
+      width: 150px;
+      height: 150px;
+
+      margin: 0 auto 28px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(255, 220, 142, 0.4);
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255, 204, 88, 0.25),
+          rgba(255, 204, 88, 0.055) 55%,
+          transparent 72%
+        );
+
+      box-shadow:
+        0 0 65px rgba(255, 182, 52, 0.17);
+
+      font-size: 70px;
+
+      animation:
+        iconPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes iconPulse {
+
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.06);
+      }
+    }
+
+    .school-label {
+      margin-bottom: 15px;
+
+      color: var(--gold);
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .main-title {
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-size:
+        clamp(50px, 8vw, 105px);
+
+      line-height: 1;
+
+      letter-spacing: 4px;
+
+      font-weight: 900;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff8dd,
+          #ffd97a 46%,
+          #b66d17 100%
+        );
+
+      -webkit-background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+
+      background-clip: text;
+
+      filter:
+        drop-shadow(
+          0 10px 18px rgba(0, 0, 0, 0.55)
+        );
+    }
+
+    .divider {
+      width: 360px;
+
+      max-width: 76vw;
+
+      height: 1px;
+
+      margin: 30px auto;
+
+      position: relative;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+    }
+
+    .divider::after {
+      content: "◆";
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      transform:
+        translate(-50%, -50%);
+
+      padding:
+        0 12px;
+
+      background:
+        #180e08;
+
+      color:
+        var(--gold);
+    }
+
+    .main-description {
+      max-width: 770px;
+
+      margin:
+        0 auto;
+
+      color:
+        #ddc8a0;
+
+      font-size: 17px;
+
+      line-height: 1.8;
+    }
+
+    .start-button {
+      margin-top: 30px;
+
+      padding:
+        16px 36px;
+
+      border: none;
+
+      border-radius: 50px;
+
+      cursor: pointer;
+
+      color:
+        #321b07;
+
+      font-size: 16px;
+
+      font-weight: 800;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff1b7,
+          #f3bf55 46%,
+          #bb741f
+        );
+
+      box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.36),
+        0 0 35px rgba(255, 193, 67, 0.14);
+
+      transition:
+        0.35s ease;
+    }
+
+    .start-button:hover {
+      transform:
+        translateY(-6px)
+        scale(1.04);
+
+      box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.52),
+        0 0 45px rgba(255, 193, 67, 0.26);
+    }
+
+    /* =========================================================
+       KHUNG CHUNG
+    ========================================================= */
+
+    .container {
+      width: 100%;
+
+      max-width: 1350px;
+
+      margin: auto;
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .topbar {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      margin-bottom: 40px;
+    }
+
+    .brand {
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(255, 215, 124, 0.34);
+
+      background:
+        rgba(255, 199, 73, 0.065);
+
+      color:
+        var(--gold);
+
+      font-size: 24px;
+    }
+
+    .brand-text strong {
+      display: block;
+
+      color:
+        #ffe2a0;
+
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.8px;
+    }
+
+    .brand-text small {
+      display: block;
+
+      margin-top: 4px;
+
+      color:
+        #9f8b69;
+
+      font-size: 10px;
+    }
+
+    .back-button {
+      padding:
+        10px 18px;
+
+      border-radius: 12px;
+
+      border:
+        1px solid rgba(255, 215, 125, 0.25);
+
+      color:
+        #ecd8b3;
+
+      background:
+        rgba(255, 255, 255, 0.03);
+
+      cursor: pointer;
+
+      transition:
+        0.3s ease;
+    }
+
+    .back-button:hover {
+      transform:
+        translateX(-4px);
+
+      border-color:
+        var(--gold);
+
+      background:
+        rgba(255, 199, 76, 0.075);
+    }
+
+    /* =========================================================
+       TIÊU ĐỀ TRANG
+    ========================================================= */
+
+    .page-heading {
+      margin-bottom: 35px;
+    }
+
+    .page-kicker {
+      color:
+        var(--gold);
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .page-title {
+      margin-top: 8px;
+
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-size:
+        clamp(33px, 5vw, 56px);
+
+      font-weight: 900;
+
+      line-height: 1.25;
+
+      color:
+        #ffe4a5;
+    }
+
+    .page-description {
+      max-width: 830px;
+
+      margin-top: 12px;
+
+      color:
+        #c9b38e;
+
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       4 NỀN VĂN MINH
+    ========================================================= */
+
+    .civilization-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 28px;
+    }
+
+    .civilization-card {
+      min-height: 300px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      cursor: pointer;
+
+      border-radius: 27px;
+
+      border:
+        1px solid rgba(255, 216, 127, 0.2);
+
+      box-shadow:
+        var(--shadow);
+
+      isolation:
+        isolate;
+
+      transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+    }
+
+    .civilization-card:hover {
+      transform:
+        translateY(-10px)
+        scale(1.014);
+
+      border-color:
+        rgba(255, 220, 132, 0.67);
+
+      box-shadow:
+        0 30px 78px rgba(0, 0, 0, 0.58),
+        0 0 40px rgba(255, 185, 56, 0.11);
+    }
+
+    .civilization-card::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      z-index: -3;
+
+      transition:
+        transform 0.55s ease;
+    }
+
+    .civilization-card:hover::before {
+      transform:
+        scale(1.08);
+    }
+
+    .civilization-card::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      z-index: -2;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(10, 6, 3, 0.97) 0%,
+          rgba(20, 11, 5, 0.8) 48%,
+          rgba(20, 11, 5, 0.25) 100%
+        );
+    }
+
+    .egypt::before {
+      background:
+        radial-gradient(
+          circle at 84% 30%,
+          rgba(255, 200, 70, 0.54),
+          transparent 19%
+        ),
+
+        linear-gradient(
+          145deg,
+          #9a591b,
+          #2a1407 70%
+        );
+    }
+
+    .india::before {
+      background:
+        radial-gradient(
+          circle at 84% 30%,
+          rgba(255, 95, 45, 0.45),
+          transparent 23%
+        ),
+
+        linear-gradient(
+          145deg,
+          #832d18,
+          #2d1008 70%
+        );
+    }
+
+    .china::before {
+      background:
+        radial-gradient(
+          circle at 84% 30%,
+          rgba(214, 45, 28, 0.48),
+          transparent 23%
+        ),
+
+        linear-gradient(
+          145deg,
+          #711610,
+          #260806 70%
+        );
+    }
+
+    .greece::before {
+      background:
+        radial-gradient(
+          circle at 84% 30%,
+          rgba(66, 148, 180, 0.44),
+          transparent 23%
+        ),
+
+        linear-gradient(
+          145deg,
+          #173e51,
+          #0d1718 70%
+        );
+    }
+
+    .card-symbol {
+      position: absolute;
+
+      right: 38px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      font-size:
+        clamp(105px, 11vw, 175px);
+
+      opacity: 0.15;
+
+      filter:
+        drop-shadow(
+          0 0 20px rgba(255, 217, 123, 0.25)
+        );
+    }
+
+    .card-content {
+      min-height: 300px;
+
+      padding: 35px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: flex-start;
+
+      justify-content: flex-end;
+    }
+
+    .card-number {
+      width: 48px;
+      height: 48px;
+
+      margin-bottom: 17px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      color:
+        #301907;
+
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-weight: 900;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffe7a4,
+          #bd7720
+        );
+    }
+
+    .civilization-card h2 {
+      max-width: 540px;
+
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-size:
+        clamp(22px, 3vw, 32px);
+
+      font-weight: 900;
+
+      line-height: 1.35;
+
+      color:
+        #ffe1a1;
+    }
+
+    .civilization-card p {
+      max-width: 520px;
+
+      margin-top: 10px;
+
+      color:
+        #d0ba94;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    .discover-text {
+      margin-top: 20px;
+
+      color:
+        var(--gold);
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+
+      transition:
+        letter-spacing 0.3s ease;
+    }
+
+    .civilization-card:hover
+    .discover-text {
+      letter-spacing: 2px;
+    }
+
+    /* =========================================================
+       GIAO DIỆN BÊN TRONG
+    ========================================================= */
+
+    .civilization-hero {
+      min-height: 220px;
+
+      margin-bottom: 30px;
+
+      padding: 34px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 28px;
+
+      border:
+        1px solid rgba(255, 219, 137, 0.22);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 214, 120, 0.1),
+          rgba(255, 255, 255, 0.022)
+        );
+
+      box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.32);
+    }
+
+    .civilization-hero::before {
+      content: "";
+
+      position: absolute;
+
+      width: 320px;
+      height: 320px;
+
+      right: -110px;
+
+      top: -160px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(255, 214, 123, 0.11);
+    }
+
+    .civilization-hero::after {
+      content:
+        "✦ 𓂀 ⚱ 🪷 🏯 🏛 ✦";
+
+      position: absolute;
+
+      right: 25px;
+
+      bottom: 10px;
+
+      font-size: 42px;
+
+      opacity: 0.06;
+
+      white-space: nowrap;
+    }
+
+    .hero-kicker {
+      color:
+        var(--gold);
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      max-width: 950px;
+
+      margin-top: 8px;
+
+      color:
+        #ffe4a4;
+
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-size:
+        clamp(30px, 5vw, 50px);
+
+      font-weight: 900;
+
+      line-height: 1.3;
+    }
+
+    .hero-description {
+      max-width: 850px;
+
+      margin-top: 10px;
+
+      color:
+        #cbb58d;
+
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       3 Ô BÊN TRONG
+    ========================================================= */
+
+    .sub-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 25px;
+    }
+
+    .sub-card {
+      min-height: 340px;
+
+      padding: 30px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      position: relative;
+
+      overflow: hidden;
+
+      text-align: center;
+
+      text-decoration: none;
+
+      border-radius: 26px;
+
+      border:
+        1px solid rgba(255, 218, 130, 0.2);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 228, 166, 0.09),
+          rgba(255, 255, 255, 0.02)
+        );
+
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.32);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .sub-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 175px;
+      height: 175px;
+
+      top: -88px;
+
+      right: -88px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(255, 212, 120, 0.14);
+
+      transition:
+        transform 0.5s ease;
+    }
+
+    .sub-card:hover {
+      transform:
+        translateY(-10px);
+
+      border-color:
+        rgba(255, 217, 124, 0.66);
+
+      box-shadow:
+        0 28px 62px rgba(0, 0, 0, 0.46),
+        0 0 36px rgba(255, 193, 69, 0.08);
+    }
+
+    .sub-card:hover::before {
+      transform:
+        scale(1.7);
+    }
+
+    .sub-icon {
+      width: 98px;
+      height: 98px;
+
+      margin-bottom: 22px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 28px;
+
+      border:
+        1px solid rgba(255, 216, 128, 0.28);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 214, 125, 0.17),
+          rgba(255, 255, 255, 0.02)
+        );
+
+      box-shadow:
+        inset 0 0 25px rgba(255, 201, 83, 0.06),
+        0 15px 35px rgba(0, 0, 0, 0.3);
+
+      font-size: 44px;
+    }
+
+    .sub-label {
+      margin-bottom: 10px;
+
+      color:
+        #c89c52;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      letter-spacing: 3px;
+    }
+
+    .sub-card h3 {
+      color:
+        #ffe4a5;
+
+      font-family:
+        "Noto Serif",
+        serif;
+
+      font-size: 22px;
+
+      font-weight: 900;
+
+      line-height: 1.45;
+    }
+
+    .sub-card p {
+      margin-top: 13px;
+
+      color:
+        #ad9a7b;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+    .sub-arrow {
+      margin-top: 22px;
+
+      color:
+        var(--gold);
+
+      font-weight: 800;
+
+      transition:
+        transform 0.3s ease;
+    }
+
+    .sub-card:hover
+    .sub-arrow {
+      transform:
+        translateX(6px);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      margin-top: 45px;
+
+      text-align: center;
+
+      color:
+        rgba(216, 194, 155, 0.5);
+
+      font-size: 11px;
+
+      letter-spacing: 1.5px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 950px) {
+
+      .civilization-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-card {
+        min-height: 245px;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding:
+          25px
+          17px
+          45px;
+      }
+
+      .ancient-frame {
+        min-height: 580px;
+
+        padding:
+          45px
+          22px;
+      }
+
+      .main-title {
+        letter-spacing: 1px;
+      }
+
+      .main-icon {
+        width: 120px;
+        height: 120px;
+
+        font-size: 55px;
+      }
+
+      .topbar {
+        align-items:
+          flex-start;
+      }
+
+      .card-content {
+        min-height: 315px;
+
+        padding: 25px;
+      }
+
+      .card-symbol {
+        right: 15px;
+
+        opacity: 0.11;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================
+       HIỆU ỨNG NỀN
+  ========================================================== -->
+
+  <div class="background-grid"></div>
+
+  <div class="glow one"></div>
+
+  <div class="glow two"></div>
+
+  <div id="particles"></div>
+
+
+  <!-- =========================================================
+       TRANG 1
+       TRANG CHỦ
+  ========================================================== -->
+
+  <section
+    class="page active"
+    id="homePage"
+  >
+
+    <div class="ancient-frame">
+
+      <div class="home-content">
+
+        <div class="main-icon">
+          ⚱
+        </div>
+
+        <div class="school-label">
+
+          HỌC LIỆU SỐ
+          •
+          LỊCH SỬ VÀ ĐỊA LÍ 6
+
+        </div>
+
+        <h1 class="main-title">
+
+          XÃ HỘI
+          <br>
+          CỔ ĐẠI
+
+        </h1>
+
+        <div class="divider"></div>
+
+        <p class="main-description">
+
+          Du hành ngược dòng thời gian,
+          khám phá những nền văn minh cổ đại
+          tiêu biểu đã đặt nền móng
+          cho sự phát triển của lịch sử nhân loại.
+
+        </p>
+
+        <button
+          class="start-button"
+          onclick="showCivilizations()"
+        >
+
+          ✦ BẮT ĐẦU KHÁM PHÁ ✦
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       TRANG 2
+       4 NỀN VĂN MINH
+  ========================================================== -->
+
+  <section
+    class="page"
+    id="civilizationsPage"
+  >
+
+    <div class="container">
+
+      <div class="topbar">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            ⚱
+          </div>
+
+          <div class="brand-text">
+
+            <strong>
+              XÃ HỘI CỔ ĐẠI
+            </strong>
+
+            <small>
+              HỌC LIỆU SỐ LỊCH SỬ VÀ ĐỊA LÍ 6
+            </small>
+
+          </div>
+
+        </div>
+
+        <button
+          class="back-button"
+          onclick="showHome()"
+        >
+
+          ← Trang chủ
+
+        </button>
+
+      </div>
+
+
+      <div class="page-heading">
+
+        <div class="page-kicker">
+
+          HÀNH TRÌNH VỀ THẾ GIỚI CỔ ĐẠI
+
+        </div>
+
+        <h1 class="page-title">
+
+          Khám phá các nền
+          <br>
+          văn minh cổ đại
+
+        </h1>
+
+        <p class="page-description">
+
+          Chọn một nền văn minh
+          để bước vào không gian học tập riêng,
+          khám phá thông tin lý thuyết,
+          lược đồ, bản đồ và các nhiệm vụ tương tác.
+
+        </p>
+
+      </div>
+
+
+      <div class="civilization-grid">
+
+        <!-- ==================================================
+             AI CẬP VÀ LƯỠNG HÀ
+        =================================================== -->
+
+        <div
+          class="civilization-card egypt"
+          onclick="openCivilization('egypt')"
+        >
+
+          <div class="card-symbol">
+            𓂀
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-number">
+              01
+            </div>
+
+            <h2>
+
+              AI CẬP VÀ
+              <br>
+              LƯỠNG HÀ CỔ ĐẠI
+
+            </h2>
+
+            <p>
+
+              Khám phá những nền văn minh
+              hình thành bên lưu vực sông Nin,
+              sông Ti-grơ và sông Ơ-phơ-rát.
+
+            </p>
+
+            <div class="discover-text">
+
+              BƯỚC VÀO KHÁM PHÁ →
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ẤN ĐỘ
+        =================================================== -->
+
+        <div
+          class="civilization-card india"
+          onclick="openCivilization('india')"
+        >
+
+          <div class="card-symbol">
+            🪷
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-number">
+              02
+            </div>
+
+            <h2>
+
+              ẤN ĐỘ
+              <br>
+              CỔ ĐẠI
+
+            </h2>
+
+            <p>
+
+              Khám phá nền văn minh cổ đại
+              hình thành trên lưu vực
+              sông Ấn và sông Hằng.
+
+            </p>
+
+            <div class="discover-text">
+
+              BƯỚC VÀO KHÁM PHÁ →
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             TRUNG QUỐC
+        =================================================== -->
+
+        <div
+          class="civilization-card china"
+          onclick="openCivilization('china')"
+        >
+
+          <div class="card-symbol">
+            🏯
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-number">
+              03
+            </div>
+
+            <h2>
+
+              TRUNG QUỐC
+              <br>
+              CỔ ĐẠI
+
+            </h2>
+
+            <p>
+
+              Khám phá một trong những
+              nền văn minh lâu đời
+              và có ảnh hưởng lớn của phương Đông.
+
+            </p>
+
+            <div class="discover-text">
+
+              BƯỚC VÀO KHÁM PHÁ →
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             HY LẠP VÀ LA MÃ
+        =================================================== -->
+
+        <div
+          class="civilization-card greece"
+          onclick="openCivilization('greece')"
+        >
+
+          <div class="card-symbol">
+            🏛
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-number">
+              04
+            </div>
+
+            <h2>
+
+              HY LẠP VÀ
+              <br>
+              LA MÃ CỔ ĐẠI
+
+            </h2>
+
+            <p>
+
+              Bước vào không gian Địa Trung Hải
+              và khám phá hai nền văn minh
+              tiêu biểu của phương Tây cổ đại.
+
+            </p>
+
+            <div class="discover-text">
+
+              BƯỚC VÀO KHÁM PHÁ →
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <footer>
+
+        HỌC LIỆU SỐ
+        •
+        LỊCH SỬ VÀ ĐỊA LÍ 6
+        •
+        XÃ HỘI CỔ ĐẠI
+
+      </footer>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       TRANG 3
+       GIAO DIỆN BÊN TRONG
+  ========================================================== -->
+
+  <section
+    class="page"
+    id="detailPage"
+  >
+
+    <div class="container">
+
+      <div class="topbar">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            ⚱
+          </div>
+
+          <div class="brand-text">
+
+            <strong>
+              XÃ HỘI CỔ ĐẠI
+            </strong>
+
+            <small>
+              KHÔNG GIAN HỌC TẬP
+            </small>
+
+          </div>
+
+        </div>
+
+        <button
+          class="back-button"
+          onclick="showCivilizations()"
+        >
+
+          ← Các nền văn minh
+
+        </button>
+
+      </div>
+
+
+      <div class="civilization-hero">
+
+        <div class="hero-kicker">
+
+          KHÔNG GIAN KHÁM PHÁ
+
+        </div>
+
+        <h1
+          class="hero-title"
+          id="detailTitle"
+        >
+
+          AI CẬP VÀ LƯỠNG HÀ CỔ ĐẠI
+
+        </h1>
+
+        <p
+          class="hero-description"
+          id="detailDescription"
+        >
+
+          Lựa chọn nội dung bạn muốn khám phá.
+
+        </p>
+
+      </div>
+
+
+      <!-- =====================================================
+           3 MỤC CON
+      ====================================================== -->
+
+      <div class="sub-grid">
+
+
+        <!-- THÔNG TIN LÝ THUYẾT -->
+
+        <a
+          id="theoryLink"
+          class="sub-card"
+          href="#"
+        >
+
+          <div class="sub-icon">
+            📜
+          </div>
+
+          <div class="sub-label">
+
+            KHÔNG GIAN 01
+
+          </div>
+
+          <h3>
+
+            THÔNG TIN
+            <br>
+            LÝ THUYẾT
+
+          </h3>
+
+          <p>
+
+            Khám phá các kiến thức trọng tâm
+            của từng nền văn minh cổ đại.
+
+          </p>
+
+          <div class="sub-arrow">
+
+            KHÁM PHÁ →
+
+          </div>
+
+        </a>
+
+
+        <!-- LƯỢC ĐỒ -->
+
+        <a
+          id="mapLink"
+          class="sub-card"
+          href="#"
+        >
+
+          <div class="sub-icon">
+            🗺️
+          </div>
+
+          <div class="sub-label">
+
+            KHÔNG GIAN 02
+
+          </div>
+
+          <h3>
+
+            LƯỢC ĐỒ
+            <br>
+            VÀ BẢN ĐỒ
+
+          </h3>
+
+          <p>
+
+            Quan sát vị trí địa lí,
+            không gian lịch sử
+            và các địa điểm quan trọng.
+
+          </p>
+
+          <div class="sub-arrow">
+
+            KHÁM PHÁ →
+
+          </div>
+
+        </a>
+
+
+        <!-- CÂU HỎI -->
+
+        <a
+          id="quizLink"
+          class="sub-card"
+          href="#"
+        >
+
+          <div class="sub-icon">
+            🧩
+          </div>
+
+          <div class="sub-label">
+
+            KHÔNG GIAN 03
+
+          </div>
+
+          <h3>
+
+            CÂU HỎI TƯƠNG TÁC
+            <br>
+            VÀ BÀI TẬP VẬN DỤNG
+
+          </h3>
+
+          <p>
+
+            Chinh phục các thử thách,
+            kiểm tra kiến thức
+            và vận dụng sau khi khám phá.
+
+          </p>
+
+          <div class="sub-arrow">
+
+            BẮT ĐẦU →
+
+          </div>
+
+        </a>
+
+      </div>
+
+
+      <footer>
+
+        HỌC LIỆU SỐ
+        •
+        LỊCH SỬ VÀ ĐỊA LÍ 6
+
+      </footer>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+
+  <script>
+
+    /* =========================================================
+       DỮ LIỆU
+    ========================================================= */
+
+    const civilizationData = {
+
+      egypt: {
+
+        title:
+          "AI CẬP VÀ LƯỠNG HÀ CỔ ĐẠI",
+
+        description:
+          "Khám phá điều kiện tự nhiên, quá trình hình thành xã hội, đời sống và những thành tựu tiêu biểu của Ai Cập và Lưỡng Hà cổ đại.",
+
+
+        /* =====================================================
+           LINK HTML AI CẬP VÀ LƯỠNG HÀ
+        ====================================================== */
+
+        theory:
+          "LÝ THUYẾT AI CẬP VÀ LƯỠNG HÀ.html",
+
+        map:
+          "LƯỢC ĐỒ AI CẬP LƯỠNG HÀ.html",
+
+        quiz:
+          "BTVD AI CẬP LƯỠNG HÀ.html"
+
+      },
+
+
+      india: {
+
+        title:
+          "ẤN ĐỘ CỔ ĐẠI",
+
+        description:
+          "Khám phá điều kiện tự nhiên, xã hội, văn hóa và những thành tựu nổi bật của Ấn Độ cổ đại.",
+
+
+        /* =====================================================
+           LINK HTML ẤN ĐỘ
+        ====================================================== */
+
+        theory:
+          "LÝ THUYẾT VỀ ẤN ĐỘ CỔ ĐẠI.html",
+
+        map:
+          "MÔ HÌNHADCD.html",
+
+        quiz:
+          "btvd.ẤN ĐỘ.html"
+
+      },
+
+
+      china: {
+
+        title:
+          "TRUNG QUỐC CỔ ĐẠI",
+
+        description:
+          "Khám phá quá trình hình thành nhà nước, tổ chức xã hội và những thành tựu tiêu biểu của Trung Quốc cổ đại.",
+
+
+        /* =====================================================
+           LINK HTML TRUNG QUỐC
+        ====================================================== */
+
+        theory:
+          "LÝ THUYẾTTQCD.html",
+
+        map:
+          "MÔ HÌNH TQCD.html",
+
+        quiz:
+          "BTVD TQ.html"
+
+      },
+
+
+      greece: {
+
+        title:
+          "HY LẠP VÀ LA MÃ CỔ ĐẠI",
+
+        description:
+          "Khám phá điều kiện tự nhiên, tổ chức xã hội và những thành tựu tiêu biểu của Hy Lạp và La Mã cổ đại.",
+
+
+        /* =====================================================
+           LINK HTML HY LẠP VÀ LA MÃ
+        ====================================================== */
+
+        theory:
+          "LÝ THUYẾT VỀ HY LẠP VÀ LA MÃ CỔ ĐẠI.html",
+
+        map:
+          "MÔ HÌNH HY LẠP LA MÃ MỚI.html",
+
+        quiz:
+          "BTVD.HY LẠP LA MÃ.html"
+
+      }
+
+    };
+
+
+    /* =========================================================
+       ẨN TẤT CẢ CÁC TRANG
+    ========================================================= */
+
+    function hideAllPages() {
+
+      document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
+
+          page.classList.remove("active");
+
+        });
+
+    }
+
+
+    /* =========================================================
+       HIỆN TRANG CHỦ
+    ========================================================= */
+
+    function showHome() {
+
+      hideAllPages();
+
+      document
+        .getElementById("homePage")
+        .classList.add("active");
+
+      window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+      });
+
+    }
+
+
+    /* =========================================================
+       HIỆN 4 NỀN VĂN MINH
+    ========================================================= */
+
+    function showCivilizations() {
+
+      hideAllPages();
+
+      document
+        .getElementById("civilizationsPage")
+        .classList.add("active");
+
+      window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+      });
+
+    }
+
+
+    /* =========================================================
+       MỞ TỪNG NỀN VĂN MINH
+    ========================================================= */
+
+    function openCivilization(id) {
+
+      const data =
+        civilizationData[id];
+
+      if (!data) {
+        return;
+      }
+
+
+      document
+        .getElementById("detailTitle")
+        .textContent =
+        data.title;
+
+
+      document
+        .getElementById("detailDescription")
+        .textContent =
+        data.description;
+
+
+      document
+        .getElementById("theoryLink")
+        .href =
+        data.theory;
+
+
+      document
+        .getElementById("mapLink")
+        .href =
+        data.map;
+
+
+      document
+        .getElementById("quizLink")
+        .href =
+        data.quiz;
+
+
+      hideAllPages();
+
+
+      document
+        .getElementById("detailPage")
+        .classList.add("active");
+
+
+      window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+      });
+
+    }
+
+
+    /* =========================================================
+       TẠO HẠT ÁNH SÁNG
+    ========================================================= */
+
+    const particleContainer =
+      document.getElementById("particles");
+
+
+    for (
+      let i = 0;
+      i < 40;
+      i++
+    ) {
+
+      const particle =
+        document.createElement("span");
+
+
+      particle.className =
+        "particle";
+
+
+      particle.style.left =
+        Math.random() * 100 + "%";
+
+
+      particle.style.animationDuration =
+        10 +
+        Math.random() * 20 +
+        "s";
+
+
+      particle.style.animationDelay =
+        -Math.random() * 20 +
+        "s";
+
+
+      const size =
+        1.5 +
+        Math.random() * 3;
+
+
+      particle.style.width =
+        size + "px";
+
+
+      particle.style.height =
+        size + "px";
+
+
+      particle.style.opacity =
+        Math.random() * 0.6;
+
+
+      particleContainer.appendChild(
+        particle
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>

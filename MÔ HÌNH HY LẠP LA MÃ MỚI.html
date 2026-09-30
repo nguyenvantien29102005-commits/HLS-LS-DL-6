@@ -1,0 +1,4380 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Học liệu số | Hy Lạp và La Mã cổ đại</title>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<style>
+:root{
+  --page:#061426;
+  --panel:#0a1b30;
+  --panel2:#102740;
+
+  --map:#1f3a59;
+  --line:#4c7395;
+
+  --text:#f4f8fc;
+  --muted:#a9bdcf;
+
+  --cyan:#58d7ff;
+  --gold:#f4c665;
+
+  --orange:#df8335;
+  --greece:#39c3f2;
+  --rome:#ec7957;
+  --modern:#41caa4;
+
+  --city:#ffc24f;
+
+  --shadow:
+    0 18px 50px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(57,147,205,.10),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #05111f,
+      #081a2d
+    );
+}
+
+button{
+  font:inherit;
+  cursor:pointer;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.topbar{
+  min-height:88px;
+
+  padding:14px 26px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:18px;
+
+  position:sticky;
+  top:0;
+
+  z-index:9999;
+
+  background:
+    rgba(5,17,31,.95);
+
+  border-bottom:
+    1px solid rgba(88,215,255,.14);
+
+  backdrop-filter:
+    blur(16px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  width:60px;
+  height:60px;
+
+  border-radius:18px;
+
+  display:grid;
+  place-items:center;
+
+  font-size:30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #72e3ff,
+      #2f9fd0
+    );
+
+  color:#052037;
+
+  box-shadow:
+    0 10px 26px rgba(47,164,212,.18);
+}
+
+.kicker{
+  font-size:11px;
+
+  letter-spacing:2.8px;
+
+  font-weight:900;
+
+  color:var(--cyan);
+
+  margin-bottom:5px;
+}
+
+.brand-title{
+  font-size:18px;
+  font-weight:850;
+}
+
+.back{
+  border:
+    1px solid rgba(83,169,215,.26);
+
+  border-radius:16px;
+
+  padding:13px 18px;
+
+  background:#0c2036;
+
+  color:#e9f6ff;
+
+  font-weight:800;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  width:
+    min(
+      1760px,
+      calc(100% - 38px)
+    );
+
+  margin:
+    25px auto 18px;
+
+  padding:
+    26px 30px;
+
+  border-radius:
+    26px;
+
+  border:
+    1px solid rgba(77,141,184,.24);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(14,36,60,.97),
+      rgba(7,23,40,.97)
+    );
+
+  box-shadow:
+    var(--shadow);
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"🏛️";
+
+  position:absolute;
+
+  right:42px;
+  top:-40px;
+
+  font-size:170px;
+
+  opacity:.035;
+}
+
+.hero h1{
+  font:
+    500
+    clamp(29px,4vw,46px)/1.15
+    Georgia,
+    serif;
+
+  margin:
+    7px 0 10px;
+}
+
+.hero p{
+  max-width:
+    1150px;
+
+  color:
+    var(--muted);
+
+  line-height:
+    1.75;
+
+  font-size:
+    14px;
+}
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs{
+  width:
+    min(
+      1760px,
+      calc(100% - 38px)
+    );
+
+  margin:
+    0 auto 20px;
+
+  display:flex;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+}
+
+.tab{
+  padding:
+    14px 18px;
+
+  border-radius:
+    16px;
+
+  border:
+    1px solid rgba(76,136,180,.24);
+
+  background:
+    #0d2238;
+
+  color:
+    #b8c8d6;
+
+  font-size:
+    13px;
+
+  font-weight:
+    900;
+
+  transition:
+    .2s;
+}
+
+.tab:hover{
+  transform:
+    translateY(-2px);
+
+  border-color:
+    #58d7ff;
+
+  color:#fff;
+}
+
+.tab.active{
+  background:
+    linear-gradient(
+      145deg,
+      #69dcff,
+      #35aeda
+    );
+
+  color:
+    #061828;
+
+  border-color:
+    #79e4ff;
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.layout{
+  width:
+    min(
+      1760px,
+      calc(100% - 38px)
+    );
+
+  margin:
+    0 auto 44px;
+
+  display:grid;
+
+  grid-template-columns:
+    330px
+    minmax(640px,1fr)
+    450px;
+
+  gap:20px;
+}
+
+.panel{
+  border-radius:
+    24px;
+
+  border:
+    1px solid rgba(75,137,181,.25);
+
+  background:
+    linear-gradient(
+      160deg,
+      rgba(13,33,54,.98),
+      rgba(7,22,38,.99)
+    );
+
+  box-shadow:
+    var(--shadow);
+
+  overflow:hidden;
+}
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel-head{
+  padding:
+    25px 24px 22px;
+
+  border-bottom:
+    1px solid rgba(80,145,187,.13);
+}
+
+.panel-head h2{
+  font:
+    500 30px
+    Georgia,
+    serif;
+
+  margin-top:
+    7px;
+}
+
+.section{
+  padding:
+    21px 22px 9px;
+
+  color:
+    #7f96aa;
+
+  font-size:
+    11px;
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    2.3px;
+}
+
+.layer-list{
+  padding:
+    0 21px;
+
+  display:flex;
+
+  flex-direction:
+    column;
+
+  gap:9px;
+}
+
+.layer-btn{
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  width:
+    100%;
+
+  padding:
+    13px 14px;
+
+  border-radius:
+    13px;
+
+  border:
+    1px solid rgba(77,143,188,.24);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(23,59,91,.74),
+      rgba(13,39,65,.74)
+    );
+
+  color:
+    #dcebf6;
+
+  text-align:left;
+
+  font-size:
+    13px;
+
+  font-weight:
+    800;
+}
+
+.layer-btn.off{
+  opacity:.42;
+}
+
+.dot{
+  margin-left:auto;
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:
+    var(--cyan);
+
+  box-shadow:
+    0 0 12px rgba(88,215,255,.8);
+}
+
+.layer-btn.off .dot{
+  background:#607080;
+  box-shadow:none;
+}
+
+.tools{
+  padding:
+    0 21px;
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:9px;
+}
+
+.tools button{
+  border:
+    1px solid rgba(76,137,177,.2);
+
+  border-radius:
+    12px;
+
+  padding:
+    12px 8px;
+
+  background:
+    #081a2e;
+
+  color:
+    #c9d9e7;
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+}
+
+.note{
+  margin:
+    17px 21px 21px;
+
+  padding:
+    15px 16px;
+
+  border-radius:
+    15px;
+
+  border:
+    1px solid rgba(66,145,190,.15);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(28,83,112,.2),
+      rgba(9,31,51,.42)
+    );
+
+  color:
+    #afc0cf;
+
+  font-size:
+    12px;
+
+  line-height:
+    1.65;
+}
+
+.note strong{
+  color:
+    var(--gold);
+}
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.map-shell{
+  min-height:
+    820px;
+
+  position:
+    relative;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    26px;
+
+  border:
+    1px solid rgba(80,142,184,.30);
+
+  box-shadow:
+    var(--shadow);
+
+  background:
+    #1b3652;
+}
+
+#map{
+  width:
+    100%;
+
+  height:
+    820px;
+
+  background:
+    radial-gradient(
+      circle at 50% 12%,
+      rgba(117,163,204,.09),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #244261,
+      #1b3552
+    ) !important;
+}
+
+.map-title{
+  position:absolute;
+
+  top:
+    16px;
+
+  left:
+    50%;
+
+  transform:
+    translateX(-50%);
+
+  z-index:
+    900;
+
+  max-width:
+    60%;
+
+  padding:
+    10px 17px;
+
+  border-radius:
+    14px;
+
+  background:
+    rgba(5,20,35,.93);
+
+  border:
+    1px solid rgba(93,173,217,.24);
+
+  font-size:
+    12px;
+
+  font-weight:
+    850;
+
+  text-align:
+    center;
+}
+
+.zoom{
+  position:absolute;
+
+  left:
+    16px;
+
+  top:
+    16px;
+
+  z-index:
+    920;
+
+  display:flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+}
+
+.zoom button{
+  width:
+    48px;
+
+  height:
+    48px;
+
+  border-radius:
+    12px;
+
+  border:
+    1px solid rgba(94,164,209,.25);
+
+  background:
+    rgba(6,23,40,.95);
+
+  color:#fff;
+
+  font-size:
+    23px;
+
+  font-weight:
+    700;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.22);
+}
+
+.legend{
+  position:absolute;
+
+  right:
+    15px;
+
+  top:
+    68px;
+
+  z-index:
+    900;
+
+  padding:
+    13px 14px;
+
+  border-radius:
+    15px;
+
+  border:
+    1px solid rgba(86,153,196,.25);
+
+  background:
+    rgba(5,20,36,.93);
+
+  font-size:
+    11.5px;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.24);
+}
+
+.legend-row{
+  display:flex;
+
+  align-items:center;
+
+  gap:
+    8px;
+
+  margin:
+    6px 0;
+}
+
+.sw{
+  width:
+    25px;
+
+  height:
+    10px;
+
+  border-radius:
+    20px;
+}
+
+.hint{
+  position:absolute;
+
+  right:
+    15px;
+
+  bottom:
+    15px;
+
+  z-index:
+    900;
+
+  padding:
+    9px 12px;
+
+  border-radius:
+    12px;
+
+  background:
+    rgba(5,19,33,.92);
+
+  border:
+    1px solid rgba(89,152,194,.2);
+
+  color:
+    #b8d0e4;
+
+  font-size:
+    11px;
+}
+
+.loading{
+  position:absolute;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  z-index:
+    950;
+
+  display:none;
+
+  padding:
+    14px 18px;
+
+  border-radius:
+    14px;
+
+  background:
+    rgba(4,18,31,.94);
+
+  border:
+    1px solid rgba(88,215,255,.25);
+
+  color:
+    #dff7ff;
+
+  font-weight:
+    800;
+
+  font-size:
+    13px;
+}
+
+.loading.show{
+  display:block;
+}
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.visual{
+  height:
+    185px;
+
+  position:
+    relative;
+
+  background:
+    linear-gradient(
+      125deg,
+      #163654,
+      #104c61
+    );
+
+  border-bottom:
+    1px solid rgba(73,140,184,.16);
+}
+
+.symbol{
+  position:absolute;
+
+  left:
+    29px;
+
+  top:
+    50%;
+
+  transform:
+    translateY(-50%);
+
+  width:
+    88px;
+
+  height:
+    88px;
+
+  border-radius:
+    21px;
+
+  display:grid;
+
+  place-items:center;
+
+  background:
+    #07192b;
+
+  border:
+    1px solid rgba(89,163,207,.28);
+
+  font-size:
+    44px;
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.28);
+}
+
+.detail{
+  padding:
+    25px 27px 28px;
+}
+
+.detail-kicker{
+  color:
+    var(--cyan);
+
+  font-size:
+    11px;
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    2.5px;
+}
+
+.detail h2{
+  font:
+    500 36px
+    Georgia,
+    serif;
+
+  margin:
+    8px 0 13px;
+}
+
+.detail-desc{
+  color:
+    #acbdcd;
+
+  line-height:
+    1.78;
+
+  font-size:
+    14px;
+
+  margin-bottom:
+    17px;
+}
+
+.row{
+  display:grid;
+
+  grid-template-columns:
+    38px 1fr;
+
+  gap:
+    10px;
+
+  padding:
+    14px 0;
+
+  border-top:
+    1px solid rgba(79,142,184,.14);
+}
+
+.ri{
+  width:
+    33px;
+
+  height:
+    33px;
+
+  border-radius:
+    10px;
+
+  display:grid;
+
+  place-items:center;
+
+  background:
+    rgba(48,149,197,.11);
+}
+
+.rl{
+  color:
+    var(--gold);
+
+  font-size:
+    12px;
+
+  font-weight:
+    850;
+
+  margin-bottom:
+    4px;
+}
+
+.rv{
+  color:
+    #aebdca;
+
+  font-size:
+    12.5px;
+
+  line-height:
+    1.6;
+}
+
+.dir-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:
+    8px;
+
+  margin-top:
+    8px;
+}
+
+.dir{
+  padding:
+    10px;
+
+  border-radius:
+    11px;
+
+  border:
+    1px solid rgba(65,132,177,.16);
+
+  background:
+    #081a2e;
+
+  color:
+    #aec0d0;
+
+  font-size:
+    11.5px;
+
+  line-height:
+    1.45;
+}
+
+.dir b{
+  color:
+    var(--gold);
+}
+
+.source-box{
+  margin-top:
+    14px;
+
+  padding:
+    12px 13px;
+
+  border-radius:
+    12px;
+
+  border:
+    1px solid rgba(72,139,183,.14);
+
+  background:
+    #07192b;
+
+  color:
+    #90a9bd;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.55;
+}
+
+.status{
+  margin-top:
+    10px;
+
+  color:
+    #76dfff;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+}
+
+/* =========================================================
+   LEAFLET
+========================================================= */
+
+.leaflet-container{
+  background:
+    transparent !important;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.leaflet-control-attribution,
+.leaflet-control-zoom{
+  display:none !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip{
+  background:
+    #071b2f;
+
+  color:#fff;
+}
+
+.leaflet-popup-content-wrapper{
+  border:
+    1px solid rgba(81,166,215,.32);
+
+  border-radius:
+    14px;
+}
+
+.leaflet-popup-content{
+  min-width:
+    190px;
+
+  line-height:
+    1.55;
+}
+
+.pop-title{
+  color:
+    var(--gold);
+
+  font-size:
+    14px;
+
+  font-weight:
+    900;
+
+  margin-bottom:
+    5px;
+}
+
+.country-label{
+  color:
+    #f7fbff;
+
+  font-size:
+    10px;
+
+  font-weight:
+    900;
+
+  white-space:
+    nowrap;
+
+  text-shadow:
+    0 2px 4px #000,
+    0 0 6px #000;
+}
+
+.sea-label{
+  color:
+    #57dcff;
+
+  font-size:
+    11px;
+
+  font-style:
+    italic;
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    1.5px;
+
+  white-space:
+    nowrap;
+
+  text-shadow:
+    0 2px 4px #000,
+    0 0 7px #000;
+}
+
+.ancient-region-label{
+  color:
+    #ffe0a0;
+
+  font-size:
+    11px;
+
+  font-weight:
+    900;
+
+  white-space:
+    nowrap;
+
+  text-shadow:
+    0 2px 4px #000,
+    0 0 7px #000;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1400px){
+
+  .layout{
+    grid-template-columns:
+      310px 1fr;
+  }
+
+  .right-panel{
+    grid-column:
+      1 / -1;
+  }
+
+}
+
+@media(max-width:900px){
+
+  .layout{
+    grid-template-columns:
+      1fr;
+  }
+
+  .right-panel{
+    grid-column:
+      auto;
+  }
+
+  .hero,
+  .tabs,
+  .layout{
+    width:
+      calc(100% - 22px);
+  }
+
+  #map,
+  .map-shell{
+    height:
+      720px;
+
+    min-height:
+      720px;
+  }
+
+  .back{
+    display:none;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="brand">
+
+    <div class="logo">
+      🏛️
+    </div>
+
+    <div>
+
+      <div class="kicker">
+        HỌC LIỆU SỐ
+      </div>
+
+      <div class="brand-title">
+        Lược đồ tương tác · Hy Lạp và La Mã cổ đại
+      </div>
+
+    </div>
+
+  </div>
+
+  <button
+    class="back"
+    onclick="window.location.href='xa-hoi-co-dai.html'"
+  >
+    ← Xã hội cổ đại
+  </button>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="kicker">
+    ATLAS LỊCH SỬ · ĐỊA LÍ ĐỊA TRUNG HẢI
+  </div>
+
+  <h1>
+    Hy Lạp và La Mã từ cổ đại đến hiện nay
+  </h1>
+
+  <p>
+    Bản đồ hiện đại sử dụng đường biên quốc gia từ Natural Earth.
+    Phạm vi Đế quốc La Mã khoảng năm 117 SCN được tải bằng GeoJSON lịch sử.
+    Đối với Hy Lạp cổ đại, bản đồ không dựng một “biên giới quốc gia Hy Lạp”
+    giả, mà thể hiện các polis, vùng lịch sử tiêu biểu và không gian biển.
+  </p>
+
+</section>
+
+
+<nav class="tabs">
+
+  <button
+    class="tab active"
+    data-mode="greece"
+    onclick="switchMode('greece')"
+  >
+    🏺 HY LẠP CỔ ĐẠI
+  </button>
+
+  <button
+    class="tab"
+    data-mode="rome"
+    onclick="switchMode('rome')"
+  >
+    🦅 LA MÃ 117 SCN
+  </button>
+
+  <button
+    class="tab"
+    data-mode="modern"
+    onclick="switchMode('modern')"
+  >
+    🌍 HY LẠP · ITALIA HIỆN NAY
+  </button>
+
+  <button
+    class="tab"
+    data-mode="compare"
+    onclick="switchMode('compare')"
+  >
+    ⚖️ SO SÁNH CỔ – HIỆN ĐẠI
+  </button>
+
+</nav>
+
+
+<main class="layout">
+
+
+<!-- =========================================================
+     LEFT PANEL
+========================================================= -->
+
+<aside class="panel">
+
+  <div class="panel-head">
+
+    <div class="kicker">
+      CÔNG CỤ
+    </div>
+
+    <h2>
+      Khám phá bản đồ
+    </h2>
+
+  </div>
+
+
+  <div class="section">
+    LỚP THÔNG TIN
+  </div>
+
+
+  <div class="layer-list">
+
+    <button
+      id="btnBase"
+      class="layer-btn"
+      onclick="toggleLayer('base',this)"
+    >
+      🗺️
+      Nền đất & đường bờ biển
+      <span class="dot"></span>
+    </button>
+
+
+    <button
+      id="btnTerritory"
+      class="layer-btn"
+      onclick="toggleLayer('territory',this)"
+    >
+      🧭
+      Phạm vi / lãnh thổ
+      <span class="dot"></span>
+    </button>
+
+
+    <button
+      id="btnBorders"
+      class="layer-btn"
+      onclick="toggleLayer('borders',this)"
+    >
+      ➖
+      Đường biên hiện đại
+      <span class="dot"></span>
+    </button>
+
+
+    <button
+      id="btnCities"
+      class="layer-btn"
+      onclick="toggleLayer('cities',this)"
+    >
+      🏛️
+      Thành bang / đô thị
+      <span class="dot"></span>
+    </button>
+
+
+    <button
+      id="btnLabels"
+      class="layer-btn"
+      onclick="toggleLayer('labels',this)"
+    >
+      🔤
+      Tên địa danh
+      <span class="dot"></span>
+    </button>
+
+
+    <button
+      id="btnSeas"
+      class="layer-btn"
+      onclick="toggleLayer('seas',this)"
+    >
+      🌊
+      Tên biển
+      <span class="dot"></span>
+    </button>
+
+  </div>
+
+
+  <div class="section">
+    ĐIỀU KHIỂN
+  </div>
+
+
+  <div class="tools">
+
+    <button onclick="map.zoomIn()">
+      ＋ Phóng to
+    </button>
+
+    <button onclick="map.zoomOut()">
+      − Thu nhỏ
+    </button>
+
+    <button onclick="focusCurrent()">
+      ⌂ Toàn cảnh
+    </button>
+
+    <button onclick="resetAllLayers()">
+      ↻ Hiện tất cả
+    </button>
+
+  </div>
+
+
+  <div class="note">
+
+    <strong>
+      Lưu ý học thuật
+    </strong>
+
+    <br>
+
+    Hy Lạp cổ đại không phải một quốc gia thống nhất có biên giới cố định
+    như hiện nay. Vì vậy chế độ Hy Lạp cổ đại ưu tiên bờ biển thật,
+    các polis và các vùng lịch sử.
+
+  </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAP
+========================================================= -->
+
+<section class="map-shell">
+
+  <div
+    id="mapTitle"
+    class="map-title"
+  >
+    Thế giới Hy Lạp cổ đại · các polis và vùng cư trú
+  </div>
+
+
+  <div class="zoom">
+
+    <button onclick="map.zoomIn()">
+      +
+    </button>
+
+    <button onclick="map.zoomOut()">
+      −
+    </button>
+
+    <button onclick="focusCurrent()">
+      ⌂
+    </button>
+
+  </div>
+
+
+  <div class="legend">
+
+    <div class="legend-row">
+
+      <span
+        class="sw"
+        style="background:#355b7a"
+      ></span>
+
+      Nền quốc gia / bờ biển
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span
+        class="sw"
+        style="background:#39c3f2"
+      ></span>
+
+      Không gian Hy Lạp cổ
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span
+        class="sw"
+        style="background:#ec7957"
+      ></span>
+
+      La Mã 117 SCN
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span
+        class="sw"
+        style="background:#df8335"
+      ></span>
+
+      Hy Lạp / Italia hiện nay
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="loading"
+    class="loading"
+  >
+    Đang tải dữ liệu bản đồ…
+  </div>
+
+
+  <div id="map"></div>
+
+
+  <div class="hint">
+    🖱️ Kéo để di chuyển · Cuộn để zoom · Bấm quốc gia / điểm để xem
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     RIGHT PANEL
+========================================================= -->
+
+<aside class="panel right-panel">
+
+  <div class="panel-head">
+
+    <div class="kicker">
+      HỒ SƠ LỊCH SỬ – ĐỊA LÍ
+    </div>
+
+    <h2>
+      Thông tin chi tiết
+    </h2>
+
+  </div>
+
+
+  <div class="visual">
+
+    <div
+      id="detailSymbol"
+      class="symbol"
+    >
+      🏺
+    </div>
+
+  </div>
+
+
+  <div class="detail">
+
+    <div
+      id="detailKicker"
+      class="detail-kicker"
+    >
+      THẾ GIỚI CỔ ĐẠI
+    </div>
+
+
+    <h2
+      id="detailTitle"
+    >
+      Hy Lạp cổ đại
+    </h2>
+
+
+    <p
+      id="detailDesc"
+      class="detail-desc"
+    ></p>
+
+
+    <div class="row">
+
+      <div class="ri">
+        📍
+      </div>
+
+      <div>
+
+        <div class="rl">
+          Không gian
+        </div>
+
+        <div
+          id="detailLocation"
+          class="rv"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="ri">
+        🏛️
+      </div>
+
+      <div>
+
+        <div class="rl">
+          Trung tâm tiêu biểu
+        </div>
+
+        <div
+          id="detailCenters"
+          class="rv"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="ri">
+        🌊
+      </div>
+
+      <div>
+
+        <div class="rl">
+          Biển và vùng nước
+        </div>
+
+        <div
+          id="detailSea"
+          class="rv"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="ri">
+        🧭
+      </div>
+
+      <div>
+
+        <div class="rl">
+          Hướng tiếp giáp / phạm vi
+        </div>
+
+        <div
+          id="directionGrid"
+          class="dir-grid"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="source-box">
+
+      <b>
+        Nguồn dữ liệu bản đồ:
+      </b>
+
+      <br>
+
+      Natural Earth cho quốc gia hiện đại và bờ biển;
+      GeoJSON lịch sử cho phạm vi La Mã khoảng năm 117 SCN.
+
+      <div
+        id="statusText"
+        class="status"
+      >
+        Sẵn sàng.
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+
+</main>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+
+<script>
+
+/* =========================================================
+   1. URL DỮ LIỆU
+========================================================= */
+
+const DATA_URLS = {
+
+  modernCountries:
+    "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson",
+
+  roman117:
+    "https://raw.githubusercontent.com/sfsheath/roman-maps/master/roman_empire_ad_117_extent.geojson"
+
+};
+
+
+/* =========================================================
+   2. KHỞI TẠO MAP
+========================================================= */
+
+const map = L.map(
+  "map",
+  {
+    zoomControl:false,
+    attributionControl:false,
+    minZoom:3,
+    maxZoom:9,
+    worldCopyJump:false
+  }
+).setView(
+  [39.2,22.8],
+  5
+);
+
+
+/* =========================================================
+   3. GROUPS
+========================================================= */
+
+const groups = {
+
+  base:
+    L.layerGroup().addTo(map),
+
+  territory:
+    L.layerGroup().addTo(map),
+
+  borders:
+    L.layerGroup().addTo(map),
+
+  cities:
+    L.layerGroup().addTo(map),
+
+  labels:
+    L.layerGroup().addTo(map),
+
+  seas:
+    L.layerGroup().addTo(map)
+
+};
+
+
+const visible = {
+
+  base:true,
+
+  territory:true,
+
+  borders:true,
+
+  cities:true,
+
+  labels:true,
+
+  seas:true
+
+};
+
+
+let currentMode =
+  "greece";
+
+let modernData =
+  null;
+
+let romanData =
+  null;
+
+let currentBounds =
+  null;
+
+
+/* =========================================================
+   4. FETCH JSON
+========================================================= */
+
+async function fetchJSON(
+  url
+){
+
+  const res =
+    await fetch(
+      url,
+      {
+        cache:"force-cache"
+      }
+    );
+
+
+  if(
+    !res.ok
+  ){
+
+    throw new Error(
+      `HTTP ${res.status}`
+    );
+
+  }
+
+
+  return await res.json();
+
+}
+
+
+/* =========================================================
+   5. PRELOAD DATA
+========================================================= */
+
+async function preloadData(){
+
+  setLoading(
+    true,
+    "Đang tải dữ liệu biên giới…"
+  );
+
+
+  try{
+
+    const [
+      countries,
+      roman
+    ] =
+      await Promise.all(
+        [
+          fetchJSON(
+            DATA_URLS.modernCountries
+          ),
+
+          fetchJSON(
+            DATA_URLS.roman117
+          )
+        ]
+      );
+
+
+    modernData =
+      countries;
+
+    romanData =
+      roman;
+
+
+    setStatus(
+      "Đã tải dữ liệu Natural Earth và La Mã 117 SCN."
+    );
+
+
+    switchMode(
+      "greece"
+    );
+
+
+  }catch(err){
+
+    console.error(
+      err
+    );
+
+
+    setStatus(
+      "Không tải được dữ liệu trực tuyến. Hãy chạy bằng Live Server và kiểm tra Internet."
+    );
+
+
+    setLoading(
+      true,
+      "Không tải được GeoJSON"
+    );
+
+  }finally{
+
+    if(
+      modernData
+    ){
+
+      setLoading(
+        false
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   6. LOADING
+========================================================= */
+
+function setLoading(
+  show,
+  text="Đang tải dữ liệu bản đồ…"
+){
+
+  const el =
+    document.getElementById(
+      "loading"
+    );
+
+
+  el.textContent =
+    text;
+
+
+  el.classList.toggle(
+    "show",
+    show
+  );
+
+}
+
+
+/* =========================================================
+   7. STATUS
+========================================================= */
+
+function setStatus(
+  text
+){
+
+  document.getElementById(
+    "statusText"
+  ).textContent =
+    text;
+
+}
+
+
+/* =========================================================
+   8. CLEAR GROUPS
+========================================================= */
+
+function clearGroups(){
+
+  Object.values(
+    groups
+  ).forEach(
+    group=>{
+      group.clearLayers();
+    }
+  );
+
+}
+
+
+/* =========================================================
+   9. RESTORE VISIBILITY
+========================================================= */
+
+function restoreVisibility(){
+
+  Object.entries(
+    visible
+  ).forEach(
+    ([name,on])=>{
+
+      if(
+        on &&
+        !map.hasLayer(
+          groups[name]
+        )
+      ){
+
+        groups[name]
+          .addTo(map);
+
+      }
+
+
+      if(
+        !on &&
+        map.hasLayer(
+          groups[name]
+        )
+      ){
+
+        map.removeLayer(
+          groups[name]
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   10. TOGGLE LAYER
+========================================================= */
+
+function toggleLayer(
+  name,
+  button
+){
+
+  visible[name] =
+    !visible[name];
+
+
+  if(
+    visible[name]
+  ){
+
+    groups[name]
+      .addTo(map);
+
+  }else{
+
+    map.removeLayer(
+      groups[name]
+    );
+
+  }
+
+
+  button.classList.toggle(
+    "off",
+    !visible[name]
+  );
+
+}
+
+
+/* =========================================================
+   11. RESET LAYERS
+========================================================= */
+
+function resetAllLayers(){
+
+  Object.keys(
+    visible
+  ).forEach(
+    key=>{
+
+      visible[key] =
+        true;
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(
+      ".layer-btn"
+    )
+    .forEach(
+      btn=>{
+
+        btn.classList.remove(
+          "off"
+        );
+
+      }
+    );
+
+
+  restoreVisibility();
+
+}
+
+
+/* =========================================================
+   12. NORMALIZE COUNTRY NAME
+========================================================= */
+
+function normalizedName(
+  properties
+){
+
+  return (
+    properties.ADMIN ||
+    properties.NAME ||
+    properties.NAME_EN ||
+    ""
+  ).trim();
+
+}
+
+
+/* =========================================================
+   13. COUNTRY NAME VIETNAMESE
+========================================================= */
+
+function vnCountry(
+  name
+){
+
+  const mapNames = {
+
+    "Greece":
+      "Hy Lạp",
+
+    "Italy":
+      "Italia",
+
+    "Albania":
+      "Albania",
+
+    "North Macedonia":
+      "Bắc Macedonia",
+
+    "Macedonia":
+      "Bắc Macedonia",
+
+    "Bulgaria":
+      "Bulgaria",
+
+    "Turkey":
+      "Türkiye",
+
+    "Türkiye":
+      "Türkiye",
+
+    "France":
+      "Pháp",
+
+    "Switzerland":
+      "Thụy Sĩ",
+
+    "Austria":
+      "Áo",
+
+    "Slovenia":
+      "Slovenia",
+
+    "Croatia":
+      "Croatia",
+
+    "Montenegro":
+      "Montenegro",
+
+    "Serbia":
+      "Serbia",
+
+    "Bosnia and Herzegovina":
+      "Bosnia và Herzegovina",
+
+    "Spain":
+      "Tây Ban Nha",
+
+    "Portugal":
+      "Bồ Đào Nha",
+
+    "Tunisia":
+      "Tunisia",
+
+    "Libya":
+      "Libya",
+
+    "Egypt":
+      "Ai Cập",
+
+    "Syria":
+      "Syria",
+
+    "Lebanon":
+      "Liban",
+
+    "Israel":
+      "Israel",
+
+    "Jordan":
+      "Jordan",
+
+    "United Kingdom":
+      "Vương quốc Anh",
+
+    "Germany":
+      "Đức",
+
+    "Belgium":
+      "Bỉ",
+
+    "Netherlands":
+      "Hà Lan",
+
+    "Romania":
+      "Romania",
+
+    "Hungary":
+      "Hungary",
+
+    "Georgia":
+      "Georgia"
+
+  };
+
+
+  return (
+    mapNames[name] ||
+    name
+  );
+
+}
+
+
+/* =========================================================
+   14. LABEL
+========================================================= */
+
+function labelMarker(
+  lat,
+  lng,
+  text,
+  cls="country-label"
+){
+
+  const marker =
+    L.marker(
+      [lat,lng],
+      {
+
+        interactive:false,
+
+        icon:
+          L.divIcon(
+            {
+
+              className:"",
+
+              html:
+                `
+                <div class="${cls}">
+                  ${text}
+                </div>
+                `
+            }
+          )
+      }
+    );
+
+
+  groups.labels
+    .addLayer(
+      marker
+    );
+
+
+  return marker;
+
+}
+
+
+/* =========================================================
+   15. SEA LABEL
+========================================================= */
+
+function seaMarker(
+  lat,
+  lng,
+  text,
+  rotate=0
+){
+
+  const marker =
+    L.marker(
+      [lat,lng],
+      {
+
+        interactive:false,
+
+        icon:
+          L.divIcon(
+            {
+
+              className:"",
+
+              html:
+                `
+                <div
+                  class="sea-label"
+                  style="
+                    transform:
+                    rotate(${rotate}deg)
+                  "
+                >
+                  ${text}
+                </div>
+                `
+            }
+          )
+      }
+    );
+
+
+  groups.seas
+    .addLayer(
+      marker
+    );
+
+}
+
+
+/* =========================================================
+   16. CITY ICON
+========================================================= */
+
+function cityIcon(
+  emoji,
+  color
+){
+
+  return L.divIcon(
+    {
+
+      className:"",
+
+      html:
+        `
+        <div
+          style="
+            width:34px;
+            height:34px;
+
+            border-radius:50%;
+
+            display:grid;
+            place-items:center;
+
+            background:${color};
+
+            border:
+              2px solid rgba(255,255,255,.95);
+
+            box-shadow:
+              0 6px 18px rgba(0,0,0,.35);
+
+            font-size:16px;
+          "
+        >
+          ${emoji}
+        </div>
+        `,
+
+      iconSize:
+        [34,34],
+
+      iconAnchor:
+        [17,17]
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   17. ADD CITY
+========================================================= */
+
+function addCity(
+  city,
+  color="#f4b244"
+){
+
+  const marker =
+    L.marker(
+      [
+        city.lat,
+        city.lng
+      ],
+      {
+
+        icon:
+          cityIcon(
+            city.icon,
+            color
+          )
+      }
+    );
+
+
+  marker.bindTooltip(
+    city.name,
+    {
+
+      direction:
+        "top",
+
+      offset:
+        [0,-14]
+
+    }
+  );
+
+
+  marker.bindPopup(
+    `
+    <div class="pop-title">
+      ${city.icon}
+      ${city.name}
+    </div>
+
+    <div>
+      ${city.text}
+    </div>
+    `
+  );
+
+
+  marker.on(
+    "click",
+    ()=>{
+
+      updateDetail(
+        {
+
+          kicker:
+            "TRUNG TÂM ĐÔ THỊ",
+
+          title:
+            city.name,
+
+          symbol:
+            city.icon,
+
+          desc:
+            city.text,
+
+          location:
+            `${city.lat.toFixed(2)}° · ${city.lng.toFixed(2)}°`,
+
+          centers:
+            city.name,
+
+          sea:
+            city.sea ||
+            "Quan sát trên lược đồ",
+
+          directions:
+            city.directions ||
+            [
+
+              [
+                "Quan sát",
+                "Vị trí tương đối"
+              ],
+
+              [
+                "Địa lí",
+                "Liên hệ địa hình"
+              ],
+
+              [
+                "Lịch sử",
+                "Liên hệ vai trò đô thị"
+              ],
+
+              [
+                "Không gian",
+                "Quan sát vùng xung quanh"
+              ]
+
+            ]
+
+        }
+      );
+
+    }
+  );
+
+
+  groups.cities
+    .addLayer(
+      marker
+    );
+
+}
+
+
+/* =========================================================
+   18. COUNTRIES TO SHOW
+========================================================= */
+
+const mediterraneanNames =
+  new Set(
+    [
+
+      "Greece",
+      "Italy",
+      "Albania",
+      "North Macedonia",
+      "Macedonia",
+      "Bulgaria",
+      "Turkey",
+      "Türkiye",
+
+      "France",
+      "Switzerland",
+      "Austria",
+      "Slovenia",
+      "Croatia",
+      "Montenegro",
+      "Serbia",
+      "Bosnia and Herzegovina",
+
+      "Spain",
+      "Portugal",
+
+      "Tunisia",
+      "Libya",
+      "Egypt",
+
+      "Syria",
+      "Lebanon",
+      "Israel",
+      "Jordan",
+
+      "United Kingdom",
+      "Germany",
+      "Belgium",
+      "Netherlands",
+      "Romania",
+      "Hungary",
+      "Georgia",
+
+      "Cyprus",
+      "Malta",
+      "Morocco",
+      "Algeria"
+
+    ]
+  );
+
+
+/* =========================================================
+   19. BASE COUNTRIES
+========================================================= */
+
+function makeBaseCountries(
+  {
+    modernFocus=false
+  }={}
+){
+
+  if(
+    !modernData
+  ){
+
+    return null;
+
+  }
+
+
+  const featureCollection =
+    {
+
+      type:
+        "FeatureCollection",
+
+      features:
+        modernData.features.filter(
+          feature=>{
+
+            const name =
+              normalizedName(
+                feature.properties ||
+                {}
+              );
+
+
+            return mediterraneanNames
+              .has(
+                name
+              );
+
+          }
+        )
+
+    };
+
+
+  const layer =
+    L.geoJSON(
+      featureCollection,
+      {
+
+        style:
+          feature=>{
+
+            const name =
+              normalizedName(
+                feature.properties ||
+                {}
+              );
+
+
+            const focus =
+              modernFocus &&
+              (
+                name === "Greece" ||
+                name === "Italy"
+              );
+
+
+            return {
+
+              color:
+                focus
+                ? "#f4f9fd"
+                : "#6f91af",
+
+              weight:
+                focus
+                ? 1.8
+                : .75,
+
+              fillColor:
+                focus
+                ? "#df8335"
+                : "#2e4d6b",
+
+              fillOpacity:
+                focus
+                ? .96
+                : .76
+
+            };
+
+          },
+
+
+        onEachFeature:
+          (
+            feature,
+            layerItem
+          )=>{
+
+            const name =
+              normalizedName(
+                feature.properties ||
+                {}
+              );
+
+
+            const vietnamese =
+              vnCountry(
+                name
+              );
+
+
+            layerItem.bindTooltip(
+              vietnamese,
+              {
+                sticky:true
+              }
+            );
+
+
+            layerItem.on(
+              "click",
+              ()=>{
+
+                updateDetail(
+                  {
+
+                    kicker:
+                      "QUỐC GIA HIỆN NAY",
+
+                    title:
+                      vietnamese,
+
+                    symbol:
+                      name === "Greece"
+                      ? "🇬🇷"
+                      :
+                      name === "Italy"
+                      ? "🇮🇹"
+                      :
+                      "🌍",
+
+                    desc:
+                      `${vietnamese} là một quốc gia hiện đại. Lớp này sử dụng đường biên từ dữ liệu Natural Earth.`,
+
+                    location:
+                      feature.properties.CONTINENT ||
+                      "Châu Âu / Địa Trung Hải",
+
+                    centers:
+                      name === "Greece"
+                      ? "Athens"
+                      :
+                      name === "Italy"
+                      ? "Rome"
+                      :
+                      "Quan sát trên bản đồ",
+
+                    sea:
+                      "Quan sát các vùng biển xung quanh",
+
+                    directions:
+                      [
+
+                        [
+                          "Loại dữ liệu",
+                          "Biên giới quốc gia hiện đại"
+                        ],
+
+                        [
+                          "Nguồn",
+                          "Natural Earth"
+                        ],
+
+                        [
+                          "Hiển thị",
+                          "Đường bờ và biên giới"
+                        ],
+
+                        [
+                          "Chế độ",
+                          "Bản đồ hiện nay"
+                        ]
+
+                      ]
+
+                  }
+                );
+
+              }
+            );
+
+          }
+
+      }
+    );
+
+
+  groups.base
+    .addLayer(
+      layer
+    );
+
+
+  return layer;
+
+}
+
+
+/* =========================================================
+   20. HY LẠP CỔ ĐẠI
+========================================================= */
+
+const greekCities =
+  [
+
+    {
+
+      name:
+        "Athens",
+
+      lat:
+        37.9838,
+
+      lng:
+        23.7275,
+
+      icon:
+        "🏛️",
+
+      text:
+        "Athens là một polis nổi bật của Hy Lạp cổ đại, đặc biệt quan trọng về chính trị, thương mại và văn hóa."
+
+    },
+
+
+    {
+
+      name:
+        "Sparta",
+
+      lat:
+        37.0745,
+
+      lng:
+        22.4303,
+
+      icon:
+        "🛡️",
+
+      text:
+        "Sparta nằm ở Laconia trên bán đảo Peloponnese và nổi tiếng với tổ chức quân sự."
+
+    },
+
+
+    {
+
+      name:
+        "Corinth",
+
+      lat:
+        37.9386,
+
+      lng:
+        22.9322,
+
+      icon:
+        "⚓",
+
+      text:
+        "Corinth nằm gần eo đất Corinth, có vị trí giao thương thuận lợi."
+
+    },
+
+
+    {
+
+      name:
+        "Thebes",
+
+      lat:
+        38.325,
+
+      lng:
+        23.318,
+
+      icon:
+        "🏺",
+
+      text:
+        "Thebes là một polis quan trọng ở Boeotia."
+
+    },
+
+
+    {
+
+      name:
+        "Delphi",
+
+      lat:
+        38.482,
+
+      lng:
+        22.501,
+
+      icon:
+        "🔱",
+
+      text:
+        "Delphi là một trung tâm tôn giáo nổi tiếng của thế giới Hy Lạp."
+
+    },
+
+
+    {
+
+      name:
+        "Olympia",
+
+      lat:
+        37.638,
+
+      lng:
+        21.63,
+
+      icon:
+        "🏅",
+
+      text:
+        "Olympia gắn với các lễ hội tôn giáo và Thế vận hội Olympic cổ đại."
+
+    },
+
+
+    {
+
+      name:
+        "Miletus",
+
+      lat:
+        37.53,
+
+      lng:
+        27.28,
+
+      icon:
+        "⚓",
+
+      text:
+        "Miletus nằm ở bờ tây Tiểu Á, là trung tâm thương mại và tư tưởng quan trọng."
+
+    },
+
+
+    {
+
+      name:
+        "Knossos",
+
+      lat:
+        35.298,
+
+      lng:
+        25.163,
+
+      icon:
+        "🏺",
+
+      text:
+        "Knossos trên Crete là trung tâm tiêu biểu của văn minh Minoan."
+
+    }
+
+  ];
+
+
+/* =========================================================
+   21. GREEK REGIONS
+========================================================= */
+
+const greekRegions =
+  [
+
+    {
+
+      name:
+        "Attica",
+
+      center:
+        [38.05,23.80],
+
+      coords:
+        [
+          [38.35,23.3],
+          [38.45,24.1],
+          [37.95,24.3],
+          [37.55,23.7],
+          [37.75,23.2]
+        ]
+
+    },
+
+
+    {
+
+      name:
+        "Boeotia",
+
+      center:
+        [38.45,23.15],
+
+      coords:
+        [
+          [38.75,22.65],
+          [38.8,23.6],
+          [38.25,23.65],
+          [38.05,22.8]
+        ]
+
+    },
+
+
+    {
+
+      name:
+        "Laconia",
+
+      center:
+        [36.95,22.55],
+
+      coords:
+        [
+          [37.35,22.2],
+          [37.45,22.9],
+          [36.7,23.0],
+          [36.45,22.35]
+        ]
+
+    },
+
+
+    {
+
+      name:
+        "Messenia",
+
+      center:
+        [37.15,21.8],
+
+      coords:
+        [
+          [37.65,21.3],
+          [37.55,22.05],
+          [36.7,22.1],
+          [36.7,21.4]
+        ]
+
+    },
+
+
+    {
+
+      name:
+        "Ionia",
+
+      center:
+        [38.05,27.2],
+
+      coords:
+        [
+          [39.4,26.4],
+          [39.15,28.2],
+          [36.7,28.4],
+          [36.65,26.6]
+        ]
+
+    }
+
+  ];
+
+
+/* =========================================================
+   22. ADD GREEK REGIONS
+========================================================= */
+
+function addGreekRegions(){
+
+  greekRegions
+    .forEach(
+      region=>{
+
+        const polygon =
+          L.polygon(
+            region.coords,
+            {
+
+              color:
+                "#72dfff",
+
+              weight:
+                1.5,
+
+              dashArray:
+                "5 6",
+
+              fillColor:
+                "#39c3f2",
+
+              fillOpacity:
+                .13
+
+            }
+          );
+
+
+        polygon.bindTooltip(
+          region.name,
+          {
+            sticky:true
+          }
+        );
+
+
+        groups.territory
+          .addLayer(
+            polygon
+          );
+
+
+        labelMarker(
+          region.center[0],
+          region.center[1],
+          region.name.toUpperCase(),
+          "ancient-region-label"
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   23. ROMAN CITIES
+========================================================= */
+
+const romanCities =
+  [
+
+    {
+
+      name:
+        "Rome",
+
+      lat:
+        41.9028,
+
+      lng:
+        12.4964,
+
+      icon:
+        "🦅",
+
+      text:
+        "Roma là trung tâm chính trị của nhà nước La Mã cổ đại."
+
+    },
+
+
+    {
+
+      name:
+        "Pompeii",
+
+      lat:
+        40.75,
+
+      lng:
+        14.49,
+
+      icon:
+        "🌋",
+
+      text:
+        "Pompeii là đô thị La Mã nổi tiếng bị chôn vùi sau vụ phun trào Vesuvius năm 79."
+
+    },
+
+
+    {
+
+      name:
+        "Carthage",
+
+      lat:
+        36.8528,
+
+      lng:
+        10.3233,
+
+      icon:
+        "⚓",
+
+      text:
+        "Carthage ở Bắc Phi từng là đối thủ lớn của La Mã, sau trở thành đô thị quan trọng trong đế quốc."
+
+    },
+
+
+    {
+
+      name:
+        "Alexandria",
+
+      lat:
+        31.2001,
+
+      lng:
+        29.9187,
+
+      icon:
+        "📜",
+
+      text:
+        "Alexandria là một trung tâm thương mại và tri thức lớn ở phía đông Địa Trung Hải."
+
+    },
+
+
+    {
+
+      name:
+        "Antioch",
+
+      lat:
+        36.2,
+
+      lng:
+        36.16,
+
+      icon:
+        "🏛️",
+
+      text:
+        "Antioch là một đô thị lớn ở miền đông Đế quốc La Mã."
+
+    },
+
+
+    {
+
+      name:
+        "Londinium",
+
+      lat:
+        51.5074,
+
+      lng:
+        -0.1278,
+
+      icon:
+        "🏰",
+
+      text:
+        "Londinium là đô thị La Mã ở Britannia, tại khu vực London hiện nay."
+
+    }
+
+  ];
+
+
+/* =========================================================
+   24. ADD ROMAN EXTENT
+========================================================= */
+
+function addRomanExtent(){
+
+  if(
+    !romanData
+  ){
+
+    return null;
+
+  }
+
+
+  const layer =
+    L.geoJSON(
+      romanData,
+      {
+
+        style:
+          {
+
+            color:
+              "#ffb08c",
+
+            weight:
+              2.2,
+
+            fillColor:
+              "#ec7957",
+
+            fillOpacity:
+              .55
+
+          },
+
+
+        onEachFeature:
+          (
+            feature,
+            layerItem
+          )=>{
+
+            layerItem.bindPopup(
+              `
+              <div class="pop-title">
+                🦅 Đế quốc La Mã khoảng năm 117 SCN
+              </div>
+
+              <div>
+                Phạm vi khái quát của Đế quốc La Mã
+                dưới thời Trajan.
+              </div>
+              `
+            );
+
+          }
+
+      }
+    );
+
+
+  groups.territory
+    .addLayer(
+      layer
+    );
+
+
+  return layer;
+
+}
+
+
+/* =========================================================
+   25. DRAW GREECE
+========================================================= */
+
+function drawGreece(){
+
+  clearGroups();
+
+
+  const baseLayer =
+    makeBaseCountries(
+      {
+        modernFocus:false
+      }
+    );
+
+
+  if(
+    baseLayer
+  ){
+
+    baseLayer.setStyle(
+      {
+
+        color:
+          "#527591",
+
+        weight:
+          .55,
+
+        fillColor:
+          "#2b4967",
+
+        fillOpacity:
+          .64
+
+      }
+    );
+
+
+    groups.borders
+      .addLayer(
+        baseLayer
+      );
+
+  }
+
+
+  addGreekRegions();
+
+
+  greekCities
+    .forEach(
+      city=>{
+
+        addCity(
+          city,
+          "#f1b33f"
+        );
+
+      }
+    );
+
+
+  seaMarker(
+    39.1,
+    25.4,
+    "BIỂN AEGEAN",
+    -10
+  );
+
+
+  seaMarker(
+    37.8,
+    18.7,
+    "BIỂN IONIAN",
+    8
+  );
+
+
+  seaMarker(
+    33.8,
+    23.2,
+    "ĐỊA TRUNG HẢI",
+    0
+  );
+
+
+  labelMarker(
+    35.2,
+    24.7,
+    "CRETE",
+    "ancient-region-label"
+  );
+
+
+  labelMarker(
+    37.0,
+    22.0,
+    "PELOPONNESE",
+    "ancient-region-label"
+  );
+
+
+  currentBounds =
+    L.latLngBounds(
+      [
+        [34.2,18.0],
+        [42.2,30.0]
+      ]
+    );
+
+
+  map.fitBounds(
+    currentBounds,
+    {
+      padding:
+        [25,25]
+    }
+  );
+
+
+  document.getElementById(
+    "mapTitle"
+  ).textContent =
+    "Thế giới Hy Lạp cổ đại · các polis và vùng lịch sử";
+
+
+  updateDetail(
+    {
+
+      kicker:
+        "THẾ GIỚI HY LẠP CỔ ĐẠI",
+
+      title:
+        "Hy Lạp cổ đại",
+
+      symbol:
+        "🏺",
+
+      desc:
+        "Hy Lạp cổ đại không phải một quốc gia thống nhất có đường biên cố định. Bản đồ thể hiện bờ biển thật, các polis và một số vùng lịch sử tiêu biểu để tránh tạo ấn tượng sai về một biên giới quốc gia cổ đại.",
+
+      location:
+        "Nam Balkan · các đảo biển Aegean · bờ tây Tiểu Á",
+
+      centers:
+        "Athens · Sparta · Corinth · Thebes · Miletus · Olympia · Delphi",
+
+      sea:
+        "Biển Aegean · biển Ionian · Địa Trung Hải",
+
+      directions:
+        [
+
+          [
+            "Bắc",
+            "Macedonia và Thrace"
+          ],
+
+          [
+            "Đông",
+            "Biển Aegean – Tiểu Á"
+          ],
+
+          [
+            "Nam",
+            "Crete – Địa Trung Hải"
+          ],
+
+          [
+            "Tây",
+            "Biển Ionian"
+          ]
+
+        ]
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   26. DRAW ROME
+========================================================= */
+
+function drawRome(){
+
+  clearGroups();
+
+
+  const baseLayer =
+    makeBaseCountries(
+      {
+        modernFocus:false
+      }
+    );
+
+
+  if(
+    baseLayer
+  ){
+
+    baseLayer.setStyle(
+      {
+
+        color:
+          "#547694",
+
+        weight:
+          .55,
+
+        fillColor:
+          "#294764",
+
+        fillOpacity:
+          .58
+
+      }
+    );
+
+
+    groups.borders
+      .addLayer(
+        baseLayer
+      );
+
+  }
+
+
+  const romanLayer =
+    addRomanExtent();
+
+
+  romanCities
+    .forEach(
+      city=>{
+
+        addCity(
+          city,
+          "#e97a58"
+        );
+
+      }
+    );
+
+
+  seaMarker(
+    37.1,
+    17.0,
+    "ĐỊA TRUNG HẢI",
+    0
+  );
+
+
+  seaMarker(
+    42.0,
+    16.0,
+    "BIỂN ADRIATIC",
+    13
+  );
+
+
+  seaMarker(
+    39.5,
+    10.7,
+    "BIỂN TYRRHENIAN",
+    -12
+  );
+
+
+  if(
+    romanLayer &&
+    romanLayer
+      .getBounds()
+      .isValid()
+  ){
+
+    currentBounds =
+      romanLayer
+        .getBounds();
+
+
+    map.fitBounds(
+      currentBounds,
+      {
+        padding:
+          [28,28]
+      }
+    );
+
+  }
+
+
+  document.getElementById(
+    "mapTitle"
+  ).textContent =
+    "Đế quốc La Mã · khoảng năm 117 SCN";
+
+
+  updateDetail(
+    {
+
+      kicker:
+        "ĐẾ QUỐC LA MÃ",
+
+      title:
+        "La Mã khoảng năm 117 SCN",
+
+      symbol:
+        "🦅",
+
+      desc:
+        "Lớp đỏ thể hiện phạm vi Đế quốc La Mã khoảng năm 117 SCN dưới thời Trajan; nền quốc gia hiện đại được giữ mờ để giúp định vị không gian.",
+
+      location:
+        "Tây – Nam Âu · Balkan · Bắc Phi · Tiểu Á · một phần Tây Á",
+
+      centers:
+        "Roma · Carthage · Alexandria · Antioch · Londinium",
+
+      sea:
+        "Địa Trung Hải · Adriatic · Tyrrhenian · Ionian",
+
+      directions:
+        [
+
+          [
+            "Bắc",
+            "Rhine – Danube và các vùng ngoài đế quốc"
+          ],
+
+          [
+            "Đông",
+            "Tiểu Á – Tây Á"
+          ],
+
+          [
+            "Nam",
+            "Bắc Phi – Sahara"
+          ],
+
+          [
+            "Tây",
+            "Đại Tây Dương"
+          ]
+
+        ]
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   27. DRAW MODERN
+========================================================= */
+
+function drawModern(){
+
+  clearGroups();
+
+
+  const layer =
+    makeBaseCountries(
+      {
+        modernFocus:true
+      }
+    );
+
+
+  if(
+    layer
+  ){
+
+    const borderLayer =
+      L.geoJSON(
+        layer.toGeoJSON(),
+        {
+
+          style:
+            feature=>{
+
+              const name =
+                normalizedName(
+                  feature.properties ||
+                  {}
+                );
+
+
+              const focus =
+                (
+                  name === "Greece" ||
+                  name === "Italy"
+                );
+
+
+              return {
+
+                color:
+                  focus
+                  ? "#f7fbff"
+                  : "#8fa9c0",
+
+                weight:
+                  focus
+                  ? 1.8
+                  : .8,
+
+                fillOpacity:
+                  0
+
+              };
+
+            }
+
+        }
+      );
+
+
+    groups.borders
+      .addLayer(
+        borderLayer
+      );
+
+  }
+
+
+  labelMarker(
+    39.5,
+    22.1,
+    "HY LẠP"
+  );
+
+
+  labelMarker(
+    42.6,
+    12.4,
+    "ITALIA"
+  );
+
+
+  seaMarker(
+    39.0,
+    25.0,
+    "BIỂN AEGEAN",
+    -10
+  );
+
+
+  seaMarker(
+    38.0,
+    18.0,
+    "BIỂN IONIAN",
+    5
+  );
+
+
+  seaMarker(
+    43.0,
+    15.1,
+    "BIỂN ADRIATIC",
+    13
+  );
+
+
+  seaMarker(
+    40.1,
+    10.6,
+    "BIỂN TYRRHENIAN",
+    -12
+  );
+
+
+  addCity(
+    {
+
+      name:
+        "Athens",
+
+      lat:
+        37.9838,
+
+      lng:
+        23.7275,
+
+      icon:
+        "🇬🇷",
+
+      text:
+        "Athens là thủ đô của Hy Lạp hiện nay."
+
+    },
+
+    "#df8335"
+  );
+
+
+  addCity(
+    {
+
+      name:
+        "Rome",
+
+      lat:
+        41.9028,
+
+      lng:
+        12.4964,
+
+      icon:
+        "🇮🇹",
+
+      text:
+        "Rome là thủ đô của Italia hiện nay."
+
+    },
+
+    "#df8335"
+  );
+
+
+  currentBounds =
+    L.latLngBounds(
+      [
+        [34.0,5.0],
+        [48.5,29.0]
+      ]
+    );
+
+
+  map.fitBounds(
+    currentBounds,
+    {
+      padding:
+        [25,25]
+    }
+  );
+
+
+  document.getElementById(
+    "mapTitle"
+  ).textContent =
+    "Hy Lạp và Italia hiện nay · biên giới quốc gia thật";
+
+
+  updateDetail(
+    {
+
+      kicker:
+        "QUỐC GIA HIỆN NAY",
+
+      title:
+        "Hy Lạp & Italia",
+
+      symbol:
+        "🌍",
+
+      desc:
+        "Ở chế độ này, các đường bờ biển và biên giới quốc gia được lấy từ dữ liệu Natural Earth. Hy Lạp và Italia được tô nổi bật; các nước lân cận giữ màu xanh đậm.",
+
+      location:
+        "Nam Âu · khu vực Địa Trung Hải",
+
+      centers:
+        "Athens · Rome",
+
+      sea:
+        "Aegean · Ionian · Adriatic · Tyrrhenian · Địa Trung Hải",
+
+      directions:
+        [
+
+          [
+            "Hy Lạp",
+            "Albania · Bắc Macedonia · Bulgaria · Türkiye"
+          ],
+
+          [
+            "Italia",
+            "Pháp · Thụy Sĩ · Áo · Slovenia"
+          ],
+
+          [
+            "Hy Lạp – biển",
+            "Aegean · Ionian · Địa Trung Hải"
+          ],
+
+          [
+            "Italia – biển",
+            "Adriatic · Ionian · Tyrrhenian"
+          ]
+
+        ]
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   28. DRAW COMPARE
+========================================================= */
+
+function drawCompare(){
+
+  clearGroups();
+
+
+  makeBaseCountries(
+    {
+      modernFocus:true
+    }
+  );
+
+
+  addRomanExtent();
+
+
+  addGreekRegions();
+
+
+  labelMarker(
+    39.5,
+    22.1,
+    "HY LẠP HIỆN NAY"
+  );
+
+
+  labelMarker(
+    42.6,
+    12.4,
+    "ITALIA HIỆN NAY"
+  );
+
+
+  seaMarker(
+    37.0,
+    17.0,
+    "ĐỊA TRUNG HẢI"
+  );
+
+
+  currentBounds =
+    L.latLngBounds(
+      [
+        [27,-10],
+        [57,41]
+      ]
+    );
+
+
+  map.fitBounds(
+    currentBounds,
+    {
+      padding:
+        [25,25]
+    }
+  );
+
+
+  document.getElementById(
+    "mapTitle"
+  ).textContent =
+    "So sánh cổ đại và hiện nay";
+
+
+  updateDetail(
+    {
+
+      kicker:
+        "SO SÁNH LỊCH SỬ – ĐỊA LÍ",
+
+      title:
+        "Cổ đại và hiện nay",
+
+      symbol:
+        "⚖️",
+
+      desc:
+        "Chế độ này chồng các lớp: quốc gia hiện đại, vùng Hy Lạp cổ tiêu biểu và phạm vi La Mã năm 117 SCN. Qua đó có thể thấy không gian chính trị cổ đại không trùng với biên giới quốc gia hiện nay.",
+
+      location:
+        "Địa Trung Hải và Nam Âu",
+
+      centers:
+        "Athens · Sparta · Rome",
+
+      sea:
+        "Địa Trung Hải là không gian liên kết quan trọng",
+
+      directions:
+        [
+
+          [
+            "Hy Lạp cổ",
+            "Nhiều polis và vùng lịch sử"
+          ],
+
+          [
+            "Hy Lạp nay",
+            "Một quốc gia hiện đại"
+          ],
+
+          [
+            "La Mã cổ",
+            "Đế quốc trải rộng nhiều khu vực"
+          ],
+
+          [
+            "Italia nay",
+            "Quốc gia hiện đại với thủ đô Rome"
+          ]
+
+        ]
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   29. SWITCH MODE
+========================================================= */
+
+function switchMode(
+  mode
+){
+
+  if(
+    !modernData
+  ){
+
+    return;
+
+  }
+
+
+  currentMode =
+    mode;
+
+
+  document
+    .querySelectorAll(
+      ".tab"
+    )
+    .forEach(
+      btn=>{
+
+        btn.classList.toggle(
+          "active",
+          btn.dataset.mode === mode
+        );
+
+      }
+    );
+
+
+  if(
+    mode ===
+    "greece"
+  ){
+
+    drawGreece();
+
+  }
+
+
+  if(
+    mode ===
+    "rome"
+  ){
+
+    drawRome();
+
+  }
+
+
+  if(
+    mode ===
+    "modern"
+  ){
+
+    drawModern();
+
+  }
+
+
+  if(
+    mode ===
+    "compare"
+  ){
+
+    drawCompare();
+
+  }
+
+
+  restoreVisibility();
+
+}
+
+
+/* =========================================================
+   30. FOCUS
+========================================================= */
+
+function focusCurrent(){
+
+  if(
+    currentBounds
+  ){
+
+    map.fitBounds(
+      currentBounds,
+      {
+        padding:
+          [25,25]
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   31. UPDATE DETAIL
+========================================================= */
+
+function updateDetail(
+  data
+){
+
+  document.getElementById(
+    "detailKicker"
+  ).textContent =
+    data.kicker;
+
+
+  document.getElementById(
+    "detailTitle"
+  ).textContent =
+    data.title;
+
+
+  document.getElementById(
+    "detailSymbol"
+  ).textContent =
+    data.symbol;
+
+
+  document.getElementById(
+    "detailDesc"
+  ).textContent =
+    data.desc;
+
+
+  document.getElementById(
+    "detailLocation"
+  ).textContent =
+    data.location;
+
+
+  document.getElementById(
+    "detailCenters"
+  ).textContent =
+    data.centers;
+
+
+  document.getElementById(
+    "detailSea"
+  ).textContent =
+    data.sea;
+
+
+  const grid =
+    document.getElementById(
+      "directionGrid"
+    );
+
+
+  grid.innerHTML =
+    "";
+
+
+  data.directions
+    .forEach(
+      (
+        [
+          a,
+          b
+        ]
+      )=>{
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "dir";
+
+
+        div.innerHTML =
+          `
+          <b>${a}:</b>
+          ${b}
+          `;
+
+
+        grid.appendChild(
+          div
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   32. CLICK EFFECT
+========================================================= */
+
+map.on(
+  "click",
+  e=>{
+
+    const pulse =
+      L.circleMarker(
+        e.latlng,
+        {
+
+          radius:
+            4,
+
+          color:
+            "#66dcff",
+
+          weight:
+            2,
+
+          fillColor:
+            "#b8efff",
+
+          fillOpacity:
+            .8
+
+        }
+      )
+      .addTo(
+        map
+      );
+
+
+    let radius =
+      4;
+
+
+    const timer =
+      setInterval(
+        ()=>{
+
+          radius +=
+            2;
+
+
+          pulse.setRadius(
+            radius
+          );
+
+
+          pulse.setStyle(
+            {
+
+              opacity:
+                Math.max(
+                  0,
+                  1-radius/35
+                ),
+
+              fillOpacity:
+                Math.max(
+                  0,
+                  .7-radius/48
+                )
+
+            }
+          );
+
+
+          if(
+            radius > 30
+          ){
+
+            clearInterval(
+              timer
+            );
+
+
+            map.removeLayer(
+              pulse
+            );
+
+          }
+
+        },
+
+        35
+
+      );
+
+  }
+);
+
+
+/* =========================================================
+   33. START
+========================================================= */
+
+preloadData();
+
+
+setTimeout(
+  ()=>{
+
+    map.invalidateSize();
+
+  },
+
+  350
+);
+
+</script>
+
+</body>
+</html>

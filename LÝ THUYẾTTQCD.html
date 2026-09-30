@@ -1,0 +1,5972 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Trung Quốc cổ đại | Học liệu số Lịch sử 6
+</title>
+
+
+<style>
+
+/* =========================================================
+   01. HỆ MÀU
+========================================================= */
+
+:root {
+
+    --bg-1: #120b09;
+    --bg-2: #21100d;
+    --bg-3: #2d1711;
+
+    --red: #b72e28;
+    --red-dark: #7d1d1b;
+    --red-light: #e65345;
+
+    --gold: #d6a33b;
+    --gold-light: #f3d179;
+    --bronze: #9a6c36;
+
+    --jade: #318a73;
+    --jade-light: #65cfad;
+
+    --ink: #161313;
+    --cream: #f2e2c4;
+
+    --white: #ffffff;
+    --text: #f2e8dc;
+    --muted: #bea99a;
+
+    --line: rgba(255,255,255,.11);
+
+    --panel:
+        rgba(52,25,19,.88);
+
+    --shadow:
+        0 22px 60px rgba(0,0,0,.38);
+
+    --radius: 22px;
+
+}
+
+
+/* =========================================================
+   02. RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:
+        var(--text);
+
+    line-height: 1.68;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 8%,
+            rgba(183,46,40,.18),
+            transparent 26%
+        ),
+
+        radial-gradient(
+            circle at 90% 7%,
+            rgba(49,138,115,.10),
+            transparent 24%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(214,163,59,.10),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            145deg,
+            var(--bg-1),
+            var(--bg-2)
+        );
+
+    overflow-x: hidden;
+
+}
+
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    opacity: .055;
+
+    background-image:
+
+        linear-gradient(
+            45deg,
+            rgba(255,255,255,.20) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            -45deg,
+            rgba(255,255,255,.10) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        55px 55px;
+
+}
+
+
+a {
+
+    color: inherit;
+    text-decoration: none;
+
+}
+
+
+button {
+
+    font: inherit;
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   03. KHUNG CHUNG
+========================================================= */
+
+.container {
+
+    width:
+        min(
+            1180px,
+            92%
+        );
+
+    margin: auto;
+
+}
+
+
+section {
+
+    padding:
+        78px 0;
+
+}
+
+
+.glass {
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(65,31,23,.88),
+            rgba(29,15,12,.92)
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.section-heading {
+
+    max-width: 900px;
+
+    margin-bottom: 35px;
+
+}
+
+
+.section-kicker {
+
+    margin-bottom: 8px;
+
+    color:
+        var(--gold-light);
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+
+.section-heading h2 {
+
+    margin-bottom: 12px;
+
+    font-size:
+
+        clamp(
+            31px,
+            4vw,
+            49px
+        );
+
+    line-height: 1.15;
+
+}
+
+
+.section-heading p {
+
+    color:
+        var(--muted);
+
+    font-size: 16px;
+
+}
+
+
+.gradient-text {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ef6555,
+            #e7b950,
+            #72d9b7
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
+}
+
+
+/* =========================================================
+   04. NAVIGATION
+========================================================= */
+
+header {
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    border-bottom:
+        1px solid var(--line);
+
+    background:
+        rgba(15,8,7,.87);
+
+    backdrop-filter:
+        blur(17px);
+
+}
+
+
+.nav {
+
+    min-height: 72px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    font-weight: 900;
+
+}
+
+
+.brand-icon {
+
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    color: #fff5db;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--red-dark)
+        );
+
+    box-shadow:
+        0 0 28px rgba(183,46,40,.32);
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 23px;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 4px;
+
+}
+
+
+.nav-links a {
+
+    padding: 8px 10px;
+
+    border-radius: 9px;
+
+    color:
+        #cbb5a5;
+
+    font-size: 12px;
+
+    transition: .2s;
+
+}
+
+
+.nav-links a:hover {
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.06);
+
+}
+
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero {
+
+    min-height:
+        calc(100vh - 72px);
+
+    display: grid;
+
+    grid-template-columns:
+        1.05fr .95fr;
+
+    align-items: center;
+
+    gap: 55px;
+
+    padding:
+        65px 0;
+
+}
+
+
+.hero-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 17px;
+
+    padding:
+        8px 13px;
+
+    border:
+        1px solid
+        rgba(214,163,59,.26);
+
+    border-radius: 999px;
+
+    background:
+        rgba(214,163,59,.06);
+
+    color:
+        #f3dba1;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+
+.hero h1 {
+
+    margin-bottom: 20px;
+
+    font-size:
+
+        clamp(
+            49px,
+            7vw,
+            83px
+        );
+
+    line-height: 1.01;
+
+    letter-spacing: -3px;
+
+}
+
+
+.hero p {
+
+    max-width: 700px;
+
+    color:
+        var(--muted);
+
+    font-size: 18px;
+
+}
+
+
+.hero-actions {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 26px;
+
+}
+
+
+.btn {
+
+    min-height: 45px;
+
+    padding:
+        11px 17px;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    color: white;
+
+    font-weight: bold;
+
+    transition: .2s;
+
+}
+
+
+.btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.btn-primary {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--red),
+            #db693e
+        );
+
+}
+
+
+.btn-secondary {
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(255,255,255,.04);
+
+}
+
+
+.hero-tags {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 22px;
+
+}
+
+
+.tag {
+
+    padding:
+        6px 9px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:
+        #d0bcae;
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   06. HERO VISUAL
+========================================================= */
+
+.hero-visual {
+
+    position: relative;
+
+    min-height: 530px;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 32px;
+
+    background:
+
+        radial-gradient(
+            circle at 75% 18%,
+            rgba(234,187,84,.24),
+            transparent 20%
+        ),
+
+        linear-gradient(
+            160deg,
+            #5e201b,
+            #27120f 70%
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.hero-sun {
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: 60px;
+    top: 55px;
+
+    border-radius: 50%;
+
+    background:
+        #e9bc55;
+
+    opacity: .86;
+
+    box-shadow:
+        0 0 80px rgba(233,188,85,.25);
+
+}
+
+
+.great-wall {
+
+    position: absolute;
+
+    left: -30px;
+    right: -30px;
+
+    bottom: 90px;
+
+    height: 190px;
+
+    transform:
+        rotate(-6deg);
+
+}
+
+
+.wall-line {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 80px;
+
+    height: 38px;
+
+    background:
+        #a97843;
+
+    clip-path:
+
+        polygon(
+            0 20%,
+            8% 10%,
+            15% 25%,
+            23% 18%,
+            32% 32%,
+            41% 22%,
+            52% 35%,
+            60% 27%,
+            71% 39%,
+            80% 31%,
+            91% 43%,
+            100% 35%,
+            100% 100%,
+            0 100%
+        );
+
+}
+
+
+.tower {
+
+    position: absolute;
+
+    width: 55px;
+    height: 85px;
+
+    bottom: 65px;
+
+    background:
+        #8c5d36;
+
+    border:
+        4px solid #5f3826;
+
+}
+
+
+.tower::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: -8px;
+    right: -8px;
+
+    top: -15px;
+
+    height: 18px;
+
+    background:
+        #70502f;
+
+}
+
+
+.t1 {
+    left: 13%;
+}
+
+.t2 {
+    left: 43%;
+}
+
+.t3 {
+    right: 19%;
+}
+
+
+.bronze-vessel {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 30px;
+
+    width: 145px;
+    height: 190px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:
+        20px 20px 50px 50px;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            #3a7569,
+            #8d7543 45%,
+            #416e63
+        );
+
+    border:
+        6px solid #715531;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.28);
+
+}
+
+
+.bronze-vessel::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 175px;
+    height: 30px;
+
+    left: 50%;
+    top: -12px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        #6f6f46;
+
+    border:
+        5px solid #58442c;
+
+}
+
+
+.visual-tag {
+
+    position: absolute;
+
+    padding:
+        7px 10px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 10px;
+
+    background:
+        rgba(18,9,7,.73);
+
+    color:
+        #eadbc7;
+
+    font-size: 11px;
+
+    backdrop-filter:
+        blur(7px);
+
+}
+
+
+.vt1 {
+
+    left: 24px;
+    top: 28px;
+
+}
+
+
+.vt2 {
+
+    right: 25px;
+    top: 225px;
+
+}
+
+
+.vt3 {
+
+    left: 30px;
+    bottom: 28px;
+
+}
+
+
+/* =========================================================
+   07. MỤC TIÊU
+========================================================= */
+
+.goal-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 15px;
+
+}
+
+
+.goal-card {
+
+    padding: 22px;
+
+}
+
+
+.goal-num {
+
+    color:
+        var(--gold-light);
+
+    font-size: 31px;
+
+    font-weight: 900;
+
+}
+
+
+.goal-card h3 {
+
+    margin:
+        5px 0 7px;
+
+}
+
+
+.goal-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   08. NATURAL CONDITIONS
+========================================================= */
+
+.nature-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 17px;
+
+}
+
+
+.nature-card {
+
+    padding: 24px;
+
+}
+
+
+.icon-box {
+
+    width: 51px;
+    height: 51px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 12px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 14px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(183,46,40,.15),
+            rgba(49,138,115,.12)
+        );
+
+    font-size: 26px;
+
+}
+
+
+.nature-card h3 {
+
+    margin-bottom: 7px;
+
+}
+
+
+.nature-card p {
+
+    color:
+        var(--muted);
+
+}
+
+
+.fact-list {
+
+    display: grid;
+
+    gap: 8px;
+
+    margin-top: 13px;
+
+}
+
+
+.fact {
+
+    display: grid;
+
+    grid-template-columns:
+        24px 1fr;
+
+    gap: 8px;
+
+    padding-bottom: 7px;
+
+    border-bottom:
+        1px dashed rgba(255,255,255,.07);
+
+}
+
+
+.fact:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+.fact-mark {
+
+    width: 23px;
+    height: 23px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 7px;
+
+    color:
+        var(--jade-light);
+
+    background:
+        rgba(49,138,115,.10);
+
+}
+
+
+.fact span {
+
+    color:
+        #cfbbae;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   09. NOTE
+========================================================= */
+
+.note {
+
+    margin-top: 19px;
+
+    padding: 16px;
+
+    border-left:
+        4px solid var(--gold);
+
+    border-radius: 13px;
+
+    background:
+        rgba(214,163,59,.055);
+
+    color:
+        #d5c3ad;
+
+}
+
+
+.note strong {
+
+    color:
+        #f2dba7;
+
+}
+
+
+/* =========================================================
+   10. TIMELINE
+========================================================= */
+
+.timeline {
+
+    position: relative;
+
+    display: grid;
+
+    gap: 17px;
+
+}
+
+
+.timeline::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 24px;
+
+    top: 15px;
+    bottom: 15px;
+
+    width: 3px;
+
+    background:
+
+        linear-gradient(
+            var(--red),
+            var(--gold),
+            var(--jade)
+        );
+
+}
+
+
+.timeline-item {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        50px 1fr;
+
+    gap: 16px;
+
+}
+
+
+.timeline-dot {
+
+    position: relative;
+
+    z-index: 3;
+
+    width: 50px;
+    height: 50px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    border:
+        4px solid #1b0e0b;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--gold)
+        );
+
+    font-weight: 900;
+
+}
+
+
+.timeline-content {
+
+    padding: 20px;
+
+}
+
+
+.timeline-date {
+
+    color:
+        var(--gold-light);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+.timeline-content h3 {
+
+    margin:
+        4px 0 7px;
+
+    font-size: 21px;
+
+}
+
+
+.timeline-content p {
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   11. DYNASTIES
+========================================================= */
+
+.dynasty-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 16px;
+
+}
+
+
+.dynasty-card {
+
+    padding: 23px;
+
+}
+
+
+.dynasty-badge {
+
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    padding:
+        5px 8px;
+
+    border:
+        1px solid rgba(214,163,59,.19);
+
+    border-radius: 999px;
+
+    background:
+        rgba(214,163,59,.06);
+
+    color:
+        #ebcc86;
+
+    font-size: 10px;
+
+}
+
+
+.dynasty-card h3 {
+
+    margin-bottom: 7px;
+
+}
+
+
+.dynasty-card p {
+
+    color:
+        var(--muted);
+
+}
+
+
+.key-list {
+
+    display: grid;
+
+    gap: 7px;
+
+    margin-top: 12px;
+
+}
+
+
+.key-item {
+
+    padding:
+        9px 11px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:
+        #d1bfb2;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   12. SOCIETY
+========================================================= */
+
+.society-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 12px;
+
+}
+
+
+.society-card {
+
+    padding: 19px;
+
+    text-align: center;
+
+}
+
+
+.society-icon {
+
+    font-size: 35px;
+
+}
+
+
+.society-card h3 {
+
+    margin:
+        7px 0 5px;
+
+    font-size: 16px;
+
+}
+
+
+.society-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   13. MANDATE OF HEAVEN
+========================================================= */
+
+.mandate-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        .9fr 1.1fr;
+
+    gap: 20px;
+
+    align-items: center;
+
+}
+
+
+.mandate-wheel {
+
+    position: relative;
+
+    min-height: 430px;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+
+}
+
+
+.circle-main {
+
+    width: 300px;
+    height: 300px;
+
+    position: relative;
+
+    border-radius: 50%;
+
+    border:
+        3px solid rgba(214,163,59,.35);
+
+    animation:
+        rotateMandate
+        35s linear infinite;
+
+}
+
+
+@keyframes rotateMandate {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+.mandate-step {
+
+    position: absolute;
+
+    width: 110px;
+    min-height: 70px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 8px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    background:
+        rgba(25,14,11,.91);
+
+    color:
+        #dfcdbd;
+
+    font-size: 11px;
+
+}
+
+
+.ms1 {
+
+    top: -20px;
+    left: 95px;
+
+}
+
+
+.ms2 {
+
+    right: -45px;
+    top: 105px;
+
+}
+
+
+.ms3 {
+
+    bottom: -20px;
+    left: 95px;
+
+}
+
+
+.ms4 {
+
+    left: -45px;
+    top: 105px;
+
+}
+
+
+.mandate-info {
+
+    padding: 25px;
+
+}
+
+
+.mandate-info h3 {
+
+    margin-bottom: 9px;
+
+    font-size: 27px;
+
+}
+
+
+.mandate-info p {
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   14. PHILOSOPHY
+========================================================= */
+
+.tabs {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.tab {
+
+    padding:
+        9px 13px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 10px;
+
+    color:
+        #d1c1b4;
+
+    background:
+        rgba(255,255,255,.03);
+
+}
+
+
+.tab.active {
+
+    color: white;
+
+    border-color:
+        rgba(214,163,59,.31);
+
+    background:
+        rgba(214,163,59,.10);
+
+}
+
+
+.tab-panel {
+
+    display: none;
+
+    padding: 25px;
+
+}
+
+
+.tab-panel.active {
+
+    display: block;
+
+}
+
+
+.idea-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 12px;
+
+}
+
+
+.idea {
+
+    padding: 16px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.idea h4 {
+
+    margin-bottom: 5px;
+
+    color:
+        var(--gold-light);
+
+}
+
+
+.idea p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   15. WRITING / BRONZE
+========================================================= */
+
+.culture-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 15px;
+
+}
+
+
+.culture-card {
+
+    padding: 22px;
+
+}
+
+
+.culture-symbol {
+
+    min-height: 100px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 11px;
+
+    border-radius: 14px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(183,46,40,.10),
+            rgba(49,138,115,.10)
+        );
+
+    border:
+        1px solid var(--line);
+
+    font-size: 47px;
+
+}
+
+
+.culture-card h3 {
+
+    margin-bottom: 6px;
+
+}
+
+
+.culture-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   16. QIN STANDARDIZATION
+========================================================= */
+
+.standard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 12px;
+
+}
+
+
+.standard-card {
+
+    padding: 18px;
+
+    text-align: center;
+
+}
+
+
+.standard-icon {
+
+    font-size: 31px;
+
+}
+
+
+.standard-card h3 {
+
+    margin:
+        7px 0 4px;
+
+    font-size: 15px;
+
+}
+
+
+.standard-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   17. ACHIEVEMENTS
+========================================================= */
+
+.achievement-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 14px;
+
+}
+
+
+.achievement {
+
+    padding: 21px;
+
+}
+
+
+.achievement-icon {
+
+    font-size: 33px;
+
+}
+
+
+.achievement h3 {
+
+    margin:
+        8px 0 5px;
+
+}
+
+
+.achievement p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   18. EXPAND
+========================================================= */
+
+details {
+
+    padding:
+        0 17px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+details + details {
+
+    margin-top: 9px;
+
+}
+
+
+summary {
+
+    padding:
+        14px 0;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+details p {
+
+    padding-bottom: 15px;
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   19. THINK BOX
+========================================================= */
+
+.think-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 14px;
+
+}
+
+
+.think-card {
+
+    padding: 20px;
+
+}
+
+
+.think-card h3 {
+
+    margin-bottom: 7px;
+
+    color:
+        #efd08c;
+
+}
+
+
+.think-card p {
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =========================================================
+   20. QUIZ
+========================================================= */
+
+.quiz {
+
+    padding: 25px;
+
+}
+
+
+.question {
+
+    padding:
+        18px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+}
+
+
+.question:last-of-type {
+
+    border-bottom: 0;
+
+}
+
+
+.question h3 {
+
+    margin-bottom: 11px;
+
+    font-size: 16px;
+
+}
+
+
+.option {
+
+    display: block;
+
+    margin:
+        7px 0;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:
+        #d4c4b8;
+
+    cursor: pointer;
+
+}
+
+
+.option input {
+
+    margin-right: 7px;
+
+}
+
+
+.quiz-result {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border:
+        1px solid rgba(49,138,115,.27);
+
+    border-radius: 12px;
+
+    background:
+        rgba(49,138,115,.07);
+
+}
+
+
+/* =========================================================
+   21. FOOTER
+========================================================= */
+
+footer {
+
+    padding:
+        42px 0 60px;
+
+    border-top:
+        1px solid var(--line);
+
+    color:
+        #a58e80;
+
+}
+
+
+footer p {
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   22. BACK TOP
+========================================================= */
+
+#backTop {
+
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    width: 46px;
+    height: 46px;
+
+    display: none;
+    place-items: center;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 13px;
+
+    color: white;
+
+    background:
+        rgba(64,27,21,.90);
+
+    z-index: 1000;
+
+}
+
+
+/* =========================================================
+   23. RESPONSIVE
+========================================================= */
+
+@media(max-width:980px) {
+
+    .nav-links {
+        display: none;
+    }
+
+
+    .hero {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .goal-grid,
+    .society-grid,
+    .standard-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+
+    .dynasty-grid,
+    .mandate-layout {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .culture-grid,
+    .achievement-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media(max-width:650px) {
+
+    section {
+        padding: 56px 0;
+    }
+
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+
+    .goal-grid,
+    .society-grid,
+    .standard-grid,
+    .nature-grid,
+    .idea-grid,
+    .think-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .hero-visual {
+
+        min-height: 430px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAV
+========================================================= -->
+
+<header>
+
+<div class="container nav">
+
+
+    <a
+        href="#home"
+        class="brand"
+    >
+
+        <div class="brand-icon">
+            中
+        </div>
+
+        <span>
+            HISTORY LAB 6
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="#nature">
+            Tự nhiên
+        </a>
+
+        <a href="#timeline">
+            Tiến trình
+        </a>
+
+        <a href="#society">
+            Xã hội
+        </a>
+
+        <a href="#thought">
+            Tư tưởng
+        </a>
+
+        <a href="#culture">
+            Văn hóa
+        </a>
+
+        <a href="#extra">
+            Mở rộng
+        </a>
+
+        <a href="#quiz">
+            Kiểm tra
+        </a>
+
+    </nav>
+
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section id="home">
+
+<div class="container hero">
+
+
+    <div>
+
+
+        <div class="hero-badge">
+
+            🐉 LỊCH SỬ 6 • VĂN MINH PHƯƠNG ĐÔNG
+
+        </div>
+
+
+        <h1>
+
+            <span class="gradient-text">
+                Trung Quốc
+            </span>
+
+            cổ đại
+
+        </h1>
+
+
+        <p>
+
+            Từ những cộng đồng
+            trên lưu vực Hoàng Hà
+            và Trường Giang,
+            Trung Quốc từng bước
+            hình thành các nhà nước,
+            phát triển chữ viết,
+            luyện kim,
+            tư tưởng,
+            khoa học
+            và mô hình đế chế
+            có ảnh hưởng lâu dài
+            trong lịch sử Đông Á.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a
+                href="#objectives"
+                class="btn btn-primary"
+            >
+                Bắt đầu khám phá
+            </a>
+
+
+            <a
+                href="#timeline"
+                class="btn btn-secondary"
+            >
+                Xem dòng thời gian
+            </a>
+
+        </div>
+
+
+        <div class="hero-tags">
+
+            <span class="tag">
+                🌊 Hoàng Hà
+            </span>
+
+            <span class="tag">
+                🦴 Giáp cốt văn
+            </span>
+
+            <span class="tag">
+                🏺 Đồ đồng
+            </span>
+
+            <span class="tag">
+                ☯ Bách gia chư tử
+            </span>
+
+            <span class="tag">
+                👑 Tần – Hán
+            </span>
+
+            <span class="tag">
+                🧵 Con đường Tơ lụa
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="hero-visual">
+
+
+        <div class="hero-sun"></div>
+
+
+        <div class="great-wall">
+
+            <div class="wall-line"></div>
+
+            <div class="tower t1"></div>
+
+            <div class="tower t2"></div>
+
+            <div class="tower t3"></div>
+
+        </div>
+
+
+        <div class="bronze-vessel"></div>
+
+
+        <div class="visual-tag vt1">
+            🌊 Hoàng Hà – Trường Giang
+        </div>
+
+
+        <div class="visual-tag vt2">
+            🦴 Giáp cốt văn
+        </div>
+
+
+        <div class="visual-tag vt3">
+            🏺 Văn hóa đồ đồng
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MỤC TIÊU
+========================================================= -->
+
+<section id="objectives">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            01 • Mục tiêu học tập
+        </div>
+
+        <h2>
+            Em cần hiểu gì
+            về Trung Quốc cổ đại?
+        </h2>
+
+        <p>
+
+            Không chỉ nhớ tên các triều đại,
+            bài học hướng tới việc giải thích
+            mối quan hệ giữa
+            <strong>
+                môi trường tự nhiên,
+                tổ chức nhà nước,
+                xã hội,
+                tư tưởng
+                và thành tựu văn minh.
+            </strong>
+
+        </p>
+
+    </div>
+
+
+    <div class="goal-grid">
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-num">
+                01
+            </div>
+
+            <h3>
+                Không gian
+            </h3>
+
+            <p>
+
+                Xác định vai trò
+                của Hoàng Hà,
+                Trường Giang,
+                đồng bằng
+                và điều kiện tự nhiên.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-num">
+                02
+            </div>
+
+            <h3>
+                Tiến trình
+            </h3>
+
+            <p>
+
+                Nhận biết
+                các giai đoạn
+                Hạ – Thương – Chu –
+                Tần – Hán
+                và những chuyển biến lớn.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-num">
+                03
+            </div>
+
+            <h3>
+                Nhà nước – xã hội
+            </h3>
+
+            <p>
+
+                Hiểu sự hình thành
+                nhà nước quân chủ,
+                tầng lớp xã hội
+                và quá trình tập quyền.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-num">
+                04
+            </div>
+
+            <h3>
+                Văn minh
+            </h3>
+
+            <p>
+
+                Nhận diện
+                chữ viết,
+                tư tưởng,
+                kỹ thuật,
+                khoa học,
+                kiến trúc
+                và giao lưu Đông – Tây.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     NATURAL CONDITIONS
+========================================================= -->
+
+<section id="nature">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            02 • Điều kiện tự nhiên
+        </div>
+
+        <h2>
+
+            Vì sao những lưu vực sông lớn
+            trở thành trung tâm
+            của cư dân cổ đại?
+
+        </h2>
+
+        <p>
+
+            Không gian Trung Quốc rất rộng,
+            gồm núi cao,
+            cao nguyên,
+            hoang mạc
+            và đồng bằng.
+
+            Những trung tâm văn minh sớm
+            nổi bật tại miền Bắc
+            và dần mở rộng
+            tới các khu vực khác.
+
+        </p>
+
+    </div>
+
+
+    <div class="nature-grid">
+
+
+        <article class="nature-card glass">
+
+
+            <div class="icon-box">
+                🌊
+            </div>
+
+
+            <h3>
+                Hoàng Hà
+            </h3>
+
+
+            <p>
+
+                Hoàng Hà chảy qua
+                khu vực đất hoàng thổ,
+                mang nhiều phù sa.
+
+                Đây là một trong
+                những vùng trọng yếu
+                của các cộng đồng
+                và nhà nước cổ
+                ở miền Bắc Trung Quốc.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Cung cấp nước
+                        cho sản xuất
+                        và sinh hoạt.
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Đất phù sa
+                        thuận lợi
+                        cho nông nghiệp.
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Lũ lụt
+                        cũng tạo ra
+                        những thách thức lớn
+                        đối với cư dân.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <article class="nature-card glass">
+
+
+            <div class="icon-box">
+                🌱
+            </div>
+
+
+            <h3>
+                Trường Giang
+            </h3>
+
+
+            <p>
+
+                Lưu vực Trường Giang
+                có khí hậu ấm
+                và ẩm hơn miền Bắc,
+                thuận lợi cho nhiều
+                hình thức canh tác,
+                đặc biệt là lúa nước
+                ở nhiều khu vực.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Hệ thống sông
+                        và hồ phong phú.
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Vùng dân cư
+                        và kinh tế
+                        ngày càng phát triển
+                        trong lịch sử.
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Góp phần hình thành
+                        không gian văn hóa
+                        đa dạng.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <article class="nature-card glass">
+
+
+            <div class="icon-box">
+                🟨
+            </div>
+
+
+            <h3>
+                Cao nguyên Hoàng Thổ
+            </h3>
+
+
+            <p>
+
+                Lớp đất mịn
+                giàu khoáng vật
+                khá thuận lợi
+                cho canh tác,
+                nhưng rất dễ
+                bị xói mòn.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Liên hệ mật thiết
+                        với lưu vực Hoàng Hà.
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Thuận lợi
+                        cho sản xuất
+                        nhưng cần kiểm soát
+                        nước và đất.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <article class="nature-card glass">
+
+
+            <div class="icon-box">
+                🏔
+            </div>
+
+
+            <h3>
+                Núi – hoang mạc – thảo nguyên
+            </h3>
+
+
+            <p>
+
+                Phía tây
+                và phía bắc
+                có nhiều núi,
+                cao nguyên,
+                hoang mạc
+                và thảo nguyên.
+
+                Những khu vực này
+                vừa tạo giới hạn tự nhiên,
+                vừa là không gian
+                giao lưu
+                với các cộng đồng
+                Trung Á.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Không hoàn toàn
+                        cô lập Trung Quốc.
+                    </span>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-mark">
+                        ✓
+                    </div>
+
+                    <span>
+                        Tạo nên
+                        nhiều tuyến
+                        giao thương
+                        và tiếp xúc.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Tư duy lịch sử – địa lí:
+        </strong>
+
+        không nên nói
+        “Hoàng Hà tạo ra
+        nền văn minh Trung Hoa”.
+
+        Chính xác hơn,
+        lưu vực sông
+        cung cấp
+        <strong>
+            điều kiện tự nhiên thuận lợi,
+        </strong>
+        còn xã hội phát triển
+        nhờ lao động,
+        kỹ thuật,
+        tổ chức cộng đồng
+        và quá trình lịch sử lâu dài.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     TIMELINE
+========================================================= -->
+
+<section id="timeline">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            03 • Tiến trình lịch sử
+        </div>
+
+        <h2>
+            Từ các nhà nước sớm
+            đến đế chế thống nhất
+        </h2>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <!-- XIA -->
+
+        <div class="timeline-item">
+
+
+            <div class="timeline-dot">
+                1
+            </div>
+
+
+            <article class="timeline-content glass">
+
+
+                <div class="timeline-date">
+
+                    TRUYỀN THỐNG:
+                    KHOẢNG 2070–1600 TCN
+
+                </div>
+
+
+                <h3>
+                    Nhà Hạ
+                </h3>
+
+
+                <p>
+
+                    Các thư tịch Trung Hoa
+                    về sau
+                    xem Hạ
+                    là triều đại đầu tiên.
+
+                    Tuy nhiên,
+                    do chưa có
+                    văn bản đương thời
+                    được xác định chắc chắn
+                    thuộc nhà Hạ,
+                    việc liên hệ
+                    triều đại Hạ
+                    với các nền văn hóa
+                    khảo cổ cụ thể
+                    vẫn được giới nghiên cứu
+                    thảo luận.
+
+                </p>
+
+
+            </article>
+
+
+        </div>
+
+
+        <!-- SHANG -->
+
+        <div class="timeline-item">
+
+
+            <div class="timeline-dot">
+                2
+            </div>
+
+
+            <article class="timeline-content glass">
+
+
+                <div class="timeline-date">
+
+                    KHOẢNG 1600–1046 TCN
+
+                </div>
+
+
+                <h3>
+                    Nhà Thương
+                </h3>
+
+
+                <p>
+
+                    Nhà Thương
+                    là triều đại
+                    có bằng chứng khảo cổ
+                    và văn tự đương thời
+                    rõ ràng.
+
+                    Kinh đô cuối thời Thương
+                    tại vùng Ân Khư
+                    gần Anyang ngày nay
+                    để lại nhiều
+                    di tích cung điện,
+                    mộ táng,
+                    đồ đồng
+                    và xương bói
+                    có khắc chữ.
+
+                </p>
+
+
+            </article>
+
+
+        </div>
+
+
+        <!-- ZHOU -->
+
+        <div class="timeline-item">
+
+
+            <div class="timeline-dot">
+                3
+            </div>
+
+
+            <article class="timeline-content glass">
+
+
+                <div class="timeline-date">
+
+                    1046–256 TCN
+
+                </div>
+
+
+                <h3>
+                    Nhà Chu
+                </h3>
+
+
+                <p>
+
+                    Nhà Chu
+                    thay thế nhà Thương
+                    và phát triển
+                    quan niệm
+                    <strong>
+                        Thiên mệnh
+                    </strong>.
+
+                    Thời Chu
+                    kéo dài nhiều thế kỉ.
+
+                    Về sau,
+                    quyền lực trung ương suy yếu,
+                    dẫn đến thời
+                    Xuân Thu
+                    và Chiến Quốc.
+
+                </p>
+
+
+            </article>
+
+
+        </div>
+
+
+        <!-- QIN -->
+
+        <div class="timeline-item">
+
+
+            <div class="timeline-dot">
+                4
+            </div>
+
+
+            <article class="timeline-content glass">
+
+
+                <div class="timeline-date">
+
+                    221–206 TCN
+
+                </div>
+
+
+                <h3>
+                    Nhà Tần
+                </h3>
+
+
+                <p>
+
+                    Năm 221 TCN,
+                    Tần vương Doanh Chính
+                    hoàn thành việc chinh phục
+                    các đối thủ lớn
+                    và xưng
+                    <strong>
+                        Tần Thủy Hoàng
+                    </strong>.
+
+                    Đây là bước ngoặt
+                    hình thành
+                    nhà nước đế chế
+                    tập quyền
+                    trên quy mô lớn.
+
+                </p>
+
+
+            </article>
+
+
+        </div>
+
+
+        <!-- HAN -->
+
+        <div class="timeline-item">
+
+
+            <div class="timeline-dot">
+                5
+            </div>
+
+
+            <article class="timeline-content glass">
+
+
+                <div class="timeline-date">
+
+                    206 TCN – 220
+
+                </div>
+
+
+                <h3>
+                    Nhà Hán
+                </h3>
+
+
+                <p>
+
+                    Nhà Hán
+                    tiếp tục nhiều
+                    thiết chế đế chế
+                    sau Tần,
+                    đồng thời điều chỉnh
+                    cách cai trị.
+
+                    Thời Hán
+                    chứng kiến
+                    sự mở rộng lãnh thổ,
+                    phát triển chính quyền,
+                    kinh tế,
+                    tư tưởng
+                    và mạng lưới
+                    giao lưu với Trung Á.
+
+                </p>
+
+
+            </article>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     DYNASTIES
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            04 • Những triều đại quan trọng
+        </div>
+
+        <h2>
+            Mỗi giai đoạn
+            đã để lại điều gì?
+        </h2>
+
+    </div>
+
+
+    <div class="dynasty-grid">
+
+
+        <article class="dynasty-card glass">
+
+
+            <div class="dynasty-badge">
+                NHÀ THƯƠNG
+            </div>
+
+
+            <h3>
+                🦴 Nhà nước,
+                nghi lễ
+                và giáp cốt văn
+            </h3>
+
+
+            <p>
+
+                Vua Thương
+                giữ vị trí trung tâm
+                trong chính trị,
+                chiến tranh
+                và nghi lễ.
+
+                Hoàng gia
+                thực hiện bói hỏi
+                tổ tiên
+                và thần linh
+                bằng mai rùa,
+                xương động vật.
+
+            </p>
+
+
+            <div class="key-list">
+
+                <div class="key-item">
+                    🦴 Giáp cốt văn
+                </div>
+
+                <div class="key-item">
+                    🏺 Kĩ thuật đúc đồng phát triển
+                </div>
+
+                <div class="key-item">
+                    👑 Quyền lực vua và quý tộc
+                </div>
+
+            </div>
+
+
+        </article>
+
+
+        <article class="dynasty-card glass">
+
+
+            <div class="dynasty-badge">
+                NHÀ CHU
+            </div>
+
+
+            <h3>
+                ☁ Thiên mệnh
+                và trật tự chính trị
+            </h3>
+
+
+            <p>
+
+                Nhà Chu
+                giải thích việc
+                thay thế nhà Thương
+                bằng quan niệm:
+
+                người cai trị
+                nhận được
+                “mệnh của Trời”
+                nếu cai trị chính đáng,
+                nhưng có thể
+                mất mệnh
+                nếu không còn xứng đáng.
+
+            </p>
+
+
+            <div class="key-list">
+
+                <div class="key-item">
+                    ☁ Thiên mệnh
+                </div>
+
+                <div class="key-item">
+                    🏹 Xuân Thu – Chiến Quốc
+                </div>
+
+                <div class="key-item">
+                    📚 Bách gia chư tử
+                </div>
+
+            </div>
+
+
+        </article>
+
+
+        <article class="dynasty-card glass">
+
+
+            <div class="dynasty-badge">
+                NHÀ TẦN
+            </div>
+
+
+            <h3>
+                👑 Thống nhất
+                và tập quyền
+            </h3>
+
+
+            <p>
+
+                Tần Thủy Hoàng
+                chia đất nước
+                thành các đơn vị
+                hành chính
+                do triều đình
+                bổ nhiệm quan lại,
+                hạn chế quyền lực
+                của các thế lực
+                quý tộc địa phương.
+
+            </p>
+
+
+            <div class="key-list">
+
+                <div class="key-item">
+                    ⚖ Chuẩn hóa cân đo
+                </div>
+
+                <div class="key-item">
+                    🛤 Mạng lưới đường sá
+                </div>
+
+                <div class="key-item">
+                    ✍ Chuẩn hóa hình thức chữ viết
+                </div>
+
+                <div class="key-item">
+                    🧱 Nối và củng cố các đoạn thành phía bắc
+                </div>
+
+            </div>
+
+
+        </article>
+
+
+        <article class="dynasty-card glass">
+
+
+            <div class="dynasty-badge">
+                NHÀ HÁN
+            </div>
+
+
+            <h3>
+                🧵 Đế chế,
+                thương mại
+                và giao lưu
+            </h3>
+
+
+            <p>
+
+                Nhà Hán
+                xây dựng một đế chế
+                kéo dài hơn bốn thế kỉ
+                nếu tính cả Tây Hán
+                và Đông Hán,
+                dù bị gián đoạn
+                bởi nhà Tân.
+
+            </p>
+
+
+            <div class="key-list">
+
+                <div class="key-item">
+                    🧵 Mở rộng giao lưu về phía Trung Á
+                </div>
+
+                <div class="key-item">
+                    📜 Nho học ngày càng quan trọng
+                </div>
+
+                <div class="key-item">
+                    🔬 Khoa học – kỹ thuật phát triển
+                </div>
+
+            </div>
+
+
+        </article>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SOCIETY
+========================================================= -->
+
+<section id="society">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            05 • Xã hội
+        </div>
+
+        <h2>
+            Ai sống và làm việc
+            trong xã hội Trung Quốc cổ đại?
+        </h2>
+
+        <p>
+
+            Cơ cấu xã hội
+            thay đổi theo thời kì,
+            vì vậy không nên
+            áp một sơ đồ cố định
+            cho toàn bộ
+            lịch sử Trung Quốc cổ đại.
+
+        </p>
+
+    </div>
+
+
+    <div class="society-grid">
+
+
+        <article class="society-card glass">
+
+            <div class="society-icon">
+                👑
+            </div>
+
+            <h3>
+                Vua – hoàng đế
+            </h3>
+
+            <p>
+
+                Đứng đầu
+                nhà nước
+                và giữ quyền lực
+                chính trị,
+                quân sự,
+                nghi lễ.
+
+            </p>
+
+        </article>
+
+
+        <article class="society-card glass">
+
+            <div class="society-icon">
+                📜
+            </div>
+
+            <h3>
+                Quý tộc – quan lại
+            </h3>
+
+            <p>
+
+                Tham gia
+                quản lí nhà nước,
+                quân đội,
+                thuế
+                và hành chính.
+
+            </p>
+
+        </article>
+
+
+        <article class="society-card glass">
+
+            <div class="society-icon">
+                🌾
+            </div>
+
+            <h3>
+                Nông dân
+            </h3>
+
+            <p>
+
+                Là lực lượng
+                sản xuất nông nghiệp
+                quan trọng,
+                đồng thời
+                phải thực hiện
+                nhiều nghĩa vụ
+                đối với nhà nước.
+
+            </p>
+
+        </article>
+
+
+        <article class="society-card glass">
+
+            <div class="society-icon">
+                🛠
+            </div>
+
+            <h3>
+                Thợ thủ công – thương nhân
+            </h3>
+
+            <p>
+
+                Tham gia
+                sản xuất đồ đồng,
+                sắt,
+                gốm,
+                dệt,
+                trao đổi hàng hóa
+                và thương mại.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Lưu ý:
+        </strong>
+
+        trong nhiều giai đoạn
+        còn tồn tại
+        lao động lệ thuộc,
+        tù binh
+        và nô lệ.
+
+        Tuy nhiên,
+        không nên mô tả
+        toàn bộ xã hội
+        Trung Quốc cổ đại
+        đơn giản chỉ bằng
+        hai nhóm
+        “chủ nô – nô lệ”.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MANDATE OF HEAVEN
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            06 • Thiên mệnh
+        </div>
+
+        <h2>
+            Tại sao một triều đại
+            có thể bị thay thế?
+        </h2>
+
+    </div>
+
+
+    <div class="mandate-layout">
+
+
+        <div class="mandate-wheel glass">
+
+
+            <div class="circle-main">
+
+
+                <div class="mandate-step ms1">
+                    👑 Triều đại mới
+                </div>
+
+
+                <div class="mandate-step ms2">
+                    🌾 Cai trị ổn định
+                </div>
+
+
+                <div class="mandate-step ms3">
+                    ⚠ Khủng hoảng
+                </div>
+
+
+                <div class="mandate-step ms4">
+                    ⚔ Triều đại bị thay thế
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="mandate-info glass">
+
+
+            <h3>
+                ☁ Quan niệm Thiên mệnh
+            </h3>
+
+
+            <p>
+
+                Người Chu
+                sử dụng khái niệm
+                Thiên mệnh
+                để giải thích
+                tính chính đáng
+                của quyền cai trị.
+
+                Theo cách hiểu này,
+                quyền lực
+                không nhất thiết
+                thuộc vĩnh viễn
+                cho một dòng họ.
+
+            </p>
+
+
+            <div class="note">
+
+                Sơ đồ vòng tròn
+                chỉ là
+                <strong>
+                    mô hình học tập.
+                </strong>
+
+                Lịch sử thực tế
+                không phải lúc nào
+                cũng diễn ra
+                theo đúng một chu trình
+                đơn giản như vậy.
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     THOUGHT
+========================================================= -->
+
+<section id="thought">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            07 • Tư tưởng
+        </div>
+
+        <h2>
+            Thời đại của
+            “Bách gia chư tử”
+        </h2>
+
+        <p>
+
+            Trong bối cảnh
+            Xuân Thu – Chiến Quốc,
+            nhiều học phái
+            tìm cách trả lời:
+
+            <strong>
+                xã hội nên được tổ chức
+                và con người nên sống
+                như thế nào?
+            </strong>
+
+        </p>
+
+    </div>
+
+
+    <div class="tabs">
+
+
+        <button
+            class="tab active"
+            data-tab="confucian"
+        >
+            📜 Nho gia
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="daoist"
+        >
+            ☯ Đạo gia
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="legalist"
+        >
+            ⚖ Pháp gia
+        </button>
+
+
+        <button
+            class="tab"
+            data-tab="mohist"
+        >
+            🧭 Mặc gia
+        </button>
+
+
+    </div>
+
+
+    <!-- CONFUCIAN -->
+
+    <div
+        class="tab-panel glass active"
+        id="confucian"
+    >
+
+
+        <div class="idea-grid">
+
+
+            <div class="idea">
+
+                <h4>
+                    Khổng Tử
+                </h4>
+
+                <p>
+
+                    Khổng Tử
+                    sống khoảng
+                    551–479 TCN.
+
+                    Ông nhấn mạnh
+                    đạo đức,
+                    giáo dục,
+                    lễ,
+                    trách nhiệm
+                    và các mối quan hệ
+                    xã hội.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Nhân
+                </h4>
+
+                <p>
+
+                    Một khái niệm
+                    đạo đức quan trọng,
+                    thường gắn
+                    với lòng nhân ái
+                    và cách đối xử
+                    đúng đắn
+                    với người khác.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Lễ
+                </h4>
+
+                <p>
+
+                    Không chỉ
+                    là nghi lễ,
+                    mà còn liên quan
+                    đến chuẩn mực
+                    ứng xử
+                    và trật tự xã hội.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Giáo dục
+                </h4>
+
+                <p>
+
+                    Nho gia
+                    đặc biệt coi trọng
+                    học tập
+                    và tự tu dưỡng.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- DAO -->
+
+    <div
+        class="tab-panel glass"
+        id="daoist"
+    >
+
+
+        <div class="idea-grid">
+
+
+            <div class="idea">
+
+                <h4>
+                    Đạo
+                </h4>
+
+                <p>
+
+                    Đạo gia
+                    tập trung
+                    vào khái niệm
+                    “Đạo” —
+                    con đường
+                    hay nguyên lí
+                    vận hành tự nhiên.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Vô vi
+                </h4>
+
+                <p>
+
+                    Không có nghĩa
+                    đơn giản là
+                    “không làm gì”,
+                    mà nhấn mạnh
+                    hành động
+                    không cưỡng ép
+                    trái với tự nhiên.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Lão Tử
+                </h4>
+
+                <p>
+
+                    Truyền thống
+                    gắn Lão Tử
+                    với tác phẩm
+                    <em>Đạo Đức Kinh</em>,
+                    dù việc xác định
+                    chính xác
+                    tác giả và niên đại
+                    là vấn đề học thuật
+                    phức tạp.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Trang Tử
+                </h4>
+
+                <p>
+
+                    Tư tưởng Trang Tử
+                    nhấn mạnh
+                    tính tương đối
+                    của nhiều phân biệt
+                    và sự tự do tinh thần.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- LEGALIST -->
+
+    <div
+        class="tab-panel glass"
+        id="legalist"
+    >
+
+
+        <div class="idea-grid">
+
+
+            <div class="idea">
+
+                <h4>
+                    Luật pháp
+                </h4>
+
+                <p>
+
+                    Pháp gia
+                    nhấn mạnh
+                    luật rõ ràng,
+                    thưởng – phạt
+                    và quyền lực
+                    của nhà nước.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Hàn Phi
+                </h4>
+
+                <p>
+
+                    Là một
+                    tư tưởng gia
+                    nổi bật
+                    của Pháp gia
+                    cuối thời Chiến Quốc.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Tần
+                </h4>
+
+                <p>
+
+                    Một số tư tưởng
+                    Pháp gia
+                    có ảnh hưởng mạnh
+                    đến cách tổ chức
+                    và cai trị
+                    của nước Tần.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Không đồng nhất
+                </h4>
+
+                <p>
+
+                    Không nên nói
+                    toàn bộ chính sách Tần
+                    chỉ xuất phát
+                    từ một nhà tư tưởng
+                    hay một cuốn sách.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- MOHIST -->
+
+    <div
+        class="tab-panel glass"
+        id="mohist"
+    >
+
+
+        <div class="idea-grid">
+
+
+            <div class="idea">
+
+                <h4>
+                    Mặc Tử
+                </h4>
+
+                <p>
+
+                    Mặc Tử
+                    và môn đệ
+                    phát triển
+                    một truyền thống
+                    tư tưởng riêng
+                    trong thời Chiến Quốc.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Kiêm ái
+                </h4>
+
+                <p>
+
+                    Mặc gia
+                    đề cao
+                    sự quan tâm
+                    không thiên vị
+                    và phản đối
+                    nhiều cuộc chiến
+                    xâm lược.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Thực dụng
+                </h4>
+
+                <p>
+
+                    Nhiều trước tác
+                    Mặc gia
+                    quan tâm
+                    đến logic,
+                    kĩ thuật,
+                    phòng thủ
+                    và lợi ích xã hội.
+
+                </p>
+
+            </div>
+
+
+            <div class="idea">
+
+                <h4>
+                    Đa dạng tư tưởng
+                </h4>
+
+                <p>
+
+                    Việc xuất hiện
+                    nhiều học phái
+                    cho thấy
+                    xã hội Trung Quốc
+                    thời Chiến Quốc
+                    có đời sống
+                    tư tưởng rất phong phú.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     WRITING CULTURE
+========================================================= -->
+
+<section id="culture">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            08 • Văn hóa – chữ viết
+        </div>
+
+        <h2>
+            Những dấu tích
+            giúp chúng ta đọc
+            quá khứ Trung Quốc
+        </h2>
+
+    </div>
+
+
+    <div class="culture-grid">
+
+
+        <article class="culture-card glass">
+
+
+            <div class="culture-symbol">
+                🦴
+            </div>
+
+
+            <h3>
+                Giáp cốt văn
+            </h3>
+
+
+            <p>
+
+                Cuối thời Thương,
+                nhiều câu hỏi
+                bói toán
+                được khắc
+                trên mai rùa
+                và xương động vật.
+
+                Các văn tự này
+                là những chứng cứ
+                rất quan trọng
+                cho lịch sử
+                chữ viết Trung Quốc.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="culture-card glass">
+
+
+            <div class="culture-symbol">
+                🏺
+            </div>
+
+
+            <h3>
+                Chữ trên đồ đồng
+            </h3>
+
+
+            <p>
+
+                Nhiều đồ đồng
+                thời Thương – Chu
+                mang văn tự,
+                giúp nghiên cứu
+                nghi lễ,
+                dòng họ,
+                chiến tranh
+                và chính trị.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="culture-card glass">
+
+
+            <div class="culture-symbol">
+                ✍
+            </div>
+
+
+            <h3>
+                Sự phát triển chữ viết
+            </h3>
+
+
+            <p>
+
+                Chữ viết Trung Quốc
+                thay đổi qua nhiều thời kì.
+
+                Thời Tần,
+                nhà nước thúc đẩy
+                việc chuẩn hóa
+                hình thức chữ viết
+                dùng trong quản lí.
+
+            </p>
+
+
+        </article>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     QIN
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            09 • Tần và quá trình thống nhất
+        </div>
+
+        <h2>
+            Thống nhất lãnh thổ
+            chưa đủ —
+            cần thống nhất
+            cách quản lí
+        </h2>
+
+    </div>
+
+
+    <div class="standard-grid">
+
+
+        <article class="standard-card glass">
+
+            <div class="standard-icon">
+                ✍
+            </div>
+
+            <h3>
+                Chữ viết
+            </h3>
+
+            <p>
+
+                Chuẩn hóa
+                hình thức chữ viết
+                phục vụ hành chính
+                trên đế chế rộng lớn.
+
+            </p>
+
+        </article>
+
+
+        <article class="standard-card glass">
+
+            <div class="standard-icon">
+                ⚖
+            </div>
+
+            <h3>
+                Cân – đo
+            </h3>
+
+            <p>
+
+                Chuẩn hóa
+                trọng lượng
+                và đơn vị đo
+                giúp quản lí
+                và trao đổi.
+
+            </p>
+
+        </article>
+
+
+        <article class="standard-card glass">
+
+            <div class="standard-icon">
+                🛤
+            </div>
+
+            <h3>
+                Đường sá
+            </h3>
+
+            <p>
+
+                Mạng lưới giao thông
+                hỗ trợ
+                quân sự,
+                hành chính
+                và liên lạc.
+
+            </p>
+
+        </article>
+
+
+        <article class="standard-card glass">
+
+            <div class="standard-icon">
+                🏛
+            </div>
+
+            <h3>
+                Hành chính
+            </h3>
+
+            <p>
+
+                Nhà Tần
+                tăng cường
+                quản lí trực tiếp
+                thông qua
+                hệ thống quận – huyện.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="note">
+
+        <strong>
+            Điểm cần tránh:
+        </strong>
+
+        không nên viết
+        “Tần Thủy Hoàng
+        xây Vạn Lý Trường Thành
+        từ đầu”.
+
+        Trước Tần
+        đã có nhiều đoạn thành
+        do các nước xây dựng.
+
+        Nhà Tần
+        cho nối,
+        sửa chữa
+        và mở rộng
+        một số hệ thống phòng thủ
+        ở phía bắc.
+
+        Trường Thành còn tiếp tục
+        được xây dựng lại
+        qua nhiều triều đại
+        về sau.
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     ACHIEVEMENTS
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            10 • Thành tựu tiêu biểu
+        </div>
+
+        <h2>
+            Những đóng góp
+            của Trung Quốc cổ đại
+        </h2>
+
+    </div>
+
+
+    <div class="achievement-grid">
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🏺
+            </div>
+
+
+            <h3>
+                Đúc đồng
+            </h3>
+
+
+            <p>
+
+                Thời Thương – Chu
+                nổi bật
+                với những đồ đồng
+                nghi lễ
+                có kĩ thuật
+                đúc phức tạp
+                và trang trí tinh xảo.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🧵
+            </div>
+
+
+            <h3>
+                Tơ lụa
+            </h3>
+
+
+            <p>
+
+                Nghề trồng dâu,
+                nuôi tằm
+                và dệt lụa
+                có lịch sử lâu đời.
+
+                Tơ lụa
+                trở thành một
+                sản phẩm trao đổi
+                nổi tiếng
+                trong giao lưu Á – Âu.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                📄
+            </div>
+
+
+            <h3>
+                Giấy
+            </h3>
+
+
+            <p>
+
+                Giấy đã xuất hiện
+                ở Trung Quốc
+                trước thời
+                Thái Luân.
+
+                Theo truyền thống,
+                Thái Luân
+                vào năm 105
+                đã trình lên triều đình
+                một phương pháp
+                cải tiến
+                việc chế tạo giấy.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🌎
+            </div>
+
+
+            <h3>
+                Địa động nghi
+            </h3>
+
+
+            <p>
+
+                Năm 132,
+                học giả Trương Hành
+                chế tạo
+                một dụng cụ
+                có khả năng
+                phát hiện hướng
+                của chấn động
+                từ các trận động đất xa.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🧮
+            </div>
+
+
+            <h3>
+                Toán học
+            </h3>
+
+
+            <p>
+
+                Các trước tác
+                như
+                <em>Cửu chương toán thuật</em>
+                phản ánh
+                sự phát triển
+                của toán học
+                phục vụ đo đạc,
+                thương mại
+                và đời sống.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🌌
+            </div>
+
+
+            <h3>
+                Thiên văn – lịch pháp
+            </h3>
+
+
+            <p>
+
+                Quan sát bầu trời,
+                xây dựng lịch
+                và ghi chép
+                hiện tượng thiên văn
+                có vai trò
+                quan trọng
+                đối với nhà nước
+                và nông nghiệp.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🧱
+            </div>
+
+
+            <h3>
+                Trường Thành
+            </h3>
+
+
+            <p>
+
+                Các hệ thống thành lũy
+                phía bắc
+                được xây dựng,
+                nối và xây lại
+                qua nhiều thời kì.
+
+                Phần lớn
+                hình ảnh Trường Thành
+                nổi tiếng ngày nay
+                thuộc những giai đoạn
+                muộn hơn thời cổ đại.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🗿
+            </div>
+
+
+            <h3>
+                Đội quân đất nung
+            </h3>
+
+
+            <p>
+
+                Lăng mộ
+                Tần Thủy Hoàng
+                nổi tiếng
+                với hàng nghìn
+                tượng binh sĩ,
+                ngựa
+                và xe bằng đất nung,
+                phản ánh
+                quy mô tổ chức
+                và kỹ thuật
+                thời Tần.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="achievement glass">
+
+
+            <div class="achievement-icon">
+                🧵
+            </div>
+
+
+            <h3>
+                Con đường Tơ lụa
+            </h3>
+
+
+            <p>
+
+                Dưới thời Hán,
+                các phái bộ
+                và mạng lưới thương mại
+                kết nối Trung Quốc
+                với Trung Á
+                ngày càng phát triển.
+
+                Đây không phải
+                một con đường duy nhất,
+                mà là
+                nhiều tuyến giao thương.
+
+            </p>
+
+
+        </article>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SILK ROAD
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            11 • Giao lưu
+        </div>
+
+        <h2>
+            Con đường Tơ lụa
+            có phải chỉ vận chuyển lụa?
+        </h2>
+
+    </div>
+
+
+    <div class="think-grid">
+
+
+        <article class="think-card glass">
+
+            <h3>
+                🧵 Hàng hóa
+            </h3>
+
+            <p>
+
+                Tơ lụa
+                là sản phẩm nổi tiếng,
+                nhưng các tuyến
+                còn vận chuyển
+                nhiều loại hàng hóa
+                khác.
+
+            </p>
+
+        </article>
+
+
+        <article class="think-card glass">
+
+            <h3>
+                💡 Ý tưởng
+            </h3>
+
+            <p>
+
+                Tôn giáo,
+                nghệ thuật,
+                kỹ thuật
+                và tri thức
+                cũng được truyền đi
+                giữa các khu vực.
+
+            </p>
+
+        </article>
+
+
+        <article class="think-card glass">
+
+            <h3>
+                🐫 Không phải một con đường
+            </h3>
+
+            <p>
+
+                “Con đường Tơ lụa”
+                là tên gọi hiện đại
+                cho một mạng lưới
+                nhiều tuyến
+                trên bộ và trên biển.
+
+            </p>
+
+        </article>
+
+
+        <article class="think-card glass">
+
+            <h3>
+                🧭 Trương Khiên
+            </h3>
+
+            <p>
+
+                Các chuyến đi
+                của Trương Khiên
+                dưới thời Hán
+                góp phần mở rộng
+                hiểu biết
+                và liên hệ
+                của triều đình Hán
+                với Trung Á.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     EXTRA
+========================================================= -->
+
+<section id="extra">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            12 • Kiến thức mở rộng
+        </div>
+
+        <h2>
+            Những điều dễ bị hiểu sai
+        </h2>
+
+    </div>
+
+
+    <details>
+
+        <summary>
+            Nhà Hạ có chắc chắn là triều đại đầu tiên không?
+        </summary>
+
+        <p>
+
+            Trong truyền thống sử học
+            Trung Quốc,
+            Hạ được xem
+            là triều đại đầu tiên.
+
+            Tuy nhiên,
+            bằng chứng văn tự
+            đương thời
+            chưa rõ ràng như thời Thương.
+
+            Một số nhà khảo cổ
+            liên hệ văn hóa Erlitou
+            với giai đoạn Hạ,
+            nhưng việc đồng nhất hoàn toàn
+            vẫn còn được thảo luận.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Tần Thủy Hoàng có phải người đầu tiên xây Trường Thành?
+        </summary>
+
+        <p>
+
+            Không.
+
+            Trước khi Tần
+            thống nhất Trung Quốc,
+            nhiều nước
+            thời Chiến Quốc
+            đã xây thành lũy.
+
+            Nhà Tần
+            cho nối
+            và củng cố
+            một số đoạn ở phía bắc.
+
+            Các triều đại sau,
+            đặc biệt thời Minh,
+            còn xây dựng
+            rất nhiều phần
+            của hệ thống
+            mà chúng ta thấy hiện nay.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Thái Luân có phải người “phát minh giấy” từ con số 0?
+        </summary>
+
+        <p>
+
+            Cách nói này
+            quá đơn giản.
+
+            Các mẫu giấy
+            đã tồn tại
+            trước năm 105.
+
+            Thái Luân
+            theo truyền thống sử liệu
+            được ghi nhận
+            đã cải tiến
+            và trình bày
+            phương pháp sản xuất giấy
+            dưới thời Đông Hán.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Con đường Tơ lụa có phải một con đường duy nhất?
+        </summary>
+
+        <p>
+
+            Không.
+
+            Đây là
+            một mạng lưới
+            nhiều tuyến đường
+            kết nối
+            Đông Á,
+            Trung Á,
+            Tây Á
+            và xa hơn nữa.
+
+            Tên gọi
+            “Silk Road”
+            xuất hiện
+            rất lâu sau
+            thời Hán.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            “Phong kiến Trung Quốc” có hoàn toàn giống phong kiến châu Âu?
+        </summary>
+
+        <p>
+
+            Không nên đồng nhất.
+
+            Nhà Chu
+            sử dụng một hệ thống
+            phân phong
+            thường gọi là
+            <em>fengjian</em>.
+
+            Nó có một số điểm
+            khiến người hiện đại
+            liên tưởng
+            đến “feudalism”,
+            nhưng bối cảnh
+            chính trị,
+            kinh tế
+            và xã hội
+            khác với
+            châu Âu trung đại.
+
+        </p>
+
+    </details>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     THINKING
+========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            13 • Tư duy lịch sử
+        </div>
+
+        <h2>
+            Không chỉ “biết” —
+            hãy giải thích
+        </h2>
+
+    </div>
+
+
+    <div class="think-grid">
+
+
+        <article class="think-card glass">
+
+
+            <h3>
+                🧠 Vì sao Tần thống nhất
+                nhưng tồn tại rất ngắn?
+            </h3>
+
+
+            <p>
+
+                Việc thống nhất
+                giúp hình thành
+                nhà nước tập quyền,
+                nhưng chính quyền Tần
+                phải đối mặt
+                với nhiều vấn đề,
+                trong đó có
+                chính sách nặng nề,
+                huy động lao dịch
+                và phản kháng xã hội.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="think-card glass">
+
+
+            <h3>
+                🧠 Vì sao Hán
+                vẫn kế thừa nhiều thiết chế Tần?
+            </h3>
+
+
+            <p>
+
+                Sự sụp đổ
+                của nhà Tần
+                không có nghĩa
+                mọi cơ chế
+                do Tần xây dựng
+                đều mất giá trị.
+
+                Nhà Hán
+                giữ lại
+                nhiều yếu tố
+                của nhà nước tập quyền
+                nhưng điều chỉnh
+                cách vận hành.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="think-card glass">
+
+
+            <h3>
+                🧠 Vì sao chữ viết quan trọng?
+            </h3>
+
+
+            <p>
+
+                Chữ viết
+                giúp lưu giữ
+                mệnh lệnh,
+                nghi lễ,
+                thuế,
+                lịch sử
+                và tư tưởng,
+                đồng thời hỗ trợ
+                quản lí
+                một không gian rộng.
+
+            </p>
+
+
+        </article>
+
+
+        <article class="think-card glass">
+
+
+            <h3>
+                🧠 Tại sao thời Chiến Quốc
+                lại phát triển tư tưởng?
+            </h3>
+
+
+            <p>
+
+                Chiến tranh,
+                cạnh tranh giữa các nước
+                và biến đổi xã hội
+                khiến nhiều học giả
+                tìm kiếm
+                cách tổ chức
+                nhà nước
+                và xã hội hiệu quả hơn.
+
+            </p>
+
+
+        </article>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SELF TEST
+========================================================= -->
+
+<section id="quiz">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-kicker">
+            14 • Tự kiểm tra
+        </div>
+
+        <h2>
+            Em đã hiểu
+            Trung Quốc cổ đại chưa?
+        </h2>
+
+    </div>
+
+
+    <div class="quiz glass">
+
+
+        <!-- Q1 -->
+
+        <div
+            class="question"
+            data-answer="b"
+        >
+
+
+            <h3>
+                Câu 1.
+                Triều đại nào
+                có bằng chứng
+                giáp cốt văn rõ ràng?
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="a"
+                >
+
+                Hạ
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="b"
+                >
+
+                Thương
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="c"
+                >
+
+                Tần
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="d"
+                >
+
+                Hán
+
+            </label>
+
+
+        </div>
+
+
+        <!-- Q2 -->
+
+        <div
+            class="question"
+            data-answer="c"
+        >
+
+
+            <h3>
+                Câu 2.
+                Tần hoàn thành
+                việc thống nhất
+                các nước lớn
+                vào năm nào?
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="a"
+                >
+
+                1046 TCN
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="b"
+                >
+
+                551 TCN
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="c"
+                >
+
+                221 TCN
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="d"
+                >
+
+                105
+
+            </label>
+
+
+        </div>
+
+
+        <!-- Q3 -->
+
+        <div
+            class="question"
+            data-answer="d"
+        >
+
+
+            <h3>
+                Câu 3.
+                Ý nào đúng nhất
+                về Thiên mệnh?
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="a"
+                >
+
+                Một triều đại
+                có quyền cai trị vĩnh viễn.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="b"
+                >
+
+                Chỉ liên quan
+                đến dự báo thời tiết.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="c"
+                >
+
+                Là tên
+                một loại chữ viết.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="d"
+                >
+
+                Là quan niệm
+                giải thích tính chính đáng
+                của quyền cai trị
+                và khả năng một triều đại
+                mất quyền đó.
+
+            </label>
+
+
+        </div>
+
+
+        <!-- Q4 -->
+
+        <div
+            class="question"
+            data-answer="a"
+        >
+
+
+            <h3>
+                Câu 4.
+                Học phái nào
+                đặc biệt nhấn mạnh
+                luật pháp,
+                thưởng – phạt
+                và quyền lực nhà nước?
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="a"
+                >
+
+                Pháp gia
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="b"
+                >
+
+                Nho gia
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="c"
+                >
+
+                Đạo gia
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="d"
+                >
+
+                Mặc gia
+
+            </label>
+
+
+        </div>
+
+
+        <!-- Q5 -->
+
+        <div
+            class="question"
+            data-answer="b"
+        >
+
+
+            <h3>
+                Câu 5.
+                Nhận định nào
+                chính xác hơn
+                về Vạn Lý Trường Thành?
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="a"
+                >
+
+                Toàn bộ Trường Thành
+                ngày nay
+                được Tần Thủy Hoàng
+                xây một lần.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="b"
+                >
+
+                Các hệ thống thành
+                được xây,
+                nối
+                và xây lại
+                qua nhiều thời kì.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="c"
+                >
+
+                Chỉ được xây
+                dưới thời Hán.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="d"
+                >
+
+                Được xây
+                chủ yếu để
+                làm nơi buôn bán.
+
+            </label>
+
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            id="checkQuiz"
+        >
+
+            Kiểm tra kết quả
+
+        </button>
+
+
+        <div
+            class="quiz-result"
+            id="quizResult"
+        ></div>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="container">
+
+
+    <strong>
+        HISTORY LAB 6
+        • TRUNG QUỐC CỔ ĐẠI
+    </strong>
+
+
+    <p>
+
+        Học liệu số
+        phục vụ khám phá
+        tiến trình lịch sử,
+        xã hội,
+        tư tưởng
+        và văn minh Trung Quốc cổ đại.
+
+    </p>
+
+
+</div>
+
+</footer>
+
+
+<button
+    id="backTop"
+    aria-label="Lên đầu trang"
+>
+    ↑
+</button>
+
+
+<script>
+
+/* =========================================================
+   01. TABS
+========================================================= */
+
+document
+.querySelectorAll(
+    ".tab"
+)
+.forEach(
+
+    button => {
+
+        button
+        .addEventListener(
+            "click",
+            function () {
+
+                document
+                .querySelectorAll(
+                    ".tab"
+                )
+                .forEach(
+
+                    tab =>
+                    tab
+                    .classList
+                    .remove(
+                        "active"
+                    )
+
+                );
+
+
+                document
+                .querySelectorAll(
+                    ".tab-panel"
+                )
+                .forEach(
+
+                    panel =>
+                    panel
+                    .classList
+                    .remove(
+                        "active"
+                    )
+
+                );
+
+
+                this
+                .classList
+                .add(
+                    "active"
+                );
+
+
+                document
+                .getElementById(
+                    this.dataset.tab
+                )
+                .classList
+                .add(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+);
+
+
+/* =========================================================
+   02. QUIZ
+========================================================= */
+
+document
+.getElementById(
+    "checkQuiz"
+)
+.addEventListener(
+    "click",
+    function () {
+
+        const questions =
+            document
+            .querySelectorAll(
+                ".question"
+            );
+
+
+        let answered =
+            0;
+
+
+        let score =
+            0;
+
+
+        questions
+        .forEach(
+
+            question => {
+
+                const selected =
+                    question
+                    .querySelector(
+                        "input:checked"
+                    );
+
+
+                if(
+                    selected
+                ) {
+
+                    answered++;
+
+
+                    if(
+                        selected.value ===
+                        question.dataset.answer
+                    ) {
+
+                        score++;
+
+                    }
+
+                }
+
+            }
+
+        );
+
+
+        const result =
+            document
+            .getElementById(
+                "quizResult"
+            );
+
+
+        result.style.display =
+            "block";
+
+
+        if(
+            answered <
+            questions.length
+        ) {
+
+            result.innerHTML = `
+
+                ⚠ Em mới hoàn thành
+
+                <strong>
+                    ${answered}/${questions.length}
+                </strong>
+
+                câu hỏi.
+
+                Hãy trả lời đủ
+                trước khi kiểm tra.
+
+            `;
+
+            return;
+
+        }
+
+
+        const percent =
+            Math.round(
+
+                score /
+                questions.length *
+                100
+
+            );
+
+
+        let message;
+
+
+        if(
+            percent ===
+            100
+        ) {
+
+            message = `
+
+                🌟 Xuất sắc!
+
+                Em đã nắm chắc
+                những kiến thức
+                cốt lõi của bài.
+
+            `;
+
+        }
+
+        else if(
+            percent >=
+            80
+        ) {
+
+            message = `
+
+                👍 Rất tốt.
+
+                Hãy xem lại
+                một vài chi tiết
+                để hoàn thiện.
+
+            `;
+
+        }
+
+        else if(
+            percent >=
+            60
+        ) {
+
+            message = `
+
+                📚 Khá.
+
+                Nên xem lại
+                phần tiến trình,
+                Thiên mệnh
+                và tư tưởng.
+
+            `;
+
+        }
+
+        else {
+
+            message = `
+
+                🔎 Hãy quay lại
+                phần nhà Thương,
+                nhà Chu,
+                Tần – Hán
+                và thành tựu văn hóa
+                rồi thử lại.
+
+            `;
+
+        }
+
+
+        result.innerHTML = `
+
+            <strong>
+
+                Kết quả:
+                ${score}/${questions.length}
+                câu đúng
+                (${percent}%)
+
+            </strong>
+
+            <br><br>
+
+            ${message}
+
+        `;
+
+    }
+);
+
+
+/* =========================================================
+   03. BACK TOP
+========================================================= */
+
+const backTop =
+    document
+    .getElementById(
+        "backTop"
+    );
+
+
+window
+.addEventListener(
+    "scroll",
+    function () {
+
+        if(
+            window.scrollY >
+            500
+        ) {
+
+            backTop.style.display =
+                "grid";
+
+        }
+
+        else {
+
+            backTop.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+backTop
+.addEventListener(
+    "click",
+    function () {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior:
+                "smooth"
+
+        });
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

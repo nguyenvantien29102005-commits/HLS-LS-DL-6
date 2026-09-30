@@ -1,0 +1,5155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Thử thách Trung Quốc cổ đại | Lịch sử và Địa lí 6</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   01. RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+:root{
+
+    --bg:#0b0705;
+    --bg2:#24100a;
+
+    --red:#9e2c21;
+    --red2:#c94836;
+    --red3:#631914;
+
+    --gold:#d8a648;
+    --gold2:#f1d286;
+
+    --jade:#2d806f;
+    --jade2:#44a38c;
+
+    --cream:#f2deb0;
+
+    --green:#39a978;
+    --green-dark:#186d4c;
+
+    --danger:#db6457;
+    --danger-dark:#903b34;
+
+    --blue:#409bb2;
+
+    --text:#f7ead0;
+    --muted:rgba(255,255,255,.64);
+
+    --border:rgba(237,191,108,.17);
+
+    --shadow:
+    0 28px 72px rgba(0,0,0,.4);
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:"Montserrat",sans-serif;
+
+    color:#fff;
+
+    background:
+
+    radial-gradient(
+        circle at 9% 8%,
+        rgba(180,47,35,.16),
+        transparent 27%
+    ),
+
+    radial-gradient(
+        circle at 91% 56%,
+        rgba(43,125,110,.13),
+        transparent 30%
+    ),
+
+    linear-gradient(
+        135deg,
+        #090504,
+        #25110b 54%,
+        #091d1a
+    );
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   02. PROGRESS BAR
+========================================================= */
+
+#pageProgress{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    z-index:9999;
+
+    height:4px;
+
+    width:0%;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #aa3024,
+        #f0cd78,
+        #3a9b87
+    );
+
+    box-shadow:
+    0 0 15px rgba(239,198,110,.5);
+}
+
+
+/* =========================================================
+   03. BACKGROUND DECOR
+========================================================= */
+
+.bg-decor{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    opacity:.07;
+}
+
+.bg-decor span{
+
+    position:absolute;
+
+    color:#e9b861;
+
+    font-family:serif;
+
+    animation:
+    floating 11s ease-in-out infinite;
+}
+
+.bg-decor span:nth-child(1){
+
+    left:3%;
+    top:12%;
+
+    font-size:80px;
+}
+
+.bg-decor span:nth-child(2){
+
+    right:4%;
+    top:33%;
+
+    font-size:85px;
+
+    animation-delay:-4s;
+}
+
+.bg-decor span:nth-child(3){
+
+    left:7%;
+    bottom:12%;
+
+    font-size:74px;
+
+    animation-delay:-7s;
+}
+
+.bg-decor span:nth-child(4){
+
+    right:8%;
+    bottom:15%;
+
+    font-size:63px;
+
+    animation-delay:-2s;
+}
+
+@keyframes floating{
+
+    50%{
+
+        transform:
+        translateY(-25px)
+        rotate(5deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   04. HEADER
+========================================================= */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:
+    rgba(12,7,5,.86);
+
+    backdrop-filter:blur(16px);
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+.header-inner{
+
+    width:
+    min(1450px,calc(100% - 34px));
+
+    min-height:76px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+}
+
+.brand-icon{
+
+    width:48px;
+    height:48px;
+
+    border-radius:15px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:25px;
+
+    color:#29150e;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #f0d38e,
+        #a96e27
+    );
+}
+
+.brand small{
+
+    display:block;
+
+    color:var(--gold);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.brand strong{
+
+    color:#f2dfb7;
+
+    font-size:13px;
+}
+
+.score-panel{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+    9px 15px;
+
+    border-radius:999px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.045);
+}
+
+.score-panel span{
+
+    color:
+    rgba(255,255,255,.48);
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:1.3px;
+
+    text-transform:uppercase;
+}
+
+.score-panel strong{
+
+    color:#f2cf80;
+
+    font-size:16px;
+}
+
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero{
+
+    width:
+    min(1350px,calc(100% - 34px));
+
+    margin:auto;
+
+    padding:
+    65px 0 50px;
+
+    position:relative;
+
+    z-index:3;
+
+    text-align:center;
+}
+
+.eyebrow{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+    8px 13px;
+
+    border-radius:999px;
+
+    border:
+    1px solid rgba(236,191,108,.2);
+
+    background:
+    rgba(177,46,34,.11);
+
+    color:#efd18c;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:17px;
+}
+
+.eyebrow::before{
+
+    content:"";
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#c33b2c;
+
+    box-shadow:
+    0 0 12px #d44b39;
+}
+
+.hero h1{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(51px,7vw,88px);
+
+    line-height:.91;
+
+    color:#f5dfad;
+}
+
+.hero h1 span{
+
+    display:block;
+
+    color:var(--gold);
+}
+
+.hero-desc{
+
+    max-width:880px;
+
+    margin:
+    22px auto 0;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.85;
+}
+
+
+/* =========================================================
+   06. STATS
+========================================================= */
+
+.stats{
+
+    position:relative;
+
+    z-index:3;
+
+    width:
+    min(1100px,calc(100% - 34px));
+
+    margin:
+    0 auto 58px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+}
+
+.stat{
+
+    padding:18px;
+
+    text-align:center;
+
+    border-radius:17px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+}
+
+.stat-icon{
+
+    margin-bottom:7px;
+
+    font-size:26px;
+}
+
+.stat strong{
+
+    display:block;
+
+    color:#efd18c;
+
+    font-size:17px;
+}
+
+.stat small{
+
+    color:
+    rgba(255,255,255,.44);
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   07. MAIN / STAGES
+========================================================= */
+
+.main{
+
+    position:relative;
+
+    z-index:4;
+
+    width:
+    min(1200px,calc(100% - 34px));
+
+    margin:auto;
+
+    padding-bottom:100px;
+}
+
+.stage{
+
+    margin-bottom:85px;
+
+    scroll-margin-top:100px;
+}
+
+.stage-heading{
+
+    margin-bottom:30px;
+}
+
+.stage-label{
+
+    color:var(--gold);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.stage-heading h2{
+
+    margin-top:7px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(38px,5vw,58px);
+
+    color:#f3dcaa;
+
+    line-height:1;
+}
+
+.stage-heading p{
+
+    margin-top:11px;
+
+    max-width:790px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   08. QUESTION CARD
+========================================================= */
+
+.question-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:20px;
+
+    padding:28px;
+
+    border-radius:23px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.02)
+    );
+
+    box-shadow:
+    0 18px 45px rgba(0,0,0,.15);
+
+    transition:.35s;
+}
+
+.question-card.completed{
+
+    border-color:
+    rgba(63,172,124,.25);
+}
+
+.question-number{
+
+    position:absolute;
+
+    right:22px;
+    top:14px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    color:
+    rgba(245,211,142,.07);
+
+    font-size:75px;
+
+    font-weight:700;
+}
+
+.question-type{
+
+    margin-bottom:9px;
+
+    color:#ddb45d;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:1.6px;
+
+    text-transform:uppercase;
+}
+
+.question-title{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:920px;
+
+    color:#f3dfb5;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   09. ANSWERS
+========================================================= */
+
+.answers{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:11px;
+
+    margin-top:20px;
+}
+
+.answer{
+
+    position:relative;
+
+    min-height:62px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    padding:
+    14px 16px 14px 50px;
+
+    border-radius:14px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    rgba(255,255,255,.035);
+
+    color:
+    rgba(255,255,255,.76);
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    line-height:1.55;
+
+    transition:.25s;
+}
+
+.answer:hover:not(:disabled){
+
+    transform:
+    translateY(-3px);
+
+    border-color:
+    rgba(231,185,99,.33);
+
+    background:
+    rgba(190,54,39,.08);
+}
+
+.answer-letter{
+
+    position:absolute;
+
+    left:12px;
+    top:50%;
+
+    transform:
+    translateY(-50%);
+
+    width:28px;
+    height:28px;
+
+    border-radius:8px;
+
+    display:grid;
+    place-items:center;
+
+    background:
+    rgba(218,165,74,.10);
+
+    color:#e6bd70;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.answer.correct{
+
+    border-color:
+    rgba(64,188,132,.55);
+
+    background:
+    rgba(43,157,110,.13);
+
+    color:#c0efd8;
+}
+
+.answer.wrong{
+
+    border-color:
+    rgba(222,96,84,.48);
+
+    background:
+    rgba(187,69,59,.13);
+
+    color:#f1b9b3;
+}
+
+.answer:disabled{
+    cursor:default;
+}
+
+
+/* =========================================================
+   10. FEEDBACK
+========================================================= */
+
+.feedback{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    margin-top:0;
+
+    transition:
+    max-height .4s ease;
+}
+
+.feedback.show{
+
+    max-height:350px;
+
+    margin-top:15px;
+}
+
+.feedback-inner{
+
+    padding:
+    15px 17px;
+
+    border-radius:13px;
+
+    font-size:11px;
+
+    line-height:1.75;
+}
+
+.feedback-ok{
+
+    background:
+    rgba(44,159,112,.09);
+
+    border:
+    1px solid
+    rgba(61,180,129,.2);
+
+    color:#c1ead5;
+}
+
+.feedback-no{
+
+    background:
+    rgba(187,70,59,.09);
+
+    border:
+    1px solid
+    rgba(221,99,88,.2);
+
+    color:#efc0bb;
+}
+
+.feedback strong{
+
+    display:block;
+
+    color:#f0cf87;
+
+    margin-bottom:4px;
+}
+
+
+/* =========================================================
+   11. SORT GAME
+========================================================= */
+
+.item-bank{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    border-radius:18px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+}
+
+.sort-item{
+
+    cursor:pointer;
+
+    padding:
+    10px 13px;
+
+    border-radius:11px;
+
+    border:
+    1px solid
+    rgba(234,187,103,.18);
+
+    background:
+    rgba(219,164,73,.09);
+
+    color:#efd397;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.sort-item:hover{
+
+    transform:
+    translateY(-3px);
+}
+
+.sort-item.selected{
+
+    outline:
+    2px solid #e6bc6a;
+
+    transform:
+    scale(1.04);
+}
+
+.sort-item.used{
+    display:none;
+}
+
+.sort-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.drop-zone{
+
+    min-height:260px;
+
+    padding:21px;
+
+    border-radius:20px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.03);
+}
+
+.drop-zone h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    color:#f2d7a0;
+
+    font-size:27px;
+}
+
+.drop-zone p{
+
+    margin:
+    5px 0 15px;
+
+    color:
+    rgba(255,255,255,.45);
+
+    font-size:9px;
+
+    line-height:1.5;
+}
+
+.placed-items{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+}
+
+.placed-chip{
+
+    padding:
+    8px 10px;
+
+    border-radius:9px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    rgba(255,255,255,.05);
+
+    color:
+    rgba(255,255,255,.7);
+
+    font-size:9px;
+}
+
+.zone-button{
+
+    width:100%;
+
+    cursor:pointer;
+
+    margin-top:15px;
+
+    padding:
+    11px;
+
+    border-radius:10px;
+
+    border:
+    1px solid
+    rgba(235,188,103,.18);
+
+    background:
+    rgba(218,164,72,.07);
+
+    color:#ecd08d;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    transition:.25s;
+}
+
+.zone-button:hover{
+
+    background:
+    rgba(182,48,35,.12);
+}
+
+
+/* =========================================================
+   12. TIMELINE GAME
+========================================================= */
+
+.timeline-game{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(6,1fr);
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.timeline-card{
+
+    cursor:pointer;
+
+    min-height:145px;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+
+    transition:.25s;
+}
+
+.timeline-card:hover{
+
+    transform:
+    translateY(-4px);
+}
+
+.timeline-card.selected{
+
+    border-color:#edc36f;
+
+    background:
+    rgba(214,162,72,.10);
+}
+
+.timeline-order{
+
+    width:29px;
+    height:29px;
+
+    display:grid;
+    place-items:center;
+
+    margin-bottom:10px;
+
+    border-radius:50%;
+
+    background:
+    rgba(219,164,73,.10);
+
+    color:#edc676;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.timeline-card strong{
+
+    display:block;
+
+    color:#f0d298;
+
+    font-size:11px;
+
+    margin-bottom:5px;
+}
+
+.timeline-card p{
+
+    color:
+    rgba(255,255,255,.55);
+
+    font-size:9.5px;
+
+    line-height:1.55;
+}
+
+
+/* =========================================================
+   13. MAP CHALLENGE
+========================================================= */
+
+.map-challenge{
+
+    padding:26px;
+
+    border-radius:23px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(181,48,35,.10),
+        rgba(42,123,109,.07)
+    );
+}
+
+.map-title{
+
+    margin-bottom:17px;
+}
+
+.map-title h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    color:#f2d9a5;
+
+    font-size:31px;
+}
+
+.map-title p{
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+.mini-map{
+
+    width:100%;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:
+    #d9d59d;
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+}
+
+.mini-map svg{
+
+    width:100%;
+
+    display:block;
+}
+
+.map-state{
+
+    cursor:pointer;
+
+    stroke:#665037;
+
+    stroke-width:2;
+
+    transition:.25s;
+}
+
+.map-state:hover{
+
+    filter:
+    brightness(1.08);
+
+    stroke-width:4;
+}
+
+.map-state.active{
+
+    stroke:#fff1b5;
+
+    stroke-width:6;
+
+    filter:
+    drop-shadow(
+        0 0 8px
+        rgba(255,239,167,.85)
+    );
+}
+
+.map-label{
+
+    pointer-events:none;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    fill:#43291a;
+
+    paint-order:stroke;
+
+    stroke:#f7e5b3;
+
+    stroke-width:3px;
+}
+
+.map-question-box{
+
+    margin-top:18px;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    rgba(0,0,0,.15);
+}
+
+.map-question-box h4{
+
+    color:#efd296;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+.map-result{
+
+    margin-top:10px;
+
+    color:
+    rgba(255,255,255,.59);
+
+    font-size:10px;
+
+    line-height:1.65;
+}
+
+
+/* =========================================================
+   14. REASONING
+========================================================= */
+
+.reasoning-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    .82fr 1.18fr;
+
+    gap:20px;
+}
+
+.scenario{
+
+    padding:26px;
+
+    border-radius:21px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(178,47,34,.11),
+        rgba(41,124,109,.08)
+    );
+}
+
+.scenario-icon{
+
+    margin-bottom:15px;
+
+    font-size:44px;
+}
+
+.scenario h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    color:#f1d8a3;
+
+    font-size:30px;
+
+    margin-bottom:10px;
+}
+
+.scenario p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.8;
+}
+
+.reason-options{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.reason-option{
+
+    cursor:pointer;
+
+    padding:16px;
+
+    text-align:left;
+
+    border-radius:14px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    rgba(255,255,255,.035);
+
+    color:
+    rgba(255,255,255,.72);
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:10.8px;
+
+    line-height:1.65;
+
+    transition:.25s;
+}
+
+.reason-option:hover:not(:disabled){
+
+    transform:
+    translateX(4px);
+
+    border-color:
+    rgba(236,191,107,.28);
+}
+
+.reason-option.correct{
+
+    background:
+    rgba(46,158,111,.13);
+
+    border-color:
+    rgba(63,183,128,.5);
+
+    color:#c5efda;
+}
+
+.reason-option.wrong{
+
+    background:
+    rgba(186,69,59,.12);
+
+    border-color:
+    rgba(218,93,82,.5);
+
+    color:#efb9b3;
+}
+
+
+/* =========================================================
+   15. TEXT APPLICATION
+========================================================= */
+
+.text-task{
+
+    padding:27px;
+
+    margin-bottom:20px;
+
+    border-radius:22px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+}
+
+.text-task h3{
+
+    color:#f2dab0;
+
+    font-size:14px;
+
+    line-height:1.65;
+
+    margin-bottom:9px;
+}
+
+.text-task p{
+
+    color:var(--muted);
+
+    font-size:10.8px;
+
+    line-height:1.75;
+
+    margin-bottom:14px;
+}
+
+textarea{
+
+    width:100%;
+
+    min-height:145px;
+
+    padding:16px;
+
+    resize:vertical;
+
+    outline:none;
+
+    border-radius:15px;
+
+    border:
+    1px solid
+    rgba(236,190,106,.17);
+
+    background:
+    rgba(0,0,0,.18);
+
+    color:#f3e1be;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:11px;
+
+    line-height:1.75;
+}
+
+textarea:focus{
+
+    border-color:
+    rgba(238,195,113,.47);
+
+    box-shadow:
+    0 0 0 3px
+    rgba(223,170,76,.06);
+}
+
+.task-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:11px;
+}
+
+.hint-button{
+
+    cursor:pointer;
+
+    padding:
+    10px 13px;
+
+    border-radius:10px;
+
+    border:
+    1px solid
+    rgba(235,189,105,.18);
+
+    background:
+    rgba(216,164,74,.07);
+
+    color:#e9c87e;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:9px;
+
+    font-weight:800;
+}
+
+.hint-box{
+
+    display:none;
+
+    margin-top:12px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border:
+    1px solid
+    rgba(61,166,143,.18);
+
+    background:
+    rgba(46,139,121,.08);
+
+    color:
+    rgba(255,255,255,.62);
+
+    font-size:10px;
+
+    line-height:1.75;
+}
+
+
+/* =========================================================
+   16. BUTTON
+========================================================= */
+
+.action-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    margin-top:18px;
+
+    padding:
+    13px 19px;
+
+    border:0;
+
+    border-radius:13px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #f1d18a,
+        #c48a38
+    );
+
+    color:#29170d;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    box-shadow:
+    0 12px 25px
+    rgba(199,139,56,.20);
+
+    transition:.25s;
+}
+
+.action-btn:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 18px 35px
+    rgba(199,139,56,.30);
+}
+
+
+/* =========================================================
+   17. FINAL
+========================================================= */
+
+.result-box{
+
+    text-align:center;
+
+    padding:
+    45px 30px;
+
+    border-radius:27px;
+
+    border:
+    1px solid
+    rgba(235,190,106,.22);
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(177,48,35,.15),
+        rgba(40,121,106,.13)
+    );
+
+    box-shadow:var(--shadow);
+}
+
+.result-icon{
+
+    font-size:66px;
+
+    margin-bottom:12px;
+}
+
+.result-box small{
+
+    color:var(--gold);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.result-box h2{
+
+    margin:
+    7px 0 9px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(38px,6vw,60px);
+
+    color:#f2d9a5;
+}
+
+.final-score{
+
+    margin:
+    15px 0;
+
+    color:#f1cd78;
+
+    font-size:
+    clamp(45px,7vw,72px);
+
+    font-weight:800;
+}
+
+.result-message{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   18. TOAST
+========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+    top:90px;
+
+    transform:
+    translate(-50%,-18px);
+
+    z-index:9000;
+
+    padding:
+    12px 18px;
+
+    border-radius:999px;
+
+    border:
+    1px solid
+    rgba(239,196,113,.22);
+
+    background:
+    rgba(27,19,13,.96);
+
+    color:#f0d18c;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+    translate(-50%,0);
+}
+
+
+/* =========================================================
+   19. RESPONSIVE
+========================================================= */
+
+@media(max-width:980px){
+
+    .sort-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .timeline-game{
+
+        grid-template-columns:
+        repeat(3,1fr);
+    }
+
+    .reasoning-grid{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:760px){
+
+    .stats{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .answers{
+
+        grid-template-columns:1fr;
+    }
+
+    .timeline-game{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:520px){
+
+    .header-inner,
+    .hero,
+    .stats,
+    .main{
+
+        width:
+        min(100% - 20px,1450px);
+    }
+
+    .brand strong{
+        font-size:9px;
+    }
+
+    .score-panel span{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:44px;
+    }
+
+    .stats,
+    .timeline-game{
+
+        grid-template-columns:1fr;
+    }
+
+    .question-card{
+        padding:21px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div id="pageProgress"></div>
+
+
+<div class="bg-decor">
+
+    <span>秦</span>
+    <span>漢</span>
+    <span>龍</span>
+    <span>甲</span>
+
+</div>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+<div class="header-inner">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🐉
+        </div>
+
+        <div>
+
+            <small>
+                Học liệu số Lịch sử và Địa lí 6
+            </small>
+
+            <strong>
+                Thử thách Trung Quốc cổ đại
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="score-panel">
+
+        <span>
+            Điểm khám phá
+        </span>
+
+        <strong id="scoreDisplay">
+            0 XP
+        </strong>
+
+    </div>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+    <div class="eyebrow">
+
+        Củng cố • Luyện tập • Vận dụng
+
+    </div>
+
+    <h1>
+
+        HÀNH TRÌNH
+
+        <span>
+            GIẢI MÃ TRUNG HOA CỔ ĐẠI
+        </span>
+
+    </h1>
+
+    <p class="hero-desc">
+
+        Từ Hoàng Hà và Trường Giang
+        đến chữ giáp cốt,
+        thời Chiến Quốc,
+        sự thống nhất của nhà Tần
+        và những thành tựu văn minh nổi bật.
+
+        Hãy vượt qua từng chặng
+        bằng cách quan sát,
+        suy luận và vận dụng kiến thức lịch sử.
+
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+====================================================== -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🎯
+        </div>
+
+        <strong>
+            6
+        </strong>
+
+        <small>
+            Chặng khám phá
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🧠
+        </div>
+
+        <strong>
+            10
+        </strong>
+
+        <small>
+            Câu củng cố
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🗺️
+        </div>
+
+        <strong>
+            4
+        </strong>
+
+        <small>
+            Dạng vận dụng
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🏆
+        </div>
+
+        <strong>
+            100
+        </strong>
+
+        <small>
+            XP tối đa
+        </small>
+
+    </div>
+
+</section>
+
+
+<main class="main">
+
+
+<!-- =====================================================
+     CHẶNG 1
+====================================================== -->
+
+<section
+class="stage"
+id="stage1">
+
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 01 • KHỞI ĐỘNG TRÍ NHỚ
+    </div>
+
+    <h2>
+        10 câu hỏi củng cố
+    </h2>
+
+    <p>
+
+        Mỗi câu chỉ có một đáp án đúng nhất.
+        Sau khi chọn,
+        hệ thống sẽ hiển thị đáp án
+        và giải thích kiến thức.
+
+    </p>
+
+</div>
+
+
+<!-- Q1 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        01
+    </span>
+
+    <div class="question-type">
+        Điều kiện tự nhiên
+    </div>
+
+    <div class="question-title">
+
+        Hai dòng sông có vai trò đặc biệt quan trọng
+        đối với sự hình thành và phát triển
+        của Trung Quốc cổ đại là
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Hoàng Hà và Trường Giang là hai hệ thống sông lớn, tạo điều kiện cho sản xuất nông nghiệp, cư trú và giao thông ở Trung Quốc cổ đại.">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Hoàng Hà và Trường Giang
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Sông Nin và Hoàng Hà
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Ti-grơ và Ơ-phơ-rát
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Sông Ấn và sông Hằng
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q2 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        02
+    </span>
+
+    <div class="question-type">
+        Chữ viết
+    </div>
+
+    <div class="question-title">
+
+        Loại chữ được khắc trên mai rùa
+        và xương động vật thời Thương
+        thường được gọi là
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            chữ hình nêm.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Chữ giáp cốt được khắc trên mai rùa và xương thú. Đây là nguồn tư liệu quan trọng để nghiên cứu nhà Thương.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            chữ giáp cốt.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            chữ tượng hình Ai Cập.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            chữ Phạn.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q3 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        03
+    </span>
+
+    <div class="question-type">
+        Tiến trình lịch sử
+    </div>
+
+    <div class="question-title">
+
+        Năm 221 TCN gắn với sự kiện lịch sử nào?
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Nhà Thương thành lập.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Nhà Chu bắt đầu.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Năm 221 TCN, Doanh Chính hoàn thành việc chinh phục các nước đối thủ, thống nhất Trung Quốc và xưng Tần Thủy Hoàng.">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Tần hoàn thành việc thống nhất Trung Quốc.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Nhà Hán sụp đổ.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q4 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        04
+    </span>
+
+    <div class="question-type">
+        Nhân vật lịch sử
+    </div>
+
+    <div class="question-title">
+
+        Người hoàn thành việc thống nhất
+        các nước thời Chiến Quốc
+        và trở thành Tần Thủy Hoàng là
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Doanh Chính là vua nước Tần; sau khi hoàn thành việc thống nhất năm 221 TCN, ông sử dụng danh hiệu Tần Thủy Hoàng.">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Doanh Chính.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Khổng Tử.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Tư Mã Thiên.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Thái Luân.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q5 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        05
+    </span>
+
+    <div class="question-type">
+        Tư tưởng
+    </div>
+
+    <div class="question-title">
+
+        Nhà tư tưởng gắn liền với
+        sự hình thành Nho gia là
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Tần Thủy Hoàng.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Khổng Tử là nhân vật trung tâm của truyền thống Nho gia, nhấn mạnh đạo đức, giáo dục và trật tự trong các mối quan hệ xã hội.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Khổng Tử.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Thái Luân.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Tư Mã Thiên.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q6 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        06
+    </span>
+
+    <div class="question-type">
+        Chính sách nhà Tần
+    </div>
+
+    <div class="question-title">
+
+        Sau khi thống nhất,
+        việc nhà Tần chuẩn hóa chữ viết,
+        tiền tệ và đo lường
+        có tác dụng chủ yếu nào?
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Làm cho các địa phương tách biệt hơn.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Chuẩn hóa giúp tăng tính thống nhất trong quản lí, trao đổi và truyền đạt mệnh lệnh trên phạm vi đế chế.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Tăng tính thống nhất và thuận lợi cho quản lí.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Xóa bỏ hoàn toàn hoạt động buôn bán.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Chỉ phục vụ nghi lễ tôn giáo.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q7 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        07
+    </span>
+
+    <div class="question-type">
+        Kiến trúc
+    </div>
+
+    <div class="question-title">
+
+        Nhận định nào chính xác nhất
+        về Vạn Lý Trường Thành?
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Toàn bộ công trình hiện nay
+            do Tần Thủy Hoàng xây trong một lần.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Nhiều đoạn thành đã tồn tại trước Tần. Nhà Tần nối và củng cố một số tuyến, còn công trình tiếp tục được xây dựng qua nhiều triều đại.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Công trình hình thành qua nhiều thời kì lịch sử.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Được xây để ngăn lũ Hoàng Hà.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Là cung điện của nhà Tần.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q8 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        08
+    </span>
+
+    <div class="question-type">
+        Sử học
+    </div>
+
+    <div class="question-title">
+
+        Tác phẩm <em>Sử kí</em>
+        nổi tiếng của Trung Quốc cổ đại
+        gắn với sử gia nào?
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Khổng Tử
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Lão Tử
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Tư Mã Thiên thời Tây Hán biên soạn Sử kí, một tác phẩm có ảnh hưởng sâu rộng đối với truyền thống sử học Đông Á.">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Tư Mã Thiên
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Thái Luân
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q9 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        09
+    </span>
+
+    <div class="question-type">
+        Kĩ thuật
+    </div>
+
+    <div class="question-title">
+
+        Cách diễn đạt nào chính xác hơn
+        khi nói về Thái Luân và giấy?
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Thái Luân chắc chắn là người đầu tiên
+            trên thế giới tạo ra giấy.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Bằng chứng khảo cổ cho thấy giấy đã tồn tại trước Thái Luân. Ông được ghi nhận có vai trò quan trọng trong việc cải tiến phương pháp sản xuất giấy vào thời Đông Hán.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Thái Luân có vai trò quan trọng
+            trong việc cải tiến kĩ thuật làm giấy.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Thái Luân sáng tạo chữ giáp cốt.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Thái Luân xây Vạn Lý Trường Thành.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q10 -->
+
+<article
+class="question-card quiz-question">
+
+    <span class="question-number">
+        10
+    </span>
+
+    <div class="question-type">
+        Giao lưu
+    </div>
+
+    <div class="question-title">
+
+        “Con đường Tơ lụa”
+        nên được hiểu chính xác nhất là
+
+    </div>
+
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            một con đường duy nhất
+            từ Trung Quốc sang La Mã.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Con đường Tơ lụa là tên gọi hiện đại cho một mạng lưới nhiều tuyến giao thương nối Đông Á với Trung Á, Tây Á và xa hơn.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            một mạng lưới nhiều tuyến giao thương.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            con đường chỉ dùng để chở tơ lụa.
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            tuyến đường do nhà Tần xây để chống Hung Nô.
+
+        </button>
+
+    </div>
+
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 2
+====================================================== -->
+
+<section
+class="stage"
+id="stage2">
+
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 02 • PHÂN LOẠI KIẾN THỨC
+    </div>
+
+    <h2>
+        Ai thuộc về thời kì nào?
+    </h2>
+
+    <p>
+
+        Chọn một thẻ kiến thức,
+        sau đó đưa vào
+        <strong>Thương – Chu</strong>,
+        <strong>Tần</strong>
+        hoặc
+        <strong>Hán</strong>.
+
+    </p>
+
+</div>
+
+
+<div
+class="item-bank"
+id="sortBank">
+
+
+<button
+class="sort-item"
+data-target="shangzhou">
+
+    Chữ giáp cốt
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="shangzhou">
+
+    Đồ đồng phát triển
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="shangzhou">
+
+    Thiên mệnh
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="qin">
+
+    221 TCN
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="qin">
+
+    Tần Thủy Hoàng
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="qin">
+
+    Chuẩn hóa chữ viết
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="han">
+
+    Tư Mã Thiên
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="han">
+
+    Sử kí
+
+</button>
+
+
+<button
+class="sort-item"
+data-target="han">
+
+    Giao lưu Con đường Tơ lụa phát triển mạnh
+
+</button>
+
+</div>
+
+
+<div class="sort-grid">
+
+
+<div class="drop-zone">
+
+    <h3>
+        🥉 Thương – Chu
+    </h3>
+
+    <p>
+        Chọn thẻ phù hợp với
+        các giai đoạn Thương – Chu.
+    </p>
+
+    <div
+    class="placed-items"
+    id="shangzhouPlaced">
+    </div>
+
+    <button
+    class="zone-button"
+    onclick="placeSortItem('shangzhou')">
+
+        Đưa vào Thương – Chu
+
+    </button>
+
+</div>
+
+
+<div class="drop-zone">
+
+    <h3>
+        👑 Nhà Tần
+    </h3>
+
+    <p>
+        Chọn những nội dung gắn
+        với nhà Tần.
+    </p>
+
+    <div
+    class="placed-items"
+    id="qinPlaced">
+    </div>
+
+    <button
+    class="zone-button"
+    onclick="placeSortItem('qin')">
+
+        Đưa vào nhà Tần
+
+    </button>
+
+</div>
+
+
+<div class="drop-zone">
+
+    <h3>
+        📜 Nhà Hán
+    </h3>
+
+    <p>
+        Chọn những nội dung gắn
+        với thời Hán.
+    </p>
+
+    <div
+    class="placed-items"
+    id="hanPlaced">
+    </div>
+
+    <button
+    class="zone-button"
+    onclick="placeSortItem('han')">
+
+        Đưa vào nhà Hán
+
+    </button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 3
+====================================================== -->
+
+<section
+class="stage"
+id="stage3">
+
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 03 • DÒNG THỜI GIAN
+    </div>
+
+    <h2>
+        Sắp xếp tiến trình lịch sử
+    </h2>
+
+    <p>
+
+        Nhấn vào các thẻ
+        theo thứ tự từ sớm đến muộn.
+
+    </p>
+
+</div>
+
+
+<article class="question-card">
+
+    <div class="question-type">
+        Tiến trình lịch sử
+    </div>
+
+    <div class="question-title">
+
+        Hãy sắp xếp 6 giai đoạn dưới đây
+        theo đúng trình tự thời gian.
+
+    </div>
+
+
+    <div
+    class="timeline-game"
+    id="timelineGame">
+
+
+        <div
+        class="timeline-card"
+        data-order="4">
+
+            <div class="timeline-order">
+                ?
+            </div>
+
+            <strong>
+                Chiến Quốc
+            </strong>
+
+            <p>
+                Các nước lớn cạnh tranh quyết liệt.
+            </p>
+
+        </div>
+
+
+        <div
+        class="timeline-card"
+        data-order="1">
+
+            <div class="timeline-order">
+                ?
+            </div>
+
+            <strong>
+                Thương
+            </strong>
+
+            <p>
+                Chữ giáp cốt,
+                đồ đồng phát triển.
+            </p>
+
+        </div>
+
+
+        <div
+        class="timeline-card"
+        data-order="6">
+
+            <div class="timeline-order">
+                ?
+            </div>
+
+            <strong>
+                Hán
+            </strong>
+
+            <p>
+                Đế chế được củng cố
+                và giao lưu mở rộng.
+            </p>
+
+        </div>
+
+
+        <div
+        class="timeline-card"
+        data-order="3">
+
+            <div class="timeline-order">
+                ?
+            </div>
+
+            <strong>
+                Xuân Thu
+            </strong>
+
+            <p>
+                Quyền lực nhà Chu suy yếu.
+            </p>
+
+        </div>
+
+
+        <div
+        class="timeline-card"
+        data-order="2">
+
+            <div class="timeline-order">
+                ?
+            </div>
+
+            <strong>
+                Chu
+            </strong>
+
+            <p>
+                Tư tưởng Thiên mệnh phát triển.
+            </p>
+
+        </div>
+
+
+        <div
+        class="timeline-card"
+        data-order="5">
+
+            <div class="timeline-order">
+                ?
+            </div>
+
+            <strong>
+                Tần
+            </strong>
+
+            <p>
+                Thống nhất năm 221 TCN.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+    class="action-btn"
+    onclick="checkHistoryTimeline()">
+
+        ✓ Kiểm tra trình tự
+
+    </button>
+
+</article>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 4
+====================================================== -->
+
+<section
+class="stage"
+id="stage4">
+
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 04 • GIẢI MÃ LƯỢC ĐỒ
+    </div>
+
+    <h2>
+        Thử tài đọc bản đồ lịch sử
+    </h2>
+
+    <p>
+
+        Nhấn trực tiếp vào nước
+        mà em cho là đáp án đúng.
+
+    </p>
+
+</div>
+
+
+<div class="map-challenge">
+
+<div class="map-title">
+
+    <h3>
+        🗺️ Bảy nước thời Chiến Quốc
+    </h3>
+
+    <p>
+
+        Câu hỏi:
+        <strong>
+        Nước nào nằm ở phía tây
+        và sau này hoàn thành việc thống nhất
+        Trung Quốc năm 221 TCN?
+        </strong>
+
+    </p>
+
+</div>
+
+
+<div class="mini-map">
+
+
+<svg
+viewBox="0 0 950 600"
+xmlns="http://www.w3.org/2000/svg">
+
+
+<rect
+width="950"
+height="600"
+fill="#cce3d4"/>
+
+
+<!-- QIN -->
+
+<path
+class="map-state"
+data-map-answer="qin"
+fill="#b77557"
+d="
+M160 240
+C210 215 270 215 315 245
+L340 310
+L305 380
+L230 405
+L175 360
+Z
+"/>
+
+
+<!-- HAN -->
+
+<path
+class="map-state"
+data-map-answer="han"
+fill="#dcc276"
+d="
+M335 260
+L385 255
+L410 285
+L402 330
+L360 348
+L335 315
+Z
+"/>
+
+
+<!-- WEI -->
+
+<path
+class="map-state"
+data-map-answer="wei"
+fill="#dfaa68"
+d="
+M385 200
+L445 195
+L485 225
+L490 290
+L450 332
+L402 330
+L410 285
+L385 255
+Z
+"/>
+
+
+<!-- ZHAO -->
+
+<path
+class="map-state"
+data-map-answer="zhao"
+fill="#d8a1a0"
+d="
+M330 115
+C410 90 480 100 535 140
+L530 205
+L485 225
+L445 195
+L385 200
+L340 210
+Z
+"/>
+
+
+<!-- YAN -->
+
+<path
+class="map-state"
+data-map-answer="yan"
+fill="#d7b55e"
+d="
+M535 140
+C605 105 700 110 765 150
+L785 215
+L735 255
+L665 235
+L590 205
+L530 205
+Z
+"/>
+
+
+<!-- QI -->
+
+<path
+class="map-state"
+data-map-answer="qi"
+fill="#ca8ca3"
+d="
+M590 205
+L665 235
+L735 255
+L790 300
+L760 365
+L680 375
+L600 340
+L490 290
+L485 225
+L530 205
+Z
+"/>
+
+
+<!-- CHU -->
+
+<path
+class="map-state"
+data-map-answer="chu"
+fill="#d58991"
+d="
+M305 380
+L360 348
+L402 330
+L450 332
+L490 290
+L600 340
+L680 375
+L720 450
+L660 515
+L520 520
+L390 500
+L270 510
+L230 405
+Z
+"/>
+
+
+<text
+x="220"
+y="320"
+class="map-label">
+TẦN
+</text>
+
+<text
+x="345"
+y="305"
+class="map-label">
+HÀN
+</text>
+
+<text
+x="420"
+y="260"
+class="map-label">
+NGỤY
+</text>
+
+<text
+x="405"
+y="160"
+class="map-label">
+TRIỆU
+</text>
+
+<text
+x="655"
+y="185"
+class="map-label">
+YÊN
+</text>
+
+<text
+x="660"
+y="310"
+class="map-label">
+TỀ
+</text>
+
+<text
+x="470"
+y="440"
+class="map-label">
+SỞ
+</text>
+
+</svg>
+
+</div>
+
+
+<div class="map-question-box">
+
+    <h4>
+
+        💡 Hãy nhấn vào nước
+        em chọn trên lược đồ.
+
+    </h4>
+
+    <div
+    class="map-result"
+    id="mapResult">
+
+        Chưa chọn đáp án.
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 5
+====================================================== -->
+
+<section
+class="stage"
+id="stage5">
+
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 05 • NHÀ SỬ HỌC NHÍ
+    </div>
+
+    <h2>
+        Đọc dữ kiện và suy luận
+    </h2>
+
+</div>
+
+
+<!-- REASON 1 -->
+
+<div class="reasoning-grid">
+
+<div class="scenario">
+
+    <div class="scenario-icon">
+        🌊
+    </div>
+
+    <h3>
+        Tình huống 1
+    </h3>
+
+    <p>
+
+        Một khu vực cổ đại
+        có nguồn nước,
+        đất phù sa,
+        nhiều làng nông nghiệp
+        và dân cư ngày càng tập trung đông.
+
+        Theo em,
+        nhận định nào giải thích
+        hợp lí nhất mối quan hệ này?
+
+    </p>
+
+</div>
+
+
+<div class="reason-options">
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Sông ngòi chỉ có tác dụng
+        tạo cảnh quan đẹp.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="correct">
+
+        Sông cung cấp nước và phù sa,
+        tạo điều kiện cho nông nghiệp;
+        sản xuất phát triển giúp dân cư tập trung
+        và các cộng đồng ngày càng tổ chức chặt chẽ hơn.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Cư dân không cần sản xuất nông nghiệp
+        vì luôn có thức ăn tự nhiên.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Chỉ nơi nào có núi cao
+        mới hình thành được nhà nước.
+
+    </button>
+
+</div>
+
+</div>
+
+
+<br><br>
+
+
+<!-- REASON 2 -->
+
+<div class="reasoning-grid">
+
+<div class="scenario">
+
+    <div class="scenario-icon">
+        甲
+    </div>
+
+    <h3>
+        Tình huống 2
+    </h3>
+
+    <p>
+
+        Một nhà khảo cổ tìm thấy
+        xương vai động vật và mai rùa
+        có khắc nhiều kí hiệu cổ
+        tại di tích thuộc thời Thương.
+
+        Tư liệu đó có giá trị gì
+        đối với nhà sử học?
+
+    </p>
+
+</div>
+
+
+<div class="reason-options">
+
+    <button
+    class="reason-option"
+    data-reason="correct">
+
+        Đây là nguồn sử liệu chữ viết cùng thời,
+        có thể giúp nghiên cứu
+        hoạt động chính trị,
+        nghi lễ,
+        chiến tranh,
+        mùa màng và đời sống thời Thương.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Chỉ có giá trị trang trí,
+        không cung cấp thông tin lịch sử.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Chứng minh người Thương
+        đã sử dụng chữ cái La-tinh.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Chứng minh chữ viết
+        chỉ xuất hiện sau nhà Hán.
+
+    </button>
+
+</div>
+
+</div>
+
+
+<br><br>
+
+
+<!-- REASON 3 -->
+
+<div class="reasoning-grid">
+
+<div class="scenario">
+
+    <div class="scenario-icon">
+        👑
+    </div>
+
+    <h3>
+        Tình huống 3
+    </h3>
+
+    <p>
+
+        Sau nhiều thế kỉ chia thành
+        các nước cạnh tranh,
+        nhà Tần thống nhất lãnh thổ
+        rồi chuẩn hóa chữ viết,
+        tiền tệ và đo lường.
+
+        Chính sách này phản ánh
+        mục tiêu quan trọng nào?
+
+    </p>
+
+</div>
+
+
+<div class="reason-options">
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Làm cho từng địa phương
+        ngày càng tách rời nhau.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="correct">
+
+        Tạo sự thống nhất trong quản lí,
+        giao dịch,
+        văn bản và hoạt động kinh tế
+        trên phạm vi đế chế.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Xóa bỏ mọi hoạt động thương mại.
+
+    </button>
+
+
+    <button
+    class="reason-option"
+    data-reason="wrong">
+
+        Chuyển toàn bộ dân cư
+        sang lối sống du mục.
+
+    </button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 6
+====================================================== -->
+
+<section
+class="stage"
+id="stage6">
+
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 06 • VẬN DỤNG
+    </div>
+
+    <h2>
+        Em là nhà nghiên cứu lịch sử
+    </h2>
+
+    <p>
+
+        Đây là phần vận dụng mở.
+        Hệ thống không tự chấm đúng – sai
+        vì học sinh cần tự xây dựng
+        lập luận lịch sử.
+
+    </p>
+
+</div>
+
+
+<!-- TASK 1 -->
+
+<div class="text-task">
+
+    <h3>
+
+        🌊 Nhiệm vụ 1:
+        Nếu không có Hoàng Hà
+        và Trường Giang,
+        quá trình hình thành
+        các cộng đồng nông nghiệp
+        ở Trung Quốc cổ đại
+        có thể gặp những khó khăn gì?
+
+    </h3>
+
+    <p>
+
+        Viết khoảng 4–6 câu.
+        Có thể sử dụng các từ khóa:
+        <strong>
+        nước – phù sa – nông nghiệp –
+        dân cư – giao thông – trị thủy
+        </strong>.
+
+    </p>
+
+
+    <textarea
+    placeholder="Nhập câu trả lời của em..."
+    id="answerText1"></textarea>
+
+
+    <div class="task-actions">
+
+        <button
+        class="hint-button"
+        onclick="toggleHint('hint1')">
+
+            💡 Gợi ý tư duy
+
+        </button>
+
+    </div>
+
+
+    <div
+    class="hint-box"
+    id="hint1">
+
+        Hãy lập luận theo chuỗi:
+
+        nguồn nước và phù sa
+        → sản xuất lương thực
+        → dân cư định cư đông hơn
+        → hình thành làng xóm
+        → cần tổ chức trị thủy và quản lí
+        → tạo điều kiện cho nhà nước phát triển.
+
+    </div>
+
+</div>
+
+
+<!-- TASK 2 -->
+
+<div class="text-task">
+
+    <h3>
+
+        👑 Nhiệm vụ 2:
+        Vì sao việc thống nhất
+        chữ viết,
+        tiền tệ
+        và đơn vị đo lường
+        sau năm 221 TCN
+        có ý nghĩa đối với nhà Tần?
+
+    </h3>
+
+    <p>
+
+        Hãy giải thích theo ít nhất
+        <strong>2 khía cạnh</strong>:
+        quản lí nhà nước
+        và hoạt động kinh tế.
+
+    </p>
+
+
+    <textarea
+    placeholder="Theo em, việc chuẩn hóa có ý nghĩa vì..."
+    id="answerText2"></textarea>
+
+
+    <div class="task-actions">
+
+        <button
+        class="hint-button"
+        onclick="toggleHint('hint2')">
+
+            💡 Gợi ý
+
+        </button>
+
+    </div>
+
+
+    <div
+    class="hint-box"
+    id="hint2">
+
+        Hãy nghĩ đến một lãnh thổ
+        trước đó gồm nhiều nước khác nhau.
+
+        Nếu mỗi nơi sử dụng
+        cách viết,
+        tiền
+        và đo lường khác nhau
+        thì việc quản lí,
+        thu thuế,
+        giao dịch
+        sẽ gặp khó khăn như thế nào?
+
+    </div>
+
+</div>
+
+
+<!-- TASK 3 -->
+
+<div class="text-task">
+
+    <h3>
+
+        🧱 Nhiệm vụ 3:
+        Một bạn nói:
+        “Tần Thủy Hoàng đã xây toàn bộ
+        Vạn Lý Trường Thành mà chúng ta thấy ngày nay”.
+
+        Em có đồng ý không?
+        Vì sao?
+
+    </h3>
+
+    <p>
+
+        Hãy sử dụng kiến thức lịch sử
+        để chỉnh lại nhận định trên
+        cho chính xác.
+
+    </p>
+
+
+    <textarea
+    placeholder="Em đồng ý / không đồng ý vì..."
+    id="answerText3"></textarea>
+
+
+    <div class="task-actions">
+
+        <button
+        class="hint-button"
+        onclick="toggleHint('hint3')">
+
+            💡 Gợi ý
+
+        </button>
+
+    </div>
+
+
+    <div
+    class="hint-box"
+    id="hint3">
+
+        Trước nhà Tần
+        đã có nhiều đoạn thành.
+
+        Nhà Tần nối,
+        xây thêm
+        và củng cố một số tuyến.
+
+        Các triều đại sau
+        tiếp tục xây dựng trong nhiều thế kỉ;
+        nhiều đoạn nổi tiếng còn lại hiện nay
+        có niên đại muộn hơn.
+
+    </div>
+
+</div>
+
+
+<!-- TASK 4 -->
+
+<div class="text-task">
+
+    <h3>
+
+        📜 Nhiệm vụ 4:
+        Trong các thành tựu của
+        Trung Quốc cổ đại,
+        em ấn tượng nhất với
+        thành tựu nào?
+
+        Thành tựu đó
+        có ý nghĩa như thế nào
+        đối với lịch sử hoặc đời sống ngày nay?
+
+    </h3>
+
+
+    <p>
+
+        Có thể lựa chọn:
+        chữ viết,
+        giấy,
+        sử học,
+        toán học,
+        y học,
+        tư tưởng,
+        kiến trúc,
+        Con đường Tơ lụa...
+
+    </p>
+
+
+    <textarea
+    placeholder="Em lựa chọn... vì..."
+    id="answerText4"></textarea>
+
+</div>
+
+
+<!-- TASK 5 -->
+
+<div class="text-task">
+
+    <h3>
+
+        🗺️ Nhiệm vụ 5:
+        Quan sát lược đồ
+        quá trình Tần thống nhất Trung Quốc.
+
+        Vì sao có thể nói
+        lược đồ giúp chúng ta hiểu lịch sử
+        theo cách mà chỉ đọc văn bản
+        khó thể hiện đầy đủ?
+
+    </h3>
+
+    <p>
+
+        Hãy liên hệ:
+        <strong>
+        vị trí – khoảng cách –
+        hướng mở rộng –
+        lãnh thổ –
+        diễn biến theo thời gian.
+        </strong>
+
+    </p>
+
+
+    <textarea
+    placeholder="Lược đồ giúp em nhận ra..."
+    id="answerText5"></textarea>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+====================================================== -->
+
+<section class="stage">
+
+<div class="result-box">
+
+    <div class="result-icon">
+        🏆
+    </div>
+
+    <small>
+        Báo cáo hành trình
+    </small>
+
+    <h2>
+        Nhà sử học Trung Hoa cổ đại
+    </h2>
+
+    <div
+    class="final-score"
+    id="finalScore">
+
+        0 / 100 XP
+
+    </div>
+
+
+    <p
+    class="result-message"
+    id="resultMessage">
+
+        Hãy hoàn thành các thử thách phía trên.
+        Điểm số được cập nhật tự động.
+
+    </p>
+
+
+    <button
+    class="action-btn"
+    onclick="restartGame()">
+
+        ⟳ Làm lại toàn bộ
+
+    </button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<div
+class="toast"
+id="toast">
+
+    +5 XP
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   01. GAME STATE
+========================================================= */
+
+let score = 0;
+
+let selectedSortItem = null;
+
+let sortCompleted = 0;
+
+let timelineSelection = [];
+
+let mapAnswered = false;
+
+
+/* =========================================================
+   02. SCORE
+========================================================= */
+
+function addScore(points){
+
+    score += points;
+
+
+    if(score > 100){
+
+        score = 100;
+
+    }
+
+
+    updateScore();
+
+
+    showToast(
+        "+" + points + " XP"
+    );
+
+}
+
+
+function updateScore(){
+
+    document.getElementById(
+        "scoreDisplay"
+    ).textContent =
+    score + " XP";
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+    score + " / 100 XP";
+
+
+    const message =
+    document.getElementById(
+        "resultMessage"
+    );
+
+
+    if(score >= 90){
+
+        message.textContent =
+        "Xuất sắc! Em đã nắm chắc kiến thức và biết sử dụng dữ kiện, lược đồ và tư liệu để giải thích lịch sử Trung Quốc cổ đại.";
+
+    }
+
+    else if(score >= 75){
+
+        message.textContent =
+        "Rất tốt! Em đã hiểu phần lớn kiến thức. Hãy xem lại những thử thách chưa chính xác để hoàn thiện bài học.";
+
+    }
+
+    else if(score >= 55){
+
+        message.textContent =
+        "Khá tốt! Em đã hoàn thành nhiều nội dung quan trọng. Hãy xem lại tiến trình lịch sử và phần lược đồ để đạt kết quả cao hơn.";
+
+    }
+
+    else{
+
+        message.textContent =
+        "Tiếp tục khám phá nhé! Hãy quay lại các câu chưa chính xác và sử dụng phần giải thích để củng cố kiến thức.";
+
+    }
+
+}
+
+
+/* =========================================================
+   03. TOAST
+========================================================= */
+
+function showToast(text){
+
+    const toast =
+    document.getElementById(
+        "toast"
+    );
+
+
+    toast.textContent =
+    text;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        1200
+    );
+
+}
+
+
+/* =========================================================
+   04. QUIZ
+========================================================= */
+
+document
+.querySelectorAll(
+    ".quiz-question"
+)
+.forEach(
+card => {
+
+    const answers =
+    card.querySelectorAll(
+        ".answer"
+    );
+
+
+    answers.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    card.classList.contains(
+                        "completed"
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                card.classList.add(
+                    "completed"
+                );
+
+
+                const correct =
+                button.dataset.correct
+                ===
+                "true";
+
+
+                answers.forEach(
+                item => {
+
+                    item.disabled =
+                    true;
+
+
+                    if(
+                        item.dataset.correct
+                        ===
+                        "true"
+                    ){
+
+                        item.classList.add(
+                            "correct"
+                        );
+
+                    }
+
+                });
+
+
+                if(correct){
+
+                    addScore(5);
+
+                }
+                else{
+
+                    button.classList.add(
+                        "wrong"
+                    );
+
+                }
+
+
+                const correctButton =
+                card.querySelector(
+                    '[data-correct="true"]'
+                );
+
+
+                const explanation =
+                correctButton.dataset.explanation;
+
+
+                const feedback =
+                card.querySelector(
+                    ".feedback"
+                );
+
+
+                const inner =
+                card.querySelector(
+                    ".feedback-inner"
+                );
+
+
+                feedback.classList.add(
+                    "show"
+                );
+
+
+                if(correct){
+
+                    inner.className =
+                    "feedback-inner feedback-ok";
+
+
+                    inner.innerHTML = `
+
+                    <strong>
+                        ✓ Chính xác!
+                    </strong>
+
+                    ${explanation}
+
+                    `;
+
+                }
+
+                else{
+
+                    inner.className =
+                    "feedback-inner feedback-no";
+
+
+                    inner.innerHTML = `
+
+                    <strong>
+                        ✕ Chưa chính xác.
+                    </strong>
+
+                    ${explanation}
+
+                    `;
+
+                }
+
+            }
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   05. SORT GAME
+========================================================= */
+
+const sortItems =
+document.querySelectorAll(
+    ".sort-item"
+);
+
+
+sortItems.forEach(
+item => {
+
+    item.addEventListener(
+        "click",
+        () => {
+
+            sortItems.forEach(
+            other => {
+
+                other.classList.remove(
+                    "selected"
+                );
+
+            });
+
+
+            item.classList.add(
+                "selected"
+            );
+
+
+            selectedSortItem =
+            item;
+
+        }
+    );
+
+});
+
+
+function placeSortItem(target){
+
+    if(!selectedSortItem){
+
+        showToast(
+            "Hãy chọn một thẻ"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        selectedSortItem.dataset.target
+        !==
+        target
+    ){
+
+        selectedSortItem.animate(
+
+            [
+
+                {
+                    transform:
+                    "translateX(0)"
+                },
+
+                {
+                    transform:
+                    "translateX(-7px)"
+                },
+
+                {
+                    transform:
+                    "translateX(7px)"
+                },
+
+                {
+                    transform:
+                    "translateX(0)"
+                }
+
+            ],
+
+            {
+                duration:300
+            }
+
+        );
+
+
+        showToast(
+            "Chưa đúng nhóm"
+        );
+
+
+        return;
+
+    }
+
+
+    const container =
+    document.getElementById(
+        target + "Placed"
+    );
+
+
+    const chip =
+    document.createElement(
+        "span"
+    );
+
+
+    chip.className =
+    "placed-chip";
+
+
+    chip.textContent =
+    selectedSortItem.textContent.trim();
+
+
+    container.appendChild(
+        chip
+    );
+
+
+    selectedSortItem.classList.add(
+        "used"
+    );
+
+
+    selectedSortItem.classList.remove(
+        "selected"
+    );
+
+
+    selectedSortItem =
+    null;
+
+
+    sortCompleted++;
+
+
+    addScore(2);
+
+
+    if(
+        sortCompleted === 9
+    ){
+
+        addScore(2);
+
+
+        showToast(
+            "Hoàn thành phân loại!"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   06. HISTORY TIMELINE
+========================================================= */
+
+const timelineCards =
+document.querySelectorAll(
+    ".timeline-card"
+);
+
+
+timelineCards.forEach(
+card => {
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            if(
+                card.classList.contains(
+                    "selected"
+                )
+            ){
+
+                return;
+
+            }
+
+
+            if(
+                timelineSelection.length
+                >=
+                6
+            ){
+
+                return;
+
+            }
+
+
+            timelineSelection.push(
+                card
+            );
+
+
+            card.classList.add(
+                "selected"
+            );
+
+
+            card.querySelector(
+                ".timeline-order"
+            ).textContent =
+            timelineSelection.length;
+
+        }
+    );
+
+});
+
+
+function checkHistoryTimeline(){
+
+    if(
+        timelineSelection.length
+        !==
+        6
+    ){
+
+        showToast(
+            "Hãy chọn đủ 6 giai đoạn"
+        );
+
+        return;
+
+    }
+
+
+    let correct =
+    true;
+
+
+    timelineSelection.forEach(
+    (card,index) => {
+
+        if(
+            Number(
+                card.dataset.order
+            )
+            !==
+            index + 1
+        ){
+
+            correct =
+            false;
+
+        }
+
+    });
+
+
+    if(correct){
+
+        addScore(10);
+
+
+        showToast(
+            "Trình tự chính xác!"
+        );
+
+
+        timelineCards.forEach(
+        card => {
+
+            card.style.pointerEvents =
+            "none";
+
+        });
+
+    }
+
+    else{
+
+        showToast(
+            "Trình tự chưa đúng"
+        );
+
+
+        timelineSelection =
+        [];
+
+
+        timelineCards.forEach(
+        card => {
+
+            card.classList.remove(
+                "selected"
+            );
+
+
+            card.querySelector(
+                ".timeline-order"
+            ).textContent =
+            "?";
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   07. MAP GAME
+========================================================= */
+
+const mapStates =
+document.querySelectorAll(
+    ".map-state"
+);
+
+
+mapStates.forEach(
+state => {
+
+    state.addEventListener(
+        "click",
+        () => {
+
+            if(mapAnswered){
+
+                return;
+
+            }
+
+
+            mapStates.forEach(
+            item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+            state.classList.add(
+                "active"
+            );
+
+
+            const result =
+            document.getElementById(
+                "mapResult"
+            );
+
+
+            if(
+                state.dataset.mapAnswer
+                ===
+                "qin"
+            ){
+
+                mapAnswered =
+                true;
+
+
+                addScore(8);
+
+
+                result.innerHTML = `
+
+                <strong style="color:#bff0d8;">
+                    ✓ Chính xác!
+                </strong>
+
+                Tần nằm ở phía tây.
+                Từ đây,
+                nước Tần lần lượt mở rộng
+                sang khu vực trung tâm và phía đông,
+                hoàn thành việc thống nhất năm 221 TCN.
+
+                `;
+
+
+                state.style.fill =
+                "#b74c35";
+
+            }
+
+            else{
+
+                result.innerHTML = `
+
+                <strong style="color:#efb9b3;">
+                    ✕ Chưa đúng.
+                </strong>
+
+                Hãy quan sát lại:
+                nước cần tìm nằm ở phía tây
+                của Hàn – Ngụy – Triệu
+                và là nơi xuất phát
+                của quá trình thống nhất.
+
+                `;
+
+
+                state.animate(
+
+                    [
+
+                        {
+                            opacity:1
+                        },
+
+                        {
+                            opacity:.45
+                        },
+
+                        {
+                            opacity:1
+                        }
+
+                    ],
+
+                    {
+                        duration:400
+                    }
+
+                );
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   08. REASONING
+========================================================= */
+
+document
+.querySelectorAll(
+    ".reason-options"
+)
+.forEach(
+group => {
+
+    const options =
+    group.querySelectorAll(
+        ".reason-option"
+    );
+
+
+    options.forEach(
+    option => {
+
+        option.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    group.dataset.completed
+                    ===
+                    "true"
+                ){
+
+                    return;
+
+                }
+
+
+                group.dataset.completed =
+                "true";
+
+
+                options.forEach(
+                item => {
+
+                    item.disabled =
+                    true;
+
+
+                    if(
+                        item.dataset.reason
+                        ===
+                        "correct"
+                    ){
+
+                        item.classList.add(
+                            "correct"
+                        );
+
+                    }
+
+                });
+
+
+                if(
+                    option.dataset.reason
+                    ===
+                    "correct"
+                ){
+
+                    addScore(5);
+
+
+                    showToast(
+                        "Lập luận chính xác!"
+                    );
+
+                }
+
+                else{
+
+                    option.classList.add(
+                        "wrong"
+                    );
+
+
+                    showToast(
+                        "Hãy xem lại dữ kiện"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   09. HINT
+========================================================= */
+
+function toggleHint(id){
+
+    const element =
+    document.getElementById(
+        id
+    );
+
+
+    element.style.display =
+    element.style.display
+    ===
+    "block"
+    ?
+    "none"
+    :
+    "block";
+
+}
+
+
+/* =========================================================
+   10. SCROLL PROGRESS
+========================================================= */
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        const top =
+        document.documentElement.scrollTop
+        ||
+        document.body.scrollTop;
+
+
+        const height =
+        document.documentElement.scrollHeight
+        -
+        document.documentElement.clientHeight;
+
+
+        const percent =
+        height > 0
+        ?
+        top / height * 100
+        :
+        0;
+
+
+        document.getElementById(
+            "pageProgress"
+        ).style.width =
+        percent + "%";
+
+    }
+);
+
+
+/* =========================================================
+   11. RESET
+========================================================= */
+
+function restartGame(){
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   12. INITIAL
+========================================================= */
+
+updateScore();
+
+</script>
+
+</body>
+</html>

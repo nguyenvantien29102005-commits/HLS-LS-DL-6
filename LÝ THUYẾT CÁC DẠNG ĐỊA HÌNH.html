@@ -1,0 +1,5534 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Các dạng địa hình chính trên Trái Đất - Khoáng sản</title>
+
+<style>
+
+/* =========================================================
+   01. HỆ MÀU CHỦ ĐỀ
+   ========================================================= */
+
+:root{
+
+    --bg-main:#071712;
+    --bg-dark:#04100d;
+    --bg-green:#0d261d;
+
+    --forest:#176b4d;
+    --green:#26a56f;
+    --mint:#52e6a4;
+
+    --earth:#8c6239;
+    --earth-light:#bc8752;
+
+    --gold:#f3c552;
+    --gold-light:#ffe49a;
+
+    --blue:#48c9e8;
+
+    --white:#ffffff;
+    --text:#d9eee6;
+    --muted:#9bbbad;
+
+    --danger:#ff7b72;
+
+    --border:rgba(255,255,255,.11);
+
+    --panel:
+        linear-gradient(
+            180deg,
+            rgba(18,49,38,.88),
+            rgba(6,22,17,.90)
+        );
+
+    --shadow:
+        0 20px 60px
+        rgba(0,0,0,.38);
+
+    --radius:24px;
+}
+
+
+/* =========================================================
+   02. RESET
+   ========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:var(--white);
+
+    line-height:1.65;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 5%,
+            rgba(38,165,111,.18),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 8%,
+            rgba(243,197,82,.11),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(140,98,57,.15),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            150deg,
+            var(--bg-dark),
+            var(--bg-main) 48%,
+            #08140f
+        );
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+}
+
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    opacity:.12;
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8)
+            0 1px,
+            transparent 1.4px
+        );
+
+    background-size:
+        100px 100px;
+}
+
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font:inherit;
+}
+
+
+/* =========================================================
+   03. KHUNG CHUNG
+   ========================================================= */
+
+.container{
+
+    width:min(
+        1180px,
+        92%
+    );
+
+    margin:auto;
+}
+
+
+section{
+
+    padding:
+        85px 0;
+}
+
+
+.glass{
+
+    background:var(--panel);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.section-heading{
+
+    max-width:
+        880px;
+
+    margin-bottom:
+        36px;
+}
+
+
+.section-label{
+
+    color:
+        var(--gold);
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        2px;
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+
+    margin-bottom:
+        9px;
+}
+
+
+.section-heading h2{
+
+    font-size:
+        clamp(
+            31px,
+            4vw,
+            50px
+        );
+
+    line-height:
+        1.13;
+
+    margin-bottom:
+        14px;
+}
+
+
+.section-heading p{
+
+    color:
+        var(--muted);
+
+    font-size:
+        17px;
+}
+
+
+.gradient-text{
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #7cf0ba,
+            #43d6b5,
+            #f0cf6d
+        );
+
+    -webkit-background-clip:
+        text;
+
+    color:
+        transparent;
+}
+
+
+/* =========================================================
+   04. THANH ĐIỀU HƯỚNG
+   ========================================================= */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    background:
+        rgba(4,16,13,.84);
+
+    backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+
+.nav{
+
+    min-height:
+        72px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+        space-between;
+
+    gap:18px;
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    font-weight:
+        900;
+}
+
+
+.brand-icon{
+
+    width:44px;
+
+    height:44px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:
+        15px;
+
+    font-size:
+        22px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--forest),
+            var(--green)
+        );
+
+    box-shadow:
+        0 0 28px
+        rgba(38,165,111,.32);
+}
+
+
+.nav-links{
+
+    display:flex;
+
+    gap:5px;
+
+    flex-wrap:wrap;
+}
+
+
+.nav-links a{
+
+    padding:
+        9px 12px;
+
+    border-radius:
+        10px;
+
+    color:
+        #abc7bb;
+
+    font-size:
+        14px;
+
+    transition:
+        .25s;
+}
+
+
+.nav-links a:hover{
+
+    color:white;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+
+/* =========================================================
+   05. HERO
+   ========================================================= */
+
+.hero{
+
+    min-height:
+        calc(100vh - 72px);
+
+    display:grid;
+
+    grid-template-columns:
+        1.07fr .93fr;
+
+    align-items:center;
+
+    gap:55px;
+
+    padding:
+        70px 0;
+}
+
+
+.hero-badge{
+
+    display:inline-flex;
+
+    padding:
+        8px 13px;
+
+    border-radius:
+        999px;
+
+    margin-bottom:
+        18px;
+
+    border:
+        1px solid
+        rgba(82,230,164,.32);
+
+    background:
+        rgba(38,165,111,.08);
+
+    color:
+        #c8f5df;
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+}
+
+
+.hero h1{
+
+    font-size:
+        clamp(
+            44px,
+            6vw,
+            78px
+        );
+
+    line-height:
+        1.03;
+
+    letter-spacing:
+        -3px;
+
+    margin-bottom:
+        22px;
+}
+
+
+.hero p{
+
+    color:
+        var(--muted);
+
+    font-size:
+        18px;
+
+    max-width:
+        730px;
+}
+
+
+.hero-actions{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:
+        28px;
+}
+
+
+.btn{
+
+    border:0;
+
+    padding:
+        13px 19px;
+
+    border-radius:
+        13px;
+
+    font-weight:
+        bold;
+
+    cursor:pointer;
+
+    transition:
+        .25s;
+}
+
+
+.btn-primary{
+
+    color:white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--forest),
+            var(--green)
+        );
+
+    box-shadow:
+        0 12px 28px
+        rgba(38,165,111,.26);
+}
+
+
+.btn-primary:hover{
+
+    transform:
+        translateY(-2px);
+}
+
+
+.btn-secondary{
+
+    color:white;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+
+.hero-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+    margin-top:
+        25px;
+}
+
+
+.tag{
+
+    padding:
+        7px 11px;
+
+    border-radius:
+        999px;
+
+    border:
+        1px solid
+        var(--border);
+
+    color:
+        #b8d0c6;
+
+    background:
+        rgba(255,255,255,.035);
+
+    font-size:
+        13px;
+}
+
+
+/* =========================================================
+   06. KHUNG CẢNH ĐỊA HÌNH HERO
+   ========================================================= */
+
+.landscape{
+
+    min-height:
+        510px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:
+        32px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+
+        radial-gradient(
+            circle at 70% 17%,
+            rgba(243,197,82,.14),
+            transparent 18%
+        ),
+
+        linear-gradient(
+            #143e3a 0%,
+            #135d57 48%,
+            #173f2f 49%,
+            #0b241a 100%
+        );
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.sun{
+
+    position:absolute;
+
+    width:95px;
+
+    height:95px;
+
+    border-radius:50%;
+
+    right:65px;
+
+    top:55px;
+
+    background:
+        var(--gold);
+
+    box-shadow:
+
+        0 0 40px
+        rgba(243,197,82,.5),
+
+        0 0 100px
+        rgba(243,197,82,.18);
+}
+
+
+.mountain-back{
+
+    position:absolute;
+
+    bottom:130px;
+
+    left:-60px;
+
+    width:500px;
+
+    height:260px;
+
+    clip-path:
+        polygon(
+            0 100%,
+            35% 28%,
+            52% 58%,
+            72% 20%,
+            100% 100%
+        );
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #477b62,
+            #1c4d3b
+        );
+}
+
+
+.mountain-front{
+
+    position:absolute;
+
+    bottom:95px;
+
+    right:-30px;
+
+    width:520px;
+
+    height:310px;
+
+    clip-path:
+        polygon(
+            0 100%,
+            28% 35%,
+            43% 57%,
+            64% 8%,
+            100% 100%
+        );
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #375b46,
+            #163326
+        );
+}
+
+
+.plateau{
+
+    position:absolute;
+
+    bottom:87px;
+
+    left:85px;
+
+    width:265px;
+
+    height:120px;
+
+    clip-path:
+        polygon(
+            0 35%,
+            18% 10%,
+            82% 10%,
+            100% 38%,
+            92% 100%,
+            8% 100%
+        );
+
+    background:
+
+        linear-gradient(
+            #a87947,
+            #6f482a
+        );
+}
+
+
+.plain{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    right:0;
+
+    height:125px;
+
+    background:
+
+        linear-gradient(
+            #5a8d48,
+            #2d5d35
+        );
+}
+
+
+.river{
+
+    position:absolute;
+
+    width:440px;
+
+    height:55px;
+
+    bottom:20px;
+
+    left:150px;
+
+    border-radius:
+        60% 30% 70% 20%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #4bc4dc,
+            #218eb2
+        );
+
+    transform:
+        rotate(-5deg);
+
+    opacity:.85;
+}
+
+
+.land-label{
+
+    position:absolute;
+
+    padding:
+        9px 12px;
+
+    border-radius:
+        12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(4,17,13,.74);
+
+    color:
+        #d9eee6;
+
+    backdrop-filter:
+        blur(8px);
+
+    font-size:
+        13px;
+}
+
+
+.label-mountain{
+
+    right:25px;
+
+    top:175px;
+}
+
+
+.label-plateau{
+
+    left:35px;
+
+    top:270px;
+}
+
+
+.label-plain{
+
+    right:40px;
+
+    bottom:30px;
+}
+
+
+/* =========================================================
+   07. MỤC TIÊU
+   ========================================================= */
+
+.goal-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+
+.goal-card{
+
+    padding:25px;
+}
+
+
+.goal-number{
+
+    font-size:
+        35px;
+
+    color:
+        var(--gold);
+
+    font-weight:
+        900;
+
+    margin-bottom:
+        8px;
+}
+
+
+.goal-card h3{
+
+    margin-bottom:
+        8px;
+}
+
+
+.goal-card p{
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   08. THẺ ĐỊA HÌNH
+   ========================================================= */
+
+.terrain-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:22px;
+}
+
+
+.terrain-card{
+
+    padding:28px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.terrain-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+
+    height:150px;
+
+    right:-60px;
+
+    top:-60px;
+
+    border-radius:50%;
+
+    background:
+        var(--green);
+
+    opacity:.08;
+
+    filter:
+        blur(20px);
+}
+
+
+.terrain-icon{
+
+    width:58px;
+
+    height:58px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:
+        17px;
+
+    font-size:
+        30px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(38,165,111,.23),
+            rgba(243,197,82,.10)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    margin-bottom:
+        15px;
+}
+
+
+.terrain-card h3{
+
+    font-size:
+        28px;
+
+    margin-bottom:
+        8px;
+}
+
+
+.terrain-card > p{
+
+    color:
+        var(--muted);
+}
+
+
+.fact-list{
+
+    display:grid;
+
+    gap:10px;
+
+    margin-top:
+        18px;
+}
+
+
+.fact{
+
+    display:grid;
+
+    grid-template-columns:
+        28px 1fr;
+
+    gap:10px;
+
+    padding:
+        8px 0;
+
+    border-bottom:
+        1px dashed
+        rgba(255,255,255,.08);
+}
+
+
+.fact:last-child{
+
+    border-bottom:0;
+}
+
+
+.fact-check{
+
+    width:26px;
+
+    height:26px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:8px;
+
+    background:
+        rgba(82,230,164,.11);
+
+    color:
+        var(--mint);
+}
+
+
+.fact strong{
+
+    display:block;
+}
+
+
+.fact span{
+
+    color:
+        #a9c5ba;
+
+    font-size:
+        14px;
+}
+
+
+/* =========================================================
+   09. SƠ ĐỒ ĐỘ CAO
+   ========================================================= */
+
+.height-demo{
+
+    padding:30px;
+}
+
+
+.height-scale{
+
+    min-height:
+        420px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:
+        19px;
+
+    background:
+
+        linear-gradient(
+            #183f42 0 45%,
+            #315e43 45% 100%
+        );
+
+    border:
+        1px solid
+        var(--border);
+}
+
+
+.sea-line{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:92px;
+
+    height:4px;
+
+    background:
+        #45c8e8;
+}
+
+
+.sea-text{
+
+    position:absolute;
+
+    left:18px;
+
+    bottom:100px;
+
+    color:
+        #8ae8ff;
+
+    font-size:
+        13px;
+}
+
+
+.height-mark{
+
+    position:absolute;
+
+    left:28px;
+
+    padding-left:
+        12px;
+
+    border-left:
+        2px solid
+        rgba(255,255,255,.35);
+
+    color:
+        #d2e6de;
+
+    font-size:
+        12px;
+}
+
+
+.mark-500{
+
+    bottom:260px;
+}
+
+
+.mark-200{
+
+    bottom:155px;
+}
+
+
+.shape{
+
+    position:absolute;
+
+    bottom:94px;
+
+    transition:
+        .3s;
+}
+
+
+.shape:hover{
+
+    transform:
+        translateY(-5px);
+}
+
+
+.shape-mountain{
+
+    left:18%;
+
+    width:210px;
+
+    height:260px;
+
+    clip-path:
+        polygon(
+            50% 0,
+            100% 100%,
+            0 100%
+        );
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #64836d,
+            #274c39
+        );
+}
+
+
+.shape-hill{
+
+    left:43%;
+
+    width:180px;
+
+    height:95px;
+
+    border-radius:
+        50% 50% 0 0;
+
+    background:
+
+        linear-gradient(
+            #72a75c,
+            #3f753f
+        );
+}
+
+
+.shape-plateau{
+
+    right:18%;
+
+    width:210px;
+
+    height:180px;
+
+    clip-path:
+        polygon(
+            15% 0,
+            85% 0,
+            100% 100%,
+            0 100%
+        );
+
+    background:
+
+        linear-gradient(
+            #a77a4c,
+            #704c2f
+        );
+}
+
+
+.shape-name{
+
+    position:absolute;
+
+    bottom:12px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    padding:
+        5px 9px;
+
+    border-radius:
+        8px;
+
+    background:
+        rgba(0,0,0,.35);
+
+    white-space:
+        nowrap;
+
+    font-size:
+        12px;
+}
+
+
+/* =========================================================
+   10. BẢNG SO SÁNH
+   ========================================================= */
+
+.table-wrap{
+
+    overflow:auto;
+
+    border-radius:
+        20px;
+
+    border:
+        1px solid
+        var(--border);
+}
+
+
+table{
+
+    width:100%;
+
+    min-width:
+        900px;
+
+    border-collapse:
+        collapse;
+
+    background:
+        rgba(6,20,15,.75);
+}
+
+
+th,
+td{
+
+    padding:
+        17px 18px;
+
+    text-align:left;
+
+    vertical-align:top;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.075);
+}
+
+
+th{
+
+    background:
+        rgba(38,165,111,.15);
+
+    color:white;
+}
+
+
+td{
+
+    color:
+        #b9d0c6;
+}
+
+
+tr:last-child td{
+
+    border-bottom:0;
+}
+
+
+/* =========================================================
+   11. KHOÁNG SẢN
+   ========================================================= */
+
+.mineral-intro{
+
+    display:grid;
+
+    grid-template-columns:
+        .9fr 1.1fr;
+
+    gap:22px;
+}
+
+
+.definition-card{
+
+    padding:30px;
+}
+
+
+.definition-big{
+
+    font-size:
+        25px;
+
+    line-height:
+        1.45;
+
+    margin-bottom:
+        18px;
+}
+
+
+.definition-big strong{
+
+    color:
+        var(--gold-light);
+}
+
+
+.note{
+
+    padding:18px;
+
+    border-radius:
+        15px;
+
+    border:
+        1px solid
+        rgba(243,197,82,.23);
+
+    background:
+        rgba(243,197,82,.06);
+
+    color:
+        #dacfb0;
+}
+
+
+.mineral-visual{
+
+    min-height:
+        320px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:
+        var(--radius);
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #284d35,
+            #503922 38%,
+            #271c14 100%
+        );
+}
+
+
+.soil-layer{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    height:60px;
+
+    top:0;
+
+    background:
+        #426a42;
+}
+
+
+.rock-layer{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    top:60px;
+
+    bottom:0;
+
+    background:
+
+        repeating-linear-gradient(
+            -14deg,
+            #60442d 0 40px,
+            #513722 40px 75px
+        );
+}
+
+
+.ore{
+
+    position:absolute;
+
+    width:46px;
+
+    height:30px;
+
+    border-radius:
+        50%;
+
+    background:
+
+        radial-gradient(
+            circle at 30% 30%,
+            #fff0a4,
+            #e6b841 35%,
+            #8a5d1c 100%
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(243,197,82,.4);
+}
+
+
+.ore1{
+    top:120px;
+    left:90px;
+}
+
+.ore2{
+    top:200px;
+    left:190px;
+}
+
+.ore3{
+    top:145px;
+    right:100px;
+}
+
+.ore4{
+    bottom:45px;
+    right:200px;
+}
+
+
+.mine-label{
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:20px;
+
+    padding:
+        9px 12px;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(0,0,0,.45);
+
+    color:
+        #ffe599;
+
+    font-size:
+        13px;
+}
+
+
+/* =========================================================
+   12. NHÓM KHOÁNG SẢN
+   ========================================================= */
+
+.mineral-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+
+.mineral-card{
+
+    padding:25px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.mineral-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    right:-40px;
+
+    top:-40px;
+
+    background:
+        var(--gold);
+
+    opacity:.06;
+}
+
+
+.mineral-icon{
+
+    width:55px;
+
+    height:55px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:
+        16px;
+
+    font-size:
+        27px;
+
+    margin-bottom:
+        14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(243,197,82,.09);
+}
+
+
+.mineral-card h3{
+
+    margin-bottom:
+        8px;
+}
+
+
+.mineral-card p{
+
+    color:
+        var(--muted);
+}
+
+
+.example-list{
+
+    margin-top:
+        14px;
+
+    display:flex;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+}
+
+
+.example{
+
+    padding:
+        6px 9px;
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        var(--border);
+
+    font-size:
+        12px;
+
+    color:
+        #c8d7d0;
+}
+
+
+/* =========================================================
+   13. HÌNH THÀNH KHOÁNG SẢN
+   ========================================================= */
+
+.process-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:16px;
+}
+
+
+.process-card{
+
+    padding:23px;
+}
+
+
+.process-number{
+
+    color:
+        var(--gold);
+
+    font-weight:
+        900;
+
+    font-size:
+        28px;
+
+    margin-bottom:
+        6px;
+}
+
+
+.process-card h3{
+
+    margin-bottom:
+        7px;
+}
+
+
+.process-card p{
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   14. TÀI NGUYÊN VÀ BẢO VỆ
+   ========================================================= */
+
+.resource-box{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+}
+
+
+.resource-card{
+
+    padding:27px;
+}
+
+
+.resource-card h3{
+
+    font-size:
+        23px;
+
+    margin-bottom:
+        10px;
+}
+
+
+.resource-card p,
+.resource-card li{
+
+    color:
+        #aec8bd;
+}
+
+
+.resource-card ul{
+
+    margin-top:
+        13px;
+
+    padding-left:
+        20px;
+}
+
+
+.resource-card li+li{
+
+    margin-top:
+        7px;
+}
+
+
+/* =========================================================
+   15. PHÂN BIỆT KHÁI NIỆM
+   ========================================================= */
+
+.concept-row{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+
+.concept-card{
+
+    padding:24px;
+}
+
+
+.concept-card h3{
+
+    color:
+        var(--gold-light);
+
+    margin-bottom:
+        8px;
+}
+
+
+.concept-card p{
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   16. QUIZ
+   ========================================================= */
+
+.quiz-box{
+
+    padding:28px;
+}
+
+
+.question{
+
+    padding:
+        20px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+
+.question:last-of-type{
+
+    border-bottom:0;
+}
+
+
+.question h3{
+
+    font-size:
+        17px;
+
+    margin-bottom:
+        13px;
+}
+
+
+.option{
+
+    display:block;
+
+    margin:
+        8px 0;
+
+    padding:
+        11px 13px;
+
+    border-radius:
+        11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:
+        #c8d9d2;
+
+    cursor:pointer;
+}
+
+
+.option:hover{
+
+    background:
+        rgba(255,255,255,.065);
+}
+
+
+.option input{
+
+    margin-right:
+        8px;
+}
+
+
+.result{
+
+    display:none;
+
+    margin-top:
+        18px;
+
+    padding:
+        16px;
+
+    border-radius:
+        13px;
+
+    border:
+        1px solid
+        rgba(82,230,164,.25);
+
+    background:
+        rgba(82,230,164,.07);
+}
+
+
+/* =========================================================
+   17. TỪ KHÓA
+   ========================================================= */
+
+details{
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        15px;
+
+    padding:
+        0 17px;
+
+    background:
+        rgba(255,255,255,.03);
+}
+
+
+details+details{
+
+    margin-top:
+        10px;
+}
+
+
+summary{
+
+    padding:
+        16px 0;
+
+    cursor:pointer;
+
+    font-weight:
+        bold;
+}
+
+
+details p{
+
+    padding-bottom:
+        17px;
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   18. FOOTER
+   ========================================================= */
+
+footer{
+
+    padding:
+        45px 0 60px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    color:
+        #92afa3;
+}
+
+
+footer p{
+
+    margin-top:
+        7px;
+}
+
+
+/* =========================================================
+   19. BACK TOP
+   ========================================================= */
+
+#backTop{
+
+    position:fixed;
+
+    right:22px;
+
+    bottom:22px;
+
+    width:46px;
+
+    height:46px;
+
+    display:none;
+
+    place-items:center;
+
+    border-radius:
+        14px;
+
+    color:white;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(13,45,34,.90);
+
+    cursor:pointer;
+
+    z-index:999;
+}
+
+
+/* =========================================================
+   20. RESPONSIVE
+   ========================================================= */
+
+@media(max-width:980px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .goal-grid{
+        grid-template-columns:1fr;
+    }
+
+    .terrain-grid{
+        grid-template-columns:1fr;
+    }
+
+    .mineral-intro{
+        grid-template-columns:1fr;
+    }
+
+    .mineral-grid,
+    .process-grid{
+        grid-template-columns:1fr;
+    }
+
+    .concept-row{
+        grid-template-columns:1fr;
+    }
+
+    .resource-box{
+        grid-template-columns:1fr;
+    }
+}
+
+
+@media(max-width:650px){
+
+    section{
+        padding:60px 0;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .landscape{
+        min-height:400px;
+    }
+
+    .shape-mountain{
+        left:7%;
+    }
+
+    .shape-hill{
+        left:46%;
+    }
+
+    .shape-plateau{
+        right:2%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION
+     ========================================================= -->
+
+<header>
+
+<div class="container nav">
+
+    <a href="#home" class="brand">
+
+        <div class="brand-icon">
+            ⛰
+        </div>
+
+        <span>
+            GEO EARTH 6
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="#terrain">
+            Địa hình
+        </a>
+
+        <a href="#mountain">
+            Núi
+        </a>
+
+        <a href="#compare">
+            So sánh
+        </a>
+
+        <a href="#minerals">
+            Khoáng sản
+        </a>
+
+        <a href="#protect">
+            Bảo vệ
+        </a>
+
+        <a href="#quiz">
+            Kiểm tra
+        </a>
+
+    </nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section id="home">
+
+<div class="container hero">
+
+
+    <div>
+
+
+        <div class="hero-badge">
+
+            ĐỊA LÍ 6 • VỎ TRÁI ĐẤT
+
+        </div>
+
+
+        <h1>
+
+            Các dạng
+
+            <span class="gradient-text">
+                địa hình chính
+            </span>
+
+            <br>
+
+            trên Trái Đất
+
+            <br>
+
+            &
+
+            <span class="gradient-text">
+                Khoáng sản
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Bề mặt Trái Đất vô cùng đa dạng:
+            có những dãy núi cao đồ sộ,
+            những vùng cao nguyên rộng lớn,
+            đồi thấp thoải,
+            đồng bằng bằng phẳng
+            và bên dưới lớp vỏ ấy
+            còn chứa nhiều nguồn khoáng sản
+            có giá trị đối với đời sống
+            và sản xuất của con người.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a
+                href="#terrain"
+                class="btn btn-primary"
+            >
+                Bắt đầu khám phá
+            </a>
+
+
+            <a
+                href="#minerals"
+                class="btn btn-secondary"
+            >
+                Khám phá khoáng sản
+            </a>
+
+        </div>
+
+
+        <div class="hero-tags">
+
+            <span class="tag">
+                ⛰ Núi
+            </span>
+
+            <span class="tag">
+                🌄 Đồi
+            </span>
+
+            <span class="tag">
+                🏜 Cao nguyên
+            </span>
+
+            <span class="tag">
+                🌾 Đồng bằng
+            </span>
+
+            <span class="tag">
+                💎 Khoáng sản
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Cảnh địa hình -->
+
+    <div class="landscape">
+
+        <div class="sun"></div>
+
+        <div class="mountain-back"></div>
+
+        <div class="mountain-front"></div>
+
+        <div class="plateau"></div>
+
+        <div class="plain"></div>
+
+        <div class="river"></div>
+
+
+        <div class="land-label label-mountain">
+
+            ⛰ Núi:
+            cao, sườn rõ
+
+        </div>
+
+
+        <div class="land-label label-plateau">
+
+            🏜 Cao nguyên:
+            cao nhưng khá bằng phẳng
+
+        </div>
+
+
+        <div class="land-label label-plain">
+
+            🌾 Đồng bằng:
+            thấp và tương đối bằng phẳng
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MỤC TIÊU
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            01 • Mục tiêu bài học
+        </div>
+
+        <h2>
+            Em sẽ khám phá điều gì?
+        </h2>
+
+        <p>
+
+            Trọng tâm của bài không phải
+            chỉ học thuộc tên địa hình,
+            mà phải biết dựa vào
+            <strong>độ cao và hình thái</strong>
+            để phân biệt các dạng địa hình.
+
+        </p>
+
+    </div>
+
+
+    <div class="goal-grid">
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                01
+            </div>
+
+            <h3>
+                Phân biệt địa hình
+            </h3>
+
+            <p>
+
+                Nhận biết và phân biệt
+                núi, đồi, cao nguyên
+                và đồng bằng
+                dựa vào độ cao
+                và đặc điểm bề mặt.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                02
+            </div>
+
+            <h3>
+                Nhận biết khoáng sản
+            </h3>
+
+            <p>
+
+                Hiểu khoáng sản là gì
+                và kể tên được
+                một số loại khoáng sản
+                phổ biến.
+
+            </p>
+
+        </article>
+
+
+        <article class="goal-card glass">
+
+            <div class="goal-number">
+                03
+            </div>
+
+            <h3>
+                Sử dụng hợp lí
+            </h3>
+
+            <p>
+
+                Nhận thức rằng
+                khoáng sản là tài nguyên
+                cần được khai thác
+                tiết kiệm và hợp lí.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     KHÁI QUÁT ĐỊA HÌNH
+     ========================================================= -->
+
+<section id="terrain">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            02 • Các dạng địa hình chính
+        </div>
+
+        <h2>
+
+            Vì sao bề mặt Trái Đất
+            có hình dạng khác nhau?
+
+        </h2>
+
+        <p>
+
+            Địa hình là hình dạng
+            cao thấp, lồi lõm
+            của bề mặt Trái Đất.
+
+            Sự tác động lâu dài
+            của quá trình nội sinh
+            và ngoại sinh
+            đã tạo nên nhiều dạng địa hình.
+
+            Trong phạm vi bài học lớp 6,
+            chúng ta tập trung vào
+            <strong>
+                núi, đồi, cao nguyên
+                và đồng bằng.
+            </strong>
+
+        </p>
+
+    </div>
+
+
+    <div class="terrain-grid">
+
+
+        <!-- NÚI -->
+
+        <article
+            class="terrain-card glass"
+            id="mountain"
+        >
+
+            <div class="terrain-icon">
+                ⛰
+            </div>
+
+
+            <h3>
+                Núi
+            </h3>
+
+
+            <p>
+
+                Núi là dạng địa hình
+                nhô cao rõ rệt
+                trên bề mặt đất,
+                thường có độ cao
+                trên 500 m
+                so với mực nước biển.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Độ cao
+                        </strong>
+
+                        <span>
+
+                            Thường trên 500 m
+                            so với mực nước biển.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Các bộ phận
+                        </strong>
+
+                        <span>
+
+                            Gồm đỉnh núi,
+                            sườn núi
+                            và chân núi.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Hình thái
+                        </strong>
+
+                        <span>
+
+                            Địa hình nhô cao,
+                            sườn thường dốc hơn
+                            các dạng địa hình thấp.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Phân bố
+                        </strong>
+
+                        <span>
+
+                            Núi thường tập trung
+                            thành dãy núi
+                            hoặc hệ thống núi.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+
+        <!-- ĐỒI -->
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                🌄
+            </div>
+
+
+            <h3>
+                Đồi
+            </h3>
+
+
+            <p>
+
+                Đồi là dạng địa hình
+                nhô cao nhưng thấp hơn núi,
+                thường có đỉnh tròn,
+                sườn thoải
+                và mức độ chia cắt
+                không mạnh bằng vùng núi.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Độ cao
+                        </strong>
+
+                        <span>
+
+                            Thường thấp hơn
+                            địa hình núi.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đỉnh
+                        </strong>
+
+                        <span>
+
+                            Thường tròn,
+                            ít sắc nhọn.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Sườn
+                        </strong>
+
+                        <span>
+
+                            Thường thoải hơn
+                            sườn núi.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Nhận biết
+                        </strong>
+
+                        <span>
+
+                            Có hình dáng
+                            mềm mại và thấp hơn núi.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+
+        <!-- CAO NGUYÊN -->
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                🏜
+            </div>
+
+
+            <h3>
+                Cao nguyên
+            </h3>
+
+
+            <p>
+
+                Cao nguyên là dạng địa hình
+                có độ cao tương đối lớn
+                nhưng bề mặt
+                tương đối bằng phẳng
+                hoặc gợn sóng.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Độ cao
+                        </strong>
+
+                        <span>
+
+                            Thường trên 500 m
+                            so với mực nước biển.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Bề mặt
+                        </strong>
+
+                        <span>
+
+                            Tương đối bằng phẳng
+                            hoặc gợn sóng.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Rìa cao nguyên
+                        </strong>
+
+                        <span>
+
+                            Thường có sườn dốc
+                            xuống vùng địa hình thấp.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Điểm dễ nhầm
+                        </strong>
+
+                        <span>
+
+                            Cao nguyên có thể
+                            bằng phẳng giống đồng bằng
+                            nhưng nằm ở độ cao lớn hơn.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+
+        <!-- ĐỒNG BẰNG -->
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                🌾
+            </div>
+
+
+            <h3>
+                Đồng bằng
+            </h3>
+
+
+            <p>
+
+                Đồng bằng là dạng địa hình
+                thấp, có bề mặt
+                tương đối bằng phẳng
+                hoặc hơi gợn sóng.
+
+            </p>
+
+
+            <div class="fact-list">
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Độ cao
+                        </strong>
+
+                        <span>
+
+                            Nhìn chung thấp
+                            so với núi
+                            và cao nguyên.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Bề mặt
+                        </strong>
+
+                        <span>
+
+                            Tương đối bằng phẳng,
+                            độ dốc nhỏ.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Nguồn gốc
+                        </strong>
+
+                        <span>
+
+                            Nhiều đồng bằng
+                            được hình thành
+                            do vật liệu bồi tụ
+                            của sông hoặc biển.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Ý nghĩa
+                        </strong>
+
+                        <span>
+
+                            Thuận lợi cho
+                            cư trú,
+                            giao thông
+                            và nhiều hoạt động
+                            sản xuất.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     ĐỘ CAO TUYỆT ĐỐI
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            03 • Cách nhận biết
+        </div>
+
+        <h2>
+
+            Độ cao tuyệt đối
+            giúp chúng ta hiểu gì?
+
+        </h2>
+
+        <p>
+
+            Độ cao tuyệt đối
+            là khoảng cách theo chiều thẳng đứng
+            từ một địa điểm
+            đến mực nước biển trung bình.
+
+            Đây là một tiêu chí quan trọng
+            để phân biệt các dạng địa hình.
+
+        </p>
+
+    </div>
+
+
+    <div class="height-demo glass">
+
+
+        <div class="height-scale">
+
+
+            <div class="sea-line"></div>
+
+
+            <div class="sea-text">
+                ≈ Mực nước biển
+            </div>
+
+
+            <div class="height-mark mark-500">
+                ≈ 500 m
+            </div>
+
+
+            <div class="height-mark mark-200">
+                ≈ 200 m
+            </div>
+
+
+            <div class="shape shape-mountain">
+
+                <div class="shape-name">
+                    Núi
+                </div>
+
+            </div>
+
+
+            <div class="shape shape-hill">
+
+                <div class="shape-name">
+                    Đồi
+                </div>
+
+            </div>
+
+
+            <div class="shape shape-plateau">
+
+                <div class="shape-name">
+                    Cao nguyên
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="note"
+            style="margin-top:20px"
+        >
+
+            <strong>
+                Cần nhớ:
+            </strong>
+
+            Không nên phân biệt
+            các dạng địa hình
+            chỉ bằng một con số độ cao.
+
+            <strong>
+                Hình thái bề mặt
+                cũng rất quan trọng.
+            </strong>
+
+            Ví dụ,
+            cao nguyên có thể cao
+            hơn 500 m nhưng
+            bề mặt tương đối bằng phẳng,
+            trong khi núi
+            có đỉnh và sườn
+            thể hiện rõ hơn.
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SO SÁNH
+     ========================================================= -->
+
+<section id="compare">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            04 • Bảng so sánh
+        </div>
+
+        <h2>
+
+            Phân biệt nhanh
+            các dạng địa hình chính
+
+        </h2>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Dạng địa hình
+                    </th>
+
+                    <th>
+                        Độ cao
+                    </th>
+
+                    <th>
+                        Đặc điểm bề mặt
+                    </th>
+
+                    <th>
+                        Dấu hiệu dễ nhận biết
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ⛰ Núi
+                        </strong>
+                    </td>
+
+                    <td>
+
+                        Thường trên
+                        500 m.
+
+                    </td>
+
+                    <td>
+
+                        Nhô cao rõ,
+                        có đỉnh,
+                        sườn và chân núi.
+
+                    </td>
+
+                    <td>
+
+                        Sườn thường dốc,
+                        địa hình chia cắt mạnh.
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+                            🌄 Đồi
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        Thấp hơn núi.
+
+                    </td>
+
+                    <td>
+
+                        Nhô cao,
+                        đỉnh thường tròn.
+
+                    </td>
+
+                    <td>
+
+                        Sườn thoải,
+                        hình dáng mềm mại.
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+                            🏜 Cao nguyên
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        Thường trên
+                        500 m.
+
+                    </td>
+
+                    <td>
+
+                        Bề mặt tương đối
+                        bằng phẳng
+                        hoặc gợn sóng.
+
+                    </td>
+
+                    <td>
+
+                        Cao nhưng
+                        mặt khá phẳng,
+                        rìa thường dốc.
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+                            🌾 Đồng bằng
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        Nhìn chung thấp.
+
+                    </td>
+
+                    <td>
+
+                        Tương đối bằng phẳng,
+                        độ dốc nhỏ.
+
+                    </td>
+
+                    <td>
+
+                        Không gian rộng,
+                        ít chênh lệch độ cao.
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+    <div
+        class="note"
+        style="margin-top:20px"
+    >
+
+        <strong>
+            Mẹo tư duy:
+        </strong>
+
+        Khi quan sát địa hình,
+        hãy hỏi theo thứ tự:
+
+        <strong>
+            “Cao hay thấp?”
+            →
+            “Bề mặt bằng phẳng
+            hay gồ ghề?”
+            →
+            “Đỉnh và sườn
+            có rõ không?”
+        </strong>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     NÚI GIÀ - NÚI TRẺ
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            05 • Mở rộng
+        </div>
+
+        <h2>
+
+            Núi trẻ và núi già
+
+        </h2>
+
+        <p>
+
+            Nếu xét theo lịch sử hình thành
+            và mức độ biến đổi địa hình,
+            có thể quan sát sự khác nhau
+            giữa núi trẻ và núi già.
+
+        </p>
+
+    </div>
+
+
+    <div class="terrain-grid">
+
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                🏔
+            </div>
+
+            <h3>
+                Núi trẻ
+            </h3>
+
+            <p>
+
+                Thường có địa hình
+                cao và hiểm trở hơn,
+                đỉnh nhọn,
+                sườn dốc
+                và thung lũng sâu.
+
+            </p>
+
+
+            <div class="fact-list">
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đỉnh
+                        </strong>
+
+                        <span>
+                            Thường nhọn.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Sườn
+                        </strong>
+
+                        <span>
+                            Thường dốc.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Thung lũng
+                        </strong>
+
+                        <span>
+                            Thường sâu.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                ⛰
+            </div>
+
+            <h3>
+                Núi già
+            </h3>
+
+            <p>
+
+                Do chịu tác động
+                của ngoại sinh
+                trong thời gian dài,
+                địa hình thường
+                thấp hơn và mềm mại hơn.
+
+            </p>
+
+
+            <div class="fact-list">
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đỉnh
+                        </strong>
+
+                        <span>
+                            Thường tròn hơn.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Sườn
+                        </strong>
+
+                        <span>
+                            Thường thoải hơn.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="fact">
+
+                    <div class="fact-check">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Địa hình
+                        </strong>
+
+                        <span>
+                            Bị bào mòn
+                            trong thời gian dài.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     KHOÁNG SẢN
+     ========================================================= -->
+
+<section id="minerals">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            06 • Khoáng sản
+        </div>
+
+        <h2>
+
+            Kho báu nằm trong
+            vỏ Trái Đất
+
+        </h2>
+
+        <p>
+
+            Bên cạnh sự đa dạng địa hình,
+            vỏ Trái Đất còn chứa
+            nhiều khoáng vật
+            và vật chất tự nhiên
+            có giá trị đối với con người.
+
+        </p>
+
+    </div>
+
+
+    <div class="mineral-intro">
+
+
+        <div class="definition-card glass">
+
+
+            <div class="definition-big">
+
+                <strong>
+                    Khoáng sản
+                </strong>
+
+                là những khoáng vật
+                và khoáng chất tự nhiên
+                có ích,
+                được con người
+                khai thác và sử dụng
+                trong sản xuất
+                và đời sống.
+
+            </div>
+
+
+            <div class="note">
+
+                Khoáng sản
+                hình thành trong thời gian
+                địa chất rất dài.
+
+                Vì vậy,
+                đối với quy mô thời gian
+                của con người,
+                nhiều loại khoáng sản
+                được xem là
+                <strong>
+                    tài nguyên không tái tạo.
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="mineral-visual">
+
+            <div class="soil-layer"></div>
+
+            <div class="rock-layer"></div>
+
+            <div class="ore ore1"></div>
+
+            <div class="ore ore2"></div>
+
+            <div class="ore ore3"></div>
+
+            <div class="ore ore4"></div>
+
+
+            <div class="mine-label">
+
+                💎 Khoáng sản
+                tập trung trong
+                các lớp đá của vỏ Trái Đất
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     KHOÁNG SẢN VÀ MỎ
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            07 • Khái niệm cần phân biệt
+        </div>
+
+        <h2>
+
+            Khoáng vật,
+            khoáng sản
+            và mỏ khoáng sản
+
+        </h2>
+
+    </div>
+
+
+    <div class="concept-row">
+
+
+        <article class="concept-card glass">
+
+            <h3>
+                🔹 Khoáng vật
+            </h3>
+
+            <p>
+
+                Là những chất tự nhiên
+                có thành phần
+                và tính chất nhất định,
+                tạo nên đá
+                trong vỏ Trái Đất.
+
+            </p>
+
+        </article>
+
+
+        <article class="concept-card glass">
+
+            <h3>
+                💎 Khoáng sản
+            </h3>
+
+            <p>
+
+                Là những vật chất
+                tự nhiên có ích
+                mà con người
+                có thể khai thác
+                và sử dụng.
+
+            </p>
+
+        </article>
+
+
+        <article class="concept-card glass">
+
+            <h3>
+                ⛏ Mỏ khoáng sản
+            </h3>
+
+            <p>
+
+                Là nơi khoáng sản
+                tập trung với trữ lượng
+                và điều kiện nhất định,
+                có thể được xem xét
+                để khai thác.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PHÂN LOẠI KHOÁNG SẢN
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            08 • Phân loại khoáng sản
+        </div>
+
+        <h2>
+
+            Khoáng sản được sử dụng
+            vào những mục đích nào?
+
+        </h2>
+
+        <p>
+
+            Có thể chia khoáng sản
+            thành nhiều nhóm
+            dựa vào đặc điểm
+            và mục đích sử dụng.
+
+            Ở mức độ lớp 6,
+            cần nhận biết
+            các nhóm phổ biến dưới đây.
+
+        </p>
+
+    </div>
+
+
+    <div class="mineral-grid">
+
+
+        <!-- NĂNG LƯỢNG -->
+
+        <article class="mineral-card glass">
+
+            <div class="mineral-icon">
+                🔥
+            </div>
+
+            <h3>
+                Khoáng sản năng lượng
+            </h3>
+
+            <p>
+
+                Được sử dụng
+                chủ yếu làm nhiên liệu
+                hoặc nguồn năng lượng
+                cho sản xuất
+                và đời sống.
+
+            </p>
+
+
+            <div class="example-list">
+
+                <span class="example">
+                    Than đá
+                </span>
+
+                <span class="example">
+                    Dầu mỏ
+                </span>
+
+                <span class="example">
+                    Khí tự nhiên
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- KIM LOẠI -->
+
+        <article class="mineral-card glass">
+
+            <div class="mineral-icon">
+                ⚙
+            </div>
+
+            <h3>
+                Khoáng sản kim loại
+            </h3>
+
+            <p>
+
+                Là nguồn nguyên liệu
+                quan trọng
+                cho ngành luyện kim,
+                cơ khí,
+                chế tạo máy
+                và nhiều ngành công nghiệp.
+
+            </p>
+
+
+            <div class="example-list">
+
+                <span class="example">
+                    Sắt
+                </span>
+
+                <span class="example">
+                    Đồng
+                </span>
+
+                <span class="example">
+                    Bô-xit
+                </span>
+
+                <span class="example">
+                    Chì
+                </span>
+
+                <span class="example">
+                    Kẽm
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- PHI KIM -->
+
+        <article class="mineral-card glass">
+
+            <div class="mineral-icon">
+                🧱
+            </div>
+
+            <h3>
+                Khoáng sản phi kim loại
+            </h3>
+
+            <p>
+
+                Được sử dụng
+                trong công nghiệp hoá chất,
+                sản xuất phân bón,
+                vật liệu xây dựng
+                và nhiều lĩnh vực khác.
+
+            </p>
+
+
+            <div class="example-list">
+
+                <span class="example">
+                    Đá vôi
+                </span>
+
+                <span class="example">
+                    Apatit
+                </span>
+
+                <span class="example">
+                    Muối mỏ
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     BẢNG KHOÁNG SẢN
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            09 • Hệ thống hóa
+        </div>
+
+        <h2>
+
+            Một số khoáng sản
+            và công dụng
+
+        </h2>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Nhóm
+                    </th>
+
+                    <th>
+                        Ví dụ
+                    </th>
+
+                    <th>
+                        Công dụng chủ yếu
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        Năng lượng
+                    </td>
+
+                    <td>
+
+                        Than,
+                        dầu mỏ,
+                        khí tự nhiên.
+
+                    </td>
+
+                    <td>
+
+                        Nhiên liệu,
+                        sản xuất năng lượng,
+                        nguyên liệu cho
+                        một số ngành công nghiệp.
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Kim loại đen
+                    </td>
+
+                    <td>
+                        Sắt,
+                        mangan.
+                    </td>
+
+                    <td>
+
+                        Luyện kim,
+                        sản xuất thép,
+                        chế tạo máy.
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Kim loại màu
+                    </td>
+
+                    <td>
+
+                        Đồng,
+                        chì,
+                        kẽm,
+                        bô-xit.
+
+                    </td>
+
+                    <td>
+
+                        Điện,
+                        cơ khí,
+                        luyện kim màu,
+                        chế tạo vật liệu.
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Phi kim loại
+                    </td>
+
+                    <td>
+
+                        Đá vôi,
+                        apatit,
+                        muối mỏ.
+
+                    </td>
+
+                    <td>
+
+                        Vật liệu xây dựng,
+                        phân bón,
+                        hoá chất
+                        và nhiều sản phẩm khác.
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     HÌNH THÀNH KHOÁNG SẢN
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            10 • Mở rộng kiến thức
+        </div>
+
+        <h2>
+
+            Khoáng sản hình thành
+            như thế nào?
+
+        </h2>
+
+        <p>
+
+            Khoáng sản không hình thành
+            theo một cơ chế duy nhất.
+
+            Các quá trình địa chất khác nhau
+            có thể tạo nên
+            những loại khoáng sản khác nhau.
+
+        </p>
+
+    </div>
+
+
+    <div class="process-grid">
+
+
+        <article class="process-card glass">
+
+            <div class="process-number">
+                01
+            </div>
+
+            <h3>
+                Quá trình magma
+            </h3>
+
+            <p>
+
+                Khi magma nguội
+                và kết tinh,
+                một số khoáng vật
+                và quặng kim loại
+                có thể được hình thành
+                hoặc tập trung.
+
+            </p>
+
+        </article>
+
+
+        <article class="process-card glass">
+
+            <div class="process-number">
+                02
+            </div>
+
+            <h3>
+                Quá trình trầm tích
+            </h3>
+
+            <p>
+
+                Vật liệu được tích tụ
+                trong môi trường trầm tích
+                qua thời gian dài
+                có thể tạo nên
+                một số khoáng sản,
+                nhiên liệu khoáng
+                và vật liệu tự nhiên.
+
+            </p>
+
+        </article>
+
+
+        <article class="process-card glass">
+
+            <div class="process-number">
+                03
+            </div>
+
+            <h3>
+                Quá trình biến chất
+            </h3>
+
+            <p>
+
+                Nhiệt độ
+                và áp suất lớn
+                trong lòng Trái Đất
+                có thể làm biến đổi
+                khoáng vật
+                và đá ban đầu,
+                tạo nên vật chất mới.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+    <div
+        class="note"
+        style="margin-top:20px"
+    >
+
+        <strong>
+            Lưu ý:
+        </strong>
+
+        Phần này giúp hiểu sâu hơn
+        nguồn gốc khoáng sản.
+
+        Ở lớp 6,
+        trọng tâm vẫn là
+        <strong>
+            nhận biết một số loại khoáng sản
+            và hiểu giá trị
+            của tài nguyên khoáng sản.
+        </strong>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     VAI TRÒ KHOÁNG SẢN
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            11 • Vai trò
+        </div>
+
+        <h2>
+
+            Vì sao khoáng sản
+            quan trọng?
+
+        </h2>
+
+    </div>
+
+
+    <div class="mineral-grid">
+
+
+        <article class="mineral-card glass">
+
+            <div class="mineral-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Năng lượng
+            </h3>
+
+            <p>
+
+                Một số khoáng sản
+                là nguồn nhiên liệu
+                quan trọng
+                cho sản xuất điện,
+                vận tải
+                và công nghiệp.
+
+            </p>
+
+        </article>
+
+
+        <article class="mineral-card glass">
+
+            <div class="mineral-icon">
+                🏭
+            </div>
+
+            <h3>
+                Công nghiệp
+            </h3>
+
+            <p>
+
+                Quặng kim loại
+                cung cấp nguyên liệu
+                cho luyện kim,
+                cơ khí,
+                xây dựng
+                và sản xuất thiết bị.
+
+            </p>
+
+        </article>
+
+
+        <article class="mineral-card glass">
+
+            <div class="mineral-icon">
+                🧪
+            </div>
+
+            <h3>
+                Hoá chất và vật liệu
+            </h3>
+
+            <p>
+
+                Nhiều khoáng sản
+                được dùng
+                trong sản xuất xi măng,
+                phân bón,
+                hoá chất
+                và các vật liệu khác.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     KHAI THÁC HỢP LÍ
+     ========================================================= -->
+
+<section id="protect">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            12 • Bảo vệ tài nguyên
+        </div>
+
+        <h2>
+
+            Vì sao phải sử dụng
+            khoáng sản tiết kiệm?
+
+        </h2>
+
+        <p>
+
+            Nhiều loại khoáng sản
+            mất hàng triệu năm
+            để hình thành.
+
+            Một khi khai thác
+            với tốc độ quá nhanh,
+            trữ lượng có thể suy giảm
+            và môi trường
+            cũng chịu nhiều tác động.
+
+        </p>
+
+    </div>
+
+
+    <div class="resource-box">
+
+
+        <article class="resource-card glass">
+
+            <h3>
+                ⚠ Khai thác không hợp lí
+            </h3>
+
+            <ul>
+
+                <li>
+                    Làm suy giảm
+                    trữ lượng tài nguyên.
+                </li>
+
+                <li>
+                    Có thể phá vỡ
+                    cảnh quan và địa hình.
+                </li>
+
+                <li>
+                    Phát sinh bụi,
+                    nước thải,
+                    chất thải mỏ.
+                </li>
+
+                <li>
+                    Có thể ảnh hưởng
+                    đến đất,
+                    nước,
+                    hệ sinh thái
+                    và đời sống con người.
+                </li>
+
+            </ul>
+
+        </article>
+
+
+        <article class="resource-card glass">
+
+            <h3>
+                🌱 Sử dụng hợp lí
+            </h3>
+
+            <ul>
+
+                <li>
+                    Khai thác theo quy hoạch
+                    và tiết kiệm.
+                </li>
+
+                <li>
+                    Nâng cao hiệu quả
+                    sử dụng nguyên liệu.
+                </li>
+
+                <li>
+                    Thu hồi,
+                    tái sử dụng
+                    và tái chế kim loại
+                    khi có thể.
+                </li>
+
+                <li>
+                    Phục hồi môi trường
+                    sau khai thác.
+                </li>
+
+            </ul>
+
+        </article>
+
+
+    </div>
+
+
+    <div
+        class="note"
+        style="margin-top:20px"
+    >
+
+        <strong>
+            Thông điệp:
+        </strong>
+
+        Khoáng sản là
+        <strong>
+            tài sản của tự nhiên
+        </strong>
+        được hình thành
+        trong thời gian rất dài.
+
+        Khai thác khoáng sản
+        không chỉ là lấy tài nguyên,
+        mà còn phải gắn với
+        <strong>
+            tiết kiệm,
+            hiệu quả
+            và bảo vệ môi trường.
+        </strong>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MỐI LIÊN HỆ VỚI BÀI TRƯỚC
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            13 • Kết nối kiến thức
+        </div>
+
+        <h2>
+
+            Địa hình hôm nay
+            là kết quả của
+            những quá trình nào?
+
+        </h2>
+
+    </div>
+
+
+    <div class="terrain-grid">
+
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                🌋
+            </div>
+
+            <h3>
+                Nội sinh
+            </h3>
+
+            <p>
+
+                Chuyển động kiến tạo,
+                uốn nếp,
+                đứt gãy,
+                núi lửa
+                có thể tạo ra
+                hoặc làm biến đổi
+                những dạng địa hình lớn.
+
+            </p>
+
+        </article>
+
+
+        <article class="terrain-card glass">
+
+            <div class="terrain-icon">
+                💧
+            </div>
+
+            <h3>
+                Ngoại sinh
+            </h3>
+
+            <p>
+
+                Phong hoá,
+                xâm thực,
+                vận chuyển
+                và bồi tụ
+                tiếp tục làm biến đổi
+                các dạng địa hình
+                theo thời gian.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+
+    <div
+        class="note"
+        style="margin-top:20px"
+    >
+
+        <strong>
+            Chuỗi kiến thức:
+        </strong>
+
+        Nội sinh + Ngoại sinh
+        →
+        biến đổi bề mặt Trái Đất
+        →
+        hình thành nhiều dạng địa hình
+        →
+        tạo nên không gian tự nhiên
+        đa dạng mà chúng ta quan sát ngày nay.
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     TỰ KIỂM TRA
+     ========================================================= -->
+
+<section id="quiz">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            14 • Tự kiểm tra
+        </div>
+
+        <h2>
+            Em đã hiểu bài chưa?
+        </h2>
+
+        <p>
+
+            Hãy hoàn thành
+            các câu hỏi dưới đây
+            trước khi chuyển
+            sang phần bài tập tương tác.
+
+        </p>
+
+    </div>
+
+
+    <div class="quiz-box glass">
+
+
+        <!-- Q1 -->
+
+        <div
+            class="question"
+            data-answer="b"
+        >
+
+            <h3>
+
+                Câu 1.
+                Đặc điểm nổi bật
+                của địa hình núi là gì?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="a"
+                >
+
+                Bề mặt hoàn toàn
+                bằng phẳng.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="b"
+                >
+
+                Nhô cao rõ rệt,
+                thường trên 500 m,
+                có đỉnh và sườn.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="c"
+                >
+
+                Luôn thấp hơn 200 m.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q1"
+                    value="d"
+                >
+
+                Không có sự chênh lệch
+                độ cao.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q2 -->
+
+        <div
+            class="question"
+            data-answer="c"
+        >
+
+            <h3>
+
+                Câu 2.
+                Điểm khác nhau nổi bật
+                giữa cao nguyên
+                và đồng bằng là gì?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="a"
+                >
+
+                Cao nguyên luôn
+                có đỉnh nhọn.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="b"
+                >
+
+                Đồng bằng luôn
+                nằm sát biển.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="c"
+                >
+
+                Cao nguyên có thể
+                khá bằng phẳng
+                nhưng nằm ở độ cao lớn hơn.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q2"
+                    value="d"
+                >
+
+                Hai dạng địa hình
+                hoàn toàn giống nhau.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q3 -->
+
+        <div
+            class="question"
+            data-answer="a"
+        >
+
+            <h3>
+
+                Câu 3.
+                Khoáng sản là gì?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="a"
+                >
+
+                Khoáng vật
+                và khoáng chất tự nhiên
+                có ích đối với con người.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="b"
+                >
+
+                Mọi loại đất đá
+                trên bề mặt Trái Đất.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="c"
+                >
+
+                Chỉ gồm dầu mỏ
+                và than đá.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q3"
+                    value="d"
+                >
+
+                Chỉ gồm
+                các kim loại quý.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q4 -->
+
+        <div
+            class="question"
+            data-answer="d"
+        >
+
+            <h3>
+
+                Câu 4.
+                Nhóm nào gồm
+                các khoáng sản năng lượng?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="a"
+                >
+
+                Sắt,
+                đồng,
+                chì.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="b"
+                >
+
+                Đá vôi,
+                apatit,
+                muối.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="c"
+                >
+
+                Đồng,
+                bô-xit,
+                kẽm.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q4"
+                    value="d"
+                >
+
+                Than,
+                dầu mỏ,
+                khí tự nhiên.
+
+            </label>
+
+        </div>
+
+
+        <!-- Q5 -->
+
+        <div
+            class="question"
+            data-answer="b"
+        >
+
+            <h3>
+
+                Câu 5.
+                Vì sao cần sử dụng
+                khoáng sản tiết kiệm?
+
+            </h3>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="a"
+                >
+
+                Vì khoáng sản
+                hình thành rất nhanh.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="b"
+                >
+
+                Vì nhiều khoáng sản
+                có trữ lượng hữu hạn
+                và hình thành
+                trong thời gian địa chất dài.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="c"
+                >
+
+                Vì con người
+                không cần khoáng sản.
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="q5"
+                    value="d"
+                >
+
+                Vì tất cả khoáng sản
+                đều có thể tái tạo
+                trong vài năm.
+
+            </label>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            id="checkQuiz"
+        >
+
+            Kiểm tra kết quả
+
+        </button>
+
+
+        <div
+            class="result"
+            id="quizResult"
+        ></div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     THUẬT NGỮ
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            15 • Từ khóa cần nhớ
+        </div>
+
+        <h2>
+            Hệ thống thuật ngữ
+        </h2>
+
+    </div>
+
+
+    <details>
+
+        <summary>
+            Địa hình
+        </summary>
+
+        <p>
+
+            Hình dạng cao thấp,
+            lồi lõm
+            của bề mặt Trái Đất.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Núi
+        </summary>
+
+        <p>
+
+            Dạng địa hình
+            nhô cao rõ rệt,
+            thường cao trên 500 m
+            so với mực nước biển,
+            có đỉnh,
+            sườn
+            và chân núi.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Đồi
+        </summary>
+
+        <p>
+
+            Dạng địa hình
+            nhô cao nhưng
+            thường thấp hơn núi,
+            có đỉnh tròn
+            và sườn tương đối thoải.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Cao nguyên
+        </summary>
+
+        <p>
+
+            Dạng địa hình
+            có độ cao tương đối lớn,
+            thường trên 500 m,
+            nhưng bề mặt
+            tương đối bằng phẳng
+            hoặc gợn sóng.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Đồng bằng
+        </summary>
+
+        <p>
+
+            Dạng địa hình
+            nhìn chung thấp,
+            tương đối bằng phẳng
+            hoặc hơi gợn sóng.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Khoáng sản
+        </summary>
+
+        <p>
+
+            Những khoáng vật
+            và khoáng chất tự nhiên
+            có ích,
+            được con người
+            khai thác
+            và sử dụng.
+
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Mỏ khoáng sản
+        </summary>
+
+        <p>
+
+            Nơi khoáng sản
+            tập trung với
+            trữ lượng
+            và điều kiện nhất định,
+            có thể được khai thác.
+
+        </p>
+
+    </details>
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+<div class="container">
+
+    <strong>
+        GEO EARTH 6 • HỌC LIỆU SỐ ĐỊA LÍ
+    </strong>
+
+    <p>
+
+        Chủ đề:
+        Các dạng địa hình chính
+        trên Trái Đất.
+        Khoáng sản.
+
+    </p>
+
+</div>
+
+</footer>
+
+
+<button
+    id="backTop"
+    aria-label="Lên đầu trang"
+>
+    ↑
+</button>
+
+
+<script>
+
+/* =========================================================
+   TỰ KIỂM TRA
+   ========================================================= */
+
+const quizButton =
+    document.getElementById(
+        "checkQuiz"
+    );
+
+
+quizButton.addEventListener(
+    "click",
+    function(){
+
+        const questions =
+            document.querySelectorAll(
+                ".question"
+            );
+
+
+        let score = 0;
+
+        let answered = 0;
+
+
+        questions.forEach(
+            question => {
+
+                const selected =
+                    question.querySelector(
+                        "input:checked"
+                    );
+
+
+                if(selected){
+
+                    answered++;
+
+
+                    if(
+                        selected.value ===
+                        question.dataset.answer
+                    ){
+
+                        score++;
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        const result =
+            document.getElementById(
+                "quizResult"
+            );
+
+
+        result.style.display =
+            "block";
+
+
+        if(
+            answered <
+            questions.length
+        ){
+
+            result.innerHTML = `
+
+                ⚠ Em mới hoàn thành
+
+                <strong>
+                    ${answered}/${questions.length}
+                </strong>
+
+                câu hỏi.
+
+                Hãy trả lời đủ
+                trước khi kiểm tra.
+
+            `;
+
+            return;
+
+        }
+
+
+        const percent =
+            Math.round(
+                score /
+                questions.length *
+                100
+            );
+
+
+        let message = "";
+
+
+        if(
+            percent === 100
+        ){
+
+            message = `
+
+                🌟 Xuất sắc!
+
+                Em đã phân biệt
+                rất tốt các dạng địa hình
+                và hiểu chắc kiến thức
+                về khoáng sản.
+
+            `;
+
+        }
+
+        else if(
+            percent >= 80
+        ){
+
+            message = `
+
+                👍 Rất tốt!
+
+                Em đã nắm khá chắc bài học.
+
+            `;
+
+        }
+
+        else if(
+            percent >= 60
+        ){
+
+            message = `
+
+                📚 Khá tốt.
+
+                Em nên xem lại
+                bảng so sánh
+                núi – đồi –
+                cao nguyên –
+                đồng bằng.
+
+            `;
+
+        }
+
+        else{
+
+            message = `
+
+                🔎 Em hãy đọc lại
+                các phần:
+
+                độ cao,
+                hình thái địa hình
+                và phân loại khoáng sản,
+                sau đó thử lại.
+
+            `;
+
+        }
+
+
+        result.innerHTML = `
+
+            <strong>
+
+                Kết quả:
+                ${score}/${questions.length}
+                câu đúng
+                (${percent}%)
+
+            </strong>
+
+            <br><br>
+
+            ${message}
+
+        `;
+
+    }
+);
+
+
+/* =========================================================
+   NÚT LÊN ĐẦU
+   ========================================================= */
+
+const backTop =
+    document.getElementById(
+        "backTop"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        if(
+            window.scrollY >
+            500
+        ){
+
+            backTop.style.display =
+                "grid";
+
+        }
+
+        else{
+
+            backTop.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+backTop.addEventListener(
+    "click",
+    function(){
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cấu tạo của Trái Đất - Earth Explorer</title>
+
+  <style>
+    /* =========================================================
+       1. RESET + BIẾN MÀU
+    ========================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-1: #06071d;
+      --bg-2: #0b1031;
+      --bg-3: #081b40;
+
+      --panel: rgba(11, 16, 49, 0.88);
+      --panel-light: rgba(22, 29, 76, 0.72);
+
+      --border: rgba(126, 116, 255, 0.35);
+      --border-light: rgba(119, 210, 255, 0.30);
+
+      --purple: #9e8cff;
+      --purple-light: #c5baff;
+
+      --blue: #78d9ff;
+      --blue-2: #7fa2ff;
+
+      --text: #eef1ff;
+      --text-soft: #c7ccea;
+      --text-muted: #9299c7;
+
+      --yellow: #ffd66b;
+      --orange: #ff9f5a;
+      --red: #ff7388;
+      --green: #70e3bd;
+
+      --radius-lg: 32px;
+      --radius-md: 22px;
+      --radius-sm: 15px;
+
+      --shadow:
+        0 18px 50px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(101, 64, 220, 0.26),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 90% 40%,
+          rgba(0, 125, 255, 0.17),
+          transparent 34%
+        ),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2) 55%, var(--bg-3));
+
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       2. NỀN SAO
+    ========================================================== */
+    .stars,
+    .stars::before,
+    .stars::after {
+      position: fixed;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .stars {
+      background-image:
+        radial-gradient(circle, #ffffff 1px, transparent 1.4px),
+        radial-gradient(circle, #8fcfff 1px, transparent 1.4px),
+        radial-gradient(circle, #d7ccff 1px, transparent 1.5px);
+
+      background-size:
+        140px 140px,
+        210px 210px,
+        300px 300px;
+
+      background-position:
+        10px 20px,
+        80px 60px,
+        130px 40px;
+
+      opacity: 0.42;
+    }
+
+    /* =========================================================
+       3. HEADER
+    ========================================================== */
+    header {
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      background: rgba(5, 6, 28, 0.88);
+      border-bottom: 1px solid rgba(138, 125, 255, 0.22);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      font-size: 22px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(117, 214, 255, 0.4),
+          rgba(152, 96, 255, 0.45)
+        );
+
+      box-shadow: 0 0 25px rgba(121, 154, 255, 0.18);
+    }
+
+    .brand span {
+      background: linear-gradient(
+        90deg,
+        #8a7cff,
+        #c6b9ff 40%,
+        #ffffff
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .top-btn {
+      text-decoration: none;
+      color: #ffffff;
+      padding: 11px 19px;
+      border-radius: 18px;
+      border: 1px solid rgba(130, 121, 255, 0.4);
+      background: rgba(20, 21, 59, 0.82);
+      transition: 0.25s ease;
+    }
+
+    .top-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--blue);
+      background: rgba(36, 40, 91, 0.9);
+    }
+
+    /* =========================================================
+       4. HERO
+    ========================================================== */
+    .hero {
+      max-width: 1400px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 75px 25px 45px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 8px 16px;
+      margin-bottom: 20px;
+
+      border-radius: 999px;
+      border: 1px solid rgba(132, 119, 255, 0.45);
+
+      color: #bdb3ff;
+      background: rgba(87, 68, 180, 0.12);
+
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.08;
+      font-weight: 950;
+
+      background:
+        linear-gradient(
+          90deg,
+          #c6baff 0%,
+          #9f94ff 40%,
+          #7ca9ff 100%
+        );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 850px;
+      margin: 22px auto 0;
+
+      color: #c9ceed;
+      font-size: 20px;
+    }
+
+    /* =========================================================
+       5. KHUNG CHÍNH
+    ========================================================== */
+    .container {
+      width: min(1450px, 92%);
+      margin: 0 auto 80px;
+    }
+
+    .panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(17, 19, 65, 0.92),
+          rgba(7, 19, 57, 0.94)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+
+      padding: 40px;
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+
+      margin-bottom: 13px;
+
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 900;
+
+      color: var(--blue);
+    }
+
+    .section-title .number {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(117, 210, 255, 0.18),
+          rgba(146, 103, 255, 0.24)
+        );
+
+      border: 1px solid rgba(124, 199, 255, 0.35);
+      color: white;
+      font-size: 20px;
+    }
+
+    .lead {
+      color: var(--text-soft);
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .highlight {
+      color: var(--yellow);
+      font-weight: 750;
+    }
+
+    strong {
+      color: #ffffff;
+    }
+
+    /* =========================================================
+       6. MỤC LỤC
+    ========================================================== */
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: var(--text);
+
+      border: 1px solid rgba(124, 122, 255, 0.25);
+      background: rgba(255, 255, 255, 0.025);
+
+      border-radius: 18px;
+      padding: 17px 18px;
+
+      transition: 0.25s;
+    }
+
+    .toc a:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+      background: rgba(110, 142, 255, 0.09);
+    }
+
+    .toc-number {
+      font-size: 12px;
+      color: var(--purple-light);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .toc-title {
+      display: block;
+      margin-top: 4px;
+      font-weight: 800;
+    }
+
+    /* =========================================================
+       7. LƯỚI CARD
+    ========================================================== */
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .info-card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.045),
+          rgba(255, 255, 255, 0.015)
+        );
+
+      border: 1px solid rgba(130, 143, 240, 0.24);
+
+      border-radius: 24px;
+      padding: 25px;
+
+      transition: 0.25s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(110, 211, 255, 0.55);
+    }
+
+    .info-card h3 {
+      color: #91ddff;
+      margin-bottom: 12px;
+      font-size: 21px;
+    }
+
+    .info-card p,
+    .info-card li {
+      color: #cbd0eb;
+    }
+
+    .info-card ul {
+      margin-left: 20px;
+    }
+
+    .info-card li {
+      margin: 7px 0;
+    }
+
+    /* =========================================================
+       8. SƠ ĐỒ CẤU TẠO
+    ========================================================== */
+    .earth-structure {
+      display: grid;
+      grid-template-columns: 0.85fr 1.4fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .earth-model {
+      width: 380px;
+      max-width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+
+      margin: auto;
+
+      position: relative;
+
+      background:
+        radial-gradient(
+          circle,
+          #ffe36a 0 14%,
+          #ff922e 14% 28%,
+          #c84927 28% 54%,
+          #955028 54% 58%,
+          #2c74b9 58% 100%
+        );
+
+      box-shadow:
+        0 0 0 9px rgba(112, 191, 255, 0.08),
+        0 0 80px rgba(93, 134, 255, 0.25);
+
+      overflow: hidden;
+    }
+
+    .earth-model::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent 48%,
+          rgba(5, 6, 22, 0.8) 49%,
+          rgba(5, 6, 22, 0.8) 100%
+        );
+    }
+
+    .earth-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .layer {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+
+      padding: 18px 20px;
+
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+    }
+
+    .layer-dot {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      border-radius: 50%;
+      margin-top: 7px;
+    }
+
+    .dot-crust {
+      background: #4b8fcb;
+    }
+
+    .dot-mantle {
+      background: #b9612e;
+    }
+
+    .dot-outer {
+      background: #ff912f;
+    }
+
+    .dot-inner {
+      background: #ffe36a;
+    }
+
+    .layer h4 {
+      font-size: 19px;
+      margin-bottom: 4px;
+      color: white;
+    }
+
+    .layer p {
+      color: var(--text-soft);
+    }
+
+    /* =========================================================
+       9. TABLE
+    ========================================================== */
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 22px;
+      border-radius: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    th,
+    td {
+      padding: 17px 18px;
+      border: 1px solid rgba(142, 153, 236, 0.17);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: #92ddff;
+      background: rgba(102, 100, 208, 0.13);
+      font-size: 15px;
+    }
+
+    td {
+      color: #cbd0e8;
+    }
+
+    /* =========================================================
+       10. KHỐI GHI NHỚ
+    ========================================================== */
+    .note {
+      margin-top: 24px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 218, 96, 0.3);
+      background: rgba(255, 199, 73, 0.06);
+      padding: 20px 22px;
+    }
+
+    .note-title {
+      font-weight: 900;
+      color: #ffd777;
+      margin-bottom: 7px;
+      font-size: 18px;
+    }
+
+    .note p {
+      color: #e4ddc8;
+    }
+
+    .important {
+      border-left: 4px solid var(--blue);
+      background: rgba(101, 202, 255, 0.07);
+      padding: 17px 21px;
+      border-radius: 0 16px 16px 0;
+      color: #d6e9f5;
+      margin: 20px 0;
+    }
+
+    /* =========================================================
+       11. RANH GIỚI MẢNG
+    ========================================================== */
+    .boundary-card {
+      min-height: 310px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .boundary-icon {
+      font-size: 44px;
+      margin-bottom: 12px;
+    }
+
+    .boundary-card h3 {
+      margin-bottom: 9px;
+      font-size: 22px;
+      color: #ffffff;
+    }
+
+    .boundary-card p {
+      color: #c9cde4;
+    }
+
+    .boundary-card .example {
+      margin-top: 15px;
+      color: #91ddff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       12. TAGS
+    ========================================================== */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      border: 1px solid rgba(128, 209, 255, 0.25);
+
+      padding: 7px 13px;
+
+      color: #a9dfff;
+      background: rgba(61, 179, 255, 0.06);
+
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       13. ACCORDION
+    ========================================================== */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .accordion-item {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(135, 138, 229, 0.22);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .accordion-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      border: none;
+      cursor: pointer;
+
+      color: #e7eaff;
+      background: transparent;
+
+      padding: 19px 22px;
+      text-align: left;
+
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .accordion-btn:hover {
+      background: rgba(133, 119, 255, 0.07);
+    }
+
+    .accordion-btn span:last-child {
+      color: var(--blue);
+      font-size: 22px;
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 0 22px 22px;
+      color: var(--text-soft);
+    }
+
+    .accordion-content.active {
+      display: block;
+    }
+
+    /* =========================================================
+       14. KIẾN THỨC TRỌNG TÂM
+    ========================================================== */
+    .memory-list {
+      counter-reset: remember;
+      display: grid;
+      gap: 15px;
+    }
+
+    .memory-item {
+      counter-increment: remember;
+
+      position: relative;
+      padding: 18px 18px 18px 67px;
+
+      border-radius: 18px;
+
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(122, 161, 255, 0.2);
+
+      color: #d0d5ed;
+    }
+
+    .memory-item::before {
+      content: counter(remember);
+
+      position: absolute;
+      left: 18px;
+      top: 16px;
+
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      color: white;
+      font-weight: 900;
+
+      background:
+        linear-gradient(
+          135deg,
+          #6659cf,
+          #348bcc
+        );
+    }
+
+    /* =========================================================
+       15. FOOTER
+    ========================================================== */
+    footer {
+      text-align: center;
+      padding: 34px 20px 50px;
+      color: #838aaf;
+    }
+
+    /* =========================================================
+       16. RESPONSIVE
+    ========================================================== */
+    @media (max-width: 1050px) {
+      .toc,
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .earth-structure {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 14px 20px;
+        gap: 14px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .hero {
+        padding-top: 45px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .panel {
+        padding: 25px 20px;
+        border-radius: 24px;
+      }
+
+      .toc,
+      .grid-2,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stars"></div>
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+  <header>
+
+    <div class="brand">
+      <div class="brand-icon">🌍</div>
+      <span>Earth Explorer</span>
+    </div>
+
+    <div class="header-actions">
+
+      <!-- ĐỔI index.html THÀNH LINK TRANG CHỦ CỦA BẠN -->
+      <a class="top-btn" href="index.html">
+        ⌂ Trang chủ
+      </a>
+
+      <a
+        class="top-btn"
+        href="javascript:history.back()"
+      >
+        ← Quay lại
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
+  <section class="hero">
+
+    <div class="hero-badge">
+      🌐 HỌC LIỆU SỐ ĐỊA LÍ 6
+    </div>
+
+    <h1>
+      Cấu tạo của Trái Đất
+    </h1>
+
+    <p>
+      Khám phá cấu trúc bên trong Trái Đất,
+      các mảng kiến tạo và quá trình vận động
+      làm biến đổi bề mặt hành tinh của chúng ta.
+    </p>
+
+  </section>
+
+
+  <main class="container">
+
+    <!-- =====================================================
+         MỤC LỤC
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">☰</span>
+        Nội dung khám phá
+      </div>
+
+      <p class="lead">
+        Chọn một nội dung để di chuyển nhanh đến phần kiến thức
+        cần tìm hiểu.
+      </p>
+
+      <div class="toc">
+
+        <a href="#khai-quat">
+          <span class="toc-number">Phần 01</span>
+          <span class="toc-title">
+            Khái quát về Trái Đất
+          </span>
+        </a>
+
+        <a href="#cau-tao">
+          <span class="toc-number">Phần 02</span>
+          <span class="toc-title">
+            Cấu tạo bên trong
+          </span>
+        </a>
+
+        <a href="#vo-trai-dat">
+          <span class="toc-number">Phần 03</span>
+          <span class="toc-title">
+            Vỏ Trái Đất
+          </span>
+        </a>
+
+        <a href="#mang-kien-tao">
+          <span class="toc-number">Phần 04</span>
+          <span class="toc-title">
+            Các mảng kiến tạo
+          </span>
+        </a>
+
+        <a href="#ranh-gioi">
+          <span class="toc-number">Phần 05</span>
+          <span class="toc-title">
+            Ranh giới các mảng
+          </span>
+        </a>
+
+        <a href="#he-qua">
+          <span class="toc-number">Phần 06</span>
+          <span class="toc-title">
+            Hệ quả vận động
+          </span>
+        </a>
+
+        <a href="#mo-rong">
+          <span class="toc-number">Phần 07</span>
+          <span class="toc-title">
+            Kiến thức mở rộng
+          </span>
+        </a>
+
+        <a href="#ghi-nho">
+          <span class="toc-number">Phần 08</span>
+          <span class="toc-title">
+            Kiến thức cần nhớ
+          </span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         1. KHÁI QUÁT
+    ====================================================== -->
+    <section class="panel" id="khai-quat">
+
+      <div class="section-title">
+        <span class="number">01</span>
+        Khái quát về Trái Đất
+      </div>
+
+      <p class="lead">
+        Trái Đất không phải là một khối vật chất đồng nhất.
+        Bên trong hành tinh được cấu tạo bởi nhiều lớp khác nhau
+        về thành phần vật chất, trạng thái và tính chất vật lí.
+      </p>
+
+      <div class="grid-3">
+
+        <article class="info-card">
+
+          <h3>🌍 Hình dạng</h3>
+
+          <p>
+            Trái Đất có dạng gần hình cầu nhưng hơi dẹt ở hai cực
+            và phình ra ở khu vực xích đạo.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>📏 Kích thước</h3>
+
+          <p>
+            Bán kính trung bình của Trái Đất khoảng
+            <strong>6.371 km</strong>.
+          </p>
+
+          <p>
+            Đường kính trung bình khoảng
+            <strong>12.742 km</strong>.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>🔥 Bên trong Trái Đất</h3>
+
+          <p>
+            Càng xuống sâu, nhìn chung nhiệt độ và áp suất
+            càng tăng. Điều kiện vật lí này làm cho vật chất
+            ở các lớp bên trong có trạng thái khác nhau.
+          </p>
+
+        </article>
+
+      </div>
+
+
+      <div class="important">
+
+        Các nhà khoa học không thể khoan tới tâm Trái Đất.
+        Kiến thức về cấu trúc bên trong chủ yếu được xây dựng
+        thông qua việc nghiên cứu
+        <strong>sóng địa chấn</strong>,
+        kết hợp với các bằng chứng địa vật lí,
+        địa hóa và mô hình khoa học.
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         2. CẤU TẠO TRÁI ĐẤT
+    ====================================================== -->
+    <section class="panel" id="cau-tao">
+
+      <div class="section-title">
+        <span class="number">02</span>
+        Cấu tạo bên trong Trái Đất
+      </div>
+
+      <p class="lead">
+
+        Nếu phân chia theo thành phần vật chất,
+        Trái Đất gồm ba lớp lớn:
+        <span class="highlight">vỏ Trái Đất</span>,
+        <span class="highlight">lớp manti</span>
+        và
+        <span class="highlight">nhân Trái Đất</span>.
+
+      </p>
+
+
+      <div class="earth-structure">
+
+        <div class="earth-model"></div>
+
+
+        <div class="earth-legend">
+
+          <div class="layer">
+
+            <div class="layer-dot dot-crust"></div>
+
+            <div>
+              <h4>1. Vỏ Trái Đất</h4>
+
+              <p>
+                Là lớp ngoài cùng, rắn chắc và mỏng nhất
+                so với toàn bộ kích thước Trái Đất.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="layer">
+
+            <div class="layer-dot dot-mantle"></div>
+
+            <div>
+
+              <h4>2. Lớp manti</h4>
+
+              <p>
+                Nằm dưới vỏ Trái Đất và kéo dài đến độ sâu
+                khoảng <strong>2.900 km</strong>.
+                Đây là lớp chiếm phần lớn thể tích Trái Đất.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="layer">
+
+            <div class="layer-dot dot-outer"></div>
+
+            <div>
+
+              <h4>3. Nhân ngoài</h4>
+
+              <p>
+                Chủ yếu chứa sắt và niken,
+                tồn tại phần lớn ở trạng thái lỏng.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="layer">
+
+            <div class="layer-dot dot-inner"></div>
+
+            <div>
+
+              <h4>4. Nhân trong</h4>
+
+              <p>
+                Chủ yếu gồm sắt và niken,
+                có trạng thái rắn do áp suất cực lớn.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Lớp</th>
+              <th>Vị trí</th>
+              <th>Độ sâu / độ dày</th>
+              <th>Đặc điểm vật chất</th>
+              <th>Đặc điểm nổi bật</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr>
+
+              <td>
+                <strong>Vỏ Trái Đất</strong>
+              </td>
+
+              <td>
+                Ngoài cùng
+              </td>
+
+              <td>
+                Khoảng 5–70 km
+              </td>
+
+              <td>
+                Vật chất rắn
+              </td>
+
+              <td>
+                Là nơi tồn tại lục địa,
+                đại dương và diễn ra phần lớn
+                hoạt động sống của con người.
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                <strong>Manti</strong>
+              </td>
+
+              <td>
+                Dưới lớp vỏ
+              </td>
+
+              <td>
+                Từ đáy vỏ đến khoảng 2.900 km
+              </td>
+
+              <td>
+                Chủ yếu là đá silicat giàu
+                magie và sắt.
+              </td>
+
+              <td>
+                Phần lớn ở trạng thái rắn nhưng
+                trong thời gian địa chất có thể
+                biến dạng và chuyển động rất chậm.
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                <strong>Nhân ngoài</strong>
+              </td>
+
+              <td>
+                Dưới manti
+              </td>
+
+              <td>
+                Khoảng 2.900–5.150 km
+              </td>
+
+              <td>
+                Chủ yếu sắt và niken ở trạng thái lỏng
+              </td>
+
+              <td>
+                Chuyển động của vật chất dẫn điện
+                trong nhân ngoài góp phần tạo ra
+                từ trường Trái Đất.
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                <strong>Nhân trong</strong>
+              </td>
+
+              <td>
+                Trung tâm Trái Đất
+              </td>
+
+              <td>
+                Khoảng 5.150–6.371 km
+              </td>
+
+              <td>
+                Chủ yếu sắt và niken,
+                trạng thái rắn
+              </td>
+
+              <td>
+                Nhiệt độ rất cao nhưng áp suất lớn
+                khiến vật chất vẫn tồn tại ở trạng thái rắn.
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <div class="note">
+
+        <div class="note-title">
+          💡 Cần phân biệt
+        </div>
+
+        <p>
+          Trong chương trình phổ thông,
+          cấu tạo Trái Đất thường được trình bày thành
+          <strong>vỏ Trái Đất – manti – nhân</strong>.
+          Tuy nhiên, khi xét theo tính chất cơ học,
+          các nhà khoa học còn phân chia thành
+          thạch quyển, quyển mềm, manti dưới,
+          nhân ngoài và nhân trong.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         3. VỎ TRÁI ĐẤT
+    ====================================================== -->
+    <section class="panel" id="vo-trai-dat">
+
+      <div class="section-title">
+        <span class="number">03</span>
+        Vỏ Trái Đất
+      </div>
+
+      <p class="lead">
+
+        Vỏ Trái Đất là lớp vật chất rắn chắc ngoài cùng.
+        Tuy rất mỏng so với bán kính Trái Đất,
+        đây lại là nơi trực tiếp hình thành lục địa,
+        đáy đại dương và các dạng địa hình.
+
+      </p>
+
+
+      <div class="grid-2">
+
+        <article class="info-card">
+
+          <h3>🏔️ Vỏ lục địa</h3>
+
+          <ul>
+
+            <li>
+              Tạo nên phần lớn các lục địa.
+            </li>
+
+            <li>
+              Thường dày khoảng
+              <strong>30–70 km</strong>.
+            </li>
+
+            <li>
+              Có nơi dày hơn dưới các hệ thống núi lớn.
+            </li>
+
+            <li>
+              Thành phần đá khá đa dạng.
+            </li>
+
+            <li>
+              Nhìn chung có khối lượng riêng nhỏ hơn
+              vỏ đại dương.
+            </li>
+
+            <li>
+              Có thể chứa những phần vật chất rất cổ,
+              tuổi lên tới hàng tỉ năm.
+            </li>
+
+          </ul>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>🌊 Vỏ đại dương</h3>
+
+          <ul>
+
+            <li>
+              Nằm chủ yếu dưới đáy đại dương.
+            </li>
+
+            <li>
+              Thường dày khoảng
+              <strong>5–10 km</strong>.
+            </li>
+
+            <li>
+              Thành phần phổ biến có liên quan đến
+              đá bazan và gabro.
+            </li>
+
+            <li>
+              Có khối lượng riêng lớn hơn
+              vỏ lục địa.
+            </li>
+
+            <li>
+              Phần lớn vỏ đại dương trẻ hơn nhiều
+              so với các phần cổ của vỏ lục địa.
+            </li>
+
+          </ul>
+
+        </article>
+
+      </div>
+
+
+      <div class="note">
+
+        <div class="note-title">
+          📌 Điểm quan trọng
+        </div>
+
+        <p>
+          <strong>Vỏ Trái Đất không đồng nghĩa hoàn toàn với
+          mảng kiến tạo.</strong>
+
+          Mảng kiến tạo là một phần của
+          <strong>thạch quyển</strong>,
+          gồm vỏ Trái Đất và phần trên cùng rắn chắc của manti.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         4. THẠCH QUYỂN - QUYỂN MỀM
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">04</span>
+        Thạch quyển và quyển mềm
+      </div>
+
+      <p class="lead">
+        Hai khái niệm này rất quan trọng để giải thích
+        vì sao các mảng kiến tạo có thể dịch chuyển.
+      </p>
+
+
+      <div class="grid-2">
+
+        <article class="info-card">
+
+          <h3>🪨 Thạch quyển</h3>
+
+          <p>
+            Thạch quyển là lớp ngoài cùng có tính
+            <strong>rắn chắc</strong> của Trái Đất,
+            bao gồm:
+          </p>
+
+          <ul>
+            <li>Toàn bộ vỏ Trái Đất.</li>
+            <li>Phần trên cùng rắn chắc của manti.</li>
+          </ul>
+
+          <p>
+            Thạch quyển không phải một khối nguyên vẹn
+            mà bị chia thành nhiều
+            <strong>mảng kiến tạo</strong>.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>♨️ Quyển mềm</h3>
+
+          <p>
+            Bên dưới phần thạch quyển thuộc manti trên là
+            một vùng vật chất nóng,
+            có khả năng biến dạng và chuyển động chậm,
+            thường được gọi là
+            <strong>quyển mềm</strong>.
+          </p>
+
+          <p>
+            Chính đặc điểm vật lí của khu vực này
+            tạo điều kiện để các mảng thạch quyển
+            dịch chuyển trong thời gian địa chất.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         5. MẢNG KIẾN TẠO
+    ====================================================== -->
+    <section class="panel" id="mang-kien-tao">
+
+      <div class="section-title">
+        <span class="number">05</span>
+        Các mảng kiến tạo
+      </div>
+
+      <p class="lead">
+
+        Thạch quyển bị chia cắt thành nhiều khối lớn nhỏ.
+        Các khối này được gọi là
+        <strong>mảng kiến tạo</strong>
+        hay
+        <strong>mảng thạch quyển</strong>.
+
+        Chúng chuyển động rất chậm so với nhau,
+        thường chỉ từ vài milimét đến vài centimét mỗi năm.
+
+      </p>
+
+
+      <div class="important">
+
+        Mảng kiến tạo có thể bao gồm
+        <strong>cả phần lục địa và phần đáy đại dương</strong>.
+        Vì vậy không nên hiểu rằng ranh giới mảng
+        luôn trùng với đường bờ biển hoặc ranh giới các châu lục.
+
+      </div>
+
+
+      <h3 style="margin: 28px 0 17px; color: #ffffff;">
+        Một số mảng kiến tạo lớn
+      </h3>
+
+
+      <div class="grid-4">
+
+        <div class="info-card">
+
+          <h3>🌊 Mảng Thái Bình Dương</h3>
+
+          <p>
+            Nằm chủ yếu dưới Thái Bình Dương.
+            Đây là một trong những mảng kiến tạo lớn
+            và hoạt động mạnh.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🌎 Mảng Bắc Mỹ</h3>
+
+          <p>
+            Bao gồm phần lớn Bắc Mỹ và
+            một phần đáy đại dương lân cận.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🌎 Mảng Nam Mỹ</h3>
+
+          <p>
+            Bao gồm phần lớn lục địa Nam Mỹ
+            cùng một phần đáy Đại Tây Dương.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🌍 Mảng Phi</h3>
+
+          <p>
+            Bao gồm phần lớn châu Phi
+            và các vùng đáy đại dương xung quanh.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🌏 Mảng Á - Âu</h3>
+
+          <p>
+            Bao phủ phần lớn châu Âu và châu Á,
+            nhưng không bao gồm toàn bộ mọi khu vực
+            của hai châu lục này.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🌏 Mảng Ấn - Úc</h3>
+
+          <p>
+            Trong nhiều sơ đồ giáo khoa thường được
+            trình bày như một mảng lớn.
+            Các nghiên cứu hiện đại cũng xem xét
+            sự vận động phức tạp giữa các phần
+            Ấn Độ và Australia.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🧊 Mảng Nam Cực</h3>
+
+          <p>
+            Bao gồm châu Nam Cực
+            và phần rộng lớn của đáy đại dương xung quanh.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>🧩 Các mảng nhỏ</h3>
+
+          <p>
+            Ngoài các mảng lớn còn có nhiều mảng nhỏ như
+            Nazca, Cocos, Caribe, Philippines,
+            Arabia, Scotia...
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         6. VÌ SAO CÁC MẢNG CHUYỂN ĐỘNG?
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">06</span>
+        Vì sao các mảng kiến tạo chuyển động?
+      </div>
+
+      <p class="lead">
+
+        Sự chuyển động của các mảng liên quan đến
+        năng lượng nhiệt bên trong Trái Đất
+        và sự vận động của vật chất trong manti.
+
+      </p>
+
+
+      <div class="grid-3">
+
+        <article class="info-card">
+
+          <h3>🔥 Nhiệt bên trong Trái Đất</h3>
+
+          <p>
+            Trái Đất vẫn chứa một lượng nhiệt rất lớn,
+            bao gồm nhiệt còn lại từ quá trình hình thành
+            hành tinh và nhiệt do sự phân rã
+            của các nguyên tố phóng xạ.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>↕️ Vật chất trong manti</h3>
+
+          <p>
+            Trong thời gian rất dài,
+            vật chất trong manti có thể dịch chuyển chậm.
+            Sự vận động này góp phần vào
+            chuyển động của thạch quyển.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>↔️ Các lực tác động lên mảng</h3>
+
+          <p>
+            Chuyển động mảng là kết quả của nhiều cơ chế,
+            trong đó có lực liên quan đến
+            các mảng chìm xuống ở đới hút chìm,
+            sự hình thành vật chất mới ở sống núi giữa đại dương
+            và dòng vật chất trong manti.
+          </p>
+
+        </article>
+
+      </div>
+
+
+      <div class="note">
+
+        <div class="note-title">
+          🔬 Kiến thức mở rộng
+        </div>
+
+        <p>
+          Trong khoa học hiện đại,
+          chuyển động mảng không được giải thích đơn giản
+          chỉ bằng một vòng “đối lưu kéo các mảng đi”.
+          Nhiều cơ chế cùng tác động,
+          trong đó lực kéo của phần mảng lạnh chìm xuống
+          tại các đới hút chìm là một yếu tố rất quan trọng.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         7. RANH GIỚI MẢNG
+    ====================================================== -->
+    <section class="panel" id="ranh-gioi">
+
+      <div class="section-title">
+        <span class="number">07</span>
+        Ba kiểu ranh giới mảng kiến tạo
+      </div>
+
+      <p class="lead">
+
+        Hoạt động kiến tạo diễn ra đặc biệt mạnh
+        tại nơi các mảng tiếp xúc với nhau.
+        Có ba kiểu ranh giới cơ bản:
+        <strong>tách giãn</strong>,
+        <strong>hội tụ</strong>
+        và
+        <strong>trượt bằng</strong>.
+
+      </p>
+
+
+      <div class="grid-3">
+
+        <!-- TÁCH GIÃN -->
+        <article class="info-card boundary-card">
+
+          <div class="boundary-icon">
+            ← 🌋 →
+          </div>
+
+          <h3>1. Ranh giới tách giãn</h3>
+
+          <p>
+            Hai mảng chuyển động
+            <strong>ra xa nhau</strong>.
+          </p>
+
+          <p>
+            Vật chất nóng từ bên dưới có thể đi lên,
+            nguội đi và tạo thành vật chất thạch quyển mới.
+          </p>
+
+          <p>
+            Quá trình này thường xảy ra
+            dọc các sống núi giữa đại dương
+            hoặc vùng tách giãn trên lục địa.
+          </p>
+
+          <div class="example">
+            Ví dụ: Sống núi giữa Đại Tây Dương.
+          </div>
+
+        </article>
+
+
+        <!-- HỘI TỤ -->
+        <article class="info-card boundary-card">
+
+          <div class="boundary-icon">
+            → ⛰️ ←
+          </div>
+
+          <h3>2. Ranh giới hội tụ</h3>
+
+          <p>
+            Hai mảng chuyển động
+            <strong>lại gần nhau</strong>.
+          </p>
+
+          <p>
+            Tùy loại mảng tiếp xúc,
+            một mảng có thể chìm xuống bên dưới mảng kia
+            hoặc hai khối lục địa có thể va chạm,
+            làm vỏ Trái Đất bị nén ép và nâng cao.
+          </p>
+
+          <div class="example">
+            Ví dụ: dãy Himalaya;
+            dãy Andes và đới hút chìm phía tây Nam Mỹ.
+          </div>
+
+        </article>
+
+
+        <!-- TRƯỢT -->
+        <article class="info-card boundary-card">
+
+          <div class="boundary-icon">
+            ⇆
+          </div>
+
+          <h3>3. Ranh giới trượt bằng</h3>
+
+          <p>
+            Hai mảng chuyển động
+            <strong>trượt ngang qua nhau</strong>.
+          </p>
+
+          <p>
+            Đá ở hai phía có thể bị mắc kẹt,
+            tích tụ ứng suất.
+            Khi ứng suất được giải phóng đột ngột,
+            động đất có thể xảy ra.
+          </p>
+
+          <div class="example">
+            Ví dụ: đứt gãy San Andreas ở California.
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         8. CÁC TRƯỜNG HỢP HỘI TỤ
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">08</span>
+        Các trường hợp hội tụ của mảng
+      </div>
+
+      <p class="lead">
+
+        Ranh giới hội tụ không phải nơi nào
+        cũng diễn ra giống nhau.
+        Kết quả phụ thuộc vào loại thạch quyển
+        đang va chạm.
+
+      </p>
+
+
+      <div class="accordion">
+
+        <div class="accordion-item">
+
+          <button class="accordion-btn">
+            Đại dương – Lục địa
+            <span>＋</span>
+          </button>
+
+          <div class="accordion-content">
+
+            <p>
+              Thạch quyển đại dương thường có khối lượng riêng
+              lớn hơn nên có thể chìm xuống dưới
+              thạch quyển lục địa.
+            </p>
+
+            <br>
+
+            <p>
+              Quá trình này tạo nên
+              <strong>đới hút chìm</strong>,
+              thường gắn với động đất,
+              hoạt động magma và dãy núi lửa
+              trên rìa lục địa.
+            </p>
+
+            <br>
+
+            <p>
+              Ví dụ điển hình là khu vực
+              phía tây Nam Mỹ,
+              nơi mảng Nazca hút chìm
+              dưới mảng Nam Mỹ.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+          <button class="accordion-btn">
+            Đại dương – Đại dương
+            <span>＋</span>
+          </button>
+
+          <div class="accordion-content">
+
+            <p>
+              Một mảng đại dương có thể chìm xuống
+              bên dưới mảng đại dương còn lại.
+            </p>
+
+            <br>
+
+            <p>
+              Quá trình này có thể hình thành
+              <strong>rãnh đại dương sâu</strong>
+              và
+              <strong>cung đảo núi lửa</strong>.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+          <button class="accordion-btn">
+            Lục địa – Lục địa
+            <span>＋</span>
+          </button>
+
+          <div class="accordion-content">
+
+            <p>
+              Do cả hai khối lục địa đều có khả năng nổi tương đối,
+              chúng khó chìm sâu xuống manti như thạch quyển đại dương.
+            </p>
+
+            <br>
+
+            <p>
+              Khi va chạm, vỏ Trái Đất bị
+              nén ép, uốn nếp, đứt gãy và dày lên,
+              tạo thành các dãy núi lớn.
+            </p>
+
+            <br>
+
+            <p>
+              Ví dụ:
+              sự va chạm của mảng Ấn Độ với mảng Á – Âu
+              góp phần tạo nên dãy
+              <strong>Himalaya</strong>.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         9. HỆ QUẢ
+    ====================================================== -->
+    <section class="panel" id="he-qua">
+
+      <div class="section-title">
+        <span class="number">09</span>
+        Hệ quả của vận động mảng kiến tạo
+      </div>
+
+      <p class="lead">
+
+        Chuyển động của các mảng là một trong những nguyên nhân
+        quan trọng làm bề mặt Trái Đất
+        không ngừng biến đổi trong thời gian địa chất.
+
+      </p>
+
+
+      <div class="grid-4">
+
+        <article class="info-card">
+
+          <h3>⛰️ Hình thành núi</h3>
+
+          <p>
+            Va chạm và nén ép giữa các mảng
+            có thể làm các lớp đá bị uốn nếp,
+            đứt gãy và nâng cao,
+            hình thành các hệ thống núi.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>🌋 Núi lửa</h3>
+
+          <p>
+            Nhiều núi lửa tập trung
+            ở các ranh giới mảng,
+            đặc biệt tại các đới hút chìm
+            và vùng tách giãn.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>⚡ Động đất</h3>
+
+          <p>
+            Khi ứng suất tích tụ trong đá
+            được giải phóng đột ngột,
+            năng lượng truyền đi dưới dạng
+            sóng địa chấn và gây động đất.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>🌊 Địa hình đại dương</h3>
+
+          <p>
+            Hoạt động kiến tạo góp phần tạo nên
+            sống núi giữa đại dương,
+            rãnh sâu đại dương,
+            cung đảo và nhiều dạng địa hình khác.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         10. VÀNH ĐAI LỬA
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">10</span>
+        Vành đai lửa Thái Bình Dương
+      </div>
+
+      <p class="lead">
+
+        Xung quanh Thái Bình Dương có một khu vực
+        tập trung nhiều núi lửa và động đất,
+        thường được gọi là
+        <strong>Vành đai lửa Thái Bình Dương</strong>.
+
+      </p>
+
+
+      <div class="grid-2">
+
+        <article class="info-card">
+
+          <h3>🔥 Tại sao hoạt động mạnh?</h3>
+
+          <p>
+            Rìa Thái Bình Dương có nhiều ranh giới mảng,
+            đặc biệt là các đới hút chìm.
+            Đây là nơi các mảng tương tác mạnh,
+            tạo điều kiện phát sinh
+            nhiều trận động đất và hoạt động núi lửa.
+          </p>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>📍 Một số khu vực tiêu biểu</h3>
+
+          <div class="tags">
+
+            <span class="tag">Nhật Bản</span>
+
+            <span class="tag">Philippines</span>
+
+            <span class="tag">Indonesia</span>
+
+            <span class="tag">New Zealand</span>
+
+            <span class="tag">Alaska</span>
+
+            <span class="tag">Bờ tây Bắc Mỹ</span>
+
+            <span class="tag">Dãy Andes</span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         11. SÓNG ĐỊA CHẤN
+    ====================================================== -->
+    <section class="panel" id="mo-rong">
+
+      <div class="section-title">
+        <span class="number">11</span>
+        Làm thế nào biết được cấu tạo bên trong Trái Đất?
+      </div>
+
+      <p class="lead">
+
+        Một trong những bằng chứng quan trọng nhất
+        đến từ việc nghiên cứu
+        <strong>sóng địa chấn</strong>
+        do động đất tạo ra.
+
+      </p>
+
+
+      <div class="grid-2">
+
+        <article class="info-card">
+
+          <h3>Sóng P</h3>
+
+          <ul>
+
+            <li>
+              Là sóng địa chấn truyền nhanh.
+            </li>
+
+            <li>
+              Có thể truyền qua
+              chất rắn và chất lỏng.
+            </li>
+
+            <li>
+              Khi đi qua các lớp vật chất khác nhau,
+              tốc độ và hướng truyền của sóng thay đổi.
+            </li>
+
+          </ul>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <h3>Sóng S</h3>
+
+          <ul>
+
+            <li>
+              Truyền chậm hơn sóng P.
+            </li>
+
+            <li>
+              Không truyền qua chất lỏng.
+            </li>
+
+            <li>
+              Việc sóng S không đi qua nhân ngoài
+              là một bằng chứng quan trọng cho thấy
+              nhân ngoài của Trái Đất ở trạng thái lỏng.
+            </li>
+
+          </ul>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         12. LÝ THUYẾT KIẾN TẠO MẢNG
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">12</span>
+        Từ trôi dạt lục địa đến kiến tạo mảng
+      </div>
+
+      <p class="lead">
+
+        Quan niệm hiện đại về sự vận động của bề mặt Trái Đất
+        được hình thành qua quá trình phát triển lâu dài
+        của khoa học địa chất.
+
+      </p>
+
+
+      <div class="accordion">
+
+        <div class="accordion-item">
+
+          <button class="accordion-btn">
+            1. Ý tưởng lục địa từng nối liền nhau
+            <span>＋</span>
+          </button>
+
+          <div class="accordion-content">
+
+            <p>
+              Đầu thế kỉ XX,
+              Alfred Wegener đề xuất giả thuyết
+              <strong>trôi dạt lục địa</strong>.
+              Ông cho rằng các lục địa ngày nay
+              từng hợp lại thành một khối lớn
+              rồi dần tách ra.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+          <button class="accordion-btn">
+            2. Bằng chứng được sử dụng
+            <span>＋</span>
+          </button>
+
+          <div class="accordion-content">
+
+            <p>
+              Những bằng chứng được xem xét gồm:
+              sự tương đồng về hình dạng giữa một số bờ lục địa,
+              các loại hóa thạch giống nhau trên các lục địa
+              hiện nằm cách xa nhau,
+              sự tương đồng của các dãy đá,
+              và dấu tích khí hậu cổ.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+          <button class="accordion-btn">
+            3. Sự hình thành thuyết kiến tạo mảng hiện đại
+            <span>＋</span>
+          </button>
+
+          <div class="accordion-content">
+
+            <p>
+              Đến giữa thế kỉ XX,
+              các nghiên cứu đáy đại dương,
+              từ tính của đá và sự phân bố động đất,
+              núi lửa đã cung cấp thêm bằng chứng.
+              Từ đó,
+              lý thuyết
+              <strong>kiến tạo mảng</strong>
+              dần được xây dựng và trở thành
+              cơ sở quan trọng của địa chất học hiện đại.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         13. NHỮNG ĐIỀU DỄ NHẦM
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">13</span>
+        Những điều học sinh dễ nhầm
+      </div>
+
+
+      <div class="grid-2">
+
+        <div class="info-card">
+
+          <h3>❌ Mảng kiến tạo = lục địa</h3>
+
+          <p>
+            Không chính xác.
+            Một mảng có thể gồm cả
+            thạch quyển lục địa và thạch quyển đại dương.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>❌ Vỏ Trái Đất = thạch quyển</h3>
+
+          <p>
+            Không hoàn toàn giống nhau.
+            Thạch quyển gồm
+            vỏ Trái Đất
+            <strong>và</strong>
+            phần trên cùng rắn chắc của manti.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>❌ Manti là một biển magma</h3>
+
+          <p>
+            Không đúng.
+            Phần lớn manti ở trạng thái rắn,
+            nhưng có khả năng biến dạng
+            và chuyển động rất chậm
+            trong thời gian địa chất.
+          </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <h3>❌ Chỉ nơi có núi lửa mới có động đất</h3>
+
+          <p>
+            Không đúng.
+            Động đất có thể xảy ra ở nhiều loại
+            ranh giới mảng,
+            kể cả ranh giới trượt bằng,
+            nơi không nhất thiết có núi lửa.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         14. GHI NHỚ
+    ====================================================== -->
+    <section class="panel" id="ghi-nho">
+
+      <div class="section-title">
+        <span class="number">✓</span>
+        Kiến thức trọng tâm cần ghi nhớ
+      </div>
+
+      <p class="lead">
+        Sau khi hoàn thành nội dung,
+        học sinh cần nắm được những ý chính sau:
+      </p>
+
+
+      <div class="memory-list">
+
+        <div class="memory-item">
+          Trái Đất có cấu tạo phân lớp,
+          gồm
+          <strong>vỏ Trái Đất, manti và nhân</strong>.
+        </div>
+
+
+        <div class="memory-item">
+          Vỏ Trái Đất là lớp ngoài cùng,
+          rắn chắc và tương đối mỏng.
+        </div>
+
+
+        <div class="memory-item">
+          <strong>Thạch quyển</strong>
+          bao gồm vỏ Trái Đất
+          và phần trên cùng rắn chắc của manti.
+        </div>
+
+
+        <div class="memory-item">
+          Thạch quyển bị chia thành
+          nhiều
+          <strong>mảng kiến tạo</strong>
+          lớn nhỏ khác nhau.
+        </div>
+
+
+        <div class="memory-item">
+          Các mảng kiến tạo luôn chuyển động
+          rất chậm so với nhau.
+        </div>
+
+
+        <div class="memory-item">
+          Có ba dạng ranh giới mảng chủ yếu:
+          <strong>
+            tách giãn – hội tụ – trượt bằng.
+          </strong>
+        </div>
+
+
+        <div class="memory-item">
+          Sự tương tác giữa các mảng
+          có liên quan chặt chẽ đến
+          sự hình thành núi,
+          núi lửa,
+          động đất,
+          sống núi giữa đại dương
+          và rãnh sâu đại dương.
+        </div>
+
+
+        <div class="memory-item">
+          Động đất và núi lửa tập trung nhiều
+          ở các khu vực ranh giới mảng,
+          đặc biệt quanh
+          <strong>Vành đai lửa Thái Bình Dương</strong>.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         15. TỪ KHÓA
+    ====================================================== -->
+    <section class="panel">
+
+      <div class="section-title">
+        <span class="number">Aa</span>
+        Từ khóa
+      </div>
+
+      <div class="tags">
+
+        <span class="tag">Vỏ Trái Đất</span>
+
+        <span class="tag">Manti</span>
+
+        <span class="tag">Nhân Trái Đất</span>
+
+        <span class="tag">Thạch quyển</span>
+
+        <span class="tag">Quyển mềm</span>
+
+        <span class="tag">Mảng kiến tạo</span>
+
+        <span class="tag">Tách giãn</span>
+
+        <span class="tag">Hội tụ</span>
+
+        <span class="tag">Trượt bằng</span>
+
+        <span class="tag">Đới hút chìm</span>
+
+        <span class="tag">Động đất</span>
+
+        <span class="tag">Núi lửa</span>
+
+        <span class="tag">Sóng địa chấn</span>
+
+        <span class="tag">Vành đai lửa</span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    🌍 EARTH EXPLORER · Học liệu số Địa lí 6
+    <br>
+    Khám phá Trái Đất bằng kiến thức – mô hình – trải nghiệm số
+  </footer>
+
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+  <script>
+
+    const accordionButtons =
+      document.querySelectorAll(".accordion-btn");
+
+    accordionButtons.forEach((button) => {
+
+      button.addEventListener("click", () => {
+
+        const content =
+          button.nextElementSibling;
+
+        const icon =
+          button.querySelector("span");
+
+        const isOpen =
+          content.classList.contains("active");
+
+        document
+          .querySelectorAll(".accordion-content")
+          .forEach((item) => {
+            item.classList.remove("active");
+          });
+
+        document
+          .querySelectorAll(".accordion-btn span")
+          .forEach((item) => {
+            item.textContent = "＋";
+          });
+
+        if (!isOpen) {
+          content.classList.add("active");
+          icon.textContent = "−";
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>

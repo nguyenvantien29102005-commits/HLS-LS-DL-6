@@ -1,0 +1,3514 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Thử thách Nội sinh - Ngoại sinh - Tạo núi</title>
+
+  <style>
+    /* =========================================================
+       01. BIẾN GIAO DIỆN
+    ========================================================= */
+    :root {
+      --bg-1: #040617;
+      --bg-2: #07102b;
+      --bg-3: #11194b;
+
+      --blue: #3388ff;
+      --cyan: #44d9ff;
+      --purple: #7654ff;
+      --violet: #b066ff;
+
+      --green: #43e6a5;
+      --yellow: #ffd76b;
+      --red: #ff6f91;
+
+      --white: #ffffff;
+      --text: #dce8ff;
+      --muted: #9fb0d2;
+
+      --line: rgba(255,255,255,.11);
+      --panel: rgba(12,24,67,.80);
+
+      --radius: 22px;
+      --shadow: 0 20px 55px rgba(0,0,0,.34);
+    }
+
+    /* =========================================================
+       02. RESET
+    ========================================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(51,136,255,.18),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(118,84,255,.20),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(176,102,255,.13),
+          transparent 34%
+        ),
+        linear-gradient(
+          150deg,
+          var(--bg-1),
+          var(--bg-2) 45%,
+          #080c22
+        );
+
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.8) 0 1px,
+          transparent 1.5px
+        );
+
+      background-size: 85px 85px;
+      opacity: .10;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    /* =========================================================
+       03. THANH TRÊN
+    ========================================================= */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+
+      background: rgba(4,7,20,.80);
+      backdrop-filter: blur(15px);
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 72px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-weight: 800;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
+        );
+
+      box-shadow:
+        0 0 25px rgba(59,120,255,.4);
+    }
+
+    .hud {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      flex-wrap: wrap;
+    }
+
+    .hud-item {
+      padding: 8px 12px;
+
+      border-radius: 999px;
+
+      border: 1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.05);
+
+      color: #cdd8ef;
+
+      font-size: 14px;
+    }
+
+    /* =========================================================
+       04. HERO
+    ========================================================= */
+    .hero {
+      padding: 65px 0 45px;
+
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+
+      padding: 8px 13px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid rgba(62,146,255,.36);
+
+      background:
+        rgba(48,121,255,.08);
+
+      color: #cce5ff;
+
+      font-weight: bold;
+
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 72px);
+
+      line-height: 1.05;
+
+      letter-spacing: -2px;
+
+      max-width: 1000px;
+
+      margin: auto;
+    }
+
+    .gradient {
+      background:
+        linear-gradient(
+          90deg,
+          #5bdcff,
+          #5b98ff,
+          #9870ff,
+          #df8fff
+        );
+
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 800px;
+
+      margin:
+        20px auto 0;
+
+      color: var(--muted);
+
+      font-size: 17px;
+    }
+
+    /* =========================================================
+       05. PROGRESS
+    ========================================================= */
+    .progress-shell {
+      margin-top: 34px;
+
+      max-width: 800px;
+
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+
+      color: #adbad6;
+
+      font-size: 13px;
+
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      height: 14px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.07);
+
+      border: 1px solid var(--line);
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+
+      border-radius: inherit;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--blue),
+          var(--purple)
+        );
+
+      box-shadow:
+        0 0 20px rgba(65,155,255,.65);
+
+      transition:
+        width .45s ease;
+    }
+
+    /* =========================================================
+       06. KHỐI CHUNG
+    ========================================================= */
+    .challenge {
+      padding: 45px 0;
+    }
+
+    .challenge-box {
+      border: 1px solid var(--line);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(18,31,80,.80),
+          rgba(7,14,40,.83)
+        );
+
+      box-shadow:
+        var(--shadow);
+
+      overflow: hidden;
+    }
+
+    .challenge-head {
+      padding: 26px;
+
+      border-bottom:
+        1px solid var(--line);
+
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+
+      align-items: center;
+
+      gap: 16px;
+    }
+
+    .challenge-number {
+      width: 52px;
+      height: 52px;
+
+      border-radius: 16px;
+
+      display: grid;
+      place-items: center;
+
+      font-weight: 900;
+      font-size: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(51,136,255,.25),
+          rgba(118,84,255,.28)
+        );
+
+      border: 1px solid var(--line);
+    }
+
+    .challenge-head h2 {
+      font-size: 25px;
+    }
+
+    .challenge-head p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .level {
+      font-size: 12px;
+
+      font-weight: bold;
+
+      letter-spacing: 1px;
+
+      padding: 7px 10px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.06);
+
+      border: 1px solid var(--line);
+
+      color: #cbd8ef;
+    }
+
+    .challenge-content {
+      padding: 28px;
+    }
+
+    .instruction {
+      padding: 15px 17px;
+
+      border-radius: 15px;
+
+      border-left:
+        4px solid var(--cyan);
+
+      background:
+        rgba(51,136,255,.08);
+
+      color: #c9d6ed;
+
+      margin-bottom: 22px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+
+      flex-wrap: wrap;
+
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 0;
+
+      padding: 11px 16px;
+
+      border-radius: 12px;
+
+      color: white;
+
+      font-weight: bold;
+
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
+        );
+
+      box-shadow:
+        0 10px 25px
+        rgba(58,104,255,.3);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.06);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .feedback {
+      display: none;
+
+      margin-top: 18px;
+
+      padding: 15px;
+
+      border-radius: 14px;
+
+      color: #dbe8ff;
+    }
+
+    .feedback.correct {
+      display: block;
+
+      background:
+        rgba(67,230,165,.10);
+
+      border:
+        1px solid rgba(67,230,165,.30);
+    }
+
+    .feedback.wrong {
+      display: block;
+
+      background:
+        rgba(255,111,145,.09);
+
+      border:
+        1px solid rgba(255,111,145,.30);
+    }
+
+    .feedback.info {
+      display: block;
+
+      background:
+        rgba(68,217,255,.09);
+
+      border:
+        1px solid rgba(68,217,255,.25);
+    }
+
+    /* =========================================================
+       07. THỬ THÁCH 1 - PHÂN LOẠI
+    ========================================================= */
+    .sorting-layout {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 20px;
+    }
+
+    .source-cards {
+      grid-column:
+        1 / -1;
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      min-height: 90px;
+
+      padding: 16px;
+
+      border-radius: 16px;
+
+      border:
+        1px dashed
+        rgba(255,255,255,.20);
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    .drag-card {
+      padding: 11px 13px;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(53,89,183,.45),
+          rgba(93,62,166,.35)
+        );
+
+      border:
+        1px solid var(--line);
+
+      cursor: grab;
+
+      user-select: none;
+
+      font-size: 14px;
+    }
+
+    .drag-card.dragging {
+      opacity: .45;
+    }
+
+    .drop-zone {
+      min-height: 230px;
+
+      padding: 18px;
+
+      border-radius: 18px;
+
+      border:
+        1px dashed
+        rgba(255,255,255,.22);
+
+      transition: .25s;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    .drop-zone.over {
+      transform:
+        translateY(-2px);
+
+      border-color:
+        var(--cyan);
+
+      box-shadow:
+        0 0 25px
+        rgba(68,217,255,.15);
+    }
+
+    .drop-zone h3 {
+      margin-bottom: 12px;
+    }
+
+    .drop-zone p {
+      color: var(--muted);
+
+      font-size: 13px;
+
+      margin-bottom: 15px;
+    }
+
+    /* =========================================================
+       08. THỬ THÁCH 2 - SẮP XẾP CHUỖI
+    ========================================================= */
+    .sequence {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 12px;
+    }
+
+    .sequence-card {
+      padding: 20px;
+
+      border-radius: 16px;
+
+      border: 1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.04);
+
+      cursor: pointer;
+
+      transition: .25s ease;
+
+      text-align: center;
+
+      min-height: 130px;
+
+      display: grid;
+      place-items: center;
+    }
+
+    .sequence-card.selected {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(51,136,255,.25),
+          rgba(118,84,255,.22)
+        );
+
+      border-color:
+        rgba(92,166,255,.6);
+
+      transform:
+        translateY(-4px);
+    }
+
+    .order-box {
+      margin-top: 20px;
+
+      padding: 16px;
+
+      border-radius: 15px;
+
+      min-height: 63px;
+
+      border:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.03);
+
+      color: #b9c7e3;
+    }
+
+    /* =========================================================
+       09. THỬ THÁCH 3 - TÌNH HUỐNG
+    ========================================================= */
+    .scenario-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 16px;
+    }
+
+    .scenario-card {
+      padding: 20px;
+
+      border-radius: 17px;
+
+      border: 1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.035);
+    }
+
+    .scenario-icon {
+      font-size: 34px;
+
+      margin-bottom: 10px;
+    }
+
+    .scenario-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .scenario-card p {
+      color: var(--muted);
+
+      font-size: 14px;
+
+      min-height: 100px;
+    }
+
+    .scenario-options {
+      display: grid;
+      gap: 8px;
+
+      margin-top: 14px;
+    }
+
+    .scenario-options button {
+      padding: 9px 10px;
+
+      border-radius: 10px;
+
+      border: 1px solid var(--line);
+
+      color: #d5e2f8;
+
+      background:
+        rgba(255,255,255,.045);
+
+      text-align: left;
+    }
+
+    .scenario-options button.correct-choice {
+      border-color:
+        rgba(67,230,165,.6);
+
+      background:
+        rgba(67,230,165,.12);
+    }
+
+    .scenario-options button.wrong-choice {
+      border-color:
+        rgba(255,111,145,.5);
+
+      background:
+        rgba(255,111,145,.09);
+    }
+
+    /* =========================================================
+       10. LAB TẠO NÚI
+    ========================================================= */
+    .lab-grid {
+      display: grid;
+
+      grid-template-columns:
+        .8fr 1.2fr;
+
+      gap: 22px;
+    }
+
+    .control-panel {
+      padding: 20px;
+
+      border-radius: 17px;
+
+      border:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.035);
+    }
+
+    .control-panel h3 {
+      margin-bottom: 12px;
+    }
+
+    .control-group {
+      margin-top: 18px;
+    }
+
+    .control-group label {
+      display: block;
+
+      color: #c1cde4;
+
+      font-size: 14px;
+
+      margin-bottom: 8px;
+    }
+
+    select,
+    input[type="range"] {
+      width: 100%;
+    }
+
+    select {
+      padding: 11px;
+
+      color: white;
+
+      background:
+        #101a44;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 11px;
+    }
+
+    option {
+      background:
+        #111a45;
+    }
+
+    .visual-lab {
+      min-height: 380px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 18px;
+
+      border:
+        1px solid var(--line);
+
+      background:
+        linear-gradient(
+          #071639 0 52%,
+          #131c41 52%
+        );
+    }
+
+    .lab-sky-stars {
+      position: absolute;
+
+      inset: 0 0 45%;
+
+      opacity: .16;
+
+      background-image:
+        radial-gradient(
+          circle,
+          white 0 1px,
+          transparent 1.3px
+        );
+
+      background-size:
+        50px 50px;
+    }
+
+    .lab-ground {
+      position: absolute;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      height: 150px;
+
+      background:
+        linear-gradient(
+          #273768,
+          #131d40
+        );
+
+      border-top:
+        4px solid #5069ad;
+    }
+
+    .lab-mountain {
+      position: absolute;
+
+      left: 50%;
+
+      bottom: 148px;
+
+      width: 300px;
+
+      height: 0;
+
+      transform:
+        translateX(-50%);
+
+      transition:
+        .8s ease;
+    }
+
+    .lab-mountain::before {
+      content: "";
+
+      position: absolute;
+
+      bottom: 0;
+
+      border-left:
+        150px solid transparent;
+
+      border-right:
+        150px solid transparent;
+
+      border-bottom:
+        0 solid #465e9d;
+
+      transition:
+        .8s ease;
+    }
+
+    .visual-lab.high .lab-mountain::before {
+      border-bottom-width:
+        175px;
+    }
+
+    .visual-lab.medium .lab-mountain::before {
+      border-bottom-width:
+        120px;
+    }
+
+    .visual-lab.low .lab-mountain::before {
+      border-bottom-width:
+        75px;
+    }
+
+    .river-cut {
+      position: absolute;
+
+      width: 0;
+      height: 7px;
+
+      left: 51%;
+      bottom: 245px;
+
+      transform:
+        rotate(38deg);
+
+      transform-origin:
+        left center;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #4adfff,
+          transparent
+        );
+
+      transition:
+        .8s ease;
+    }
+
+    .visual-lab.eroding .river-cut {
+      width: 185px;
+    }
+
+    .lab-output {
+      margin-top: 15px;
+
+      padding: 14px;
+
+      border-radius: 13px;
+
+      background:
+        rgba(68,217,255,.07);
+
+      border:
+        1px solid
+        rgba(68,217,255,.18);
+
+      color: #c7d5ed;
+    }
+
+    /* =========================================================
+       11. THỬ THÁCH TƯ DUY
+    ========================================================= */
+    .reasoning-card {
+      padding: 20px;
+
+      border-radius: 17px;
+
+      border: 1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.035);
+
+      margin-bottom: 14px;
+    }
+
+    .reasoning-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .reasoning-card p {
+      color: #bcc9e2;
+    }
+
+    textarea {
+      width: 100%;
+
+      min-height: 115px;
+
+      margin-top: 14px;
+
+      padding: 14px;
+
+      resize: vertical;
+
+      border-radius: 13px;
+
+      border:
+        1px solid var(--line);
+
+      color: white;
+
+      outline: none;
+
+      background:
+        rgba(3,9,28,.65);
+    }
+
+    textarea:focus {
+      border-color:
+        rgba(74,157,255,.65);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(51,136,255,.08);
+    }
+
+    .hint {
+      display: none;
+
+      margin-top: 12px;
+
+      padding: 12px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,215,107,.08);
+
+      border:
+        1px solid
+        rgba(255,215,107,.25);
+
+      color: #f2e3b1;
+    }
+
+    /* =========================================================
+       12. FINAL
+    ========================================================= */
+    .final-box {
+      padding: 40px;
+
+      text-align: center;
+    }
+
+    .final-icon {
+      font-size: 70px;
+
+      margin-bottom: 12px;
+    }
+
+    .final-score {
+      font-size: 42px;
+
+      font-weight: 900;
+
+      margin:
+        16px 0;
+    }
+
+    .final-message {
+      max-width: 680px;
+
+      margin: auto;
+
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       13. RESPONSIVE
+    ========================================================= */
+    @media(max-width: 900px) {
+
+      .sorting-layout,
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sequence {
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+      .scenario-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .challenge-head {
+        grid-template-columns:
+          auto 1fr;
+      }
+
+      .level {
+        grid-column:
+          2;
+      }
+    }
+
+    @media(max-width: 620px) {
+
+      .hud {
+        display: none;
+      }
+
+      .sequence {
+        grid-template-columns: 1fr;
+      }
+
+      .challenge-content,
+      .challenge-head {
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .sorting-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .source-cards {
+        grid-column: 1;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================
+       THANH TRÊN
+  ========================================================= -->
+  <header class="topbar">
+
+    <div class="container nav">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          ⛰
+        </div>
+
+        GEO CHALLENGE
+
+      </div>
+
+      <div class="hud">
+
+        <div class="hud-item">
+
+          ⭐ XP:
+          <strong id="xpDisplay">
+            0
+          </strong>
+
+        </div>
+
+        <div class="hud-item">
+
+          ✅ Đã hoàn thành:
+          <strong id="completeDisplay">
+            0/6
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================================================
+       HERO
+  ========================================================= -->
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="badge">
+
+        🚀 THỬ THÁCH SAU KHÁM PHÁ
+
+      </div>
+
+      <h1>
+
+        Chinh phục
+
+        <span class="gradient">
+          Nội sinh
+        </span>
+
+        –
+
+        <span class="gradient">
+          Ngoại sinh
+        </span>
+
+        –
+
+        Tạo núi
+
+      </h1>
+
+      <p>
+
+        Không chỉ chọn đáp án.
+        Em sẽ phải phân loại, suy luận,
+        xây dựng chuỗi quá trình,
+        giải quyết tình huống và tự thiết kế
+        một mô hình địa hình để chứng minh
+        mình thực sự hiểu bài.
+
+      </p>
+
+
+      <div class="progress-shell">
+
+        <div class="progress-info">
+
+          <span>
+            Tiến trình nhiệm vụ
+          </span>
+
+          <span id="progressText">
+            0%
+          </span>
+
+        </div>
+
+        <div class="progress-track">
+
+          <div
+            class="progress-bar"
+            id="progressBar"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       THỬ THÁCH 1
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box">
+
+        <div class="challenge-head">
+
+          <div class="challenge-number">
+            01
+          </div>
+
+          <div>
+
+            <h2>
+              Phân loại dấu vết địa hình
+            </h2>
+
+            <p>
+              Kéo từng hiện tượng vào nhóm phù hợp.
+            </p>
+
+          </div>
+
+          <div class="level">
+            NHẬN BIẾT → PHÂN TÍCH
+          </div>
+
+        </div>
+
+
+        <div class="challenge-content">
+
+          <div class="instruction">
+
+            <strong>Nhiệm vụ:</strong>
+            Hãy phân loại 8 hiện tượng dưới đây
+            thành hai nhóm:
+            <b>Nội sinh</b> và
+            <b>Ngoại sinh</b>.
+
+            Lưu ý:
+            hãy dựa vào
+            <b>nguồn gốc của quá trình</b>,
+            không chỉ nhìn vào kết quả cuối cùng.
+
+          </div>
+
+
+          <div class="sorting-layout">
+
+            <div
+              class="source-cards"
+              id="sourceCards"
+            >
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="inner"
+              >
+                Các lớp đá bị uốn cong
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="outer"
+              >
+                Sóng biển mài mòn vách đá
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="inner"
+              >
+                Một khối đất đá nâng lên
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="outer"
+              >
+                Phù sa bồi tụ ở cửa sông
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="inner"
+              >
+                Đất đá đứt gãy
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="outer"
+              >
+                Gió cuốn cát tạo cồn
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="outer"
+              >
+                Đá nứt do thay đổi nhiệt độ
+              </div>
+
+              <div
+                class="drag-card"
+                draggable="true"
+                data-type="inner"
+              >
+                Magma phun lên bề mặt
+              </div>
+
+            </div>
+
+
+            <div
+              class="drop-zone"
+              data-zone="inner"
+            >
+
+              <h3>
+                ⚡ QUÁ TRÌNH NỘI SINH
+              </h3>
+
+              <p>
+                Quá trình bắt nguồn từ
+                bên trong Trái Đất.
+              </p>
+
+            </div>
+
+
+            <div
+              class="drop-zone"
+              data-zone="outer"
+            >
+
+              <h3>
+                💧 QUÁ TRÌNH NGOẠI SINH
+              </h3>
+
+              <p>
+                Quá trình diễn ra trên
+                hoặc gần bề mặt Trái Đất.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="button-row">
+
+            <button
+              class="btn btn-primary"
+              onclick="checkSorting()"
+            >
+              Kiểm tra phân loại
+            </button>
+
+            <button
+              class="btn btn-secondary"
+              onclick="resetSorting()"
+            >
+              Làm lại
+            </button>
+
+          </div>
+
+
+          <div
+            class="feedback"
+            id="sortingFeedback"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       THỬ THÁCH 2
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box">
+
+        <div class="challenge-head">
+
+          <div class="challenge-number">
+            02
+          </div>
+
+          <div>
+
+            <h2>
+              Xây dựng chuỗi ngoại sinh
+            </h2>
+
+            <p>
+              Không học thuộc — hãy tìm logic của quá trình.
+            </p>
+
+          </div>
+
+          <div class="level">
+            PHÂN TÍCH
+          </div>
+
+        </div>
+
+
+        <div class="challenge-content">
+
+          <div class="instruction">
+
+            Một khối đá trên sườn núi
+            bị phá vỡ thành những mảnh nhỏ.
+            Sau đó vật liệu được dòng nước cuốn đi
+            và cuối cùng tích tụ ở vùng thấp.
+
+            <br><br>
+
+            <strong>
+              Hãy nhấn vào 4 thẻ theo đúng
+              trình tự xảy ra.
+            </strong>
+
+          </div>
+
+
+          <div
+            class="sequence"
+            id="sequenceCards"
+          >
+
+            <div
+              class="sequence-card"
+              data-value="transport"
+              onclick="selectSequence(this)"
+            >
+              🚚
+              <br>
+              <strong>
+                Vận chuyển
+              </strong>
+            </div>
+
+            <div
+              class="sequence-card"
+              data-value="weather"
+              onclick="selectSequence(this)"
+            >
+              ☀
+              <br>
+              <strong>
+                Phong hoá
+              </strong>
+            </div>
+
+            <div
+              class="sequence-card"
+              data-value="deposit"
+              onclick="selectSequence(this)"
+            >
+              🏞
+              <br>
+              <strong>
+                Bồi tụ
+              </strong>
+            </div>
+
+            <div
+              class="sequence-card"
+              data-value="erosion"
+              onclick="selectSequence(this)"
+            >
+              💧
+              <br>
+              <strong>
+                Bóc mòn
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div
+            class="order-box"
+            id="sequenceOutput"
+          >
+
+            Chưa có lựa chọn.
+
+          </div>
+
+
+          <div class="button-row">
+
+            <button
+              class="btn btn-primary"
+              onclick="checkSequence()"
+            >
+              Kiểm tra trình tự
+            </button>
+
+            <button
+              class="btn btn-secondary"
+              onclick="resetSequence()"
+            >
+              Xóa lựa chọn
+            </button>
+
+          </div>
+
+
+          <div
+            class="feedback"
+            id="sequenceFeedback"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       THỬ THÁCH 3
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box">
+
+        <div class="challenge-head">
+
+          <div class="challenge-number">
+            03
+          </div>
+
+          <div>
+
+            <h2>
+              Bác sĩ địa hình
+            </h2>
+
+            <p>
+              Đọc dấu vết và chẩn đoán quá trình.
+            </p>
+
+          </div>
+
+          <div class="level">
+            PHÂN TÍCH → SUY LUẬN
+          </div>
+
+        </div>
+
+
+        <div class="challenge-content">
+
+          <div class="instruction">
+
+            Mỗi khu vực dưới đây chứa
+            một “dấu vết địa hình”.
+
+            Em hãy xác định
+            <b>quá trình giữ vai trò nổi bật nhất</b>
+            trong từng tình huống.
+
+          </div>
+
+
+          <div class="scenario-grid">
+
+            <!-- Tình huống 1 -->
+
+            <div class="scenario-card">
+
+              <div class="scenario-icon">
+                🏔
+              </div>
+
+              <h3>
+                Khu vực A
+              </h3>
+
+              <p>
+
+                Các lớp đá bị ép cong,
+                tạo thành nhiều nếp uốn lớn.
+                Địa hình được nâng cao
+                thành một dải núi.
+
+              </p>
+
+
+              <div
+                class="scenario-options"
+                data-answer="inner"
+              >
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'outer')
+                  "
+                >
+                  Ngoại sinh
+                </button>
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'inner')
+                  "
+                >
+                  Nội sinh
+                </button>
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'deposit')
+                  "
+                >
+                  Bồi tụ sông
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- Tình huống 2 -->
+
+            <div class="scenario-card">
+
+              <div class="scenario-icon">
+                🌊
+              </div>
+
+              <h3>
+                Khu vực B
+              </h3>
+
+              <p>
+
+                Chân vách đá ven biển
+                bị sóng đánh khoét sâu.
+                Nhiều mảnh đá rơi xuống,
+                vách ngày càng lùi vào đất liền.
+
+              </p>
+
+
+              <div
+                class="scenario-options"
+                data-answer="outer"
+              >
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'inner')
+                  "
+                >
+                  Nội sinh
+                </button>
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'outer')
+                  "
+                >
+                  Ngoại sinh
+                </button>
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'volcano')
+                  "
+                >
+                  Núi lửa
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- Tình huống 3 -->
+
+            <div class="scenario-card">
+
+              <div class="scenario-icon">
+                🏞
+              </div>
+
+              <h3>
+                Khu vực C
+              </h3>
+
+              <p>
+
+                Ở hạ lưu sông,
+                dòng chảy chậm lại.
+                Phù sa tích tụ dần,
+                tạo nên một vùng đất thấp
+                ngày càng mở rộng.
+
+              </p>
+
+
+              <div
+                class="scenario-options"
+                data-answer="deposit"
+              >
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'fault')
+                  "
+                >
+                  Đứt gãy
+                </button>
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'deposit')
+                  "
+                >
+                  Bồi tụ
+                </button>
+
+                <button
+                  onclick="
+                  scenarioAnswer(this,'uplift')
+                  "
+                >
+                  Nâng kiến tạo
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="feedback info"
+            id="scenarioFeedback"
+          >
+
+            Hoàn thành cả 3 tình huống
+            để nhận XP.
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       THỬ THÁCH 4
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box">
+
+        <div class="challenge-head">
+
+          <div class="challenge-number">
+            04
+          </div>
+
+          <div>
+
+            <h2>
+              Phòng thí nghiệm tạo núi
+            </h2>
+
+            <p>
+              Thay đổi điều kiện và dự đoán địa hình.
+            </p>
+
+          </div>
+
+          <div class="level">
+            VẬN DỤNG
+          </div>
+
+        </div>
+
+
+        <div class="challenge-content">
+
+          <div class="instruction">
+
+            Em là một nhà địa chất mô phỏng.
+            Hãy thay đổi mức độ
+            <b>nén ép kiến tạo</b>
+            và
+            <b>tác động ngoại sinh</b>.
+
+            Sau đó quan sát xem địa hình
+            sẽ thay đổi thế nào.
+
+          </div>
+
+
+          <div class="lab-grid">
+
+            <div class="control-panel">
+
+              <h3>
+                ⚙ Điều chỉnh mô hình
+              </h3>
+
+
+              <div class="control-group">
+
+                <label>
+                  Mức độ nén ép kiến tạo
+                </label>
+
+                <select id="tectonicSelect">
+
+                  <option value="low">
+                    Yếu
+                  </option>
+
+                  <option
+                    value="medium"
+                    selected
+                  >
+                    Trung bình
+                  </option>
+
+                  <option value="high">
+                    Mạnh
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="control-group">
+
+                <label>
+                  Cường độ ngoại sinh:
+                  <strong id="erosionValue">
+                    40
+                  </strong>
+                  %
+                </label>
+
+                <input
+                  type="range"
+                  id="erosionRange"
+                  min="0"
+                  max="100"
+                  value="40"
+                >
+
+              </div>
+
+
+              <div class="button-row">
+
+                <button
+                  class="btn btn-primary"
+                  onclick="runLab()"
+                >
+                  Chạy mô phỏng
+                </button>
+
+              </div>
+
+
+              <div
+                class="lab-output"
+                id="labOutput"
+              >
+
+                Chọn điều kiện rồi chạy mô phỏng.
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="visual-lab medium"
+              id="visualLab"
+            >
+
+              <div class="lab-sky-stars"></div>
+
+              <div class="lab-mountain"></div>
+
+              <div class="river-cut"></div>
+
+              <div class="lab-ground"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       THỬ THÁCH 5
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box">
+
+        <div class="challenge-head">
+
+          <div class="challenge-number">
+            05
+          </div>
+
+          <div>
+
+            <h2>
+              Câu hỏi “Vì sao?”
+            </h2>
+
+            <p>
+              Không chọn đáp án — hãy lập luận.
+            </p>
+
+          </div>
+
+          <div class="level">
+            TƯ DUY BẬC CAO
+          </div>
+
+        </div>
+
+
+        <div class="challenge-content">
+
+          <div class="reasoning-card">
+
+            <h3>
+              🧠 Câu hỏi 1
+            </h3>
+
+            <p>
+
+              Hai ngọn núi được hình thành
+              trong cùng một thời kì.
+
+              Sau hàng triệu năm,
+              núi A vẫn cao và dốc,
+              trong khi núi B thấp hơn
+              và có đỉnh tròn.
+
+              <br>
+
+              <strong>
+                Hãy đưa ra một giả thuyết
+                giải thích sự khác biệt.
+              </strong>
+
+            </p>
+
+
+            <textarea
+              id="reason1"
+              placeholder="
+Ví dụ:
+Em cần xem xét mức độ nâng kiến tạo,
+cường độ phong hoá, xâm thực,
+khí hậu...
+              "
+            ></textarea>
+
+
+            <div class="button-row">
+
+              <button
+                class="btn btn-secondary"
+                onclick="
+                showHint('hint1')
+                "
+              >
+                💡 Gợi ý
+              </button>
+
+            </div>
+
+
+            <div
+              class="hint"
+              id="hint1"
+            >
+
+              Hãy nghĩ đến
+              <strong>
+                sự cân bằng giữa
+                tốc độ nâng địa hình
+                và tốc độ bào mòn.
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="reasoning-card">
+
+            <h3>
+              🧠 Câu hỏi 2
+            </h3>
+
+            <p>
+
+              Nếu một dãy núi
+              vẫn đang được nâng lên
+              nhưng đồng thời bị mưa
+              và dòng chảy xâm thực mạnh,
+              em có thể kết luận ngay rằng
+              độ cao của dãy núi chắc chắn
+              tăng lên hay không?
+
+              <br><br>
+
+              <strong>
+                Hãy giải thích.
+              </strong>
+
+            </p>
+
+
+            <textarea
+              id="reason2"
+              placeholder="
+Viết lập luận của em ở đây...
+              "
+            ></textarea>
+
+
+            <div class="button-row">
+
+              <button
+                class="btn btn-secondary"
+                onclick="
+                showHint('hint2')
+                "
+              >
+                💡 Gợi ý
+              </button>
+
+            </div>
+
+
+            <div
+              class="hint"
+              id="hint2"
+            >
+
+              Cần so sánh
+              <strong>
+                tốc độ nâng
+                và tốc độ hạ thấp địa hình.
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="button-row">
+
+            <button
+              class="btn btn-primary"
+              onclick="evaluateReasoning()"
+            >
+
+              Phân tích câu trả lời
+
+            </button>
+
+          </div>
+
+
+          <div
+            class="feedback"
+            id="reasonFeedback"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       THỬ THÁCH 6
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box">
+
+        <div class="challenge-head">
+
+          <div class="challenge-number">
+            06
+          </div>
+
+          <div>
+
+            <h2>
+              Nhiệm vụ điều tra thực địa
+            </h2>
+
+            <p>
+              Đưa kiến thức ra ngoài trang sách.
+            </p>
+
+          </div>
+
+          <div class="level">
+            VẬN DỤNG THỰC TIỄN
+          </div>
+
+        </div>
+
+
+        <div class="challenge-content">
+
+          <div class="instruction">
+
+            Giả sử em quan sát
+            một khu vực có:
+
+            <br><br>
+
+            • sườn núi dốc;<br>
+            • nhiều khe xói sau mưa;<br>
+            • đá vụn tập trung dưới chân núi;<br>
+            • dòng suối mang nhiều vật liệu;<br>
+            • một bãi bồi nhỏ ở hạ lưu.
+
+            <br><br>
+
+            <strong>
+              Hãy chọn kết luận hợp lí nhất.
+            </strong>
+
+          </div>
+
+
+          <div
+            class="scenario-options"
+            id="finalOptions"
+            data-answer="b"
+          >
+
+            <button
+              onclick="
+              finalScenario(this,'a')
+              "
+            >
+
+              A. Chỉ có quá trình nội sinh
+              đang hoạt động.
+
+            </button>
+
+            <button
+              onclick="
+              finalScenario(this,'b')
+              "
+            >
+
+              B. Có thể quan sát được
+              một chuỗi ngoại sinh:
+              phong hoá/bóc mòn →
+              vận chuyển → bồi tụ.
+
+            </button>
+
+            <button
+              onclick="
+              finalScenario(this,'c')
+              "
+            >
+
+              C. Tất cả địa hình ở đây
+              đều do bồi tụ tạo thành.
+
+            </button>
+
+            <button
+              onclick="
+              finalScenario(this,'d')
+              "
+            >
+
+              D. Không thể dùng kiến thức
+              nội sinh – ngoại sinh
+              để giải thích khu vực này.
+
+            </button>
+
+          </div>
+
+
+          <div
+            class="feedback"
+            id="finalFeedback"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       TỔNG KẾT
+  ========================================================= -->
+  <section class="challenge">
+
+    <div class="container">
+
+      <div class="challenge-box final-box">
+
+        <div class="final-icon">
+          🏆
+        </div>
+
+        <h2>
+          KẾT QUẢ HÀNH TRÌNH
+        </h2>
+
+        <div
+          class="final-score"
+          id="finalScore"
+        >
+
+          0 XP
+
+        </div>
+
+        <p
+          class="final-message"
+          id="finalMessage"
+        >
+
+          Hoàn thành các thử thách để mở
+          bảng đánh giá cuối cùng.
+
+        </p>
+
+
+        <div
+          class="button-row"
+          style="
+            justify-content:center;
+          "
+        >
+
+          <button
+            class="btn btn-primary"
+            onclick="showFinalResult()"
+          >
+
+            Xem đánh giá của tôi
+
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick="restartAll()"
+          >
+
+            Làm lại toàn bộ
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <script>
+    /* =========================================================
+       TRẠNG THÁI CHUNG
+    ========================================================= */
+
+    let xp = 0;
+
+    const completed = new Set();
+
+    const TOTAL_CHALLENGES = 6;
+
+
+    function addXP(
+      challengeId,
+      amount
+    ) {
+
+      if (
+        completed.has(challengeId)
+      ) {
+
+        return;
+
+      }
+
+
+      completed.add(challengeId);
+
+      xp += amount;
+
+      updateHUD();
+
+    }
+
+
+    function updateHUD() {
+
+      document.getElementById(
+        "xpDisplay"
+      ).textContent = xp;
+
+
+      document.getElementById(
+        "completeDisplay"
+      ).textContent =
+        completed.size +
+        "/" +
+        TOTAL_CHALLENGES;
+
+
+      const percent =
+        Math.round(
+          completed.size /
+          TOTAL_CHALLENGES *
+          100
+        );
+
+
+      document.getElementById(
+        "progressBar"
+      ).style.width =
+        percent + "%";
+
+
+      document.getElementById(
+        "progressText"
+      ).textContent =
+        percent + "%";
+
+
+      document.getElementById(
+        "finalScore"
+      ).textContent =
+        xp + " XP";
+
+    }
+
+
+    /* =========================================================
+       THỬ THÁCH 1
+       KÉO THẢ
+    ========================================================= */
+
+    let draggedCard = null;
+
+
+    document.querySelectorAll(
+      ".drag-card"
+    ).forEach(card => {
+
+      card.addEventListener(
+        "dragstart",
+        function () {
+
+          draggedCard = card;
+
+          card.classList.add(
+            "dragging"
+          );
+
+        }
+      );
+
+
+      card.addEventListener(
+        "dragend",
+        function () {
+
+          card.classList.remove(
+            "dragging"
+          );
+
+          draggedCard = null;
+
+        }
+      );
+
+    });
+
+
+    document.querySelectorAll(
+      ".drop-zone, .source-cards"
+    ).forEach(zone => {
+
+      zone.addEventListener(
+        "dragover",
+        function (event) {
+
+          event.preventDefault();
+
+          zone.classList.add(
+            "over"
+          );
+
+        }
+      );
+
+
+      zone.addEventListener(
+        "dragleave",
+        function () {
+
+          zone.classList.remove(
+            "over"
+          );
+
+        }
+      );
+
+
+      zone.addEventListener(
+        "drop",
+        function (event) {
+
+          event.preventDefault();
+
+          zone.classList.remove(
+            "over"
+          );
+
+
+          if (
+            draggedCard
+          ) {
+
+            zone.appendChild(
+              draggedCard
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+    function checkSorting() {
+
+      const cards =
+        document.querySelectorAll(
+          ".drag-card"
+        );
+
+
+      let correct = 0;
+
+      let placed = 0;
+
+
+      cards.forEach(card => {
+
+        const parent =
+          card.parentElement;
+
+
+        const zone =
+          parent.dataset.zone;
+
+
+        if (
+          zone
+        ) {
+
+          placed++;
+
+        }
+
+
+        if (
+          zone ===
+          card.dataset.type
+        ) {
+
+          correct++;
+
+        }
+
+      });
+
+
+      const feedback =
+        document.getElementById(
+          "sortingFeedback"
+        );
+
+
+      if (
+        placed < cards.length
+      ) {
+
+        feedback.className =
+          "feedback wrong";
+
+        feedback.innerHTML =
+
+          "⚠ Em cần kéo đủ " +
+          cards.length +
+          " hiện tượng vào hai nhóm.";
+
+        return;
+
+      }
+
+
+      if (
+        correct === cards.length
+      ) {
+
+        feedback.className =
+          "feedback correct";
+
+        feedback.innerHTML = `
+          ✅ Xuất sắc!
+          Em đã phân loại đúng toàn bộ.
+
+          <br><br>
+
+          <strong>
+            Điểm mấu chốt:
+          </strong>
+
+          Nội sinh được xác định
+          bởi nguồn gốc bên trong Trái Đất;
+          ngoại sinh diễn ra trên hoặc
+          gần bề mặt dưới tác động của
+          nước, gió, nhiệt độ,
+          sinh vật...
+        `;
+
+        addXP(
+          "sorting",
+          100
+        );
+
+      }
+
+      else {
+
+        feedback.className =
+          "feedback wrong";
+
+        feedback.innerHTML = `
+          ❌ Em đúng
+          <strong>
+            ${correct}/${cards.length}
+          </strong>
+          hiện tượng.
+
+          <br>
+
+          Hãy kiểm tra lại:
+          quá trình nào bắt nguồn
+          từ bên trong Trái Đất?
+        `;
+
+      }
+
+    }
+
+
+    function resetSorting() {
+
+      const source =
+        document.getElementById(
+          "sourceCards"
+        );
+
+
+      document.querySelectorAll(
+        ".drag-card"
+      ).forEach(card => {
+
+        source.appendChild(card);
+
+      });
+
+
+      const feedback =
+        document.getElementById(
+          "sortingFeedback"
+        );
+
+
+      feedback.className =
+        "feedback";
+
+      feedback.innerHTML = "";
+
+    }
+
+
+    /* =========================================================
+       THỬ THÁCH 2
+       SẮP XẾP CHUỖI
+    ========================================================= */
+
+    const sequenceSelected = [];
+
+
+    function selectSequence(card) {
+
+      const value =
+        card.dataset.value;
+
+
+      if (
+        sequenceSelected.includes(
+          value
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      sequenceSelected.push(value);
+
+      card.classList.add(
+        "selected"
+      );
+
+      updateSequenceOutput();
+
+    }
+
+
+    function updateSequenceOutput() {
+
+      const labels = {
+
+        weather:
+          "Phong hoá",
+
+        erosion:
+          "Bóc mòn",
+
+        transport:
+          "Vận chuyển",
+
+        deposit:
+          "Bồi tụ"
+
+      };
+
+
+      if (
+        sequenceSelected.length === 0
+      ) {
+
+        document.getElementById(
+          "sequenceOutput"
+        ).textContent =
+          "Chưa có lựa chọn.";
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "sequenceOutput"
+      ).innerHTML =
+
+        "<strong>Trình tự của em:</strong> " +
+
+        sequenceSelected
+        .map(item => labels[item])
+        .join(" → ");
+
+    }
+
+
+    function checkSequence() {
+
+      const correctOrder = [
+
+        "weather",
+        "erosion",
+        "transport",
+        "deposit"
+
+      ];
+
+
+      const feedback =
+        document.getElementById(
+          "sequenceFeedback"
+        );
+
+
+      if (
+        sequenceSelected.length < 4
+      ) {
+
+        feedback.className =
+          "feedback wrong";
+
+        feedback.innerHTML =
+
+          "⚠ Em cần chọn đủ 4 bước.";
+
+        return;
+
+      }
+
+
+      const correct =
+        correctOrder.every(
+          (
+            value,
+            index
+          ) =>
+
+          sequenceSelected[index]
+          === value
+
+        );
+
+
+      if (correct) {
+
+        feedback.className =
+          "feedback correct";
+
+        feedback.innerHTML = `
+          ✅ Chính xác!
+
+          <br><br>
+
+          Đá bị
+          <strong>phong hoá</strong>
+          trước,
+          sau đó vật liệu bị
+          <strong>bóc mòn</strong>,
+          được
+          <strong>vận chuyển</strong>
+          và cuối cùng
+          <strong>bồi tụ</strong>
+          ở nơi khác.
+        `;
+
+        addXP(
+          "sequence",
+          120
+        );
+
+      }
+
+      else {
+
+        feedback.className =
+          "feedback wrong";
+
+        feedback.innerHTML = `
+          ❌ Chưa đúng.
+
+          <br>
+
+          Hãy tự hỏi:
+          vật liệu phải được tạo ra trước
+          hay được vận chuyển trước?
+        `;
+
+      }
+
+    }
+
+
+    function resetSequence() {
+
+      sequenceSelected.length = 0;
+
+
+      document.querySelectorAll(
+        ".sequence-card"
+      ).forEach(card => {
+
+        card.classList.remove(
+          "selected"
+        );
+
+      });
+
+
+      updateSequenceOutput();
+
+
+      const feedback =
+        document.getElementById(
+          "sequenceFeedback"
+        );
+
+
+      feedback.className =
+        "feedback";
+
+      feedback.innerHTML = "";
+
+    }
+
+
+    /* =========================================================
+       THỬ THÁCH 3
+       CHẨN ĐOÁN TÌNH HUỐNG
+    ========================================================= */
+
+    let scenarioCorrect = 0;
+
+    const scenarioDone =
+      new Set();
+
+
+    function scenarioAnswer(
+      button,
+      answer
+    ) {
+
+      const container =
+        button.parentElement;
+
+
+      if (
+        scenarioDone.has(
+          container
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      const correct =
+        container.dataset.answer;
+
+
+      if (
+        answer === correct
+      ) {
+
+        button.classList.add(
+          "correct-choice"
+        );
+
+        scenarioDone.add(
+          container
+        );
+
+        scenarioCorrect++;
+
+      }
+
+      else {
+
+        button.classList.add(
+          "wrong-choice"
+        );
+
+        setTimeout(
+          () => {
+
+            button.classList.remove(
+              "wrong-choice"
+            );
+
+          },
+          700
+        );
+
+      }
+
+
+      if (
+        scenarioCorrect === 3
+      ) {
+
+        document.getElementById(
+          "scenarioFeedback"
+        ).innerHTML = `
+          ✅ Em đã đọc đúng cả 3
+          “dấu vết địa hình”.
+
+          <br><br>
+
+          Điều quan trọng không phải
+          chỉ nhìn thấy “núi”, “sông”
+          hay “biển”,
+          mà phải tìm
+          <strong>
+            quá trình tạo ra dấu vết.
+          </strong>
+        `;
+
+        document.getElementById(
+          "scenarioFeedback"
+        ).className =
+          "feedback correct";
+
+
+        addXP(
+          "scenario",
+          130
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       THỬ THÁCH 4
+       LAB TẠO NÚI
+    ========================================================= */
+
+    const erosionRange =
+      document.getElementById(
+        "erosionRange"
+      );
+
+
+    erosionRange.addEventListener(
+      "input",
+      function () {
+
+        document.getElementById(
+          "erosionValue"
+        ).textContent =
+          erosionRange.value;
+
+      }
+    );
+
+
+    function runLab() {
+
+      const tectonic =
+        document.getElementById(
+          "tectonicSelect"
+        ).value;
+
+
+      const erosion =
+        Number(
+          document.getElementById(
+            "erosionRange"
+          ).value
+        );
+
+
+      const visual =
+        document.getElementById(
+          "visualLab"
+        );
+
+
+      visual.className =
+        "visual-lab " +
+        tectonic;
+
+
+      if (
+        erosion >= 45
+      ) {
+
+        visual.classList.add(
+          "eroding"
+        );
+
+      }
+
+
+      let upliftText = "";
+
+
+      if (
+        tectonic === "high"
+      ) {
+
+        upliftText =
+          "Nén ép mạnh làm địa hình nâng cao rõ rệt.";
+
+      }
+
+      else if (
+        tectonic === "medium"
+      ) {
+
+        upliftText =
+          "Nén ép trung bình tạo mức nâng vừa phải.";
+
+      }
+
+      else {
+
+        upliftText =
+          "Nén ép yếu nên mức nâng địa hình thấp.";
+
+      }
+
+
+      let erosionText = "";
+
+
+      if (
+        erosion >= 70
+      ) {
+
+        erosionText =
+          " Ngoại sinh rất mạnh, địa hình bị bào mòn nhanh.";
+
+      }
+
+      else if (
+        erosion >= 40
+      ) {
+
+        erosionText =
+          " Ngoại sinh tác động đáng kể và tiếp tục chỉnh sửa hình dạng núi.";
+
+      }
+
+      else {
+
+        erosionText =
+          " Ngoại sinh tương đối yếu, địa hình được bảo tồn tốt hơn.";
+
+      }
+
+
+      document.getElementById(
+        "labOutput"
+      ).innerHTML = `
+        <strong>Kết quả mô phỏng:</strong>
+        ${upliftText}
+        ${erosionText}
+
+        <br><br>
+
+        <strong>
+          Kết luận:
+        </strong>
+
+        độ cao và hình dạng núi
+        phụ thuộc vào
+        <b>
+          tương quan giữa quá trình
+          nâng kiến tạo và quá trình bào mòn.
+        </b>
+      `;
+
+
+      addXP(
+        "lab",
+        150
+      );
+
+    }
+
+
+    /* =========================================================
+       THỬ THÁCH 5
+       CÂU HỎI LẬP LUẬN
+    ========================================================= */
+
+    function showHint(id) {
+
+      document.getElementById(
+        id
+      ).style.display =
+        "block";
+
+    }
+
+
+    function evaluateReasoning() {
+
+      const text1 =
+        document.getElementById(
+          "reason1"
+        ).value.trim();
+
+
+      const text2 =
+        document.getElementById(
+          "reason2"
+        ).value.trim();
+
+
+      const feedback =
+        document.getElementById(
+          "reasonFeedback"
+        );
+
+
+      if (
+        text1.length < 30 ||
+        text2.length < 30
+      ) {
+
+        feedback.className =
+          "feedback wrong";
+
+        feedback.innerHTML = `
+          ⚠ Câu trả lời còn quá ngắn.
+
+          <br>
+
+          Hãy cố gắng giải thích bằng
+          <strong>
+            nguyên nhân + quá trình + kết quả.
+          </strong>
+        `;
+
+        return;
+
+      }
+
+
+      feedback.className =
+        "feedback correct";
+
+      feedback.innerHTML = `
+        ✅ Em đã hoàn thành phần lập luận.
+
+        <br><br>
+
+        Một câu trả lời tốt nên có
+        ít nhất 3 lớp tư duy:
+
+        <br>
+
+        1. Xác định
+        <strong>nội sinh</strong>
+        có tiếp tục nâng địa hình không.
+
+        <br>
+
+        2. Xác định mức độ
+        <strong>ngoại sinh</strong>
+        như phong hoá và xâm thực.
+
+        <br>
+
+        3. So sánh hai quá trình
+        để giải thích hình dạng
+        và độ cao địa hình hiện tại.
+
+        <br><br>
+
+        Vì vậy không thể kết luận
+        chỉ từ một yếu tố riêng lẻ.
+      `;
+
+
+      addXP(
+        "reason",
+        180
+      );
+
+    }
+
+
+    /* =========================================================
+       THỬ THÁCH 6
+    ========================================================= */
+
+    let finalDone = false;
+
+
+    function finalScenario(
+      button,
+      answer
+    ) {
+
+      if (
+        finalDone
+      ) {
+
+        return;
+
+      }
+
+
+      const correct =
+        document.getElementById(
+          "finalOptions"
+        ).dataset.answer;
+
+
+      const feedback =
+        document.getElementById(
+          "finalFeedback"
+        );
+
+
+      if (
+        answer === correct
+      ) {
+
+        button.classList.add(
+          "correct-choice"
+        );
+
+        feedback.className =
+          "feedback correct";
+
+        feedback.innerHTML = `
+          ✅ Chính xác!
+
+          <br><br>
+
+          Từ các dấu hiệu
+          khe xói → vật liệu dưới chân núi
+          → vật liệu trong dòng suối
+          → bãi bồi hạ lưu,
+          ta có thể suy luận
+          một chuỗi quá trình:
+
+          <br><br>
+
+          <strong>
+            phong hoá / bóc mòn
+            → vận chuyển
+            → bồi tụ.
+          </strong>
+        `;
+
+
+        finalDone = true;
+
+
+        addXP(
+          "field",
+          170
+        );
+
+      }
+
+      else {
+
+        button.classList.add(
+          "wrong-choice"
+        );
+
+        feedback.className =
+          "feedback wrong";
+
+        feedback.innerHTML = `
+          ❌ Chưa hợp lí.
+
+          <br>
+
+          Hãy nhìn các dấu vết
+          theo một chuỗi:
+          vật liệu được lấy ra ở đâu,
+          đi bằng cách nào,
+          và tích tụ ở đâu?
+        `;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       TỔNG KẾT
+    ========================================================= */
+
+    function showFinalResult() {
+
+      const message =
+        document.getElementById(
+          "finalMessage"
+        );
+
+
+      document.getElementById(
+        "finalScore"
+      ).textContent =
+        xp + " XP";
+
+
+      if (
+        completed.size === 6
+      ) {
+
+        message.innerHTML = `
+          🌟 <strong>
+          Xuất sắc!
+          </strong>
+
+          Em đã hoàn thành toàn bộ
+          hành trình.
+
+          <br><br>
+
+          Em không chỉ nhận biết
+          nội sinh và ngoại sinh,
+          mà còn biết dùng chúng
+          để giải thích sự hình thành
+          và biến đổi địa hình.
+        `;
+
+      }
+
+      else if (
+        completed.size >= 4
+      ) {
+
+        message.innerHTML = `
+          👍 Em đã hoàn thành
+          <strong>
+            ${completed.size}/6
+          </strong>
+          thử thách.
+
+          <br><br>
+
+          Kiến thức đã khá chắc.
+          Hãy hoàn thành những nhiệm vụ
+          còn lại để chinh phục toàn bộ
+          bản đồ thử thách.
+        `;
+
+      }
+
+      else {
+
+        message.innerHTML = `
+          🚀 Em đã bắt đầu tốt,
+          nhưng vẫn còn nhiều thử thách
+          chưa hoàn thành.
+
+          <br><br>
+
+          Hãy quay lại các nhiệm vụ
+          và tiếp tục kiếm XP.
+        `;
+
+      }
+
+    }
+
+
+    function restartAll() {
+
+      location.reload();
+
+    }
+
+
+    updateHUD();
+
+  </script>
+
+</body>
+</html>

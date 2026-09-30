@@ -1,0 +1,6045 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lược đồ Trung Quốc cổ đại | Học liệu số Lịch sử 6</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   01. RESET + VARIABLES
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+:root{
+
+  --bg:#0d0705;
+  --bg2:#25100a;
+
+  --red:#a32b20;
+  --red2:#c94333;
+  --red3:#6b1915;
+
+  --gold:#d9a648;
+  --gold2:#f3d486;
+
+  --jade:#2f7f72;
+  --jade2:#48a995;
+
+  --cream:#f4e0ad;
+
+  --sea:#9ed7df;
+  --land:#e2d5a0;
+
+  --qin:#a65c3d;
+  --han:#d58d59;
+  --zhao:#d59a89;
+  --wei:#d3b36c;
+  --chu:#d8848d;
+  --yan:#d4a653;
+  --qi:#c98d9a;
+
+  --modern:#d79852;
+  --neighbor:#d4c28e;
+  --neighbor2:#c9b477;
+
+  --river:#2fa1b7;
+
+  --border:rgba(237,191,108,.18);
+
+  --shadow:
+  0 30px 75px rgba(0,0,0,.4);
+}
+
+body{
+
+  min-height:100vh;
+
+  font-family:"Montserrat",sans-serif;
+
+  color:white;
+
+  background:
+
+  radial-gradient(
+    circle at 8% 10%,
+    rgba(187,48,35,.15),
+    transparent 26%
+  ),
+
+  radial-gradient(
+    circle at 92% 55%,
+    rgba(39,124,109,.13),
+    transparent 28%
+  ),
+
+  linear-gradient(
+    135deg,
+    #0b0604,
+    #25110b 53%,
+    #0a1e1b
+  );
+
+  overflow-x:hidden;
+}
+
+
+/* =========================================================
+   02. DECOR
+========================================================= */
+
+.bg-decor{
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:0;
+
+  opacity:.075;
+
+  overflow:hidden;
+}
+
+.bg-decor span{
+
+  position:absolute;
+
+  color:#e4b45c;
+
+  font-family:serif;
+
+  animation:
+  floatSymbol 11s ease-in-out infinite;
+}
+
+.bg-decor span:nth-child(1){
+  left:3%;
+  top:10%;
+  font-size:80px;
+}
+
+.bg-decor span:nth-child(2){
+  right:4%;
+  top:27%;
+  font-size:85px;
+  animation-delay:-4s;
+}
+
+.bg-decor span:nth-child(3){
+  left:8%;
+  bottom:8%;
+  font-size:72px;
+  animation-delay:-7s;
+}
+
+.bg-decor span:nth-child(4){
+  right:9%;
+  bottom:18%;
+  font-size:62px;
+  animation-delay:-2s;
+}
+
+@keyframes floatSymbol{
+
+  50%{
+    transform:
+    translateY(-26px)
+    rotate(7deg);
+  }
+
+}
+
+
+/* =========================================================
+   03. HEADER
+========================================================= */
+
+.header{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:1000;
+
+  background:
+  rgba(12,7,5,.86);
+
+  backdrop-filter:
+  blur(17px);
+
+  border-bottom:
+  1px solid var(--border);
+}
+
+.header-inner{
+
+  width:
+  min(1550px,calc(100% - 34px));
+
+  min-height:76px;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:18px;
+}
+
+.brand{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:13px;
+}
+
+.brand-icon{
+
+  width:48px;
+  height:48px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:15px;
+
+  font-size:24px;
+
+  color:#28130d;
+
+  background:
+
+  linear-gradient(
+    145deg,
+    #f1d38b,
+    #ac7026
+  );
+}
+
+.brand small{
+
+  display:block;
+
+  color:var(--gold);
+
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.brand strong{
+
+  color:#f0dcb2;
+
+  font-size:13px;
+}
+
+.back-btn{
+
+  text-decoration:none;
+
+  padding:
+  11px 16px;
+
+  border-radius:12px;
+
+  background:
+  rgba(255,255,255,.045);
+
+  border:
+  1px solid var(--border);
+
+  color:#efd08c;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  transition:.25s;
+}
+
+.back-btn:hover{
+
+  transform:
+  translateX(-4px);
+
+  background:
+  rgba(182,47,35,.13);
+}
+
+
+/* =========================================================
+   04. HERO
+========================================================= */
+
+.hero{
+
+  position:relative;
+
+  z-index:3;
+
+  width:
+  min(1450px,calc(100% - 34px));
+
+  margin:auto;
+
+  padding:
+  56px 0 38px;
+
+  text-align:center;
+}
+
+.eyebrow{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin-bottom:17px;
+
+  padding:
+  8px 13px;
+
+  border-radius:999px;
+
+  border:
+  1px solid
+  rgba(237,191,108,.2);
+
+  background:
+  rgba(178,47,35,.11);
+
+  color:#efd08b;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.eyebrow::before{
+
+  content:"";
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#c63a2c;
+
+  box-shadow:
+  0 0 12px #d64b3a;
+}
+
+.hero h1{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  font-size:
+  clamp(47px,6vw,80px);
+
+  line-height:.95;
+
+  color:#f4ddac;
+
+  margin-bottom:17px;
+}
+
+.hero h1 span{
+
+  color:var(--gold);
+}
+
+.hero p{
+
+  max-width:920px;
+
+  margin:auto;
+
+  color:
+  rgba(255,255,255,.64);
+
+  font-size:13px;
+
+  line-height:1.85;
+}
+
+
+/* =========================================================
+   05. NOTE
+========================================================= */
+
+.note{
+
+  position:relative;
+
+  z-index:4;
+
+  width:
+  min(1500px,calc(100% - 34px));
+
+  margin:
+  0 auto 18px;
+
+  padding:
+  14px 16px;
+
+  border-radius:14px;
+
+  border:
+  1px solid var(--border);
+
+  background:
+  rgba(255,255,255,.035);
+
+  color:
+  rgba(255,255,255,.61);
+
+  font-size:10.5px;
+
+  line-height:1.75;
+}
+
+.note strong{
+
+  color:#efd08b;
+}
+
+
+/* =========================================================
+   06. MODE BUTTONS
+========================================================= */
+
+.mode-tabs{
+
+  width:
+  min(1500px,calc(100% - 34px));
+
+  margin:
+  0 auto 17px;
+
+  position:relative;
+
+  z-index:5;
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:9px;
+}
+
+.mode-btn{
+
+  cursor:pointer;
+
+  padding:
+  13px 16px;
+
+  border-radius:13px;
+
+  border:
+  1px solid var(--border);
+
+  background:
+  rgba(255,255,255,.04);
+
+  color:
+  rgba(255,255,255,.7);
+
+  font-family:"Montserrat",sans-serif;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  transition:.25s;
+}
+
+.mode-btn:hover{
+
+  transform:
+  translateY(-3px);
+
+  background:
+  rgba(179,48,35,.1);
+
+  color:#f1d28e;
+}
+
+.mode-btn.active{
+
+  background:
+  rgba(182,48,35,.15);
+
+  border-color:
+  rgba(237,193,111,.35);
+
+  color:#f4d795;
+
+  box-shadow:
+  0 12px 25px
+  rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   07. WORKSPACE
+========================================================= */
+
+.workspace{
+
+  position:relative;
+
+  z-index:5;
+
+  width:
+  min(1550px,calc(100% - 34px));
+
+  margin:auto;
+
+  padding-bottom:90px;
+}
+
+.workspace-layout{
+
+  display:grid;
+
+  grid-template-columns:
+  245px minmax(0,1fr) 340px;
+
+  gap:18px;
+
+  align-items:start;
+}
+
+
+/* =========================================================
+   08. PANEL
+========================================================= */
+
+.panel{
+
+  border-radius:22px;
+
+  border:
+  1px solid var(--border);
+
+  background:
+
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.02)
+  );
+
+  backdrop-filter:
+  blur(15px);
+
+  overflow:hidden;
+
+  box-shadow:
+  0 20px 55px
+  rgba(0,0,0,.2);
+}
+
+.panel-title{
+
+  padding:
+  20px 18px 15px;
+
+  border-bottom:
+  1px solid
+  rgba(255,255,255,.06);
+}
+
+.panel-title small{
+
+  color:var(--gold);
+
+  text-transform:uppercase;
+
+  letter-spacing:1.7px;
+
+  font-size:8.5px;
+
+  font-weight:800;
+}
+
+.panel-title h3{
+
+  margin-top:4px;
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  color:#f0d7a4;
+
+  font-size:25px;
+}
+
+.group{
+
+  padding:
+  16px 18px;
+
+  border-bottom:
+  1px solid
+  rgba(255,255,255,.06);
+}
+
+.group:last-child{
+
+  border-bottom:0;
+}
+
+.group-label{
+
+  color:
+  rgba(255,255,255,.44);
+
+  font-size:8px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:1.4px;
+
+  margin-bottom:10px;
+}
+
+.layer-btn,
+.quick-btn{
+
+  width:100%;
+
+  cursor:pointer;
+
+  padding:
+  10px 11px;
+
+  margin-bottom:7px;
+
+  border-radius:10px;
+
+  border:
+  1px solid
+  rgba(255,255,255,.06);
+
+  background:
+  rgba(255,255,255,.035);
+
+  color:
+  rgba(255,255,255,.7);
+
+  font-family:"Montserrat",sans-serif;
+
+  font-size:9.5px;
+
+  font-weight:700;
+
+  transition:.25s;
+}
+
+.layer-btn{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:8px;
+}
+
+.layer-btn:hover,
+.quick-btn:hover{
+
+  transform:
+  translateX(3px);
+
+  border-color:
+  rgba(233,187,103,.27);
+
+  color:#f0d08b;
+}
+
+.layer-btn.active{
+
+  background:
+  rgba(183,49,36,.11);
+
+  border-color:
+  rgba(236,191,108,.25);
+
+  color:#efd18c;
+}
+
+.layer-dot{
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#d6a54c;
+}
+
+.layer-btn.active .layer-dot{
+
+  box-shadow:
+  0 0 10px #eac36f;
+}
+
+.help-text{
+
+  color:
+  rgba(255,255,255,.5);
+
+  font-size:9.5px;
+
+  line-height:1.7;
+}
+
+
+/* =========================================================
+   09. MAP MODE
+========================================================= */
+
+.map-mode{
+
+  display:none;
+}
+
+.map-mode.active{
+
+  display:block;
+
+  animation:
+  modeIn .45s ease both;
+}
+
+@keyframes modeIn{
+
+  from{
+    opacity:0;
+    transform:
+    translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
+}
+
+
+/* =========================================================
+   10. MAP BOX
+========================================================= */
+
+.map-box{
+
+  position:relative;
+
+  overflow:hidden;
+
+  height:
+  min(760px,76vh);
+
+  min-height:640px;
+
+  border-radius:27px;
+
+  border:
+  1px solid
+  rgba(238,193,110,.18);
+
+  background:
+
+  radial-gradient(
+    circle at 25% 40%,
+    rgba(236,193,108,.13),
+    transparent 30%
+  ),
+
+  linear-gradient(
+    135deg,
+    #a7d7d1,
+    #d5e5bf 58%,
+    #becda8
+  );
+
+  box-shadow:var(--shadow);
+
+  user-select:none;
+}
+
+.map-stage{
+
+  width:100%;
+  height:100%;
+
+  transform-origin:
+  center center;
+
+  transition:
+  transform .35s ease;
+}
+
+.map-svg{
+
+  width:100%;
+  height:100%;
+
+  display:block;
+}
+
+
+/* =========================================================
+   11. MAP COLORS
+========================================================= */
+
+.sea{
+  fill:#a0d9df;
+}
+
+.land{
+  fill:#e2d6a2;
+}
+
+.mountain-zone{
+  fill:#c7b37b;
+  opacity:.7;
+}
+
+.neighbor{
+  fill:var(--neighbor);
+  stroke:#8c754d;
+  stroke-width:1.8;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.neighbor2{
+  fill:var(--neighbor2);
+  stroke:#887143;
+  stroke-width:1.8;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.state{
+
+  cursor:pointer;
+
+  stroke:
+  rgba(85,50,25,.75);
+
+  stroke-width:2.3;
+
+  transition:
+  fill .45s ease,
+  opacity .3s ease,
+  filter .3s ease;
+}
+
+.state:hover{
+
+  filter:
+  drop-shadow(
+  0 0 9px
+  rgba(255,230,166,.55)
+  );
+}
+
+.qin-state{
+  fill:var(--qin);
+}
+
+.han-state{
+  fill:var(--han);
+}
+
+.zhao-state{
+  fill:var(--zhao);
+}
+
+.wei-state{
+  fill:var(--wei);
+}
+
+.chu-state{
+  fill:var(--chu);
+}
+
+.yan-state{
+  fill:var(--yan);
+}
+
+.qi-state{
+  fill:var(--qi);
+}
+
+.conquered{
+
+  fill:#b85a40 !important;
+
+  opacity:.9;
+}
+
+.empire{
+
+  fill:
+  rgba(181,87,58,.68);
+
+  stroke:#99452f;
+
+  stroke-width:2.7;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.empire:hover{
+
+  fill:
+  rgba(200,101,71,.82);
+
+  filter:
+  drop-shadow(
+  0 0 10px
+  rgba(224,125,78,.4)
+  );
+}
+
+.modern-china{
+
+  fill:
+  rgba(212,143,78,.82);
+
+  stroke:#ab6a2f;
+
+  stroke-width:2.6;
+
+  cursor:pointer;
+}
+
+.boundary{
+
+  fill:none;
+
+  stroke:#735632;
+
+  stroke-width:2.2;
+
+  stroke-dasharray:
+  8 6;
+
+  pointer-events:none;
+}
+
+.modern-border{
+
+  fill:none;
+
+  stroke:#6b573a;
+
+  stroke-width:2;
+
+  pointer-events:none;
+}
+
+.river{
+
+  fill:none;
+
+  stroke:var(--river);
+
+  stroke-width:7;
+
+  stroke-linecap:round;
+
+  stroke-dasharray:
+  17 8;
+
+  animation:
+  riverFlow 1.3s linear infinite;
+
+  cursor:pointer;
+
+  filter:
+  drop-shadow(
+  0 0 4px
+  rgba(45,158,184,.38)
+  );
+
+  transition:.25s;
+}
+
+.river:hover{
+
+  stroke-width:11;
+
+  stroke:#3cc7dc;
+}
+
+@keyframes riverFlow{
+
+  to{
+    stroke-dashoffset:-25;
+  }
+
+}
+
+
+/* =========================================================
+   12. TEXT LABELS
+========================================================= */
+
+.state-label{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  font-size:26px;
+
+  font-weight:700;
+
+  fill:#4b2916;
+
+  pointer-events:none;
+
+  paint-order:stroke;
+
+  stroke:#f5e3b4;
+
+  stroke-width:3px;
+
+  stroke-linejoin:round;
+}
+
+.map-label{
+
+  font-family:
+  "Montserrat",
+  sans-serif;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  fill:#49321f;
+
+  pointer-events:none;
+
+  paint-order:stroke;
+
+  stroke:#f6e5b8;
+
+  stroke-width:3px;
+}
+
+.water-label{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  font-size:20px;
+
+  font-style:italic;
+
+  fill:#23798d;
+
+  pointer-events:none;
+
+  paint-order:stroke;
+
+  stroke:#d8f1ed;
+
+  stroke-width:2px;
+}
+
+.region-label{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  font-size:28px;
+
+  font-weight:700;
+
+  letter-spacing:3px;
+
+  fill:#513119;
+
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   13. CITY
+========================================================= */
+
+.city{
+
+  cursor:pointer;
+}
+
+.city circle{
+
+  fill:#d64d40;
+
+  stroke:#fff0c4;
+
+  stroke-width:2;
+
+  transition:.25s;
+
+  filter:
+  drop-shadow(
+  0 0 4px
+  rgba(162,28,19,.4)
+  );
+}
+
+.city:hover circle{
+
+  r:9;
+
+  fill:#ff745d;
+
+  filter:
+  drop-shadow(
+  0 0 10px
+  rgba(255,87,66,.8)
+  );
+}
+
+.city text{
+
+  font-family:
+  "Montserrat",
+  sans-serif;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  fill:#382317;
+
+  pointer-events:none;
+
+  paint-order:stroke;
+
+  stroke:#f8e7b9;
+
+  stroke-width:3px;
+}
+
+
+/* =========================================================
+   14. GREAT WALL
+========================================================= */
+
+.wall-line{
+
+  fill:none;
+
+  stroke:#b5372a;
+
+  stroke-width:4;
+
+  stroke-dasharray:
+  4 5;
+
+  filter:
+  drop-shadow(
+  0 0 3px
+  rgba(183,50,38,.4)
+  );
+}
+
+
+/* =========================================================
+   15. ZOOM
+========================================================= */
+
+.zoom-controls{
+
+  position:absolute;
+
+  right:15px;
+  bottom:15px;
+
+  z-index:30;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:7px;
+}
+
+.zoom-btn{
+
+  width:40px;
+  height:40px;
+
+  cursor:pointer;
+
+  border-radius:12px;
+
+  border:
+  1px solid
+  rgba(255,255,255,.24);
+
+  background:
+  rgba(25,17,11,.82);
+
+  color:#f4d590;
+
+  font-size:17px;
+
+  transition:.25s;
+}
+
+.zoom-btn:hover{
+
+  transform:
+  scale(1.08);
+
+  background:#452719;
+}
+
+.map-hint{
+
+  position:absolute;
+
+  left:15px;
+  bottom:15px;
+
+  z-index:20;
+
+  max-width:310px;
+
+  padding:
+  10px 13px;
+
+  border-radius:11px;
+
+  background:
+  rgba(24,17,11,.84);
+
+  border:
+  1px solid
+  rgba(244,208,136,.16);
+
+  color:#efd59f;
+
+  font-size:9px;
+
+  line-height:1.6;
+
+  font-weight:700;
+}
+
+
+/* =========================================================
+   16. TIMELINE CONTROLS
+========================================================= */
+
+.timeline-control{
+
+  margin-bottom:16px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  border:
+  1px solid var(--border);
+
+  background:
+  rgba(255,255,255,.035);
+}
+
+.timeline-title{
+
+  color:#efcc82;
+
+  font-size:9px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:1.7px;
+
+  margin-bottom:12px;
+}
+
+.year-buttons{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(7,1fr);
+
+  gap:7px;
+}
+
+.year-btn{
+
+  cursor:pointer;
+
+  border:
+  1px solid
+  rgba(255,255,255,.06);
+
+  border-radius:10px;
+
+  padding:
+  10px 6px;
+
+  background:
+  rgba(255,255,255,.035);
+
+  color:
+  rgba(255,255,255,.62);
+
+  font-size:9px;
+
+  font-weight:800;
+
+  font-family:
+  "Montserrat",
+  sans-serif;
+
+  transition:.25s;
+}
+
+.year-btn:hover,
+.year-btn.active{
+
+  background:
+  rgba(182,48,35,.14);
+
+  border-color:
+  rgba(236,191,107,.3);
+
+  color:#f0d08a;
+
+  transform:
+  translateY(-2px);
+}
+
+.timeline-caption{
+
+  margin-top:11px;
+
+  color:
+  rgba(255,255,255,.56);
+
+  font-size:10px;
+
+  line-height:1.6;
+}
+
+
+/* =========================================================
+   17. INFO PANEL
+========================================================= */
+
+.info-panel{
+
+  min-height:570px;
+}
+
+.info-default{
+
+  text-align:center;
+
+  padding:
+  38px 22px;
+}
+
+.info-default-icon{
+
+  width:88px;
+  height:88px;
+
+  display:grid;
+  place-items:center;
+
+  margin:
+  4px auto 20px;
+
+  border-radius:50%;
+
+  font-size:38px;
+
+  background:
+
+  linear-gradient(
+    145deg,
+    #c73d2d,
+    #6f1c17
+  );
+
+  color:#f7d78e;
+
+  box-shadow:
+  0 15px 35px
+  rgba(0,0,0,.24);
+}
+
+.info-default h3{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  font-size:27px;
+
+  color:#f0daad;
+
+  margin-bottom:10px;
+}
+
+.info-default p{
+
+  color:
+  rgba(255,255,255,.6);
+
+  font-size:10.5px;
+
+  line-height:1.8;
+}
+
+.info-content{
+
+  display:none;
+
+  animation:
+  infoIn .4s ease both;
+}
+
+@keyframes infoIn{
+
+  from{
+    opacity:0;
+    transform:
+    translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
+}
+
+.info-cover{
+
+  height:138px;
+
+  padding:20px;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  background:
+
+  radial-gradient(
+    circle at 76% 20%,
+    rgba(245,216,143,.24),
+    transparent 28%
+  ),
+
+  linear-gradient(
+    135deg,
+    #781f18,
+    #2b6c61
+  );
+
+  border-bottom:
+  1px solid var(--border);
+}
+
+.info-icon{
+
+  font-size:55px;
+}
+
+.info-body{
+
+  padding:
+  22px 20px 26px;
+}
+
+.info-type{
+
+  color:var(--gold);
+
+  font-size:8px;
+
+  font-weight:800;
+
+  letter-spacing:1.7px;
+
+  text-transform:uppercase;
+
+  margin-bottom:5px;
+}
+
+.info-body h2{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  color:#f3d9a6;
+
+  font-size:31px;
+
+  line-height:1;
+
+  margin-bottom:13px;
+}
+
+.info-description{
+
+  color:
+  rgba(255,255,255,.66);
+
+  font-size:11.3px;
+
+  line-height:1.8;
+}
+
+.info-points{
+
+  margin-top:18px;
+}
+
+.info-point{
+
+  display:flex;
+
+  gap:10px;
+
+  padding:
+  11px 0;
+
+  border-top:
+  1px solid
+  rgba(255,255,255,.06);
+}
+
+.info-point:first-child{
+
+  border-top:0;
+}
+
+.point-icon{
+
+  flex:0 0 28px;
+
+  width:28px;
+  height:28px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:8px;
+
+  background:
+  rgba(184,49,37,.11);
+
+  font-size:13px;
+}
+
+.info-point strong{
+
+  display:block;
+
+  color:#e5c279;
+
+  font-size:9.5px;
+
+  margin-bottom:2px;
+}
+
+.info-point span{
+
+  display:block;
+
+  color:
+  rgba(255,255,255,.52);
+
+  font-size:9.5px;
+
+  line-height:1.6;
+}
+
+
+/* =========================================================
+   18. COMPARE
+========================================================= */
+
+.compare-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:16px;
+}
+
+.compare-title{
+
+  margin-bottom:9px;
+
+  padding:
+  12px 14px;
+
+  border-radius:13px;
+
+  background:
+  rgba(255,255,255,.04);
+
+  border:
+  1px solid var(--border);
+
+  color:#f0d297;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:1.3px;
+
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   19. LEGEND
+========================================================= */
+
+.legend{
+
+  margin-top:18px;
+
+  padding:18px;
+
+  border-radius:17px;
+
+  border:
+  1px solid var(--border);
+
+  background:
+  rgba(255,255,255,.035);
+
+  display:flex;
+
+  align-items:center;
+
+  flex-wrap:wrap;
+
+  gap:16px;
+}
+
+.legend-title{
+
+  color:#e3bb6c;
+
+  font-size:8px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:1.4px;
+}
+
+.legend-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  color:
+  rgba(255,255,255,.55);
+
+  font-size:9.5px;
+}
+
+.legend-box{
+
+  width:17px;
+  height:10px;
+
+  border-radius:3px;
+}
+
+
+/* =========================================================
+   20. ANALYSIS
+========================================================= */
+
+.analysis{
+
+  position:relative;
+
+  z-index:4;
+
+  width:
+  min(1380px,calc(100% - 34px));
+
+  margin:
+  35px auto 85px;
+}
+
+.analysis-heading{
+
+  margin-bottom:27px;
+}
+
+.analysis-heading small{
+
+  color:var(--gold);
+
+  font-size:9px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:2px;
+}
+
+.analysis-heading h2{
+
+  margin-top:6px;
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  color:#f1d8a6;
+
+  font-size:
+  clamp(36px,5vw,55px);
+}
+
+.analysis-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:18px;
+}
+
+.analysis-card{
+
+  padding:24px;
+
+  border-radius:20px;
+
+  border:
+  1px solid var(--border);
+
+  background:
+  rgba(255,255,255,.04);
+}
+
+.analysis-card span{
+
+  font-size:28px;
+}
+
+.analysis-card h3{
+
+  font-family:
+  "Cormorant Garamond",
+  serif;
+
+  color:#efd5a0;
+
+  font-size:25px;
+
+  margin:
+  12px 0 8px;
+}
+
+.analysis-card p{
+
+  color:
+  rgba(255,255,255,.61);
+
+  font-size:11px;
+
+  line-height:1.75;
+}
+
+
+/* =========================================================
+   21. RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .workspace-layout{
+
+    grid-template-columns:
+    220px minmax(0,1fr);
+  }
+
+  .info-panel{
+
+    grid-column:
+    1 / -1;
+  }
+
+}
+
+@media(max-width:900px){
+
+  .workspace-layout{
+
+    grid-template-columns:1fr;
+  }
+
+  .compare-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .analysis-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .year-buttons{
+
+    grid-template-columns:
+    repeat(4,1fr);
+  }
+
+  .map-box{
+
+    min-height:550px;
+  }
+
+}
+
+@media(max-width:560px){
+
+  .header-inner,
+  .hero,
+  .note,
+  .mode-tabs,
+  .workspace,
+  .analysis{
+
+    width:
+    min(100% - 20px,1550px);
+  }
+
+  .brand strong{
+
+    font-size:9px;
+  }
+
+  .hero h1{
+
+    font-size:43px;
+  }
+
+  .mode-btn{
+
+    width:100%;
+  }
+
+  .year-buttons{
+
+    grid-template-columns:
+    repeat(2,1fr);
+  }
+
+  .map-box{
+
+    min-height:470px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-decor">
+  <span>秦</span>
+  <span>龍</span>
+  <span>漢</span>
+  <span>燕</span>
+</div>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+<div class="header-inner">
+
+  <div class="brand">
+
+    <div class="brand-icon">
+      🐉
+    </div>
+
+    <div>
+
+      <small>
+        Học liệu số
+      </small>
+
+      <strong>
+        Lược đồ tương tác • Trung Quốc cổ đại
+      </strong>
+
+    </div>
+
+  </div>
+
+  <a
+  href="index.html"
+  class="back-btn">
+
+    ← Xã hội cổ đại
+
+  </a>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+  <div class="eyebrow">
+    Bản đồ lịch sử tương tác
+  </div>
+
+  <h1>
+
+    TRUNG QUỐC
+
+    <span>
+      CỔ ĐẠI → HIỆN NAY
+    </span>
+
+  </h1>
+
+  <p>
+
+    Quan sát không gian lịch sử Trung Quốc cổ đại,
+    quá trình nước Tần lần lượt thôn tính sáu nước
+    trong thời Chiến Quốc,
+    sự hình thành đế chế thống nhất năm 221 TCN
+    và so sánh với bản đồ Trung Quốc hiện nay.
+
+    Hãy nhấn trực tiếp vào từng nước,
+    vùng đất, dòng sông hoặc địa điểm
+    để mở hồ sơ thông tin.
+
+  </p>
+
+</section>
+
+
+<div class="note">
+
+  <strong>Lưu ý:</strong>
+
+  các đường ranh giới trong phần cổ đại
+  là lược đồ khái quát phục vụ dạy học,
+  nhằm thể hiện tương quan không gian giữa
+  các nước Chiến Quốc và các vùng lân cận.
+
+  Không nên hiểu chúng như đường biên giới
+  quốc gia được đo đạc chính xác theo chuẩn
+  bản đồ chính trị hiện đại.
+
+</div>
+
+
+<!-- =====================================================
+     MODE TABS
+====================================================== -->
+
+<div class="mode-tabs">
+
+  <button
+  class="mode-btn active"
+  data-mode="warringMode">
+
+    ⚔️ 7 NƯỚC CHIẾN QUỐC
+
+  </button>
+
+  <button
+  class="mode-btn"
+  data-mode="qinMode">
+
+    👑 ĐẾ CHẾ TẦN 221 TCN
+
+  </button>
+
+  <button
+  class="mode-btn"
+  data-mode="modernMode">
+
+    🌍 TRUNG QUỐC HIỆN NAY
+
+  </button>
+
+  <button
+  class="mode-btn"
+  data-mode="compareMode">
+
+    ⚖️ SO SÁNH CỔ – HIỆN ĐẠI
+
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     WORKSPACE
+====================================================== -->
+
+<section class="workspace">
+
+<div class="workspace-layout">
+
+
+<!-- =====================================================
+     LEFT PANEL
+====================================================== -->
+
+<aside class="panel">
+
+<div class="panel-title">
+
+  <small>
+    Công cụ
+  </small>
+
+  <h3>
+    Khám phá bản đồ
+  </h3>
+
+</div>
+
+
+<div class="group">
+
+  <div class="group-label">
+    Lớp thông tin
+  </div>
+
+  <button
+  class="layer-btn active"
+  data-layer="ancientStates">
+
+    <span>
+      🟨 Các nước cổ đại
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+
+  <button
+  class="layer-btn active"
+  data-layer="ancientNeighbors">
+
+    <span>
+      🧭 Vùng xung quanh
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+
+  <button
+  class="layer-btn active"
+  data-layer="ancientRivers">
+
+    <span>
+      🌊 Hoàng Hà – Trường Giang
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+
+  <button
+  class="layer-btn active"
+  data-layer="ancientCities">
+
+    <span>
+      🔴 Đô thị / kinh đô
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+
+  <button
+  class="layer-btn active"
+  data-layer="ancientLabels">
+
+    <span>
+      🔤 Địa danh
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+
+  <button
+  class="layer-btn active"
+  data-layer="modernCountries">
+
+    <span>
+      🌍 Quốc gia hiện nay
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+
+  <button
+  class="layer-btn active"
+  data-layer="modernBorders">
+
+    <span>
+      📍 Biên giới hiện nay
+    </span>
+
+    <span class="layer-dot"></span>
+
+  </button>
+
+</div>
+
+
+<div class="group">
+
+  <div class="group-label">
+    Khám phá nhanh
+  </div>
+
+  <button
+  class="quick-btn"
+  onclick="showInfo('qin_state')">
+
+    🟫 Nước Tần
+
+  </button>
+
+  <button
+  class="quick-btn"
+  onclick="showInfo('yellow_river')">
+
+    🌊 Hoàng Hà
+
+  </button>
+
+  <button
+  class="quick-btn"
+  onclick="showInfo('yangtze')">
+
+    🌊 Trường Giang
+
+  </button>
+
+  <button
+  class="quick-btn"
+  onclick="showInfo('qin_empire')">
+
+    👑 Trung Quốc năm 221 TCN
+
+  </button>
+
+  <button
+  class="quick-btn"
+  onclick="showInfo('china_modern')">
+
+    🇨🇳 Trung Quốc hiện nay
+
+  </button>
+
+  <button
+  class="quick-btn"
+  onclick="resetAllMaps()">
+
+    ⟳ Đặt lại bản đồ
+
+  </button>
+
+</div>
+
+
+<div class="group">
+
+  <div class="group-label">
+    Hướng dẫn
+  </div>
+
+  <div class="help-text">
+
+    • Click từng nước Chiến Quốc.<br>
+    • Click mốc thời gian để xem Tần mở rộng.<br>
+    • Click các vùng giáp xung quanh.<br>
+    • Click các nước láng giềng hiện nay.<br>
+    • Cuộn chuột để zoom.<br>
+    • Kéo chuột để di chuyển bản đồ.
+
+  </div>
+
+</div>
+
+</aside>
+
+
+<!-- =====================================================
+     CENTER
+====================================================== -->
+
+<div>
+
+
+<!-- =====================================================
+     MODE 1 - WARRING STATES
+====================================================== -->
+
+<div
+class="map-mode active"
+id="warringMode">
+
+
+<div class="timeline-control">
+
+  <div class="timeline-title">
+
+    TIẾN TRÌNH TẦN THỐNG NHẤT TRUNG QUỐC
+
+  </div>
+
+
+  <div class="year-buttons">
+
+    <button
+    class="year-btn active"
+    data-step="0">
+
+      Trước 230 TCN
+
+    </button>
+
+    <button
+    class="year-btn"
+    data-step="1">
+
+      230 TCN
+
+    </button>
+
+    <button
+    class="year-btn"
+    data-step="2">
+
+      228 TCN
+
+    </button>
+
+    <button
+    class="year-btn"
+    data-step="3">
+
+      225 TCN
+
+    </button>
+
+    <button
+    class="year-btn"
+    data-step="4">
+
+      223 TCN
+
+    </button>
+
+    <button
+    class="year-btn"
+    data-step="5">
+
+      222 TCN
+
+    </button>
+
+    <button
+    class="year-btn"
+    data-step="6">
+
+      221 TCN
+
+    </button>
+
+  </div>
+
+
+  <div
+  class="timeline-caption"
+  id="timelineCaption">
+
+    Bảy nước lớn:
+    Tần – Hàn – Triệu – Ngụy – Sở – Yên – Tề.
+
+  </div>
+
+</div>
+
+
+<div class="map-box">
+
+
+<div
+class="map-stage"
+id="warringStage">
+
+
+<svg
+class="map-svg"
+viewBox="0 0 1100 740"
+xmlns="http://www.w3.org/2000/svg">
+
+
+<!-- SEA -->
+
+<rect
+width="1100"
+height="740"
+class="sea"
+/>
+
+
+<!-- MAIN LAND -->
+
+<path
+class="land"
+d="
+M0 0
+H1100
+V570
+C1020 560 955 575 900 607
+C825 650 735 665 650 650
+C545 632 450 620 355 632
+C255 645 160 626 75 590
+L0 570
+Z
+"
+/>
+
+
+<!-- WESTERN HIGH -->
+
+<path
+class="mountain-zone"
+d="
+M0 80
+C130 65 230 95 320 145
+C350 220 355 310 315 400
+C250 450 175 470 80 455
+L0 430
+Z
+"
+/>
+
+
+<!-- ===================================================
+     ANCIENT NEIGHBORS
+=================================================== -->
+
+<g id="ancientNeighbors">
+
+<!-- XIONGNU / NORTHERN STEPPE -->
+
+<path
+class="neighbor clickable"
+onclick="showInfo('xiongnu')"
+d="
+M350 40
+C520 25 690 40 875 85
+L855 168
+C735 145 620 138 510 150
+C452 154 408 168 370 188
+L322 128
+Z
+"
+/>
+
+
+<!-- WESTERN REGIONS -->
+
+<path
+class="neighbor2 clickable"
+onclick="showInfo('western_regions')"
+d="
+M0 80
+L350 40
+L322 128
+L370 188
+L316 242
+L265 288
+L170 308
+L75 285
+L0 250
+Z
+"
+/>
+
+
+<!-- DONGHU / NE -->
+
+<path
+class="neighbor clickable"
+onclick="showInfo('donghu')"
+d="
+M875 85
+L1100 105
+V310
+L945 290
+L880 245
+L855 168
+Z
+"
+/>
+
+
+<!-- YUE / SOUTH -->
+
+<path
+class="neighbor2 clickable"
+onclick="showInfo('yue')"
+d="
+M390 560
+C520 550 620 575 730 596
+C805 610 885 585 930 535
+L1100 555
+V740
+H350
+C350 685 360 620 390 560
+Z
+"
+/>
+
+
+<!-- TIBETAN-QIANG -->
+
+<path
+class="neighbor clickable"
+onclick="showInfo('qiang')"
+d="
+M0 250
+L75 285
+L170 308
+L265 288
+L320 330
+L300 450
+L225 510
+L90 500
+L0 470
+Z
+"
+/>
+
+</g>
+
+
+<!-- ===================================================
+     7 WARRING STATES
+=================================================== -->
+
+<g id="ancientStates">
+
+
+<!-- QIN -->
+
+<path
+id="stateQin"
+class="state qin-state"
+onclick="showInfo('qin_state')"
+d="
+M280 280
+C335 250 392 250 445 274
+L462 348
+L425 430
+L350 472
+L285 438
+L260 365
+Z
+"
+/>
+
+
+<!-- HAN -->
+
+<path
+id="stateHan"
+class="state han-state"
+onclick="showInfo('han_state')"
+d="
+M445 274
+L510 265
+L544 300
+L533 358
+L462 348
+Z
+"
+/>
+
+
+<!-- ZHAO -->
+
+<path
+id="stateZhao"
+class="state zhao-state"
+onclick="showInfo('zhao_state')"
+d="
+M470 175
+C535 153 600 164 655 200
+L640 272
+L590 315
+L544 300
+L510 265
+L445 274
+L430 222
+Z
+"
+/>
+
+
+<!-- WEI -->
+
+<path
+id="stateWei"
+class="state wei-state"
+onclick="showInfo('wei_state')"
+d="
+M544 300
+L590 315
+L623 358
+L605 414
+L533 422
+L500 376
+L533 358
+Z
+"
+/>
+
+
+<!-- CHU -->
+
+<path
+id="stateChu"
+class="state chu-state"
+onclick="showInfo('chu_state')"
+d="
+M425 430
+L533 422
+L605 414
+L688 390
+L762 417
+L793 505
+L730 575
+L600 578
+L480 548
+L390 560
+L350 472
+Z
+"
+/>
+
+
+<!-- YAN -->
+
+<path
+id="stateYan"
+class="state yan-state"
+onclick="showInfo('yan_state')"
+d="
+M655 200
+C720 158 790 150 858 178
+L880 245
+L835 300
+L755 295
+L690 265
+L640 272
+Z
+"
+/>
+
+
+<!-- QI -->
+
+<path
+id="stateQi"
+class="state qi-state"
+onclick="showInfo('qi_state')"
+d="
+M690 265
+L755 295
+L835 300
+L880 345
+L840 420
+L762 417
+L688 390
+L623 358
+L590 315
+L640 272
+Z
+"
+/>
+
+</g>
+
+
+<!-- ===================================================
+     BOUNDARIES
+=================================================== -->
+
+<g>
+
+<path
+class="boundary"
+d="
+M350 40
+C520 25 690 40 875 85
+"
+/>
+
+<path
+class="boundary"
+d="
+M390 560
+C520 550 620 575 730 596
+"
+/>
+
+</g>
+
+
+<!-- ===================================================
+     RIVERS
+=================================================== -->
+
+<g id="ancientRivers">
+
+
+<!-- YELLOW RIVER -->
+
+<path
+class="river"
+onclick="showInfo('yellow_river')"
+d="
+M235 260
+C290 235 352 232 415 252
+C470 270 525 248 580 262
+C642 278 705 250 770 265
+C815 276 850 295 880 318
+"
+/>
+
+
+<!-- YANGTZE -->
+
+<path
+class="river"
+onclick="showInfo('yangtze')"
+d="
+M255 475
+C340 446 420 468 505 455
+C590 442 670 458 755 445
+C820 435 875 445 930 470
+"
+/>
+
+</g>
+
+
+<!-- ===================================================
+     WALLS
+=================================================== -->
+
+<g>
+
+<path
+class="wall-line"
+d="
+M395 195
+C495 165 600 168 705 194
+C765 207 820 208 860 201
+"
+/>
+
+</g>
+
+
+<!-- ===================================================
+     CITIES
+=================================================== -->
+
+<g id="ancientCities">
+
+
+<!-- XIANYANG -->
+
+<g
+class="city"
+onclick="showInfo('xianyang')">
+
+  <circle
+  cx="397"
+  cy="354"
+  r="6"/>
+
+  <text
+  x="406"
+  y="347">
+
+    Hàm Dương
+
+  </text>
+
+</g>
+
+
+<!-- HANDAN -->
+
+<g
+class="city"
+onclick="showInfo('handan')">
+
+  <circle
+  cx="577"
+  cy="246"
+  r="6"/>
+
+  <text
+  x="588"
+  y="240">
+
+    Hàm Đan
+
+  </text>
+
+</g>
+
+
+<!-- DALIANG -->
+
+<g
+class="city"
+onclick="showInfo('daliang')">
+
+  <circle
+  cx="568"
+  cy="352"
+  r="6"/>
+
+  <text
+  x="580"
+  y="346">
+
+    Đại Lương
+
+  </text>
+
+</g>
+
+
+<!-- LINZI -->
+
+<g
+class="city"
+onclick="showInfo('linzi')">
+
+  <circle
+  cx="772"
+  cy="335"
+  r="6"/>
+
+  <text
+  x="784"
+  y="328">
+
+    Lâm Truy
+
+  </text>
+
+</g>
+
+</g>
+
+
+<!-- ===================================================
+     LABELS
+=================================================== -->
+
+<g id="ancientLabels">
+
+
+<text
+x="340"
+y="370"
+class="state-label">
+TẦN
+</text>
+
+<text
+x="491"
+y="322"
+class="state-label">
+HÀN
+</text>
+
+<text
+x="540"
+y="220"
+class="state-label">
+TRIỆU
+</text>
+
+<text
+x="550"
+y="392"
+class="state-label">
+NGỤY
+</text>
+
+<text
+x="570"
+y="500"
+class="state-label">
+SỞ
+</text>
+
+<text
+x="745"
+y="220"
+class="state-label">
+YÊN
+</text>
+
+<text
+x="747"
+y="360"
+class="state-label">
+TỀ
+</text>
+
+
+<text
+x="570"
+y="92"
+class="map-label">
+Hung Nô / thảo nguyên phía bắc
+</text>
+
+<text
+x="65"
+y="172"
+class="map-label">
+Các vùng phía tây
+</text>
+
+<text
+x="920"
+y="185"
+class="map-label">
+Đông Hồ và các nhóm đông bắc
+</text>
+
+<text
+x="520"
+y="655"
+class="map-label">
+Bách Việt và các nhóm phía nam
+</text>
+
+<text
+x="88"
+y="402"
+class="map-label">
+Các nhóm Khương phía tây
+</text>
+
+
+<text
+x="500"
+y="250"
+class="water-label">
+HOÀNG HÀ
+</text>
+
+<text
+x="590"
+y="450"
+class="water-label">
+TRƯỜNG GIANG
+</text>
+
+<text
+x="927"
+y="390"
+class="water-label">
+BIỂN HOA ĐÔNG
+</text>
+
+</g>
+
+</svg>
+
+</div>
+
+
+<div class="zoom-controls">
+
+  <button
+  class="zoom-btn"
+  onclick="zoomMap('warringStage',.25)">
+    +
+  </button>
+
+  <button
+  class="zoom-btn"
+  onclick="zoomMap('warringStage',-.25)">
+    −
+  </button>
+
+  <button
+  class="zoom-btn"
+  onclick="resetMap('warringStage')">
+    ⟳
+  </button>
+
+</div>
+
+
+<div class="map-hint">
+
+  ⚔️ Nhấn các mốc 230 → 221 TCN để quan sát
+  lãnh thổ Tần mở rộng từng bước.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     MODE 2 - QIN EMPIRE
+====================================================== -->
+
+<div
+class="map-mode"
+id="qinMode">
+
+<div class="map-box">
+
+<div
+class="map-stage"
+id="qinStage">
+
+<svg
+class="map-svg"
+viewBox="0 0 1100 740"
+xmlns="http://www.w3.org/2000/svg">
+
+
+<rect
+width="1100"
+height="740"
+class="sea"/>
+
+<path
+class="land"
+d="
+M0 0
+H1100
+V570
+C1020 560 955 575 900 607
+C825 650 735 665 650 650
+C545 632 450 620 355 632
+C255 645 160 626 75 590
+L0 570
+Z
+"
+/>
+
+
+<!-- NEIGHBORS -->
+
+<g>
+
+<path
+class="neighbor"
+onclick="showInfo('xiongnu')"
+d="
+M350 40
+C520 25 690 40 875 85
+L855 168
+C735 145 620 138 510 150
+C452 154 408 168 370 188
+L322 128
+Z
+"
+/>
+
+<path
+class="neighbor2"
+onclick="showInfo('western_regions')"
+d="
+M0 80
+L350 40
+L322 128
+L370 188
+L316 242
+L265 288
+L170 308
+L75 285
+L0 250
+Z
+"
+/>
+
+<path
+class="neighbor"
+onclick="showInfo('donghu')"
+d="
+M875 85
+L1100 105
+V310
+L945 290
+L880 245
+L855 168
+Z
+"
+/>
+
+<path
+class="neighbor2"
+onclick="showInfo('yue')"
+d="
+M390 560
+C520 550 620 575 730 596
+C805 610 885 585 930 535
+L1100 555
+V740
+H350
+C350 685 360 620 390 560
+Z
+"
+/>
+
+<path
+class="neighbor"
+onclick="showInfo('qiang')"
+d="
+M0 250
+L75 285
+L170 308
+L265 288
+L320 330
+L300 450
+L225 510
+L90 500
+L0 470
+Z
+"
+/>
+
+</g>
+
+
+<!-- QIN EMPIRE -->
+
+<path
+class="empire"
+onclick="showInfo('qin_empire')"
+d="
+M270 245
+C355 190 430 170 520 174
+C625 178 710 180 820 224
+L875 325
+L830 435
+L790 510
+L725 570
+L595 575
+L472 550
+L360 555
+L300 498
+L258 420
+L240 335
+Z
+"
+/>
+
+
+<!-- RIVERS -->
+
+<path
+class="river"
+onclick="showInfo('yellow_river')"
+d="
+M235 260
+C290 235 352 232 415 252
+C470 270 525 248 580 262
+C642 278 705 250 770 265
+C815 276 850 295 880 318
+"
+/>
+
+<path
+class="river"
+onclick="showInfo('yangtze')"
+d="
+M255 475
+C340 446 420 468 505 455
+C590 442 670 458 755 445
+C820 435 875 445 930 470
+"
+/>
+
+
+<!-- WALL -->
+
+<path
+class="wall-line"
+d="
+M330 188
+C455 150 565 151 675 175
+C750 192 820 190 865 177
+"
+/>
+
+
+<!-- CAPITAL -->
+
+<g
+class="city"
+onclick="showInfo('xianyang')">
+
+  <circle
+  cx="397"
+  cy="354"
+  r="7"/>
+
+  <text
+  x="409"
+  y="347">
+
+    Hàm Dương
+
+  </text>
+
+</g>
+
+
+<!-- LABEL -->
+
+<text
+x="478"
+y="375"
+class="region-label">
+
+ĐẾ CHẾ TẦN
+
+</text>
+
+<text
+x="490"
+y="400"
+class="map-label">
+
+221 – 206 TCN
+
+</text>
+
+<text
+x="560"
+y="92"
+class="map-label">
+
+Hung Nô / thảo nguyên phía bắc
+
+</text>
+
+<text
+x="520"
+y="650"
+class="map-label">
+
+Các nhóm Bách Việt phía nam
+
+</text>
+
+<text
+x="490"
+y="250"
+class="water-label">
+
+HOÀNG HÀ
+
+</text>
+
+<text
+x="570"
+y="453"
+class="water-label">
+
+TRƯỜNG GIANG
+
+</text>
+
+</svg>
+
+</div>
+
+
+<div class="zoom-controls">
+
+  <button
+  class="zoom-btn"
+  onclick="zoomMap('qinStage',.25)">
+    +
+  </button>
+
+  <button
+  class="zoom-btn"
+  onclick="zoomMap('qinStage',-.25)">
+    −
+  </button>
+
+  <button
+  class="zoom-btn"
+  onclick="resetMap('qinStage')">
+    ⟳
+  </button>
+
+</div>
+
+
+<div class="map-hint">
+
+  👑 Năm 221 TCN,
+  Doanh Chính hoàn thành quá trình thống nhất
+  và xưng Tần Thủy Hoàng.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     MODE 3 - MODERN CHINA
+====================================================== -->
+
+<div
+class="map-mode"
+id="modernMode">
+
+<div class="map-box">
+
+<div
+class="map-stage"
+id="modernStage">
+
+<svg
+class="map-svg"
+viewBox="0 0 1100 740"
+xmlns="http://www.w3.org/2000/svg">
+
+
+<rect
+width="1100"
+height="740"
+class="sea"/>
+
+
+<!-- EURASIAN LAND -->
+
+<path
+class="land"
+d="
+M0 0
+H1100
+V575
+C1015 563 955 578 900 606
+C820 647 745 665 650 653
+C550 640 450 622 360 633
+C255 645 165 624 75 588
+L0 570
+Z
+"
+/>
+
+
+<!-- ===================================================
+     MODERN COUNTRIES
+     simplified educational schematic
+=================================================== -->
+
+<g id="modernCountries">
+
+
+<!-- CHINA -->
+
+<path
+class="modern-china"
+onclick="showInfo('china_modern')"
+d="
+M275 245
+C355 185 455 155 575 165
+C660 170 748 180 830 225
+L875 320
+L855 390
+L905 438
+L865 522
+L750 575
+L615 567
+L505 540
+L390 560
+L305 505
+L258 420
+L242 330
+Z
+"
+/>
+
+
+<!-- RUSSIA -->
+
+<path
+class="neighbor"
+onclick="showInfo('russia_modern')"
+d="
+M310 20
+H1100
+V125
+L875 125
+L830 155
+L710 142
+L575 145
+L455 140
+L340 160
+Z
+"
+/>
+
+
+<!-- MONGOLIA -->
+
+<path
+class="neighbor2"
+onclick="showInfo('mongolia_modern')"
+d="
+M340 160
+C445 135 545 143 650 158
+L710 142
+L830 155
+L810 215
+L700 222
+L590 215
+L485 220
+L390 235
+Z
+"
+/>
+
+
+<!-- NORTH KOREA -->
+
+<path
+class="neighbor"
+onclick="showInfo('north_korea_modern')"
+d="
+M830 225
+L875 205
+L915 235
+L902 295
+L865 304
+Z
+"
+/>
+
+
+<!-- VIETNAM -->
+
+<path
+class="neighbor2"
+onclick="showInfo('vietnam_modern')"
+d="
+M760 542
+L800 535
+L835 580
+L820 655
+L785 620
+Z
+"
+/>
+
+
+<!-- LAOS -->
+
+<path
+class="neighbor"
+onclick="showInfo('laos_modern')"
+d="
+M710 548
+L760 542
+L785 620
+L742 625
+Z
+"
+/>
+
+
+<!-- MYANMAR -->
+
+<path
+class="neighbor2"
+onclick="showInfo('myanmar_modern')"
+d="
+M635 555
+L710 548
+L742 625
+L695 690
+L640 632
+Z
+"
+/>
+
+
+<!-- INDIA -->
+
+<path
+class="neighbor"
+onclick="showInfo('india_modern')"
+d="
+M360 560
+L505 540
+L615 567
+L635 555
+L640 632
+L580 700
+L440 690
+L342 624
+Z
+"
+/>
+
+
+<!-- BHUTAN -->
+
+<path
+class="neighbor2"
+onclick="showInfo('bhutan_modern')"
+d="
+M600 552
+L628 550
+L636 567
+L610 576
+Z
+"
+/>
+
+
+<!-- NEPAL -->
+
+<path
+class="neighbor"
+onclick="showInfo('nepal_modern')"
+d="
+M510 540
+L590 548
+L600 568
+L520 570
+Z
+"
+/>
+
+
+<!-- PAKISTAN -->
+
+<path
+class="neighbor2"
+onclick="showInfo('pakistan_modern')"
+d="
+M275 455
+L350 480
+L390 560
+L342 624
+L270 598
+L240 520
+Z
+"
+/>
+
+
+<!-- AFGHANISTAN -->
+
+<path
+class="neighbor"
+onclick="showInfo('afghanistan_modern')"
+d="
+M220 430
+L275 455
+L255 490
+L205 472
+Z
+"
+/>
+
+
+<!-- TAJIKISTAN -->
+
+<path
+class="neighbor2"
+onclick="showInfo('tajikistan_modern')"
+d="
+M175 390
+L250 405
+L275 455
+L220 430
+L160 422
+Z
+"
+/>
+
+
+<!-- KYRGYZSTAN -->
+
+<path
+class="neighbor"
+onclick="showInfo('kyrgyzstan_modern')"
+d="
+M160 345
+L255 355
+L275 405
+L175 390
+Z
+"
+/>
+
+
+<!-- KAZAKHSTAN -->
+
+<path
+class="neighbor2"
+onclick="showInfo('kazakhstan_modern')"
+d="
+M0 180
+L340 160
+L390 235
+L320 285
+L255 355
+L160 345
+L0 320
+Z
+"
+/>
+
+</g>
+
+
+<!-- BORDERS -->
+
+<g id="modernBorders">
+
+<path
+class="modern-border"
+d="
+M340 160
+C445 135 545 143 650 158
+L710 142
+L830 155
+"
+/>
+
+<path
+class="modern-border"
+d="
+M390 235
+L320 285
+L255 355
+"
+/>
+
+<path
+class="modern-border"
+d="
+M275 455
+L350 480
+L390 560
+"
+/>
+
+<path
+class="modern-border"
+d="
+M510 540
+L590 548
+"
+/>
+
+<path
+class="modern-border"
+d="
+M635 555
+L710 548
+L760 542
+"
+/>
+
+</g>
+
+
+<!-- RIVERS -->
+
+<path
+class="river"
+onclick="showInfo('yellow_river')"
+d="
+M330 295
+C400 260 470 280 530 265
+C602 247 670 263 735 288
+C780 305 815 325 850 348
+"
+/>
+
+<path
+class="river"
+onclick="showInfo('yangtze')"
+d="
+M340 465
+C430 435 505 460 590 445
+C675 430 745 450 825 455
+"
+/>
+
+
+<!-- LABELS -->
+
+<g id="modernLabels">
+
+
+<text
+x="490"
+y="390"
+class="region-label">
+
+TRUNG QUỐC
+
+</text>
+
+<text
+x="760"
+y="82"
+class="map-label">
+NGA
+</text>
+
+<text
+x="545"
+y="190"
+class="map-label">
+MÔNG CỔ
+</text>
+
+<text
+x="875"
+y="255"
+class="map-label">
+TRIỀU TIÊN
+</text>
+
+<text
+x="790"
+y="600"
+class="map-label">
+VIỆT NAM
+</text>
+
+<text
+x="730"
+y="590"
+class="map-label">
+LÀO
+</text>
+
+<text
+x="648"
+y="625"
+class="map-label">
+MYANMAR
+</text>
+
+<text
+x="475"
+y="635"
+class="map-label">
+ẤN ĐỘ
+</text>
+
+<text
+x="610"
+y="567"
+class="map-label">
+BHUTAN
+</text>
+
+<text
+x="545"
+y="557"
+class="map-label">
+NEPAL
+</text>
+
+<text
+x="280"
+y="555"
+class="map-label">
+PAKISTAN
+</text>
+
+<text
+x="208"
+y="461"
+class="map-label">
+AFGHANISTAN
+</text>
+
+<text
+x="163"
+y="408"
+class="map-label">
+TAJIKISTAN
+</text>
+
+<text
+x="165"
+y="372"
+class="map-label">
+KYRGYZSTAN
+</text>
+
+<text
+x="105"
+y="250"
+class="map-label">
+KAZAKHSTAN
+</text>
+
+
+<text
+x="560"
+y="277"
+class="water-label">
+
+HOÀNG HÀ
+
+</text>
+
+<text
+x="590"
+y="445"
+class="water-label">
+
+TRƯỜNG GIANG
+
+</text>
+
+<text
+x="920"
+y="405"
+class="water-label">
+
+BIỂN HOA ĐÔNG
+
+</text>
+
+<text
+x="880"
+y="555"
+class="water-label">
+
+BIỂN ĐÔNG
+
+</text>
+
+</g>
+
+</svg>
+
+</div>
+
+
+<div class="zoom-controls">
+
+  <button
+  class="zoom-btn"
+  onclick="zoomMap('modernStage',.25)">
+    +
+  </button>
+
+  <button
+  class="zoom-btn"
+  onclick="zoomMap('modernStage',-.25)">
+    −
+  </button>
+
+  <button
+  class="zoom-btn"
+  onclick="resetMap('modernStage')">
+    ⟳
+  </button>
+
+</div>
+
+
+<div class="map-hint">
+
+  🌍 Click từng nước láng giềng
+  để xem vị trí của Trung Quốc trong không gian châu Á hiện nay.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     MODE 4 - COMPARE
+====================================================== -->
+
+<div
+class="map-mode"
+id="compareMode">
+
+<div class="compare-grid">
+
+
+<!-- ANCIENT -->
+
+<div>
+
+<div class="compare-title">
+
+  Trung Quốc thời Tần • 221 TCN
+
+</div>
+
+<div
+class="map-box"
+style="
+height:620px;
+min-height:620px;
+">
+
+<div
+class="map-stage"
+id="compareAncientStage">
+
+<svg
+class="map-svg"
+viewBox="0 0 1100 740"
+xmlns="http://www.w3.org/2000/svg">
+
+<rect
+width="1100"
+height="740"
+class="sea"/>
+
+<path
+class="land"
+d="
+M0 0
+H1100
+V570
+C1020 560 955 575 900 607
+C825 650 735 665 650 650
+C545 632 450 620 355 632
+C255 645 160 626 75 590
+L0 570
+Z
+"/>
+
+<path
+class="neighbor"
+d="
+M350 40
+C520 25 690 40 875 85
+L855 168
+C735 145 620 138 510 150
+C452 154 408 168 370 188
+L322 128
+Z
+"/>
+
+<path
+class="neighbor2"
+d="
+M390 560
+C520 550 620 575 730 596
+C805 610 885 585 930 535
+L1100 555
+V740
+H350
+C350 685 360 620 390 560
+Z
+"/>
+
+<path
+class="empire"
+d="
+M270 245
+C355 190 430 170 520 174
+C625 178 710 180 820 224
+L875 325
+L830 435
+L790 510
+L725 570
+L595 575
+L472 550
+L360 555
+L300 498
+L258 420
+L240 335
+Z
+"/>
+
+<path
+class="river"
+d="
+M235 260
+C290 235 352 232 415 252
+C470 270 525 248 580 262
+C642 278 705 250 770 265
+C815 276 850 295 880 318
+"/>
+
+<path
+class="river"
+d="
+M255 475
+C340 446 420 468 505 455
+C590 442 670 458 755 445
+C820 435 875 445 930 470
+"/>
+
+<text
+x="475"
+y="385"
+class="region-label">
+
+ĐẾ CHẾ TẦN
+
+</text>
+
+<text
+x="535"
+y="93"
+class="map-label">
+
+Hung Nô / thảo nguyên
+
+</text>
+
+<text
+x="520"
+y="650"
+class="map-label">
+
+Các nhóm phía nam
+
+</text>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MODERN -->
+
+<div>
+
+<div class="compare-title">
+
+  Trung Quốc hiện nay
+
+</div>
+
+<div
+class="map-box"
+style="
+height:620px;
+min-height:620px;
+">
+
+<div
+class="map-stage"
+id="compareModernStage">
+
+<svg
+class="map-svg"
+viewBox="0 0 1100 740"
+xmlns="http://www.w3.org/2000/svg">
+
+<rect
+width="1100"
+height="740"
+class="sea"/>
+
+<path
+class="land"
+d="
+M0 0
+H1100
+V575
+C1015 563 955 578 900 606
+C820 647 745 665 650 653
+C550 640 450 622 360 633
+C255 645 165 624 75 588
+L0 570
+Z
+"/>
+
+<path
+class="neighbor"
+d="
+M310 20
+H1100
+V125
+L875 125
+L830 155
+L710 142
+L575 145
+L455 140
+L340 160
+Z
+"/>
+
+<path
+class="neighbor2"
+d="
+M340 160
+C445 135 545 143 650 158
+L710 142
+L830 155
+L810 215
+L700 222
+L590 215
+L485 220
+L390 235
+Z
+"/>
+
+<path
+class="modern-china"
+d="
+M275 245
+C355 185 455 155 575 165
+C660 170 748 180 830 225
+L875 320
+L855 390
+L905 438
+L865 522
+L750 575
+L615 567
+L505 540
+L390 560
+L305 505
+L258 420
+L242 330
+Z
+"/>
+
+<path
+class="river"
+d="
+M330 295
+C400 260 470 280 530 265
+C602 247 670 263 735 288
+C780 305 815 325 850 348
+"/>
+
+<path
+class="river"
+d="
+M340 465
+C430 435 505 460 590 445
+C675 430 745 450 825 455
+"/>
+
+<text
+x="485"
+y="390"
+class="region-label">
+
+TRUNG QUỐC
+
+</text>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     LEGEND
+====================================================== -->
+
+<div class="legend">
+
+  <span class="legend-title">
+    Chú giải
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#a65c3d">
+    </span>
+    Tần
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#d58d59">
+    </span>
+    Hàn
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#d59a89">
+    </span>
+    Triệu
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#d3b36c">
+    </span>
+    Ngụy
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#d8848d">
+    </span>
+    Sở
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#d4a653">
+    </span>
+    Yên
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#c98d9a">
+    </span>
+    Tề
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#d4c28e">
+    </span>
+    Vùng / nước giáp
+  </span>
+
+  <span class="legend-item">
+    <span
+    class="legend-box"
+    style="background:#2fa1b7">
+    </span>
+    Sông
+  </span>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     RIGHT INFO PANEL
+====================================================== -->
+
+<aside class="panel info-panel">
+
+<div class="panel-title">
+
+  <small>
+    Hồ sơ lịch sử
+  </small>
+
+  <h3>
+    Thông tin chi tiết
+  </h3>
+
+</div>
+
+
+<div
+class="info-default"
+id="infoDefault">
+
+  <div class="info-default-icon">
+    🧭
+  </div>
+
+  <h3>
+    Chọn một đối tượng
+  </h3>
+
+  <p>
+
+    Nhấn vào một nước Chiến Quốc,
+    vùng lân cận,
+    dòng sông,
+    kinh đô
+    hoặc quốc gia hiện nay.
+
+    Hồ sơ tương ứng
+    sẽ xuất hiện tại đây.
+
+  </p>
+
+</div>
+
+
+<div
+class="info-content"
+id="infoContent">
+
+  <div class="info-cover">
+
+    <div
+    class="info-icon"
+    id="infoIcon">
+
+      🐉
+
+    </div>
+
+  </div>
+
+
+  <div class="info-body">
+
+    <div
+    class="info-type"
+    id="infoType">
+
+      NƯỚC CỔ ĐẠI
+
+    </div>
+
+    <h2
+    id="infoTitle">
+
+      Tần
+
+    </h2>
+
+    <p
+    class="info-description"
+    id="infoDescription">
+
+    </p>
+
+    <div
+    class="info-points"
+    id="infoPoints">
+
+    </div>
+
+  </div>
+
+</div>
+
+</aside>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ANALYSIS
+====================================================== -->
+
+<section class="analysis">
+
+<div class="analysis-heading">
+
+  <small>
+    Gợi ý khai thác học tập
+  </small>
+
+  <h2>
+    Đọc lược đồ như một nhà sử học
+  </h2>
+
+</div>
+
+
+<div class="analysis-grid">
+
+  <article class="analysis-card">
+
+    <span>
+      ⚔️
+    </span>
+
+    <h3>
+      Quá trình thống nhất
+    </h3>
+
+    <p>
+
+      Quan sát vị trí của Tần ở phía tây,
+      sau đó theo dõi chuỗi
+      Hàn → Triệu → Ngụy → Sở → Yên → Tề.
+
+      Học sinh có thể nhận xét:
+      Tần mở rộng từ phía tây
+      sang khu vực trung tâm và phía đông.
+
+    </p>
+
+  </article>
+
+
+  <article class="analysis-card">
+
+    <span>
+      🌊
+    </span>
+
+    <h3>
+      Sông và không gian cư trú
+    </h3>
+
+    <p>
+
+      Hoàng Hà và Trường Giang
+      tạo nên những không gian
+      sản xuất, giao thông
+      và cư trú rất quan trọng.
+
+      Đây là cơ sở để liên hệ
+      kiến thức Lịch sử với Địa lí.
+
+    </p>
+
+  </article>
+
+
+  <article class="analysis-card">
+
+    <span>
+      🌍
+    </span>
+
+    <h3>
+      Cổ đại ≠ hiện đại
+    </h3>
+
+    <p>
+
+      Trung Quốc thời Tần
+      không có cùng đường biên giới
+      với Trung Quốc hiện nay.
+
+      Việc so sánh hai bản đồ
+      giúp học sinh tránh đồng nhất
+      một đế chế cổ đại
+      với một quốc gia hiện đại.
+
+    </p>
+
+  </article>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const mapData = {
+
+
+/* =======================
+   WARRING STATES
+======================= */
+
+qin_state:{
+
+  icon:"秦",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Tần",
+
+  description:
+  "Tần nằm ở phía tây của hệ thống các nước lớn thời Chiến Quốc. Sau những cải cách quan trọng, đặc biệt từ thời Thương Ưởng, Tần xây dựng được bộ máy nhà nước và sức mạnh quân sự ngày càng lớn. Dưới thời Doanh Chính, Tần lần lượt chinh phục sáu nước còn lại và thống nhất vào năm 221 TCN.",
+
+  points:[
+
+    {
+      icon:"📍",
+      title:"Vị trí",
+      text:"Nằm ở phía tây của không gian các nước Chiến Quốc."
+    },
+
+    {
+      icon:"👑",
+      title:"Nhân vật",
+      text:"Doanh Chính về sau xưng Tần Thủy Hoàng."
+    },
+
+    {
+      icon:"⚔️",
+      title:"Vai trò",
+      text:"Là nước hoàn thành quá trình thống nhất năm 221 TCN."
+    }
+
+  ]
+
+},
+
+
+han_state:{
+
+  icon:"韓",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Hàn",
+
+  description:
+  "Hàn là một trong bảy nước lớn của thời Chiến Quốc, nằm ở khu vực trung tâm và có vị trí gần Tần. Hàn là nước đầu tiên trong sáu đối thủ bị Tần thôn tính trong chiến dịch thống nhất.",
+
+  points:[
+
+    {
+      icon:"⏳",
+      title:"Mốc",
+      text:"Bị Tần thôn tính năm 230 TCN."
+    },
+
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Nằm giữa khu vực Tần, Ngụy và Triệu."
+    }
+
+  ]
+
+},
+
+
+zhao_state:{
+
+  icon:"趙",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Triệu",
+
+  description:
+  "Triệu là một nước lớn ở phía bắc trung tâm Trung Quốc thời Chiến Quốc. Triệu từng là đối thủ quân sự mạnh của Tần.",
+
+  points:[
+
+    {
+      icon:"⚔️",
+      title:"Quan hệ với Tần",
+      text:"Từng giao chiến quyết liệt với Tần, nổi bật là trận Trường Bình."
+    },
+
+    {
+      icon:"⏳",
+      title:"Mốc",
+      text:"Phần chính của Triệu bị Tần đánh bại năm 228 TCN."
+    }
+
+  ]
+
+},
+
+
+wei_state:{
+
+  icon:"魏",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Ngụy",
+
+  description:
+  "Ngụy là một trong bảy nước lớn của thời Chiến Quốc, nằm ở vùng trung tâm. Vị trí này khiến Ngụy thường xuyên chịu áp lực từ nhiều nước mạnh xung quanh.",
+
+  points:[
+
+    {
+      icon:"⏳",
+      title:"Mốc",
+      text:"Tần thôn tính Ngụy năm 225 TCN."
+    },
+
+    {
+      icon:"🏙️",
+      title:"Kinh đô",
+      text:"Đại Lương là trung tâm chính trị quan trọng của Ngụy."
+    }
+
+  ]
+
+},
+
+
+chu_state:{
+
+  icon:"楚",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Sở",
+
+  description:
+  "Sở kiểm soát một không gian rộng ở phía nam và là một trong những đối thủ mạnh nhất của Tần trong giai đoạn cuối Chiến Quốc.",
+
+  points:[
+
+    {
+      icon:"🌊",
+      title:"Không gian",
+      text:"Phát triển mạnh trong lưu vực Trường Giang và các vùng phía nam."
+    },
+
+    {
+      icon:"⏳",
+      title:"Mốc",
+      text:"Sở bị Tần chinh phục năm 223 TCN."
+    }
+
+  ]
+
+},
+
+
+yan_state:{
+
+  icon:"燕",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Yên",
+
+  description:
+  "Yên nằm ở vùng đông bắc của không gian Trung Quốc thời Chiến Quốc.",
+
+  points:[
+
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Nằm ở phía đông bắc, gần các vùng thảo nguyên và các cộng đồng ngoài Hoa Hạ."
+    },
+
+    {
+      icon:"⏳",
+      title:"Mốc",
+      text:"Tần hoàn tất việc thôn tính Yên năm 222 TCN."
+    }
+
+  ]
+
+},
+
+
+qi_state:{
+
+  icon:"齊",
+
+  type:"Nước thời Chiến Quốc",
+
+  title:"Tề",
+
+  description:
+  "Tề nằm ở phía đông, có nền kinh tế và đô thị phát triển. Đây là nước cuối cùng trong sáu nước đối thủ bị Tần thôn tính.",
+
+  points:[
+
+    {
+      icon:"📍",
+      title:"Không gian",
+      text:"Nằm về phía đông, gần khu vực bán đảo Sơn Đông."
+    },
+
+    {
+      icon:"⏳",
+      title:"Mốc",
+      text:"Tề đầu hàng Tần năm 221 TCN."
+    }
+
+  ]
+
+},
+
+
+/* =======================
+   EMPIRE
+======================= */
+
+qin_empire:{
+
+  icon:"👑",
+
+  type:"Đế chế cổ đại",
+
+  title:"Đế chế Tần",
+
+  description:
+  "Năm 221 TCN, Doanh Chính hoàn thành việc chinh phục sáu nước đối thủ và xưng Tần Thủy Hoàng. Nhà Tần thiết lập một chính quyền trung ương mạnh và tiến hành chuẩn hóa chữ viết, tiền tệ, đo lường cùng nhiều mặt quản lí khác.",
+
+  points:[
+
+    {
+      icon:"⏳",
+      title:"Thời gian",
+      text:"Nhà Tần tồn tại từ năm 221 đến 206 TCN."
+    },
+
+    {
+      icon:"🏛️",
+      title:"Quản lí",
+      text:"Lãnh thổ được tổ chức thành các đơn vị hành chính do chính quyền trung ương kiểm soát."
+    },
+
+    {
+      icon:"✍️",
+      title:"Chuẩn hóa",
+      text:"Chuẩn hóa chữ viết, tiền tệ và đo lường."
+    },
+
+    {
+      icon:"🧱",
+      title:"Phòng thủ",
+      text:"Nối và củng cố một số tuyến thành phòng thủ có từ trước ở phía bắc."
+    }
+
+  ]
+
+},
+
+
+/* =======================
+   ANCIENT NEIGHBORS
+======================= */
+
+xiongnu:{
+
+  icon:"🐎",
+
+  type:"Cộng đồng / liên minh phía bắc",
+
+  title:"Hung Nô",
+
+  description:
+  "Hung Nô là liên minh các nhóm du mục phát triển mạnh trên vùng thảo nguyên phía bắc Trung Quốc vào cuối thời Chiến Quốc và đầu thời đế chế.",
+
+  points:[
+
+    {
+      icon:"🐎",
+      title:"Sinh kế",
+      text:"Gắn nhiều với đời sống du mục và chăn nuôi trên thảo nguyên."
+    },
+
+    {
+      icon:"🧱",
+      title:"Liên hệ với Tần",
+      text:"Mối đe dọa từ phía bắc là một trong những yếu tố khiến nhà Tần củng cố các tuyến phòng thủ."
+    }
+
+  ]
+
+},
+
+
+western_regions:{
+
+  icon:"🏔️",
+
+  type:"Các vùng phía tây",
+
+  title:"Các vùng phía tây",
+
+  description:
+  "Phía tây của không gian Tần là các vùng núi, cao nguyên, hành lang và nhiều cộng đồng khác nhau. Không nên coi đây là một quốc gia thống nhất duy nhất.",
+
+  points:[
+
+    {
+      icon:"⛰️",
+      title:"Tự nhiên",
+      text:"Địa hình núi, cao nguyên và các lưu vực khô hạn."
+    },
+
+    {
+      icon:"🐫",
+      title:"Về sau",
+      text:"Các hành lang phía tây có vai trò lớn trong giao lưu với Trung Á."
+    }
+
+  ]
+
+},
+
+
+donghu:{
+
+  icon:"🐎",
+
+  type:"Các cộng đồng đông bắc",
+
+  title:"Đông Hồ và các nhóm đông bắc",
+
+  description:
+  "Phía đông bắc của các nước Yên và Tề là không gian cư trú của nhiều cộng đồng khác nhau. Tên gọi Đông Hồ thường xuất hiện trong sử liệu cổ đối với một số nhóm ở vùng thảo nguyên đông bắc.",
+
+  points:[
+
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía đông bắc của không gian Trung Quốc cổ đại."
+    }
+
+  ]
+
+},
+
+
+yue:{
+
+  icon:"🌴",
+
+  type:"Các cộng đồng phía nam",
+
+  title:"Các nhóm Bách Việt",
+
+  description:
+  "Bách Việt là tên gọi khái quát trong sử liệu cổ đối với nhiều cộng đồng khác nhau ở phía nam lưu vực Trường Giang và xa hơn về phía nam. Đây không phải một quốc gia thống nhất duy nhất.",
+
+  points:[
+
+    {
+      icon:"🧭",
+      title:"Không gian",
+      text:"Phân bố ở nhiều vùng phía nam Trung Quốc cổ đại."
+    },
+
+    {
+      icon:"⚠️",
+      title:"Lưu ý",
+      text:"Không nên vẽ Bách Việt như một nhà nước có biên giới duy nhất."
+    }
+
+  ]
+
+},
+
+
+qiang:{
+
+  icon:"⛰️",
+
+  type:"Các cộng đồng phía tây",
+
+  title:"Các nhóm Khương",
+
+  description:
+  "Trong sử liệu Trung Hoa cổ, 'Khương' được dùng cho nhiều nhóm cư dân ở các vùng phía tây và tây bắc. Đây không phải tên của một quốc gia thống nhất có đường biên giới cố định.",
+
+  points:[
+
+    {
+      icon:"🧭",
+      title:"Không gian",
+      text:"Phía tây và tây bắc của vùng trung tâm Hoa Hạ."
+    }
+
+  ]
+
+},
+
+
+/* =======================
+   RIVERS
+======================= */
+
+yellow_river:{
+
+  icon:"🌊",
+
+  type:"Dòng sông",
+
+  title:"Hoàng Hà",
+
+  description:
+  "Hoàng Hà là một trong những dòng sông quan trọng nhất đối với sự hình thành các trung tâm cư trú và nhà nước sớm ở miền bắc Trung Quốc.",
+
+  points:[
+
+    {
+      icon:"🌾",
+      title:"Nông nghiệp",
+      text:"Nước và phù sa hỗ trợ sản xuất nông nghiệp."
+    },
+
+    {
+      icon:"⚠️",
+      title:"Thách thức",
+      text:"Lũ lụt và biến đổi dòng chảy đặt ra yêu cầu trị thủy."
+    },
+
+    {
+      icon:"🏺",
+      title:"Lịch sử",
+      text:"Nhiều trung tâm chính trị thời Thương – Chu phát triển trong hoặc gần lưu vực Hoàng Hà."
+    }
+
+  ]
+
+},
+
+
+yangtze:{
+
+  icon:"🌊",
+
+  type:"Dòng sông",
+
+  title:"Trường Giang",
+
+  description:
+  "Trường Giang là dòng sông lớn của miền nam Trung Quốc và đóng vai trò quan trọng đối với nông nghiệp, giao thông và sự mở rộng các vùng cư trú về phía nam.",
+
+  points:[
+
+    {
+      icon:"🌾",
+      title:"Nông nghiệp",
+      text:"Khu vực nóng ẩm thuận lợi cho trồng lúa nước."
+    },
+
+    {
+      icon:"🚣",
+      title:"Giao thông",
+      text:"Là tuyến giao thông đường sông quan trọng."
+    }
+
+  ]
+
+},
+
+
+/* =======================
+   CITIES
+======================= */
+
+xianyang:{
+
+  icon:"🏛️",
+
+  type:"Kinh đô thời Tần",
+
+  title:"Hàm Dương",
+
+  description:
+  "Hàm Dương là kinh đô của nước Tần và sau đó của đế chế Tần, nằm gần khu vực Tây An ngày nay.",
+
+  points:[
+
+    {
+      icon:"👑",
+      title:"Vai trò",
+      text:"Trung tâm quyền lực của Tần Thủy Hoàng."
+    }
+
+  ]
+
+},
+
+
+handan:{
+
+  icon:"🏙️",
+
+  type:"Đô thị cổ",
+
+  title:"Hàm Đan",
+
+  description:
+  "Hàm Đan là kinh đô của nước Triệu thời Chiến Quốc.",
+
+  points:[
+
+    {
+      icon:"📍",
+      title:"Vai trò",
+      text:"Trung tâm chính trị quan trọng của Triệu."
+    }
+
+  ]
+
+},
+
+
+daliang:{
+
+  icon:"🏙️",
+
+  type:"Đô thị cổ",
+
+  title:"Đại Lương",
+
+  description:
+  "Đại Lương là kinh đô của nước Ngụy trong giai đoạn quan trọng của thời Chiến Quốc.",
+
+  points:[
+
+    {
+      icon:"⏳",
+      title:"Năm 225 TCN",
+      text:"Tần đánh chiếm Đại Lương và thôn tính Ngụy."
+    }
+
+  ]
+
+},
+
+
+linzi:{
+
+  icon:"🏙️",
+
+  type:"Đô thị cổ",
+
+  title:"Lâm Truy",
+
+  description:
+  "Lâm Truy là kinh đô nổi tiếng của nước Tề và là một trung tâm kinh tế – văn hóa lớn ở phía đông.",
+
+  points:[
+
+    {
+      icon:"📚",
+      title:"Văn hóa",
+      text:"Khu vực Tề nổi tiếng với hoạt động học thuật và kinh tế phát triển."
+    }
+
+  ]
+
+},
+
+
+/* =======================
+   MODERN CHINA
+======================= */
+
+china_modern:{
+
+  icon:"🇨🇳",
+
+  type:"Quốc gia hiện nay",
+
+  title:"Trung Quốc hiện nay",
+
+  description:
+  "Trung Quốc hiện nay là quốc gia ở Đông Á. Bản đồ hiện đại có hệ thống biên giới quốc tế khác rất xa phạm vi của các nhà nước cổ đại.",
+
+  points:[
+
+    {
+      icon:"📍",
+      title:"Thủ đô",
+      text:"Bắc Kinh."
+    },
+
+    {
+      icon:"🧭",
+      title:"Láng giềng đất liền",
+      text:"Có biên giới đất liền với 14 quốc gia."
+    },
+
+    {
+      icon:"⏳",
+      title:"Lưu ý",
+      text:"Không nên đồng nhất Trung Quốc hiện nay với phạm vi lãnh thổ nhà Tần năm 221 TCN."
+    }
+
+  ]
+
+},
+
+
+russia_modern:{
+  icon:"🇷🇺",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Nga",
+  description:"Nga giáp Trung Quốc ở phía bắc và đông bắc.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía bắc và đông bắc Trung Quốc."
+    }
+  ]
+},
+
+
+mongolia_modern:{
+  icon:"🇲🇳",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Mông Cổ",
+  description:"Mông Cổ nằm ở phía bắc Trung Quốc, giữa Trung Quốc và Nga.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía bắc Trung Quốc."
+    }
+  ]
+},
+
+
+north_korea_modern:{
+  icon:"🇰🇵",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Triều Tiên",
+  description:"Triều Tiên có biên giới ngắn với Trung Quốc ở phía đông bắc.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Đông bắc Trung Quốc."
+    }
+  ]
+},
+
+
+vietnam_modern:{
+  icon:"🇻🇳",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Việt Nam",
+  description:"Việt Nam giáp Trung Quốc ở phía nam.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía nam Trung Quốc."
+    }
+  ]
+},
+
+
+laos_modern:{
+  icon:"🇱🇦",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Lào",
+  description:"Lào giáp Trung Quốc ở phía nam.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía nam Trung Quốc."
+    }
+  ]
+},
+
+
+myanmar_modern:{
+  icon:"🇲🇲",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Myanmar",
+  description:"Myanmar giáp Trung Quốc ở phía tây nam.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây nam Trung Quốc."
+    }
+  ]
+},
+
+
+india_modern:{
+  icon:"🇮🇳",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Ấn Độ",
+  description:"Ấn Độ có đường biên giới dài với Trung Quốc ở khu vực Himalaya.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây nam Trung Quốc."
+    },
+    {
+      icon:"⚠️",
+      title:"Lưu ý",
+      text:"Một số đoạn biên giới Trung Quốc – Ấn Độ vẫn là khu vực có tranh chấp."
+    }
+  ]
+},
+
+
+bhutan_modern:{
+  icon:"🇧🇹",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Bhutan",
+  description:"Bhutan là quốc gia Himalaya nhỏ ở phía tây nam Trung Quốc.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Giữa Trung Quốc và Ấn Độ."
+    }
+  ]
+},
+
+
+nepal_modern:{
+  icon:"🇳🇵",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Nepal",
+  description:"Nepal nằm ở phía nam vùng Himalaya, giáp Trung Quốc.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây nam Trung Quốc."
+    }
+  ]
+},
+
+
+pakistan_modern:{
+  icon:"🇵🇰",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Pakistan",
+  description:"Pakistan giáp Trung Quốc tại vùng núi cao ở phía tây.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây nam Trung Quốc."
+    }
+  ]
+},
+
+
+afghanistan_modern:{
+  icon:"🇦🇫",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Afghanistan",
+  description:"Afghanistan có một đoạn biên giới rất ngắn với Trung Quốc ở hành lang Wakhan.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Rìa phía tây Trung Quốc."
+    }
+  ]
+},
+
+
+tajikistan_modern:{
+  icon:"🇹🇯",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Tajikistan",
+  description:"Tajikistan giáp Trung Quốc ở phía tây.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây Trung Quốc."
+    }
+  ]
+},
+
+
+kyrgyzstan_modern:{
+  icon:"🇰🇬",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Kyrgyzstan",
+  description:"Kyrgyzstan giáp Trung Quốc ở khu vực Trung Á.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây Trung Quốc."
+    }
+  ]
+},
+
+
+kazakhstan_modern:{
+  icon:"🇰🇿",
+  type:"Quốc gia láng giềng hiện nay",
+  title:"Kazakhstan",
+  description:"Kazakhstan giáp Trung Quốc ở phía tây bắc.",
+  points:[
+    {
+      icon:"🧭",
+      title:"Vị trí",
+      text:"Phía tây bắc Trung Quốc."
+    }
+  ]
+}
+
+};
+
+
+/* =========================================================
+   SHOW INFO
+========================================================= */
+
+function showInfo(id){
+
+  const data =
+  mapData[id];
+
+  if(!data)
+  return;
+
+
+  document.getElementById(
+    "infoDefault"
+  ).style.display =
+  "none";
+
+
+  const content =
+  document.getElementById(
+    "infoContent"
+  );
+
+
+  content.style.display =
+  "block";
+
+
+  document.getElementById(
+    "infoIcon"
+  ).textContent =
+  data.icon;
+
+
+  document.getElementById(
+    "infoType"
+  ).textContent =
+  data.type;
+
+
+  document.getElementById(
+    "infoTitle"
+  ).textContent =
+  data.title;
+
+
+  document.getElementById(
+    "infoDescription"
+  ).textContent =
+  data.description;
+
+
+  const points =
+  document.getElementById(
+    "infoPoints"
+  );
+
+
+  points.innerHTML =
+  "";
+
+
+  data.points.forEach(
+  point => {
+
+    const div =
+    document.createElement(
+      "div"
+    );
+
+
+    div.className =
+    "info-point";
+
+
+    div.innerHTML = `
+
+      <div class="point-icon">
+        ${point.icon}
+      </div>
+
+      <div>
+
+        <strong>
+          ${point.title}
+        </strong>
+
+        <span>
+          ${point.text}
+        </span>
+
+      </div>
+
+    `;
+
+
+    points.appendChild(
+      div
+    );
+
+  });
+
+
+  content.style.animation =
+  "none";
+
+  content.offsetHeight;
+
+  content.style.animation =
+  "infoIn .4s ease both";
+
+}
+
+
+/* =========================================================
+   MODE SWITCH
+========================================================= */
+
+const modeButtons =
+document.querySelectorAll(
+  ".mode-btn"
+);
+
+const modes =
+document.querySelectorAll(
+  ".map-mode"
+);
+
+
+modeButtons.forEach(
+button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      modeButtons.forEach(
+      item => {
+
+        item.classList.remove(
+          "active"
+        );
+
+      });
+
+
+      button.classList.add(
+        "active"
+      );
+
+
+      modes.forEach(
+      mode => {
+
+        mode.classList.remove(
+          "active"
+        );
+
+      });
+
+
+      document.getElementById(
+        button.dataset.mode
+      ).classList.add(
+        "active"
+      );
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   QIN CONQUEST TIMELINE
+========================================================= */
+
+const conquestData = [
+
+  {
+    caption:
+    "Bảy nước lớn: Tần – Hàn – Triệu – Ngụy – Sở – Yên – Tề.",
+
+    conquered:[]
+  },
+
+  {
+    caption:
+    "230 TCN: Tần thôn tính Hàn.",
+
+    conquered:[
+      "stateHan"
+    ]
+  },
+
+  {
+    caption:
+    "228 TCN: Tần đánh bại phần chính của Triệu.",
+
+    conquered:[
+      "stateHan",
+      "stateZhao"
+    ]
+  },
+
+  {
+    caption:
+    "225 TCN: Tần thôn tính Ngụy.",
+
+    conquered:[
+      "stateHan",
+      "stateZhao",
+      "stateWei"
+    ]
+  },
+
+  {
+    caption:
+    "223 TCN: Sở, một đối thủ lớn của Tần, bị chinh phục.",
+
+    conquered:[
+      "stateHan",
+      "stateZhao",
+      "stateWei",
+      "stateChu"
+    ]
+  },
+
+  {
+    caption:
+    "222 TCN: Tần hoàn tất việc thôn tính Yên.",
+
+    conquered:[
+      "stateHan",
+      "stateZhao",
+      "stateWei",
+      "stateChu",
+      "stateYan"
+    ]
+  },
+
+  {
+    caption:
+    "221 TCN: Tề đầu hàng. Doanh Chính hoàn thành việc thống nhất và xưng Tần Thủy Hoàng.",
+
+    conquered:[
+      "stateHan",
+      "stateZhao",
+      "stateWei",
+      "stateChu",
+      "stateYan",
+      "stateQi"
+    ]
+  }
+
+];
+
+
+const stateIDs = [
+
+  "stateHan",
+  "stateZhao",
+  "stateWei",
+  "stateChu",
+  "stateYan",
+  "stateQi"
+
+];
+
+
+document
+.querySelectorAll(
+  ".year-btn"
+)
+.forEach(
+button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      document
+      .querySelectorAll(
+        ".year-btn"
+      )
+      .forEach(
+      b => {
+
+        b.classList.remove(
+          "active"
+        );
+
+      });
+
+
+      button.classList.add(
+        "active"
+      );
+
+
+      const step =
+      Number(
+        button.dataset.step
+      );
+
+
+      stateIDs.forEach(
+      id => {
+
+        document
+        .getElementById(id)
+        .classList.remove(
+          "conquered"
+        );
+
+      });
+
+
+      conquestData[
+        step
+      ].conquered.forEach(
+      id => {
+
+        document
+        .getElementById(id)
+        .classList.add(
+          "conquered"
+        );
+
+      });
+
+
+      document.getElementById(
+        "timelineCaption"
+      ).textContent =
+      conquestData[
+        step
+      ].caption;
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   LAYERS
+========================================================= */
+
+document
+.querySelectorAll(
+  ".layer-btn[data-layer]"
+)
+.forEach(
+button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const id =
+      button.dataset.layer;
+
+
+      const layer =
+      document.getElementById(
+        id
+      );
+
+
+      if(!layer)
+      return;
+
+
+      button.classList.toggle(
+        "active"
+      );
+
+
+      layer.style.display =
+      button.classList.contains(
+        "active"
+      )
+      ?
+      ""
+      :
+      "none";
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   MAP TRANSFORMS
+========================================================= */
+
+const mapState = {
+
+  warringStage:{
+    zoom:1,
+    x:0,
+    y:0
+  },
+
+  qinStage:{
+    zoom:1,
+    x:0,
+    y:0
+  },
+
+  modernStage:{
+    zoom:1,
+    x:0,
+    y:0
+  },
+
+  compareAncientStage:{
+    zoom:1,
+    x:0,
+    y:0
+  },
+
+  compareModernStage:{
+    zoom:1,
+    x:0,
+    y:0
+  }
+
+};
+
+
+function applyTransform(id){
+
+  const state =
+  mapState[id];
+
+
+  const element =
+  document.getElementById(
+    id
+  );
+
+
+  if(
+    !state
+    ||
+    !element
+  )
+  return;
+
+
+  element.style.transform =
+
+  `
+  translate(
+    ${state.x}px,
+    ${state.y}px
+  )
+  scale(${state.zoom})
+  `;
+
+}
+
+
+function zoomMap(id,delta){
+
+  const state =
+  mapState[id];
+
+
+  if(!state)
+  return;
+
+
+  state.zoom =
+  Math.max(
+    .72,
+    Math.min(
+      2.7,
+      state.zoom + delta
+    )
+  );
+
+
+  applyTransform(
+    id
+  );
+
+}
+
+
+function resetMap(id){
+
+  const state =
+  mapState[id];
+
+
+  if(!state)
+  return;
+
+
+  state.zoom =
+  1;
+
+  state.x =
+  0;
+
+  state.y =
+  0;
+
+
+  applyTransform(
+    id
+  );
+
+}
+
+
+function resetAllMaps(){
+
+  Object
+  .keys(
+    mapState
+  )
+  .forEach(
+  id => {
+
+    resetMap(id);
+
+  });
+
+}
+
+
+/* =========================================================
+   WHEEL + DRAG
+========================================================= */
+
+function attachMapControls(id){
+
+  const stage =
+  document.getElementById(
+    id
+  );
+
+
+  if(!stage)
+  return;
+
+
+  const box =
+  stage.closest(
+    ".map-box"
+  );
+
+
+  const state =
+  mapState[id];
+
+
+  box.addEventListener(
+    "wheel",
+    event => {
+
+      event.preventDefault();
+
+
+      zoomMap(
+        id,
+        event.deltaY < 0
+        ?
+        .08
+        :
+        -.08
+      );
+
+    },
+
+    {
+      passive:false
+    }
+  );
+
+
+  let dragging =
+  false;
+
+  let startX =
+  0;
+
+  let startY =
+  0;
+
+
+  box.addEventListener(
+    "mousedown",
+    event => {
+
+      if(
+        event.target.closest(
+          ".state"
+        )
+        ||
+        event.target.closest(
+          ".city"
+        )
+        ||
+        event.target.closest(
+          ".river"
+        )
+        ||
+        event.target.closest(
+          ".neighbor"
+        )
+        ||
+        event.target.closest(
+          ".neighbor2"
+        )
+        ||
+        event.target.closest(
+          ".empire"
+        )
+        ||
+        event.target.closest(
+          ".modern-china"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      dragging =
+      true;
+
+
+      startX =
+      event.clientX -
+      state.x;
+
+
+      startY =
+      event.clientY -
+      state.y;
+
+
+      box.style.cursor =
+      "grabbing";
+
+    }
+  );
+
+
+  window.addEventListener(
+    "mousemove",
+    event => {
+
+      if(!dragging)
+      return;
+
+
+      state.x =
+      event.clientX -
+      startX;
+
+
+      state.y =
+      event.clientY -
+      startY;
+
+
+      applyTransform(
+        id
+      );
+
+    }
+  );
+
+
+  window.addEventListener(
+    "mouseup",
+    () => {
+
+      dragging =
+      false;
+
+      box.style.cursor =
+      "default";
+
+    }
+  );
+
+}
+
+
+[
+  "warringStage",
+  "qinStage",
+  "modernStage",
+  "compareAncientStage",
+  "compareModernStage"
+]
+.forEach(
+id => {
+
+  attachMapControls(id);
+
+});
+
+</script>
+
+</body>
+</html>

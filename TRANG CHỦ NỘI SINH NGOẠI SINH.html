@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Học liệu số Lịch sử và Địa lý 6</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================================================
+       ROOT
+    ========================================================= */
+
+    :root{
+      --bg-1:#031126;
+      --bg-2:#061a3d;
+      --bg-3:#0b2d5c;
+
+      --blue:#1687ff;
+      --blue-2:#1ea0ff;
+      --cyan:#25d9ff;
+      --cyan-2:#87f2ff;
+      --mint:#36e8c6;
+      --white:#ffffff;
+
+      --gold:#f2c56d;
+
+      --text-soft:rgba(231,245,255,.68);
+      --text-faint:rgba(220,240,255,.42);
+
+      --glass:rgba(255,255,255,.065);
+      --glass-strong:rgba(255,255,255,.10);
+
+      --font:"Be Vietnam Pro","Inter","Poppins",sans-serif;
+    }
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      min-height:100vh;
+      overflow:hidden;
+      font-family:var(--font);
+      color:white;
+      background:#020914;
+    }
+
+    button,
+    a{
+      font:inherit;
+    }
+
+    button{
+      border:0;
+      outline:0;
+    }
+
+    ::selection{
+      background:rgba(37,217,255,.25);
+      color:white;
+    }
+
+    /* =========================================================
+       APP
+    ========================================================= */
+
+    #app{
+      position:relative;
+      width:100%;
+      height:100vh;
+      min-height:700px;
+      overflow:hidden;
+      isolation:isolate;
+
+      background:
+        radial-gradient(circle at 15% 25%, rgba(22,135,255,.23), transparent 25%),
+        radial-gradient(circle at 82% 72%, rgba(37,217,255,.18), transparent 24%),
+        radial-gradient(circle at 65% 10%, rgba(63,102,255,.16), transparent 28%),
+        linear-gradient(135deg,#020b19 0%,#061a3d 42%,#0b2d5c 100%);
+    }
+
+    /* =========================================================
+       GLOBAL BACKGROUND
+    ========================================================= */
+
+    .scene-bg{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:-30;
+    }
+
+    .aurora{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(95px);
+      opacity:.5;
+    }
+
+    .aurora.a1{
+      width:520px;
+      height:520px;
+      background:rgba(22,135,255,.35);
+      left:-210px;
+      top:4%;
+      animation:auroraOne 12s ease-in-out infinite alternate;
+    }
+
+    .aurora.a2{
+      width:470px;
+      height:470px;
+      background:rgba(37,217,255,.22);
+      right:-190px;
+      bottom:-110px;
+      animation:auroraTwo 14s ease-in-out infinite alternate;
+    }
+
+    .aurora.a3{
+      width:320px;
+      height:320px;
+      background:rgba(106,92,255,.21);
+      left:48%;
+      top:-170px;
+      animation:auroraThree 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraOne{
+      to{transform:translate(95px,50px) scale(1.15);}
+    }
+
+    @keyframes auroraTwo{
+      to{transform:translate(-80px,-55px) scale(1.2);}
+    }
+
+    @keyframes auroraThree{
+      to{transform:translate(-40px,70px) scale(1.12);}
+    }
+
+    .grid{
+      position:absolute;
+      inset:0;
+
+      background-image:
+        linear-gradient(rgba(82,212,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(82,212,255,.035) 1px,transparent 1px);
+
+      background-size:70px 70px;
+      opacity:.5;
+
+      mask-image:linear-gradient(to bottom,transparent,black 14%,black 86%,transparent);
+    }
+
+    .data-lines{
+      position:absolute;
+      inset:0;
+      opacity:.13;
+
+      background:
+        linear-gradient(28deg,transparent 44%,rgba(37,217,255,.40) 45%,transparent 46%),
+        linear-gradient(-32deg,transparent 59%,rgba(22,135,255,.34) 60%,transparent 61%);
+
+      background-size:420px 300px;
+
+      animation:dataDrift 28s linear infinite;
+    }
+
+    @keyframes dataDrift{
+      to{
+        background-position:
+          420px 0,
+          -420px 0;
+      }
+    }
+
+    .scan-light{
+      position:absolute;
+      width:18%;
+      height:170%;
+      top:-35%;
+      left:-30%;
+
+      background:
+        linear-gradient(90deg,transparent,rgba(151,244,255,.08),transparent);
+
+      filter:blur(18px);
+      transform:rotate(14deg);
+
+      animation:scanLight 12s ease-in-out infinite;
+    }
+
+    @keyframes scanLight{
+      0%{left:-30%;}
+      42%,100%{left:130%;}
+    }
+
+    .tech-orbit{
+      position:absolute;
+      border-radius:50%;
+      border:1px solid rgba(98,228,255,.12);
+    }
+
+    .tech-orbit.o1{
+      width:550px;
+      height:550px;
+      right:-170px;
+      top:-180px;
+      animation:spin 32s linear infinite;
+    }
+
+    .tech-orbit.o2{
+      width:390px;
+      height:390px;
+      left:-180px;
+      bottom:-120px;
+      border-style:dashed;
+      animation:spinReverse 26s linear infinite;
+    }
+
+    @keyframes spin{
+      to{transform:rotate(360deg);}
+    }
+
+    @keyframes spinReverse{
+      to{transform:rotate(-360deg);}
+    }
+
+    /* =========================================================
+       PARTICLES
+    ========================================================= */
+
+    #particles{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+
+    .particle{
+      position:absolute;
+      left:var(--x);
+      top:var(--y);
+      width:var(--s);
+      height:var(--s);
+      border-radius:50%;
+
+      background:rgba(191,250,255,.95);
+
+      box-shadow:
+        0 0 8px rgba(37,217,255,.95),
+        0 0 20px rgba(37,217,255,.35);
+
+      opacity:var(--o);
+
+      animation:
+        particleFloat var(--d)
+        ease-in-out infinite alternate;
+
+      animation-delay:var(--delay);
+    }
+
+    @keyframes particleFloat{
+      to{
+        transform:
+          translate3d(
+            var(--mx),
+            var(--my),
+            0
+          );
+      }
+    }
+
+    /* =========================================================
+       TOP NAV
+    ========================================================= */
+
+    .topbar{
+      position:absolute;
+      z-index:50;
+      left:50%;
+      top:25px;
+      transform:translateX(-50%);
+
+      width:min(1220px,calc(100% - 60px));
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      opacity:0;
+      animation:topIn .8s .15s ease forwards;
+    }
+
+    @keyframes topIn{
+      from{
+        opacity:0;
+        transform:translate(-50%,-18px);
+      }
+      to{
+        opacity:1;
+        transform:translate(-50%,0);
+      }
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:13px;
+    }
+
+    .brand-logo{
+      width:46px;
+      height:46px;
+      border-radius:15px;
+
+      display:grid;
+      place-items:center;
+
+      background:
+        linear-gradient(145deg,rgba(37,217,255,.18),rgba(22,135,255,.08));
+
+      border:1px solid rgba(113,233,255,.25);
+
+      box-shadow:
+        inset 0 0 18px rgba(37,217,255,.08),
+        0 0 30px rgba(37,217,255,.10);
+
+      backdrop-filter:blur(14px);
+    }
+
+    .brand-logo svg{
+      width:25px;
+      height:25px;
+    }
+
+    .brand-copy strong{
+      display:block;
+      font-family:"Poppins",sans-serif;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:2px;
+    }
+
+    .brand-copy span{
+      display:block;
+      margin-top:2px;
+
+      font-size:8px;
+      letter-spacing:1.7px;
+      font-weight:600;
+      color:rgba(218,241,255,.46);
+    }
+
+    .top-chip{
+      display:flex;
+      align-items:center;
+      gap:9px;
+
+      padding:9px 14px;
+
+      border-radius:100px;
+
+      border:1px solid rgba(89,224,255,.14);
+
+      background:rgba(255,255,255,.035);
+
+      backdrop-filter:blur(12px);
+
+      color:rgba(223,245,255,.66);
+
+      font-size:9px;
+      letter-spacing:1.4px;
+      font-weight:700;
+    }
+
+    .dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+
+      background:var(--cyan);
+
+      box-shadow:0 0 11px var(--cyan);
+
+      animation:pulse 2s ease infinite;
+    }
+
+    @keyframes pulse{
+      50%{opacity:.4;}
+    }
+
+    /* =========================================================
+       SCREENS
+    ========================================================= */
+
+    .screen{
+      position:absolute;
+      inset:0;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      transition:
+        opacity .8s cubic-bezier(.22,1,.36,1),
+        transform .8s cubic-bezier(.22,1,.36,1),
+        filter .8s ease;
+    }
+
+    .screen.hidden-left{
+      opacity:0;
+      transform:translateX(-7%) scale(.96);
+      filter:blur(9px);
+      pointer-events:none;
+    }
+
+    .screen.hidden-right{
+      opacity:0;
+      transform:translateX(7%) scale(.96);
+      filter:blur(9px);
+      pointer-events:none;
+    }
+
+    /* =========================================================
+       HOME SCREEN
+    ========================================================= */
+
+    .hero{
+      width:min(1200px,calc(100% - 60px));
+
+      display:grid;
+      grid-template-columns:1.06fr .94fr;
+      align-items:center;
+      gap:45px;
+
+      padding-top:55px;
+    }
+
+    .hero-copy{
+      position:relative;
+      z-index:10;
+    }
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+
+      padding:8px 14px;
+
+      border-radius:999px;
+
+      border:1px solid rgba(94,230,255,.14);
+
+      background:rgba(37,217,255,.06);
+
+      color:#93efff;
+
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:2px;
+
+      opacity:0;
+      animation:fadeUp .7s .25s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .hero-kicker i{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 10px var(--cyan);
+    }
+
+    .hero-title{
+      margin-top:20px;
+
+      font-family:"Poppins","Be Vietnam Pro",sans-serif;
+
+      font-size:clamp(54px,6vw,88px);
+      line-height:.98;
+      font-weight:800;
+      letter-spacing:-3px;
+
+      opacity:0;
+      animation:fadeUp .9s .4s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .hero-title span{
+      display:block;
+    }
+
+    .hero-title .t1{
+      color:white;
+      text-shadow:0 0 28px rgba(255,255,255,.05);
+    }
+
+    .hero-title .t2{
+      padding-bottom:8px;
+
+      background:
+        linear-gradient(
+          100deg,
+          #ffffff 5%,
+          #a9f3ff 35%,
+          #25d9ff 64%,
+          #1687ff 100%
+        );
+
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+
+      filter:
+        drop-shadow(
+          0 0 26px
+          rgba(37,217,255,.18)
+        );
+    }
+
+    .hero-sub{
+      max-width:630px;
+      margin-top:24px;
+
+      font-size:clamp(14px,1.2vw,17px);
+      line-height:1.8;
+
+      color:var(--text-soft);
+
+      opacity:0;
+      animation:fadeUp .85s .62s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .hero-actions{
+      margin-top:34px;
+
+      display:flex;
+      align-items:center;
+      gap:18px;
+
+      opacity:0;
+      animation:fadeUp .8s .83s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(28px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .main-button{
+      position:relative;
+
+      min-width:220px;
+      height:60px;
+
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+
+      border-radius:18px;
+
+      cursor:pointer;
+
+      color:#03162d;
+
+      background:
+        linear-gradient(
+          110deg,
+          #94f8ff,
+          #25d9ff 44%,
+          #1687ff
+        );
+
+      box-shadow:
+        0 14px 36px rgba(22,135,255,.32),
+        0 0 38px rgba(37,217,255,.16),
+        inset 0 1px 0 rgba(255,255,255,.72);
+
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1.3px;
+
+      overflow:hidden;
+
+      transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .main-button::before{
+      content:"";
+
+      position:absolute;
+      width:48px;
+      height:150px;
+
+      left:-80px;
+
+      background:rgba(255,255,255,.46);
+
+      filter:blur(17px);
+
+      transform:rotate(24deg);
+
+      transition:left .75s ease;
+    }
+
+    .main-button:hover{
+      transform:translateY(-5px) scale(1.02);
+
+      box-shadow:
+        0 20px 48px rgba(22,135,255,.44),
+        0 0 52px rgba(37,217,255,.27);
+    }
+
+    .main-button:hover::before{
+      left:270px;
+    }
+
+    .btn-icon{
+      width:30px;
+      height:30px;
+      border-radius:10px;
+
+      display:grid;
+      place-items:center;
+
+      background:rgba(3,27,58,.11);
+
+      transition:transform .35s ease;
+    }
+
+    .main-button:hover .btn-icon{
+      transform:translateX(4px);
+    }
+
+    .mini-status{
+      display:flex;
+      align-items:center;
+      gap:8px;
+
+      color:rgba(223,244,255,.42);
+
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:1px;
+    }
+
+    .mini-status strong{
+      color:#75efff;
+      font-weight:700;
+    }
+
+    /* =========================================================
+       HERO VISUAL
+    ========================================================= */
+
+    .hero-visual{
+      position:relative;
+
+      height:560px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      opacity:0;
+
+      animation:
+        visualIn 1.25s .35s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+    }
+
+    @keyframes visualIn{
+      from{
+        opacity:0;
+        transform:translateX(40px) scale(.92);
+      }
+      to{
+        opacity:1;
+        transform:translateX(0) scale(1);
+      }
+    }
+
+    .world{
+      position:relative;
+
+      width:470px;
+      height:470px;
+
+      display:grid;
+      place-items:center;
+
+      perspective:1100px;
+    }
+
+    .world-ring{
+      position:absolute;
+      border-radius:50%;
+      border:1px solid rgba(95,228,255,.16);
+    }
+
+    .world-ring.r1{
+      inset:5px;
+      border-style:dashed;
+      animation:spin 30s linear infinite;
+    }
+
+    .world-ring.r2{
+      inset:38px;
+      transform:rotateX(65deg) rotateZ(14deg);
+      border-color:rgba(112,122,255,.22);
+      animation:spinReverse3D 22s linear infinite;
+    }
+
+    .world-ring.r3{
+      inset:20px;
+      transform:rotateY(72deg) rotateZ(-18deg);
+      border-color:rgba(37,217,255,.15);
+    }
+
+    @keyframes spinReverse3D{
+      to{
+        transform:rotateX(65deg) rotateZ(-346deg);
+      }
+    }
+
+    .orbit-dot{
+      position:absolute;
+
+      width:8px;
+      height:8px;
+
+      top:-4px;
+      left:50%;
+
+      border-radius:50%;
+
+      background:var(--cyan);
+
+      box-shadow:0 0 13px var(--cyan);
+    }
+
+    .planet-main{
+      position:relative;
+
+      width:300px;
+      height:300px;
+
+      border-radius:50%;
+
+      overflow:hidden;
+
+      background:
+        radial-gradient(ellipse at 31% 32%,rgba(54,232,198,.90) 0 10%,transparent 11%),
+        radial-gradient(ellipse at 67% 43%,rgba(54,232,198,.76) 0 13%,transparent 14%),
+        radial-gradient(ellipse at 58% 71%,rgba(54,232,198,.56) 0 11%,transparent 12%),
+        radial-gradient(circle at 33% 26%,#46dcff,#1687ff 48%,#073b7a 76%,#041c3b 100%);
+
+      box-shadow:
+        -30px 25px 70px rgba(0,0,0,.48),
+        0 0 50px rgba(37,217,255,.25),
+        0 0 120px rgba(37,217,255,.10),
+        inset -28px -18px 48px rgba(0,0,0,.52),
+        inset 22px 12px 38px rgba(188,249,255,.12);
+
+      animation:planetFloat 5.5s ease-in-out infinite alternate;
+    }
+
+    .planet-main::before{
+      content:"";
+
+      position:absolute;
+      inset:0;
+
+      background:
+        repeating-linear-gradient(
+          18deg,
+          transparent 0 18px,
+          rgba(190,248,255,.06) 19px,
+          transparent 20px 31px
+        );
+
+      animation:planetTexture 18s linear infinite;
+    }
+
+    .planet-main::after{
+      content:"";
+
+      position:absolute;
+
+      width:52%;
+      height:140%;
+
+      top:-20%;
+      left:18%;
+
+      border-radius:50%;
+
+      transform:rotate(24deg);
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.18),
+          transparent
+        );
+
+      filter:blur(10px);
+    }
+
+    @keyframes planetFloat{
+      to{
+        transform:translateY(-12px) rotate(-2deg);
+      }
+    }
+
+    @keyframes planetTexture{
+      to{
+        transform:translateX(30px);
+      }
+    }
+
+    .history-arc{
+      position:absolute;
+
+      width:124px;
+      height:124px;
+
+      left:15px;
+      top:75px;
+
+      border-radius:24px;
+
+      border:1px solid rgba(255,221,145,.22);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(242,197,109,.08),
+          rgba(255,255,255,.03)
+        );
+
+      backdrop-filter:blur(12px);
+
+      transform:rotate(-10deg);
+
+      box-shadow:
+        0 20px 40px rgba(0,0,0,.18),
+        0 0 26px rgba(242,197,109,.06);
+    }
+
+    .history-arc .temple-mini{
+      position:absolute;
+      inset:20px;
+
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .temple-mini span{
+      width:11px;
+      height:48px;
+
+      border-radius:3px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #93eaff,
+          #fff7dc,
+          #4ea9ef
+        );
+    }
+
+    .temple-mini::before{
+      content:"";
+      position:absolute;
+
+      top:0;
+      left:6px;
+      right:6px;
+      height:22px;
+
+      clip-path:polygon(50% 0,100% 100%,0 100%);
+
+      background:
+        linear-gradient(
+          120deg,
+          #fff7da,
+          #75dfff
+        );
+    }
+
+    .temple-mini::after{
+      content:"";
+
+      position:absolute;
+      left:3px;
+      right:3px;
+      bottom:-8px;
+      height:8px;
+
+      border-radius:4px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(242,197,109,.60),
+          #9cefff,
+          rgba(242,197,109,.60)
+        );
+    }
+
+    .geo-arc{
+      position:absolute;
+
+      width:132px;
+      height:132px;
+
+      right:5px;
+      bottom:64px;
+
+      border-radius:24px;
+
+      border:1px solid rgba(86,232,255,.20);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(37,217,255,.08),
+          rgba(255,255,255,.03)
+        );
+
+      backdrop-filter:blur(12px);
+
+      transform:rotate(10deg);
+
+      box-shadow:
+        0 20px 40px rgba(0,0,0,.18),
+        0 0 26px rgba(37,217,255,.07);
+    }
+
+    .geo-arc::before{
+      content:"";
+
+      position:absolute;
+
+      width:78px;
+      height:78px;
+
+      left:27px;
+      top:26px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(ellipse at 32% 32%,rgba(54,232,198,.9) 0 11%,transparent 12%),
+        radial-gradient(ellipse at 68% 43%,rgba(54,232,198,.7) 0 13%,transparent 14%),
+        radial-gradient(circle at 35% 25%,#57e5ff,#1687ff 55%,#074e95);
+
+      box-shadow:
+        0 0 24px rgba(37,217,255,.21);
+    }
+
+    .geo-arc::after{
+      content:"";
+
+      position:absolute;
+
+      width:100px;
+      height:34px;
+
+      left:16px;
+      top:48px;
+
+      border-radius:50%;
+
+      border:1px solid rgba(130,242,255,.36);
+
+      transform:rotate(-17deg);
+    }
+
+    .floating-chip{
+      position:absolute;
+
+      padding:8px 11px;
+
+      border-radius:9px;
+
+      border:1px solid rgba(105,231,255,.15);
+
+      background:rgba(5,25,55,.52);
+
+      backdrop-filter:blur(10px);
+
+      color:rgba(208,242,255,.68);
+
+      font-size:8px;
+      font-weight:700;
+      letter-spacing:1.3px;
+
+      box-shadow:0 10px 25px rgba(0,0,0,.18);
+    }
+
+    .fc1{
+      right:2px;
+      top:94px;
+    }
+
+    .fc2{
+      left:4px;
+      bottom:94px;
+    }
+
+    /* =========================================================
+       SUBJECT SCREEN
+    ========================================================= */
+
+    .subject-screen{
+      flex-direction:column;
+
+      padding:118px 46px 58px;
+    }
+
+    .subject-header{
+      text-align:center;
+      margin-bottom:34px;
+    }
+
+    .subject-kicker{
+      color:#79ebff;
+
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:3.6px;
+
+      margin-bottom:8px;
+    }
+
+    .subject-title{
+      font-family:"Poppins","Be Vietnam Pro",sans-serif;
+
+      font-size:clamp(34px,4vw,54px);
+
+      font-weight:800;
+      letter-spacing:-1.8px;
+
+      background:
+        linear-gradient(
+          105deg,
+          #fff,
+          #b8f5ff 52%,
+          #5eb9ff 100%
+        );
+
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+
+      filter:drop-shadow(0 0 24px rgba(37,217,255,.08));
+    }
+
+    .subject-sub{
+      margin-top:10px;
+
+      color:rgba(219,240,255,.48);
+
+      font-size:12px;
+    }
+
+    .subject-grid{
+      width:min(1050px,100%);
+
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:26px;
+    }
+
+    /* =========================================================
+       PREMIUM SUBJECT CARDS
+    ========================================================= */
+
+    .subject-card{
+      --accent:37,217,255;
+      --accent2:22,135,255;
+
+      position:relative;
+
+      min-height:390px;
+
+      padding:28px;
+
+      border-radius:30px;
+
+      cursor:pointer;
+      overflow:hidden;
+
+      border:
+        1px solid rgba(var(--accent),.24);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(var(--accent),.10),
+          rgba(255,255,255,.04) 44%,
+          rgba(var(--accent2),.07)
+        );
+
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 32px 80px rgba(0,0,0,.28);
+
+      transform-style:preserve-3d;
+
+      transition:
+        transform .48s cubic-bezier(.22,1,.36,1),
+        border-color .48s ease,
+        box-shadow .48s ease,
+        background .48s ease;
+    }
+
+    .subject-card.history{
+      --accent:53,167,255;
+      --accent2:242,197,109;
+    }
+
+    .subject-card.geography{
+      --accent:37,217,255;
+      --accent2:54,232,198;
+    }
+
+    .subject-card:hover{
+      transform:translateY(-12px) scale(1.025);
+
+      border-color:rgba(var(--accent),.60);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.11),
+        0 42px 95px rgba(0,0,0,.36),
+        0 0 55px rgba(var(--accent),.13);
+    }
+
+    .subject-card::before{
+      content:"";
+
+      position:absolute;
+
+      width:300px;
+      height:300px;
+
+      right:-120px;
+      top:-120px;
+
+      border-radius:50%;
+
+      background:rgba(var(--accent),.24);
+
+      filter:blur(72px);
+
+      transition:
+        transform .55s ease,
+        opacity .55s ease;
+    }
+
+    .subject-card:hover::before{
+      transform:scale(1.23);
+      opacity:1;
+    }
+
+    .subject-card::after{
+      content:"";
+
+      position:absolute;
+
+      width:65px;
+      height:150%;
+
+      top:-25%;
+      left:-28%;
+
+      transform:rotate(20deg);
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.13),
+          transparent
+        );
+
+      filter:blur(11px);
+
+      transition:left .85s ease;
+    }
+
+    .subject-card:hover::after{
+      left:125%;
+    }
+
+    .edge-glow{
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      pointer-events:none;
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.03),
+        inset 0 0 45px rgba(var(--accent),.02);
+    }
+
+    .subject-top{
+      position:relative;
+      z-index:4;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .index-label{
+      font-family:"Poppins",sans-serif;
+
+      color:rgba(var(--accent),.92);
+
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:2px;
+    }
+
+    .card-chip{
+      padding:6px 9px;
+
+      border-radius:8px;
+
+      border:1px solid rgba(var(--accent),.18);
+
+      background:rgba(var(--accent),.06);
+
+      color:rgba(221,244,255,.53);
+
+      font-size:7px;
+      font-weight:700;
+      letter-spacing:1.4px;
+    }
+
+    .subject-visual{
+      position:relative;
+      z-index:4;
+
+      height:168px;
+
+      display:grid;
+      place-items:center;
+
+      margin:6px 0 0;
+    }
+
+    /* =========================================================
+       HISTORY VISUAL
+    ========================================================= */
+
+    .history-visual{
+      position:relative;
+
+      width:220px;
+      height:150px;
+
+      transition:
+        transform .55s
+        cubic-bezier(.22,1,.36,1);
+    }
+
+    .subject-card:hover .history-visual{
+      transform:translateY(-7px) scale(1.05);
+    }
+
+    .history-disc{
+      position:absolute;
+
+      width:130px;
+      height:130px;
+
+      left:45px;
+      top:5px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 32%,
+          rgba(255,247,217,.28),
+          rgba(242,197,109,.10) 42%,
+          rgba(53,167,255,.08) 70%,
+          transparent 72%
+        );
+
+      border:1px solid rgba(242,197,109,.18);
+
+      box-shadow:
+        0 0 30px rgba(242,197,109,.08);
+    }
+
+    .history-temple{
+      position:absolute;
+
+      width:190px;
+      height:125px;
+
+      left:15px;
+      top:18px;
+    }
+
+    .temple-roof-large{
+      position:absolute;
+
+      width:174px;
+      height:36px;
+
+      left:8px;
+      top:10px;
+
+      clip-path:polygon(50% 0,100% 100%,0 100%);
+
+      background:
+        linear-gradient(
+          120deg,
+          #fff7dc,
+          #bcefff 46%,
+          #4da8ee
+        );
+
+      filter:
+        drop-shadow(
+          0 0 14px
+          rgba(93,217,255,.15)
+        );
+    }
+
+    .temple-bar{
+      position:absolute;
+
+      width:157px;
+      height:8px;
+
+      left:17px;
+      top:45px;
+
+      border-radius:5px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(242,197,109,.65),
+          #dbf9ff 50%,
+          rgba(242,197,109,.65)
+        );
+    }
+
+    .pillars{
+      position:absolute;
+
+      left:29px;
+      right:29px;
+      top:53px;
+      bottom:15px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+    }
+
+    .pillars i{
+      width:16px;
+      height:65px;
+
+      border-radius:4px 4px 2px 2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #5cb9ff,
+          #eafcff 50%,
+          #2d79c9
+        );
+
+      box-shadow:
+        0 8px 18px rgba(0,0,0,.20);
+    }
+
+    .temple-base-large{
+      position:absolute;
+
+      left:8px;
+      right:8px;
+      bottom:5px;
+      height:10px;
+
+      border-radius:6px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(242,197,109,.55),
+          #a4efff,
+          rgba(242,197,109,.55)
+        );
+    }
+
+    .scroll-line{
+      position:absolute;
+
+      width:70px;
+      height:5px;
+
+      border-radius:999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(242,197,109,.85),
+          transparent
+        );
+
+      box-shadow:0 0 10px rgba(242,197,109,.22);
+
+      animation:historyLine 2.2s ease-in-out infinite alternate;
+    }
+
+    .scroll-line.s1{
+      right:-5px;
+      top:38px;
+    }
+
+    .scroll-line.s2{
+      left:-5px;
+      bottom:32px;
+      animation-delay:-.8s;
+    }
+
+    @keyframes historyLine{
+      to{
+        transform:translateX(12px);
+        opacity:.45;
+      }
+    }
+
+    /* =========================================================
+       GEOGRAPHY VISUAL
+    ========================================================= */
+
+    .geo-visual{
+      position:relative;
+
+      width:210px;
+      height:160px;
+
+      display:grid;
+      place-items:center;
+
+      transition:
+        transform .55s
+        cubic-bezier(.22,1,.36,1);
+    }
+
+    .subject-card:hover .geo-visual{
+      transform:translateY(-7px) scale(1.05) rotate(-1deg);
+    }
+
+    .earth-small{
+      position:relative;
+
+      width:120px;
+      height:120px;
+
+      border-radius:50%;
+
+      overflow:hidden;
+
+      background:
+        radial-gradient(ellipse at 30% 31%,rgba(54,232,198,.95) 0 11%,transparent 12%),
+        radial-gradient(ellipse at 69% 44%,rgba(54,232,198,.80) 0 14%,transparent 15%),
+        radial-gradient(ellipse at 60% 73%,rgba(54,232,198,.62) 0 12%,transparent 13%),
+        radial-gradient(circle at 34% 25%,#5ce8ff,#1687ff 52%,#07519a 100%);
+
+      box-shadow:
+        inset -16px -12px 27px rgba(0,0,0,.34),
+        inset 12px 9px 22px rgba(210,253,255,.13),
+        0 0 35px rgba(37,217,255,.24);
+    }
+
+    .earth-small::after{
+      content:"";
+
+      position:absolute;
+
+      width:48%;
+      height:135%;
+
+      left:18%;
+      top:-17%;
+
+      transform:rotate(26deg);
+
+      border-radius:50%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.19),
+          transparent
+        );
+
+      filter:blur(7px);
+    }
+
+    .geo-orbit{
+      position:absolute;
+
+      width:175px;
+      height:58px;
+
+      border-radius:50%;
+
+      border:1px solid rgba(123,242,255,.31);
+
+      transform:rotate(-15deg);
+
+      box-shadow:0 0 20px rgba(37,217,255,.09);
+    }
+
+    .geo-orbit.second{
+      width:148px;
+      height:148px;
+
+      transform:rotateY(70deg);
+
+      border-color:rgba(54,232,198,.15);
+    }
+
+    .geo-ping{
+      position:absolute;
+
+      width:8px;
+      height:8px;
+
+      left:22px;
+      top:75px;
+
+      border-radius:50%;
+
+      background:var(--cyan);
+
+      box-shadow:0 0 12px var(--cyan);
+
+      animation:geoPing 2.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes geoPing{
+      to{
+        transform:translateX(16px) translateY(-3px);
+      }
+    }
+
+    /* =========================================================
+       CARD TEXT
+    ========================================================= */
+
+    .subject-body{
+      position:relative;
+      z-index:4;
+    }
+
+    .subject-label{
+      color:rgba(215,242,255,.43);
+
+      font-size:8px;
+      font-weight:800;
+      letter-spacing:2px;
+
+      margin-bottom:5px;
+      text-transform:uppercase;
+    }
+
+    .subject-name{
+      font-family:"Poppins","Be Vietnam Pro",sans-serif;
+
+      font-size:29px;
+      font-weight:800;
+
+      letter-spacing:-.7px;
+
+      color:#f9fdff;
+    }
+
+    .subject-desc{
+      margin-top:9px;
+      max-width:390px;
+
+      color:rgba(220,241,255,.50);
+
+      font-size:11px;
+      line-height:1.75;
+    }
+
+    .card-footer{
+      position:absolute;
+
+      left:28px;
+      right:28px;
+      bottom:23px;
+
+      z-index:4;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .open-text{
+      color:rgba(var(--accent),.90);
+
+      font-size:8px;
+      font-weight:800;
+      letter-spacing:1.6px;
+    }
+
+    .open-arrow{
+      width:34px;
+      height:34px;
+
+      border-radius:11px;
+
+      display:grid;
+      place-items:center;
+
+      border:1px solid rgba(var(--accent),.22);
+
+      background:rgba(var(--accent),.08);
+
+      color:rgba(var(--accent),.98);
+
+      transition:
+        transform .4s ease,
+        background .4s ease,
+        box-shadow .4s ease;
+    }
+
+    .subject-card:hover .open-arrow{
+      transform:translateX(5px);
+
+      background:rgba(var(--accent),.17);
+
+      box-shadow:
+        0 0 20px
+        rgba(var(--accent),.13);
+    }
+
+    /* =========================================================
+       BACK BUTTON
+    ========================================================= */
+
+    .back-button{
+      position:absolute;
+
+      top:92px;
+      left:max(30px,calc((100% - 1050px)/2));
+
+      z-index:20;
+
+      padding:9px 13px;
+
+      display:flex;
+      align-items:center;
+      gap:8px;
+
+      border-radius:11px;
+
+      border:1px solid rgba(84,221,255,.15);
+
+      background:rgba(255,255,255,.035);
+
+      backdrop-filter:blur(12px);
+
+      color:rgba(215,242,255,.58);
+
+      cursor:pointer;
+
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:1px;
+
+      transition:
+        transform .3s ease,
+        color .3s ease,
+        background .3s ease,
+        border-color .3s ease;
+    }
+
+    .back-button:hover{
+      transform:translateX(-3px);
+
+      color:#b3f6ff;
+
+      background:rgba(37,217,255,.075);
+
+      border-color:rgba(37,217,255,.4);
+    }
+
+    /* =========================================================
+       CLICK EFFECTS
+    ========================================================= */
+
+    .ripple{
+      position:fixed;
+
+      width:22px;
+      height:22px;
+
+      left:0;
+      top:0;
+
+      z-index:9999;
+
+      pointer-events:none;
+
+      border-radius:50%;
+
+      transform:
+        translate(-50%,-50%)
+        scale(0);
+
+      border:2px solid rgba(158,248,255,.74);
+
+      background:rgba(37,217,255,.14);
+
+      box-shadow:
+        0 0 45px
+        rgba(37,217,255,.62);
+
+      animation:ripple .7s ease-out forwards;
+    }
+
+    @keyframes ripple{
+      to{
+        transform:
+          translate(-50%,-50%)
+          scale(20);
+
+        opacity:0;
+      }
+    }
+
+    .flash{
+      position:fixed;
+      inset:0;
+
+      z-index:9998;
+      pointer-events:none;
+
+      opacity:0;
+
+      background:
+        radial-gradient(
+          circle at var(--fx) var(--fy),
+          rgba(183,251,255,.42),
+          rgba(37,217,255,.07) 17%,
+          transparent 42%
+        );
+    }
+
+    .flash.active{
+      animation:flash .55s ease;
+    }
+
+    @keyframes flash{
+      0%{opacity:0;}
+      35%{opacity:1;}
+      100%{opacity:0;}
+    }
+
+    .subject-card.clicked{
+      animation:cardExit .55s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes cardExit{
+      0%{
+        transform:scale(1.02);
+      }
+
+      42%{
+        transform:scale(.97);
+        filter:brightness(1.4);
+      }
+
+      100%{
+        transform:scale(1.1);
+        opacity:0;
+        filter:brightness(2) blur(3px);
+      }
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    .footer{
+      position:absolute;
+
+      left:50%;
+      bottom:18px;
+
+      transform:translateX(-50%);
+
+      z-index:30;
+
+      display:flex;
+      align-items:center;
+      gap:14px;
+
+      color:rgba(208,236,255,.20);
+
+      font-size:7px;
+      font-weight:700;
+      letter-spacing:1.4px;
+    }
+
+    .footer i{
+      width:3px;
+      height:3px;
+
+      border-radius:50%;
+
+      background:var(--cyan);
+
+      box-shadow:0 0 6px var(--cyan);
+
+      opacity:.5;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media(max-width:980px){
+
+      .hero{
+        grid-template-columns:1fr;
+        text-align:center;
+        padding-top:140px;
+        padding-bottom:80px;
+      }
+
+      .hero-copy{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-sub{
+        max-width:700px;
+      }
+
+      .hero-visual{
+        height:400px;
+      }
+
+      .world{
+        transform:scale(.82);
+      }
+
+      .subject-screen{
+        justify-content:flex-start;
+        overflow-y:auto;
+        padding-top:135px;
+      }
+
+      .subject-grid{
+        max-width:720px;
+        grid-template-columns:1fr;
+      }
+
+      .subject-card{
+        min-height:340px;
+      }
+    }
+
+    @media(max-width:640px){
+
+      .topbar{
+        width:calc(100% - 30px);
+        top:18px;
+      }
+
+      .top-chip{
+        display:none;
+      }
+
+      .hero{
+        width:calc(100% - 28px);
+        padding-top:115px;
+      }
+
+      .hero-title{
+        font-size:clamp(42px,12vw,60px);
+        letter-spacing:-2px;
+      }
+
+      .hero-sub{
+        font-size:12px;
+        line-height:1.7;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .mini-status{
+        display:none;
+      }
+
+      .main-button{
+        min-width:200px;
+        height:56px;
+      }
+
+      .hero-visual{
+        height:320px;
+        margin-top:-10px;
+      }
+
+      .world{
+        transform:scale(.66);
+      }
+
+      .subject-screen{
+        padding-left:14px;
+        padding-right:14px;
+        padding-top:122px;
+      }
+
+      .subject-title{
+        font-size:30px;
+      }
+
+      .subject-card{
+        min-height:320px;
+        padding:22px;
+        border-radius:24px;
+      }
+
+      .subject-visual{
+        height:135px;
+      }
+
+      .history-visual{
+        transform:scale(.88);
+      }
+
+      .geo-visual{
+        transform:scale(.88);
+      }
+
+      .card-footer{
+        left:22px;
+        right:22px;
+      }
+
+      .back-button{
+        left:18px;
+        top:80px;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+
+      *,
+      *::before,
+      *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- =======================================================
+       BACKGROUND
+  ======================================================== -->
+
+  <div class="scene-bg">
+
+    <div class="aurora a1"></div>
+    <div class="aurora a2"></div>
+    <div class="aurora a3"></div>
+
+    <div class="grid"></div>
+    <div class="data-lines"></div>
+
+    <div class="tech-orbit o1"></div>
+    <div class="tech-orbit o2"></div>
+
+    <div class="scan-light"></div>
+
+    <div id="particles"></div>
+
+  </div>
+
+  <!-- =======================================================
+       TOPBAR
+  ======================================================== -->
+
+  <div class="topbar">
+
+    <div class="brand">
+
+      <div class="brand-logo">
+
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle
+            cx="12"
+            cy="12"
+            r="8.2"
+            stroke="#86F1FF"
+            stroke-width="1.3"
+          />
+
+          <path
+            d="M7.2 8C9.5 9.2 11.8 9 13.2 7.2C15.1 8.3 16.5 10 17.5 12.5"
+            stroke="#25D9FF"
+            stroke-width="1.2"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M6.7 14.5C9.2 13.2 12.3 14 14.2 17"
+            stroke="#1687FF"
+            stroke-width="1.2"
+            stroke-linecap="round"
+          />
+        </svg>
+
+      </div>
+
+      <div class="brand-copy">
+        <strong>HISTORY × GEO</strong>
+        <span>DIGITAL LEARNING PLATFORM</span>
+      </div>
+
+    </div>
+
+    <div class="top-chip">
+      <span class="dot"></span>
+      HỌC LIỆU SỐ LỚP 6
+    </div>
+
+  </div>
+
+  <!-- =======================================================
+       HOME
+  ======================================================== -->
+
+  <section
+    class="screen"
+    id="homeScreen"
+  >
+
+    <div class="hero">
+
+      <!-- LEFT -->
+
+      <div class="hero-copy">
+
+        <div class="hero-kicker">
+          <i></i>
+          NỀN TẢNG HỌC LIỆU SỐ THẾ HỆ MỚI
+        </div>
+
+        <h1 class="hero-title">
+
+          <span class="t1">
+            HỌC LIỆU SỐ
+          </span>
+
+          <span class="t2">
+            LỊCH SỬ VÀ ĐỊA LÝ 6
+          </span>
+
+        </h1>
+
+        <p class="hero-sub">
+          Khám phá quá khứ – Hiểu thế giới – Kiến tạo tương lai.
+          Một không gian học tập số trực quan, sống động và hiện đại,
+          nơi Lịch sử và Địa lý được kết nối bằng công nghệ.
+        </p>
+
+        <div class="hero-actions">
+
+          <button
+            class="main-button"
+            id="exploreBtn"
+            type="button"
+          >
+            KHÁM PHÁ NGAY
+
+            <span class="btn-icon">
+              →
+            </span>
+          </button>
+
+          <div class="mini-status">
+            <strong>●</strong>
+            2 KHO HỌC LIỆU CHÍNH
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="hero-visual">
+
+        <div class="world">
+
+          <div class="world-ring r1">
+            <div class="orbit-dot"></div>
+          </div>
+
+          <div class="world-ring r2">
+            <div class="orbit-dot"></div>
+          </div>
+
+          <div class="world-ring r3"></div>
+
+          <div class="planet-main"></div>
+
+          <div class="history-arc">
+
+            <div class="temple-mini">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+          </div>
+
+          <div class="geo-arc"></div>
+
+          <div class="floating-chip fc1">
+            LỊCH SỬ · VĂN MINH
+          </div>
+
+          <div class="floating-chip fc2">
+            ĐỊA LÝ · TRÁI ĐẤT
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =======================================================
+       SUBJECT SELECTION
+  ======================================================== -->
+
+  <section
+    class="screen subject-screen hidden-right"
+    id="subjectScreen"
+  >
+
+    <button
+      class="back-button"
+      id="backBtn"
+      type="button"
+    >
+      ← TRANG CHỦ
+    </button>
+
+    <div class="subject-header">
+
+      <div class="subject-kicker">
+        DIGITAL LEARNING LIBRARY
+      </div>
+
+      <h2 class="subject-title">
+        KHÁM PHÁ KHO HỌC LIỆU
+      </h2>
+
+      <p class="subject-sub">
+        Lựa chọn hành trình học tập của bạn
+      </p>
+
+    </div>
+
+    <div class="subject-grid">
+
+      <!-- HISTORY -->
+
+      <article
+        class="subject-card history"
+        data-subject="history"
+        role="button"
+        tabindex="0"
+      >
+
+        <div class="edge-glow"></div>
+
+        <div class="subject-top">
+
+          <div class="index-label">
+            01 / 02
+          </div>
+
+          <div class="card-chip">
+            HISTORY
+          </div>
+
+        </div>
+
+        <div class="subject-visual">
+
+          <div class="history-visual">
+
+            <div class="history-disc"></div>
+
+            <div class="history-temple">
+
+              <div class="temple-roof-large"></div>
+
+              <div class="temple-bar"></div>
+
+              <div class="pillars">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+              <div class="temple-base-large"></div>
+
+            </div>
+
+            <div class="scroll-line s1"></div>
+            <div class="scroll-line s2"></div>
+
+          </div>
+
+        </div>
+
+        <div class="subject-body">
+
+          <div class="subject-label">
+            DẤU ẤN QUÁ KHỨ
+          </div>
+
+          <h3 class="subject-name">
+            LỊCH SỬ
+          </h3>
+
+          <p class="subject-desc">
+            Khám phá các nền văn minh, sự kiện,
+            nhân vật và những dấu ấn quan trọng của quá khứ.
+          </p>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="open-text">
+            MỞ KHO HỌC LIỆU
+          </div>
+
+          <div class="open-arrow">
+            ↗
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- GEOGRAPHY -->
+
+      <article
+        class="subject-card geography"
+        data-subject="geography"
+        role="button"
+        tabindex="0"
+      >
+
+        <div class="edge-glow"></div>
+
+        <div class="subject-top">
+
+          <div class="index-label">
+            02 / 02
+          </div>
+
+          <div class="card-chip">
+            GEOGRAPHY
+          </div>
+
+        </div>
+
+        <div class="subject-visual">
+
+          <div class="geo-visual">
+
+            <div class="geo-orbit"></div>
+            <div class="geo-orbit second"></div>
+
+            <div class="earth-small"></div>
+
+            <div class="geo-ping"></div>
+
+          </div>
+
+        </div>
+
+        <div class="subject-body">
+
+          <div class="subject-label">
+            KHÁM PHÁ THẾ GIỚI
+          </div>
+
+          <h3 class="subject-name">
+            ĐỊA LÝ
+          </h3>
+
+          <p class="subject-desc">
+            Khám phá Trái Đất, thiên nhiên,
+            con người và các không gian địa lý qua trải nghiệm số.
+          </p>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="open-text">
+            MỞ KHO HỌC LIỆU
+          </div>
+
+          <div class="open-arrow">
+            ↗
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+
+  <div class="footer">
+    <span>HISTORY</span>
+    <i></i>
+    <span>GEOGRAPHY</span>
+    <i></i>
+    <span>DIGITAL EDUCATION</span>
+  </div>
+
+  <div
+    class="flash"
+    id="flash"
+  ></div>
+
+</div>
+
+<script>
+/* ============================================================
+   ============================================================
+   CHỈ CẦN SỬA 2 LINK NÀY
+   ============================================================
+   ============================================================ */
+
+const HISTORY_LINK = "lich-su.html";
+const GEOGRAPHY_LINK = "dia-ly.html";
+
+
+/* ============================================================
+   ELEMENTS
+============================================================ */
+
+const homeScreen =
+  document.getElementById("homeScreen");
+
+const subjectScreen =
+  document.getElementById("subjectScreen");
+
+const exploreBtn =
+  document.getElementById("exploreBtn");
+
+const backBtn =
+  document.getElementById("backBtn");
+
+const flash =
+  document.getElementById("flash");
+
+const subjectCards =
+  document.querySelectorAll(".subject-card");
+
+
+/* ============================================================
+   PARTICLES
+============================================================ */
+
+const particleLayer =
+  document.getElementById("particles");
+
+const PARTICLE_COUNT = 42;
+
+for(
+  let i = 0;
+  i < PARTICLE_COUNT;
+  i++
+){
+
+  const p =
+    document.createElement("span");
+
+  p.className =
+    "particle";
+
+  const size =
+    Math.random() * 2.4 + 0.8;
+
+  p.style.setProperty(
+    "--s",
+    `${size}px`
+  );
+
+  p.style.setProperty(
+    "--x",
+    `${Math.random() * 100}%`
+  );
+
+  p.style.setProperty(
+    "--y",
+    `${Math.random() * 100}%`
+  );
+
+  p.style.setProperty(
+    "--o",
+    Math.random() * 0.44 + 0.08
+  );
+
+  p.style.setProperty(
+    "--d",
+    `${Math.random() * 8 + 6}s`
+  );
+
+  p.style.setProperty(
+    "--delay",
+    `${Math.random() * -12}s`
+  );
+
+  p.style.setProperty(
+    "--mx",
+    `${Math.random() * 50 - 25}px`
+  );
+
+  p.style.setProperty(
+    "--my",
+    `${Math.random() * 60 - 30}px`
+  );
+
+  particleLayer.appendChild(p);
+
+}
+
+
+/* ============================================================
+   PAGE SWITCH
+============================================================ */
+
+function openSubjects(){
+
+  homeScreen.classList.add(
+    "hidden-left"
+  );
+
+  subjectScreen.classList.remove(
+    "hidden-right"
+  );
+
+}
+
+function backHome(){
+
+  subjectScreen.classList.add(
+    "hidden-right"
+  );
+
+  homeScreen.classList.remove(
+    "hidden-left"
+  );
+
+}
+
+
+/* ============================================================
+   MAIN BUTTON
+============================================================ */
+
+exploreBtn.addEventListener(
+  "click",
+  function(event){
+
+    makeRipple(
+      event.clientX,
+      event.clientY
+    );
+
+    openSubjects();
+
+  }
+);
+
+backBtn.addEventListener(
+  "click",
+  backHome
+);
+
+
+/* ============================================================
+   SUBJECT LINKS
+============================================================ */
+
+function getLink(subject){
+
+  if(
+    subject === "history"
+  ){
+    return HISTORY_LINK;
+  }
+
+  if(
+    subject === "geography"
+  ){
+    return GEOGRAPHY_LINK;
+  }
+
+  return "#";
+
+}
+
+
+/* ============================================================
+   RIPPLE
+============================================================ */
+
+function makeRipple(x,y){
+
+  const ripple =
+    document.createElement("div");
+
+  ripple.className =
+    "ripple";
+
+  ripple.style.left =
+    `${x}px`;
+
+  ripple.style.top =
+    `${y}px`;
+
+  document.body.appendChild(
+    ripple
+  );
+
+  setTimeout(
+    () => ripple.remove(),
+    750
+  );
+
+}
+
+
+/* ============================================================
+   FLASH
+============================================================ */
+
+function makeFlash(x,y){
+
+  flash.style.setProperty(
+    "--fx",
+    `${x}px`
+  );
+
+  flash.style.setProperty(
+    "--fy",
+    `${y}px`
+  );
+
+  flash.classList.remove(
+    "active"
+  );
+
+  void flash.offsetWidth;
+
+  flash.classList.add(
+    "active"
+  );
+
+}
+
+
+/* ============================================================
+   OPEN SUBJECT
+============================================================ */
+
+function openSubject(
+  card,
+  event
+){
+
+  const subject =
+    card.dataset.subject;
+
+  const link =
+    getLink(subject);
+
+  const rect =
+    card.getBoundingClientRect();
+
+  const x =
+    event?.clientX ??
+    (
+      rect.left +
+      rect.width / 2
+    );
+
+  const y =
+    event?.clientY ??
+    (
+      rect.top +
+      rect.height / 2
+    );
+
+  makeRipple(x,y);
+
+  makeFlash(x,y);
+
+  card.classList.add(
+    "clicked"
+  );
+
+  setTimeout(
+    () => {
+
+      window.location.href =
+        link;
+
+    },
+    430
+  );
+
+}
+
+
+/* ============================================================
+   CARD EVENTS
+============================================================ */
+
+subjectCards.forEach(
+  card => {
+
+    card.addEventListener(
+      "click",
+      function(event){
+
+        openSubject(
+          this,
+          event
+        );
+
+      }
+    );
+
+    card.addEventListener(
+      "keydown",
+      function(event){
+
+        if(
+          event.key === "Enter" ||
+          event.key === " "
+        ){
+
+          event.preventDefault();
+
+          openSubject(
+            this,
+            null
+          );
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* ============================================================
+   PREMIUM 3D TILT
+============================================================ */
+
+subjectCards.forEach(
+  card => {
+
+    card.addEventListener(
+      "mousemove",
+      function(event){
+
+        if(
+          window.innerWidth <= 980
+        ) return;
+
+        const rect =
+          this.getBoundingClientRect();
+
+        const x =
+          event.clientX -
+          rect.left;
+
+        const y =
+          event.clientY -
+          rect.top;
+
+        const cx =
+          rect.width / 2;
+
+        const cy =
+          rect.height / 2;
+
+        const rotateY =
+          (
+            x - cx
+          ) / cx * 3.4;
+
+        const rotateX =
+          (
+            y - cy
+          ) / cy * -3.4;
+
+        this.style.transform =
+          `
+          translateY(-12px)
+          scale(1.025)
+          perspective(950px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          `;
+
+      }
+    );
+
+    card.addEventListener(
+      "mouseleave",
+      function(){
+
+        if(
+          !this.classList.contains(
+            "clicked"
+          )
+        ){
+
+          this.style.transform =
+            "";
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* ============================================================
+   HERO PARALLAX
+============================================================ */
+
+document.addEventListener(
+  "mousemove",
+  function(event){
+
+    if(
+      window.innerWidth <= 980
+    ) return;
+
+    const world =
+      document.querySelector(
+        ".world"
+      );
+
+    const x =
+      (
+        event.clientX /
+        window.innerWidth -
+        .5
+      ) * 14;
+
+    const y =
+      (
+        event.clientY /
+        window.innerHeight -
+        .5
+      ) * 11;
+
+    world.style.transform =
+      `
+      translate3d(
+        ${x}px,
+        ${y}px,
+        0
+      )
+      `;
+
+  }
+);
+
+</script>
+
+</body>
+</html>

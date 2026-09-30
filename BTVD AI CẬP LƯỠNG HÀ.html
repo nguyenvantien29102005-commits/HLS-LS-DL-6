@@ -1,0 +1,3979 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Thử thách Ai Cập và Lưỡng Hà cổ đại</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   01. RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+:root{
+
+    --bg:#0d0906;
+    --bg2:#1d120b;
+
+    --panel:#20150e;
+    --panel2:#2b1b10;
+
+    --gold:#d9a54f;
+    --gold2:#f2d58e;
+
+    --cream:#f6e2b3;
+
+    --green:#31a77c;
+    --green-dark:#1c7356;
+
+    --red:#de6256;
+    --red-dark:#953e36;
+
+    --blue:#3ca4ba;
+    --purple:#8064aa;
+
+    --muted:rgba(255,255,255,.64);
+
+    --border:rgba(235,190,106,.17);
+
+    --shadow:
+    0 27px 70px rgba(0,0,0,.38);
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:"Montserrat",sans-serif;
+
+    color:#fff;
+
+    background:
+
+    radial-gradient(
+        circle at 10% 10%,
+        rgba(221,165,70,.13),
+        transparent 28%
+    ),
+
+    radial-gradient(
+        circle at 91% 58%,
+        rgba(27,119,108,.12),
+        transparent 30%
+    ),
+
+    linear-gradient(
+        135deg,
+        #0b0705,
+        #23140b 53%,
+        #0a1c1a
+    );
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   02. PROGRESS
+========================================================= */
+
+#topProgress{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    height:4px;
+
+    width:0%;
+
+    z-index:9999;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #c38a38,
+        #ffe29a,
+        #34a99c
+    );
+
+    box-shadow:
+    0 0 15px
+    rgba(246,205,116,.6);
+}
+
+
+/* =========================================================
+   03. BACKGROUND DECOR
+========================================================= */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    opacity:.09;
+}
+
+.symbol{
+
+    position:absolute;
+
+    color:#e4b55f;
+
+    font-family:serif;
+
+    animation:
+    floating 10s ease-in-out infinite;
+}
+
+.symbol:nth-child(1){
+
+    left:3%;
+    top:12%;
+
+    font-size:80px;
+}
+
+.symbol:nth-child(2){
+
+    right:5%;
+    top:30%;
+
+    font-size:75px;
+
+    animation-delay:-4s;
+}
+
+.symbol:nth-child(3){
+
+    left:6%;
+    bottom:10%;
+
+    font-size:70px;
+
+    animation-delay:-7s;
+}
+
+@keyframes floating{
+
+    50%{
+        transform:
+        translateY(-28px)
+        rotate(7deg);
+    }
+
+}
+
+
+/* =========================================================
+   04. HEADER
+========================================================= */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:
+    rgba(12,8,6,.84);
+
+    backdrop-filter:
+    blur(17px);
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+.header-inner{
+
+    width:
+    min(1450px,calc(100% - 36px));
+
+    min-height:76px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+}
+
+.brand-icon{
+
+    width:48px;
+    height:48px;
+
+    border-radius:15px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:25px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #f2d592,
+        #aa7229
+    );
+
+    color:#23140c;
+}
+
+.brand small{
+
+    display:block;
+
+    font-size:9px;
+
+    color:var(--gold);
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+}
+
+.brand strong{
+
+    color:#f0deb7;
+
+    font-size:13px;
+}
+
+.score-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+    9px 14px;
+
+    border-radius:999px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid var(--border);
+}
+
+.score-box span{
+
+    color:
+    rgba(255,255,255,.5);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.4px;
+}
+
+.score-box strong{
+
+    color:#f6d788;
+
+    font-size:16px;
+}
+
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero{
+
+    position:relative;
+
+    z-index:3;
+
+    width:
+    min(1350px,calc(100% - 36px));
+
+    margin:auto;
+
+    padding:
+    65px 0 50px;
+
+    text-align:center;
+}
+
+.eyebrow{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+    8px 13px;
+
+    border-radius:999px;
+
+    border:
+    1px solid
+    rgba(235,190,106,.2);
+
+    background:
+    rgba(216,163,73,.1);
+
+    color:#efd08a;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:17px;
+}
+
+.eyebrow::before{
+
+    content:"";
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--gold);
+
+    box-shadow:
+    0 0 12px var(--gold);
+}
+
+.hero h1{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(49px,7vw,85px);
+
+    line-height:.93;
+
+    color:#f5dfb1;
+}
+
+.hero h1 span{
+
+    display:block;
+
+    color:#dca64f;
+}
+
+.hero-desc{
+
+    max-width:820px;
+
+    margin:
+    20px auto 0;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.85;
+}
+
+
+/* =========================================================
+   06. STATS
+========================================================= */
+
+.stats{
+
+    position:relative;
+
+    z-index:3;
+
+    width:
+    min(1100px,calc(100% - 36px));
+
+    margin:
+    0 auto 55px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+}
+
+.stat{
+
+    padding:
+    18px;
+
+    text-align:center;
+
+    border-radius:17px;
+
+    background:
+    rgba(255,255,255,.04);
+
+    border:
+    1px solid var(--border);
+}
+
+.stat-icon{
+
+    font-size:25px;
+
+    margin-bottom:7px;
+}
+
+.stat strong{
+
+    display:block;
+
+    font-size:17px;
+
+    color:#efd18d;
+}
+
+.stat small{
+
+    color:
+    rgba(255,255,255,.45);
+
+    font-size:8px;
+
+    letter-spacing:1.2px;
+
+    text-transform:uppercase;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   07. MAIN
+========================================================= */
+
+.main{
+
+    width:
+    min(1200px,calc(100% - 36px));
+
+    margin:auto;
+
+    position:relative;
+
+    z-index:5;
+
+    padding-bottom:100px;
+}
+
+.stage{
+
+    margin-bottom:80px;
+
+    padding-top:15px;
+}
+
+.stage-heading{
+
+    margin-bottom:30px;
+}
+
+.stage-label{
+
+    color:var(--gold);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.stage-heading h2{
+
+    margin-top:7px;
+
+    color:#f3dda9;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(37px,5vw,55px);
+}
+
+.stage-heading p{
+
+    max-width:760px;
+
+    margin-top:10px;
+
+    line-height:1.75;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   08. QUESTION
+========================================================= */
+
+.question-card{
+
+    position:relative;
+
+    margin-bottom:20px;
+
+    padding:28px;
+
+    border-radius:23px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.062),
+        rgba(255,255,255,.022)
+    );
+
+    box-shadow:
+    0 18px 50px rgba(0,0,0,.17);
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.question-card.completed{
+
+    border-color:
+    rgba(72,175,130,.25);
+}
+
+.question-number{
+
+    position:absolute;
+
+    right:22px;
+    top:17px;
+
+    color:
+    rgba(244,211,143,.08);
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:72px;
+
+    font-weight:700;
+}
+
+.question-type{
+
+    margin-bottom:9px;
+
+    color:#dbb261;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.6px;
+
+    font-weight:800;
+}
+
+.question-title{
+
+    max-width:890px;
+
+    color:#f3dfb5;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+    font-weight:700;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.context-box{
+
+    margin:
+    17px 0 5px;
+
+    padding:
+    17px 19px;
+
+    border-left:
+    3px solid var(--gold);
+
+    border-radius:
+    0 13px 13px 0;
+
+    background:
+    rgba(215,163,73,.07);
+
+    color:
+    rgba(255,255,255,.62);
+
+    line-height:1.75;
+
+    font-size:11.5px;
+}
+
+
+/* =========================================================
+   09. ANSWERS
+========================================================= */
+
+.answers{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:11px;
+
+    margin-top:20px;
+}
+
+.answer{
+
+    position:relative;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    min-height:61px;
+
+    padding:
+    14px 16px 14px 49px;
+
+    border-radius:14px;
+
+    background:
+    rgba(255,255,255,.035);
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    color:
+    rgba(255,255,255,.76);
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    line-height:1.5;
+
+    transition:.25s;
+}
+
+.answer:hover:not(:disabled){
+
+    transform:
+    translateY(-3px);
+
+    border-color:
+    rgba(232,186,101,.32);
+
+    background:
+    rgba(219,164,73,.08);
+}
+
+.answer-letter{
+
+    position:absolute;
+
+    left:12px;
+    top:50%;
+
+    transform:
+    translateY(-50%);
+
+    width:27px;
+    height:27px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:8px;
+
+    background:
+    rgba(219,166,75,.09);
+
+    color:#e7bf71;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.answer.correct{
+
+    border-color:
+    rgba(64,190,137,.6);
+
+    background:
+    rgba(44,159,112,.14);
+
+    color:#baf1d7;
+}
+
+.answer.correct .answer-letter{
+
+    color:#d9ffeb;
+
+    background:
+    rgba(49,167,124,.35);
+}
+
+.answer.wrong{
+
+    border-color:
+    rgba(229,98,86,.5);
+
+    background:
+    rgba(193,71,61,.13);
+
+    color:#f3b6b0;
+}
+
+.answer.wrong .answer-letter{
+
+    background:
+    rgba(211,73,62,.3);
+
+    color:#ffd2ce;
+}
+
+.answer:disabled{
+
+    cursor:default;
+}
+
+
+/* =========================================================
+   10. FEEDBACK
+========================================================= */
+
+.feedback{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:
+    max-height .4s ease;
+
+    margin-top:0;
+}
+
+.feedback.show{
+
+    max-height:400px;
+
+    margin-top:15px;
+}
+
+.feedback-inner{
+
+    padding:
+    15px 17px;
+
+    border-radius:13px;
+
+    font-size:11px;
+
+    line-height:1.75;
+}
+
+.feedback.correct-feedback{
+
+    background:
+    rgba(43,156,111,.09);
+
+    border:
+    1px solid
+    rgba(61,180,129,.2);
+
+    color:#bce9d3;
+}
+
+.feedback.wrong-feedback{
+
+    background:
+    rgba(189,74,64,.09);
+
+    border:
+    1px solid
+    rgba(221,99,88,.19);
+
+    color:#efc0bb;
+}
+
+.feedback strong{
+
+    display:block;
+
+    margin-bottom:3px;
+
+    color:#f0d28d;
+}
+
+
+/* =========================================================
+   11. CLASSIFICATION GAME
+========================================================= */
+
+.sort-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:18px;
+}
+
+.drop-zone{
+
+    min-height:300px;
+
+    padding:22px;
+
+    border-radius:20px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.03);
+}
+
+.drop-zone h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:29px;
+
+    color:#f2d8a1;
+
+    margin-bottom:6px;
+}
+
+.drop-zone p{
+
+    color:
+    rgba(255,255,255,.45);
+
+    font-size:9px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
+}
+
+.item-pool{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+    margin-bottom:22px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,.035);
+
+    border:
+    1px solid var(--border);
+}
+
+.sort-item{
+
+    cursor:pointer;
+
+    padding:
+    10px 13px;
+
+    border-radius:11px;
+
+    background:
+    rgba(219,164,73,.1);
+
+    border:
+    1px solid
+    rgba(234,187,103,.18);
+
+    color:#efd397;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.sort-item:hover{
+
+    transform:
+    translateY(-3px);
+}
+
+.sort-item.selected{
+
+    outline:
+    2px solid #e7b967;
+
+    transform:
+    scale(1.04);
+}
+
+.sort-item.used{
+
+    display:none;
+}
+
+.placed-items{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+}
+
+.placed-chip{
+
+    padding:
+    9px 11px;
+
+    border-radius:10px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    color:
+    rgba(255,255,255,.7);
+
+    font-size:9.5px;
+}
+
+.zone-button{
+
+    cursor:pointer;
+
+    width:100%;
+
+    margin-top:16px;
+
+    padding:
+    11px;
+
+    border-radius:11px;
+
+    border:
+    1px solid
+    rgba(234,189,104,.18);
+
+    background:
+    rgba(219,165,74,.07);
+
+    color:#ecd08e;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   12. SEQUENCE
+========================================================= */
+
+.sequence-wrap{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:20px;
+}
+
+.sequence-card{
+
+    cursor:pointer;
+
+    min-height:128px;
+
+    padding:18px;
+
+    border-radius:17px;
+
+    background:
+    rgba(255,255,255,.04);
+
+    border:
+    1px solid var(--border);
+
+    transition:.25s;
+}
+
+.sequence-card:hover{
+
+    transform:
+    translateY(-4px);
+}
+
+.sequence-card.selected{
+
+    border-color:#efc46f;
+
+    box-shadow:
+    0 0 0 2px
+    rgba(239,196,111,.15);
+
+    background:
+    rgba(218,165,73,.11);
+}
+
+.sequence-order{
+
+    width:28px;
+    height:28px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    margin-bottom:12px;
+
+    background:
+    rgba(218,164,73,.1);
+
+    color:#ebc878;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.sequence-card p{
+
+    font-size:10.5px;
+
+    line-height:1.65;
+
+    color:
+    rgba(255,255,255,.67);
+}
+
+
+/* =========================================================
+   13. APPLICATION
+========================================================= */
+
+.application{
+
+    display:grid;
+
+    grid-template-columns:
+    .8fr 1.2fr;
+
+    gap:20px;
+
+    align-items:stretch;
+}
+
+.scenario{
+
+    padding:28px;
+
+    border-radius:22px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(216,162,72,.11),
+        rgba(31,116,104,.08)
+    );
+
+    border:
+    1px solid var(--border);
+}
+
+.scenario-icon{
+
+    font-size:45px;
+
+    margin-bottom:17px;
+}
+
+.scenario h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:31px;
+
+    color:#f0d7a1;
+
+    margin-bottom:12px;
+}
+
+.scenario p{
+
+    color:var(--muted);
+
+    font-size:11.5px;
+
+    line-height:1.8;
+}
+
+.reasoning-options{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.reasoning-option{
+
+    cursor:pointer;
+
+    padding:16px;
+
+    border-radius:15px;
+
+    border:
+    1px solid rgba(255,255,255,.07);
+
+    background:
+    rgba(255,255,255,.035);
+
+    color:
+    rgba(255,255,255,.71);
+
+    font-size:11px;
+
+    line-height:1.6;
+
+    transition:.25s;
+}
+
+.reasoning-option:hover{
+
+    transform:
+    translateX(4px);
+
+    border-color:
+    rgba(232,187,103,.3);
+}
+
+.reasoning-option.correct{
+
+    border-color:
+    rgba(53,177,126,.55);
+
+    background:
+    rgba(47,160,113,.12);
+
+    color:#c4f0db;
+}
+
+.reasoning-option.wrong{
+
+    border-color:
+    rgba(224,91,80,.46);
+
+    background:
+    rgba(189,70,61,.1);
+
+    color:#efb8b3;
+}
+
+
+/* =========================================================
+   14. TEXT TASK
+========================================================= */
+
+.text-task{
+
+    padding:27px;
+
+    border-radius:22px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+}
+
+.text-task h3{
+
+    color:#f2dab0;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+    margin-bottom:10px;
+}
+
+.text-task p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.7;
+
+    margin-bottom:15px;
+}
+
+textarea{
+
+    width:100%;
+
+    min-height:150px;
+
+    resize:vertical;
+
+    padding:16px;
+
+    border-radius:15px;
+
+    border:
+    1px solid
+    rgba(235,190,106,.16);
+
+    outline:none;
+
+    background:
+    rgba(0,0,0,.18);
+
+    color:#f0dfbc;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:11px;
+
+    line-height:1.75;
+}
+
+textarea:focus{
+
+    border-color:
+    rgba(237,194,111,.45);
+
+    box-shadow:
+    0 0 0 3px
+    rgba(223,170,76,.06);
+}
+
+.hint-button{
+
+    margin-top:11px;
+
+    cursor:pointer;
+
+    border:
+    1px solid
+    rgba(237,193,109,.18);
+
+    border-radius:11px;
+
+    padding:
+    10px 13px;
+
+    background:
+    rgba(216,164,74,.07);
+
+    color:#e9c87e;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+}
+
+.hint-box{
+
+    display:none;
+
+    margin-top:12px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:
+    rgba(50,143,126,.08);
+
+    border:
+    1px solid
+    rgba(55,166,146,.17);
+
+    color:
+    rgba(255,255,255,.62);
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   15. GENERAL BUTTON
+========================================================= */
+
+.action-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    border:0;
+
+    cursor:pointer;
+
+    margin-top:20px;
+
+    padding:
+    13px 19px;
+
+    border-radius:13px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #f1d18a,
+        #c58b39
+    );
+
+    color:#2a190e;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    transition:.25s;
+
+    box-shadow:
+    0 12px 25px
+    rgba(199,139,56,.2);
+}
+
+.action-btn:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 18px 35px
+    rgba(199,139,56,.3);
+}
+
+
+/* =========================================================
+   16. FINAL RESULT
+========================================================= */
+
+.result-box{
+
+    text-align:center;
+
+    padding:
+    45px 30px;
+
+    border-radius:27px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(214,161,72,.16),
+        rgba(35,121,109,.13)
+    );
+
+    border:
+    1px solid
+    rgba(235,191,109,.23);
+
+    box-shadow:var(--shadow);
+}
+
+.result-icon{
+
+    font-size:66px;
+
+    margin-bottom:13px;
+}
+
+.result-box small{
+
+    color:var(--gold);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.result-box h2{
+
+    margin:
+    7px 0 8px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(38px,6vw,58px);
+
+    color:#f4dba7;
+}
+
+.final-score{
+
+    font-size:
+    clamp(47px,7vw,75px);
+
+    font-weight:800;
+
+    color:#f3cf7e;
+
+    margin:
+    16px 0;
+}
+
+.result-message{
+
+    max-width:650px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.75;
+}
+
+
+/* =========================================================
+   17. TOAST
+========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+    top:90px;
+
+    transform:
+    translate(-50%,-20px);
+
+    padding:
+    12px 18px;
+
+    border-radius:999px;
+
+    background:
+    rgba(28,20,14,.96);
+
+    border:
+    1px solid
+    rgba(239,196,113,.22);
+
+    color:#efd18c;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:9000;
+
+    transition:.3s;
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+    translate(-50%,0);
+}
+
+
+/* =========================================================
+   18. RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .stats{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .answers,
+    .sort-grid,
+    .application{
+
+        grid-template-columns:1fr;
+    }
+
+    .sequence-wrap{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:550px){
+
+    .header-inner,
+    .hero,
+    .stats,
+    .main{
+
+        width:
+        min(100% - 20px,1450px);
+    }
+
+    .brand strong{
+
+        font-size:9px;
+    }
+
+    .score-box span{
+
+        display:none;
+    }
+
+    .hero h1{
+
+        font-size:44px;
+    }
+
+    .stats,
+    .sequence-wrap{
+
+        grid-template-columns:1fr;
+    }
+
+    .question-card{
+
+        padding:21px;
+    }
+
+    .answers{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="topProgress"></div>
+
+<div class="background">
+
+    <span class="symbol">𓂀</span>
+    <span class="symbol">𒀭</span>
+    <span class="symbol">𓋹</span>
+
+</div>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+<div class="header-inner">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <small>
+                Thử thách khám phá
+            </small>
+
+            <strong>
+                Ai Cập và Lưỡng Hà cổ đại
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="score-box">
+
+        <span>
+            Điểm khám phá
+        </span>
+
+        <strong id="scoreDisplay">
+            0 XP
+        </strong>
+
+    </div>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+    <div class="eyebrow">
+
+        Củng cố • Luyện tập • Vận dụng
+
+    </div>
+
+    <h1>
+
+        HÀNH TRÌNH
+
+        <span>
+            GIẢI MÃ VĂN MINH
+        </span>
+
+    </h1>
+
+    <p class="hero-desc">
+
+        Hoàn thành các thử thách để kiểm tra kiến thức
+        về điều kiện tự nhiên, quá trình hình thành nhà nước,
+        đời sống xã hội và những thành tựu văn hóa
+        của Ai Cập và Lưỡng Hà cổ đại.
+
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+====================================================== -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🎯
+        </div>
+
+        <strong>
+            4
+        </strong>
+
+        <small>
+            Chặng thử thách
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🧠
+        </div>
+
+        <strong>
+            8
+        </strong>
+
+        <small>
+            Câu củng cố
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🗺️
+        </div>
+
+        <strong>
+            3
+        </strong>
+
+        <small>
+            Dạng vận dụng
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            ⭐
+        </div>
+
+        <strong>
+            100
+        </strong>
+
+        <small>
+            XP tối đa
+        </small>
+
+    </div>
+
+</section>
+
+
+<main class="main">
+
+
+<!-- =====================================================
+     CHẶNG 1
+====================================================== -->
+
+<section
+class="stage"
+id="stage1">
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 01 • KHỞI ĐỘNG TRÍ NHỚ
+    </div>
+
+    <h2>
+        Chinh phục 8 câu hỏi
+    </h2>
+
+    <p>
+
+        Chọn một đáp án đúng nhất.
+        Sau mỗi lựa chọn, hệ thống sẽ giải thích
+        vì sao đáp án đúng hoặc chưa chính xác.
+
+    </p>
+
+</div>
+
+
+<!-- Q1 -->
+
+<article
+class="question-card"
+data-question="q1">
+
+    <span class="question-number">
+        01
+    </span>
+
+    <div class="question-type">
+        Điều kiện tự nhiên
+    </div>
+
+    <div class="question-title">
+
+        Dòng sông nào gắn liền với sự hình thành
+        và phát triển của nền văn minh Ai Cập cổ đại?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Sông Nin cung cấp nước, phù sa và tạo nên trục giao thông quan trọng của Ai Cập.">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Sông Nin
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Sông Ti-grơ
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Sông Ơ-phơ-rát
+
+        </button>
+
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Sông Ấn
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+
+        <div class="feedback-inner"></div>
+
+    </div>
+
+</article>
+
+
+<!-- Q2 -->
+
+<article
+class="question-card"
+data-question="q2">
+
+    <span class="question-number">
+        02
+    </span>
+
+    <div class="question-type">
+        Không gian lịch sử
+    </div>
+
+    <div class="question-title">
+
+        Tên gọi “Lưỡng Hà” gắn với vùng đất
+        nằm giữa hai dòng sông nào?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Nin và Ấn
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Lưỡng Hà là vùng đất giữa hai sông Ti-grơ và Ơ-phơ-rát.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Ti-grơ và Ơ-phơ-rát
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Hoàng Hà và Trường Giang
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Hằng và Ấn
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q3 -->
+
+<article
+class="question-card"
+data-question="q3">
+
+    <span class="question-number">
+        03
+    </span>
+
+    <div class="question-type">
+        Nhà nước cổ đại
+    </div>
+
+    <div class="question-title">
+
+        Khoảng cuối thiên niên kỉ IV TCN,
+        sự kiện quan trọng nào diễn ra ở Ai Cập?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Người Sumer xây dựng Babylon
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Khoảng năm 3100 TCN, quá trình thống nhất Thượng Ai Cập và Hạ Ai Cập đặt nền móng cho nhà nước Ai Cập thống nhất.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Thượng và Hạ Ai Cập được thống nhất
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Bộ luật Hammurabi được ban hành
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Nineveh trở thành kinh đô
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q4 -->
+
+<article
+class="question-card"
+data-question="q4">
+
+    <span class="question-number">
+        04
+    </span>
+
+    <div class="question-type">
+        Thành tựu văn hóa
+    </div>
+
+    <div class="question-title">
+
+        Hệ thống chữ viết nổi tiếng
+        của cư dân Lưỡng Hà cổ đại là
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            chữ tượng hình Ai Cập.
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            chữ Phạn.
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Cư dân Sumer phát triển chữ hình nêm, thường được ghi trên bảng đất sét.">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            chữ hình nêm.
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            chữ giáp cốt.
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q5 -->
+
+<article
+class="question-card"
+data-question="q5">
+
+    <span class="question-number">
+        05
+    </span>
+
+    <div class="question-type">
+        Kiến trúc
+    </div>
+
+    <div class="question-title">
+
+        Công trình nào là biểu tượng tiêu biểu
+        của kiến trúc Ai Cập cổ đại?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Kim tự tháp, đặc biệt là quần thể Giza, là một trong những thành tựu kiến trúc nổi tiếng nhất của Ai Cập.">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Kim tự tháp
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Ziggurat
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Đấu trường Colosseum
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Vạn Lý Trường Thành
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q6 -->
+
+<article
+class="question-card"
+data-question="q6">
+
+    <span class="question-number">
+        06
+    </span>
+
+    <div class="question-type">
+        Luật pháp
+    </div>
+
+    <div class="question-title">
+
+        Nhận định nào dưới đây chính xác nhất
+        về Bộ luật Hammurabi?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Là bộ luật đầu tiên chắc chắn của nhân loại
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Bộ luật Hammurabi là một trong những bộ luật thành văn cổ nổi tiếng nhất còn được biết đến, nhưng không phải văn bản pháp luật đầu tiên của nhân loại.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Là một trong những bộ luật thành văn cổ nổi tiếng
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Là luật của Ai Cập cổ đại
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Chỉ quy định về tôn giáo
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q7 -->
+
+<article
+class="question-card"
+data-question="q7">
+
+    <span class="question-number">
+        07
+    </span>
+
+    <div class="question-type">
+        Tư duy không gian
+    </div>
+
+    <div class="question-title">
+
+        Vì sao Thượng Ai Cập lại nằm ở phía nam
+        còn Hạ Ai Cập nằm ở phía bắc?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            Vì người Ai Cập vẽ bản đồ ngược
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Tên gọi Thượng – Hạ gắn với độ cao và hướng chảy của sông Nin: sông chảy từ vùng cao phía nam xuống vùng thấp phía bắc.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            Vì cách gọi gắn với độ cao và hướng chảy của sông Nin
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            Vì phía nam gần Địa Trung Hải
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            Vì phía bắc có nhiều núi hơn
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+
+<!-- Q8 -->
+
+<article
+class="question-card"
+data-question="q8">
+
+    <span class="question-number">
+        08
+    </span>
+
+    <div class="question-type">
+        Toán học
+    </div>
+
+    <div class="question-title">
+
+        Dấu vết của hệ đếm cơ số 60
+        của cư dân Lưỡng Hà còn thể hiện rõ nhất
+        trong cách tính nào hiện nay?
+
+    </div>
+
+    <div class="answers">
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                A
+            </span>
+
+            1 năm có 12 tháng
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="true"
+        data-explanation="Một dấu vết nổi bật của hệ cơ số 60 là cách chia 1 giờ thành 60 phút và 1 phút thành 60 giây.">
+
+            <span class="answer-letter">
+                B
+            </span>
+
+            1 giờ có 60 phút và 1 phút có 60 giây
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                C
+            </span>
+
+            1 mét có 100 xăng-ti-mét
+
+        </button>
+
+        <button
+        class="answer"
+        data-correct="false">
+
+            <span class="answer-letter">
+                D
+            </span>
+
+            1 ki-lô-mét có 1000 mét
+
+        </button>
+
+    </div>
+
+    <div class="feedback">
+        <div class="feedback-inner"></div>
+    </div>
+
+</article>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 2
+====================================================== -->
+
+<section
+class="stage"
+id="stage2">
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 02 • GIẢI MÃ VĂN MINH
+    </div>
+
+    <h2>
+        Điều gì thuộc về nền văn minh nào?
+    </h2>
+
+    <p>
+
+        Nhấn chọn một thẻ kiến thức,
+        sau đó bấm vào “Ai Cập” hoặc “Lưỡng Hà”
+        để đưa thẻ vào đúng nhóm.
+
+    </p>
+
+</div>
+
+
+<div
+class="item-pool"
+id="itemPool">
+
+    <button
+    class="sort-item"
+    data-target="egypt">
+
+        Sông Nin
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="meso">
+
+        Sông Ti-grơ và Ơ-phơ-rát
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="egypt">
+
+        Kim tự tháp Giza
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="meso">
+
+        Chữ hình nêm
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="egypt">
+
+        Chữ tượng hình
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="meso">
+
+        Hammurabi
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="meso">
+
+        Uruk
+
+    </button>
+
+    <button
+    class="sort-item"
+    data-target="egypt">
+
+        Papyrus
+
+    </button>
+
+</div>
+
+
+<div class="sort-grid">
+
+    <div class="drop-zone">
+
+        <h3>
+            𓂀 Ai Cập
+        </h3>
+
+        <p>
+            Nhấn nút bên dưới để đưa thẻ đang chọn vào Ai Cập.
+        </p>
+
+        <div
+        class="placed-items"
+        id="egyptPlaced">
+        </div>
+
+        <button
+        class="zone-button"
+        onclick="placeSelected('egypt')">
+
+            Đưa vào Ai Cập
+
+        </button>
+
+    </div>
+
+
+    <div class="drop-zone">
+
+        <h3>
+            𒀭 Lưỡng Hà
+        </h3>
+
+        <p>
+            Nhấn nút bên dưới để đưa thẻ đang chọn vào Lưỡng Hà.
+        </p>
+
+        <div
+        class="placed-items"
+        id="mesoPlaced">
+        </div>
+
+        <button
+        class="zone-button"
+        onclick="placeSelected('meso')">
+
+            Đưa vào Lưỡng Hà
+
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 3
+====================================================== -->
+
+<section
+class="stage"
+id="stage3">
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 03 • NHÀ SỬ HỌC NHÍ
+    </div>
+
+    <h2>
+        Đọc dữ kiện – suy luận lịch sử
+    </h2>
+
+    <p>
+
+        Không chỉ nhớ kiến thức.
+        Hãy sử dụng dữ kiện để giải thích
+        mối quan hệ giữa tự nhiên và lịch sử.
+
+    </p>
+
+</div>
+
+
+<!-- APPLICATION 1 -->
+
+<div class="application">
+
+    <article class="scenario">
+
+        <div class="scenario-icon">
+            🌊
+        </div>
+
+        <h3>
+            Tình huống 1
+        </h3>
+
+        <p>
+
+            Em quan sát thấy phần lớn lãnh thổ Ai Cập
+            là môi trường khô hạn,
+            nhưng dọc sông Nin lại tập trung đông dân cư,
+            ruộng đất và nhiều trung tâm quan trọng.
+
+            <br><br>
+
+            Kết luận nào giải thích hợp lí nhất
+            hiện tượng này?
+
+        </p>
+
+    </article>
+
+
+    <div class="reasoning-options">
+
+        <button
+        class="reasoning-option"
+        data-reasoning="wrong">
+
+            Vì người Ai Cập chỉ thích sống gần mặt nước.
+
+        </button>
+
+        <button
+        class="reasoning-option"
+        data-reasoning="correct">
+
+            Vì sông Nin cung cấp nước,
+            phù sa và điều kiện thuận lợi
+            cho nông nghiệp, giao thông và định cư.
+
+        </button>
+
+        <button
+        class="reasoning-option"
+        data-reasoning="wrong">
+
+            Vì khu vực ven sông không bao giờ có lũ.
+
+        </button>
+
+        <button
+        class="reasoning-option"
+        data-reasoning="wrong">
+
+            Vì toàn bộ Ai Cập cổ đại
+            đều là đất phù sa màu mỡ.
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<br><br>
+
+
+<!-- APPLICATION 2 -->
+
+<div class="application">
+
+    <article class="scenario">
+
+        <div class="scenario-icon">
+            🏙️
+        </div>
+
+        <h3>
+            Tình huống 2
+        </h3>
+
+        <p>
+
+            Một nhà khảo cổ phát hiện
+            nhiều bảng đất sét có các dấu
+            giống hình chiếc nêm tại
+            một đô thị cổ ở vùng Iraq ngày nay.
+
+            <br><br>
+
+            Phát hiện này có khả năng
+            liên quan nhiều nhất đến
+            nền văn minh nào?
+
+        </p>
+
+    </article>
+
+
+    <div class="reasoning-options">
+
+        <button
+        class="reasoning-option"
+        data-reasoning="wrong">
+
+            Ai Cập cổ đại,
+            vì người Ai Cập viết trên đất sét.
+
+        </button>
+
+        <button
+        class="reasoning-option"
+        data-reasoning="correct">
+
+            Lưỡng Hà cổ đại,
+            vì chữ hình nêm thường được ghi
+            trên các bảng đất sét.
+
+        </button>
+
+        <button
+        class="reasoning-option"
+        data-reasoning="wrong">
+
+            Hy Lạp cổ đại,
+            vì chữ cái Hy Lạp có hình nêm.
+
+        </button>
+
+        <button
+        class="reasoning-option"
+        data-reasoning="wrong">
+
+            La Mã cổ đại,
+            vì Iraq từng thuộc La Mã ngay từ đầu.
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<br><br>
+
+
+<!-- SEQUENCE -->
+
+<article class="question-card">
+
+    <span class="question-number">
+        ★
+    </span>
+
+    <div class="question-type">
+        Xây dựng chuỗi nguyên nhân
+    </div>
+
+    <div class="question-title">
+
+        Hãy nhấn vào 4 thẻ theo trình tự hợp lí
+        để giải thích sự phát triển của xã hội
+        ở các lưu vực sông lớn.
+
+    </div>
+
+    <div class="context-box">
+
+        Gợi ý:
+        Hãy bắt đầu từ điều kiện tự nhiên,
+        sau đó nghĩ đến sản xuất,
+        sự tập trung cư dân
+        và cuối cùng là nhu cầu tổ chức xã hội.
+
+    </div>
+
+
+    <div
+    class="sequence-wrap"
+    id="sequenceWrap">
+
+        <div
+        class="sequence-card"
+        data-order="3">
+
+            <div class="sequence-order">
+                ?
+            </div>
+
+            <p>
+                Dân cư tập trung đông hơn,
+                làng xóm và đô thị phát triển.
+            </p>
+
+        </div>
+
+
+        <div
+        class="sequence-card"
+        data-order="1">
+
+            <div class="sequence-order">
+                ?
+            </div>
+
+            <p>
+                Các dòng sông cung cấp nước
+                và phù sa.
+            </p>
+
+        </div>
+
+
+        <div
+        class="sequence-card"
+        data-order="4">
+
+            <div class="sequence-order">
+                ?
+            </div>
+
+            <p>
+                Nhu cầu tổ chức sản xuất,
+                quản lí nước và cộng đồng tăng lên.
+            </p>
+
+        </div>
+
+
+        <div
+        class="sequence-card"
+        data-order="2">
+
+            <div class="sequence-order">
+                ?
+            </div>
+
+            <p>
+                Nông nghiệp tưới tiêu
+                có điều kiện phát triển.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+    class="action-btn"
+    onclick="checkSequence()">
+
+        ✓ Kiểm tra trình tự
+
+    </button>
+
+</article>
+
+</section>
+
+
+<!-- =====================================================
+     CHẶNG 4
+====================================================== -->
+
+<section
+class="stage"
+id="stage4">
+
+<div class="stage-heading">
+
+    <div class="stage-label">
+        CHẶNG 04 • VẬN DỤNG
+    </div>
+
+    <h2>
+        Em là nhà nghiên cứu lịch sử
+    </h2>
+
+    <p>
+
+        Không có một đáp án duy nhất theo kiểu học thuộc.
+        Hãy vận dụng kiến thức để trình bày
+        lập luận của riêng em.
+
+    </p>
+
+</div>
+
+
+<div class="text-task">
+
+    <h3>
+
+        🗺️ Nhiệm vụ 1:
+        Nếu không có sông Nin,
+        theo em sự hình thành và phát triển
+        của Ai Cập cổ đại sẽ gặp những khó khăn nào?
+
+    </h3>
+
+    <p>
+
+        Viết khoảng 3–5 câu.
+        Cố gắng sử dụng các từ khóa:
+        <strong>nước – phù sa – nông nghiệp – cư dân – giao thông</strong>.
+
+    </p>
+
+    <textarea
+    placeholder="Nhập câu trả lời của em tại đây..."
+    id="textAnswer1"></textarea>
+
+    <button
+    class="hint-button"
+    onclick="toggleHint('hint1')">
+
+        💡 Xem gợi ý tư duy
+
+    </button>
+
+    <div
+    class="hint-box"
+    id="hint1">
+
+        Hãy suy nghĩ theo chuỗi:
+        môi trường Ai Cập phần lớn khô hạn →
+        thiếu nguồn nước →
+        khó phát triển nông nghiệp →
+        khó tập trung đông dân cư →
+        giao thông và liên kết các khu vực cũng khó khăn hơn.
+
+    </div>
+
+</div>
+
+
+<br><br>
+
+
+<div class="text-task">
+
+    <h3>
+
+        🌍 Nhiệm vụ 2:
+        Lưỡng Hà cổ đại ngày nay chủ yếu thuộc
+        lãnh thổ I-rắc.
+        Theo em, tại sao không thể coi
+        “Lưỡng Hà cổ đại” và “I-rắc hiện nay”
+        là hoàn toàn giống nhau?
+
+    </h3>
+
+    <p>
+
+        Hãy phân biệt giữa
+        <strong>không gian văn minh cổ đại</strong>
+        và
+        <strong>quốc gia có biên giới hiện đại</strong>.
+
+    </p>
+
+    <textarea
+    placeholder="Nhập lập luận của em..."
+    id="textAnswer2"></textarea>
+
+    <button
+    class="hint-button"
+    onclick="toggleHint('hint2')">
+
+        💡 Xem gợi ý tư duy
+
+    </button>
+
+    <div
+    class="hint-box"
+    id="hint2">
+
+        Lưỡng Hà là tên một vùng lịch sử
+        giữa Ti-grơ và Ơ-phơ-rát,
+        trải qua nhiều thành bang,
+        vương quốc và đế chế.
+        I-rắc lại là một quốc gia hiện đại
+        có hệ thống biên giới xác định.
+
+    </div>
+
+</div>
+
+
+<br><br>
+
+
+<div class="text-task">
+
+    <h3>
+
+        🏺 Nhiệm vụ 3:
+        Trong các thành tựu của Ai Cập và Lưỡng Hà,
+        em cho rằng thành tựu nào
+        còn có ảnh hưởng rõ đến đời sống ngày nay?
+
+    </h3>
+
+    <p>
+
+        Chọn một thành tựu và giải thích.
+        Có thể nghĩ đến:
+        <strong>chữ viết, lịch, toán học,
+        hệ cơ số 60, luật pháp, kiến trúc...</strong>
+
+    </p>
+
+    <textarea
+    placeholder="Ví dụ: Em chọn hệ cơ số 60 của cư dân Lưỡng Hà vì..."
+    id="textAnswer3"></textarea>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     RESULT
+====================================================== -->
+
+<section class="stage">
+
+<div class="result-box">
+
+    <div class="result-icon">
+        🏆
+    </div>
+
+    <small>
+        Hoàn thành hành trình
+    </small>
+
+    <h2>
+        Báo cáo khám phá
+    </h2>
+
+    <div
+    class="final-score"
+    id="finalScore">
+
+        0 / 100 XP
+
+    </div>
+
+    <p
+    class="result-message"
+    id="resultMessage">
+
+        Hãy hoàn thành các thử thách phía trên.
+        Điểm số sẽ được cập nhật tự động.
+
+    </p>
+
+
+    <button
+    class="action-btn"
+    onclick="restartGame()">
+
+        ⟳ Làm lại thử thách
+
+    </button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<div
+class="toast"
+id="toast">
+
+    +10 XP
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let score = 0;
+
+let selectedSortItem = null;
+
+let sortCorrect = 0;
+
+let sequenceSelected = [];
+
+let reasoningCompleted = 0;
+
+
+/* =========================================================
+   SCORE
+========================================================= */
+
+function addScore(points){
+
+    score += points;
+
+    if(score > 100){
+        score = 100;
+    }
+
+    updateScore();
+
+    showToast(
+        "+" + points + " XP"
+    );
+
+}
+
+
+function updateScore(){
+
+    document.getElementById(
+        "scoreDisplay"
+    ).textContent =
+    score + " XP";
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+    score + " / 100 XP";
+
+
+    const message =
+    document.getElementById(
+        "resultMessage"
+    );
+
+
+    if(score >= 90){
+
+        message.textContent =
+        "Xuất sắc! Em đã nắm chắc kiến thức và biết vận dụng mối quan hệ giữa điều kiện tự nhiên với sự phát triển của các nền văn minh cổ đại.";
+
+    }
+    else if(score >= 70){
+
+        message.textContent =
+        "Rất tốt! Em đã hiểu phần lớn kiến thức. Hãy xem lại những câu chưa chính xác để hoàn thiện hành trình.";
+
+    }
+    else if(score >= 50){
+
+        message.textContent =
+        "Em đã hoàn thành khá nhiều thử thách. Hãy quay lại những phần còn nhầm lẫn và thử một lần nữa.";
+
+    }
+    else{
+
+        message.textContent =
+        "Tiếp tục khám phá nhé! Mỗi câu trả lời đúng sẽ giúp em tích lũy thêm điểm và hiểu rõ hơn về Ai Cập – Lưỡng Hà cổ đại.";
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(text){
+
+    const toast =
+    document.getElementById(
+        "toast"
+    );
+
+    toast.textContent =
+    text;
+
+    toast.classList.add(
+        "show"
+    );
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        1300
+    );
+
+}
+
+
+/* =========================================================
+   MULTIPLE CHOICE
+========================================================= */
+
+document
+.querySelectorAll(
+    ".question-card[data-question]"
+)
+.forEach(card => {
+
+    const answers =
+    card.querySelectorAll(
+        ".answer"
+    );
+
+    answers.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    card.classList.contains(
+                        "completed"
+                    )
+                ){
+                    return;
+                }
+
+
+                card.classList.add(
+                    "completed"
+                );
+
+
+                answers.forEach(
+                    btn => {
+
+                        btn.disabled =
+                        true;
+
+                        if(
+                            btn.dataset.correct
+                            ===
+                            "true"
+                        ){
+
+                            btn.classList.add(
+                                "correct"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                const correct =
+                button.dataset.correct
+                ===
+                "true";
+
+
+                if(correct){
+
+                    button.classList.add(
+                        "correct"
+                    );
+
+                    addScore(7);
+
+                }
+                else{
+
+                    button.classList.add(
+                        "wrong"
+                    );
+
+                }
+
+
+                const correctButton =
+                card.querySelector(
+                    '.answer[data-correct="true"]'
+                );
+
+
+                const explanation =
+                correctButton.dataset.explanation;
+
+
+                const feedback =
+                card.querySelector(
+                    ".feedback"
+                );
+
+
+                const feedbackInner =
+                card.querySelector(
+                    ".feedback-inner"
+                );
+
+
+                feedback.classList.add(
+                    "show"
+                );
+
+
+                if(correct){
+
+                    feedbackInner.className =
+                    "feedback-inner correct-feedback";
+
+                    feedbackInner.innerHTML =
+                    `
+                    <strong>✓ Chính xác!</strong>
+                    ${explanation}
+                    `;
+
+                }
+                else{
+
+                    feedbackInner.className =
+                    "feedback-inner wrong-feedback";
+
+                    feedbackInner.innerHTML =
+                    `
+                    <strong>✕ Chưa chính xác.</strong>
+                    ${explanation}
+                    `;
+
+                }
+
+            }
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   SORTING GAME
+========================================================= */
+
+const sortItems =
+document.querySelectorAll(
+    ".sort-item"
+);
+
+
+sortItems.forEach(
+item => {
+
+    item.addEventListener(
+        "click",
+        () => {
+
+            sortItems.forEach(
+                other => {
+
+                    other.classList.remove(
+                        "selected"
+                    );
+
+                }
+            );
+
+
+            item.classList.add(
+                "selected"
+            );
+
+
+            selectedSortItem =
+            item;
+
+        }
+    );
+
+});
+
+
+function placeSelected(zone){
+
+    if(!selectedSortItem){
+
+        showToast(
+            "Hãy chọn một thẻ trước"
+        );
+
+        return;
+
+    }
+
+
+    const correctZone =
+    selectedSortItem.dataset.target;
+
+
+    if(correctZone !== zone){
+
+        selectedSortItem.animate(
+
+            [
+                {
+                    transform:
+                    "translateX(0)"
+                },
+
+                {
+                    transform:
+                    "translateX(-7px)"
+                },
+
+                {
+                    transform:
+                    "translateX(7px)"
+                },
+
+                {
+                    transform:
+                    "translateX(0)"
+                }
+            ],
+
+            {
+                duration:300
+            }
+
+        );
+
+
+        showToast(
+            "Chưa đúng nhóm"
+        );
+
+        return;
+
+    }
+
+
+    const target =
+    document.getElementById(
+        zone === "egypt"
+        ?
+        "egyptPlaced"
+        :
+        "mesoPlaced"
+    );
+
+
+    const chip =
+    document.createElement(
+        "span"
+    );
+
+
+    chip.className =
+    "placed-chip";
+
+
+    chip.textContent =
+    selectedSortItem.textContent.trim();
+
+
+    target.appendChild(
+        chip
+    );
+
+
+    selectedSortItem.classList.add(
+        "used"
+    );
+
+
+    selectedSortItem.classList.remove(
+        "selected"
+    );
+
+
+    selectedSortItem =
+    null;
+
+
+    sortCorrect++;
+
+
+    addScore(3);
+
+
+    if(sortCorrect === 8){
+
+        showToast(
+            "Giải mã hoàn tất!"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REASONING
+========================================================= */
+
+document
+.querySelectorAll(
+    ".reasoning-options"
+)
+.forEach(group => {
+
+    const options =
+    group.querySelectorAll(
+        ".reasoning-option"
+    );
+
+
+    options.forEach(
+    option => {
+
+        option.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    group.dataset.done
+                    ===
+                    "true"
+                ){
+                    return;
+                }
+
+
+                group.dataset.done =
+                "true";
+
+
+                options.forEach(
+                    item => {
+
+                        item.disabled =
+                        true;
+
+                        if(
+                            item.dataset.reasoning
+                            ===
+                            "correct"
+                        ){
+
+                            item.classList.add(
+                                "correct"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                if(
+                    option.dataset.reasoning
+                    ===
+                    "correct"
+                ){
+
+                    addScore(5);
+
+                }
+                else{
+
+                    option.classList.add(
+                        "wrong"
+                    );
+
+                    showToast(
+                        "Hãy xem lại dữ kiện"
+                    );
+
+                }
+
+
+                reasoningCompleted++;
+
+            }
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   SEQUENCE
+========================================================= */
+
+const sequenceCards =
+document.querySelectorAll(
+    ".sequence-card"
+);
+
+
+sequenceCards.forEach(
+card => {
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            if(
+                card.classList.contains(
+                    "selected"
+                )
+            ){
+                return;
+            }
+
+
+            if(
+                sequenceSelected.length
+                >=
+                4
+            ){
+                return;
+            }
+
+
+            sequenceSelected.push(
+                card
+            );
+
+
+            card.classList.add(
+                "selected"
+            );
+
+
+            card.querySelector(
+                ".sequence-order"
+            ).textContent =
+            sequenceSelected.length;
+
+        }
+    );
+
+});
+
+
+function checkSequence(){
+
+    if(
+        sequenceSelected.length
+        !==
+        4
+    ){
+
+        showToast(
+            "Hãy chọn đủ 4 bước"
+        );
+
+        return;
+
+    }
+
+
+    let correct =
+    true;
+
+
+    sequenceSelected.forEach(
+    (card,index) => {
+
+        const expected =
+        Number(
+            card.dataset.order
+        );
+
+
+        if(
+            expected !==
+            index + 1
+        ){
+
+            correct =
+            false;
+
+        }
+
+    });
+
+
+    if(correct){
+
+        addScore(10);
+
+        showToast(
+            "Chuỗi lập luận chính xác!"
+        );
+
+
+        sequenceCards.forEach(
+            card => {
+
+                card.style.pointerEvents =
+                "none";
+
+            }
+        );
+
+    }
+    else{
+
+        showToast(
+            "Trình tự chưa hợp lí"
+        );
+
+
+        sequenceSelected =
+        [];
+
+
+        sequenceCards.forEach(
+            card => {
+
+                card.classList.remove(
+                    "selected"
+                );
+
+
+                card.querySelector(
+                    ".sequence-order"
+                ).textContent =
+                "?";
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   HINT
+========================================================= */
+
+function toggleHint(id){
+
+    const hint =
+    document.getElementById(
+        id
+    );
+
+
+    hint.style.display =
+    hint.style.display
+    ===
+    "block"
+    ?
+    "none"
+    :
+    "block";
+
+}
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        const top =
+        document.documentElement.scrollTop
+        ||
+        document.body.scrollTop;
+
+
+        const height =
+        document.documentElement.scrollHeight
+        -
+        document.documentElement.clientHeight;
+
+
+        const progress =
+        (top / height) * 100;
+
+
+        document.getElementById(
+            "topProgress"
+        ).style.width =
+        progress + "%";
+
+    }
+);
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+function restartGame(){
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+updateScore();
+
+</script>
+
+</body>
+</html>

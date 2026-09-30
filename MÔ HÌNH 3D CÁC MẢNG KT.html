@@ -1,0 +1,4873 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mô hình 3D các mảng kiến tạo</title>
+
+<style>
+/* ==========================================================
+   01. RESET
+========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    overflow-x:hidden;
+    font-family:"Segoe UI",Arial,sans-serif;
+    color:#fff;
+
+    background:
+        radial-gradient(circle at 15% 10%,rgba(32,86,255,.21),transparent 25%),
+        radial-gradient(circle at 86% 18%,rgba(137,55,255,.17),transparent 28%),
+        radial-gradient(circle at 55% 95%,rgba(0,154,255,.10),transparent 34%),
+        linear-gradient(140deg,#01030a,#040817 42%,#0a0821 74%,#02030b);
+}
+
+
+/* ==========================================================
+   02. VŨ TRỤ
+========================================================== */
+
+.space{
+    position:fixed;
+    inset:0;
+    z-index:-20;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.nebula{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(110px);
+    opacity:.24;
+}
+
+.nebula.n1{
+    width:520px;
+    height:520px;
+    background:#174eff;
+    left:-210px;
+    top:-180px;
+}
+
+.nebula.n2{
+    width:570px;
+    height:570px;
+    background:#6d32ff;
+    right:-230px;
+    top:20%;
+}
+
+.nebula.n3{
+    width:420px;
+    height:420px;
+    background:#008cff;
+    left:35%;
+    bottom:-230px;
+}
+
+.star{
+    position:absolute;
+    border-radius:50%;
+    background:#fff;
+    opacity:.7;
+
+    animation:
+        starPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes starPulse{
+
+    from{
+        opacity:.2;
+        transform:scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.25);
+    }
+
+}
+
+
+/* ==========================================================
+   03. APP
+========================================================== */
+
+.app{
+    width:min(1450px,96%);
+    margin:auto;
+    padding:22px 0 60px;
+}
+
+
+/* ==========================================================
+   04. HEADER
+========================================================== */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+    margin-bottom:18px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand-icon{
+    width:51px;
+    height:51px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:16px;
+
+    font-size:25px;
+
+    background:
+        linear-gradient(135deg,#1c69ff,#7b3fff);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 0 28px rgba(59,99,255,.32);
+}
+
+.brand small{
+    display:block;
+
+    color:#6d84af;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.brand h1{
+    font-size:17px;
+    margin-top:3px;
+}
+
+.header-badge{
+    border-radius:100px;
+
+    padding:10px 16px;
+
+    background:
+        rgba(7,13,35,.6);
+
+    border:
+        1px solid rgba(113,149,236,.14);
+
+    backdrop-filter:blur(15px);
+
+    color:#91a8d0;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+
+/* ==========================================================
+   05. HERO
+========================================================== */
+
+.hero{
+    position:relative;
+
+    min-height:720px;
+
+    border-radius:31px;
+
+    border:
+        1px solid rgba(112,147,255,.18);
+
+    background:
+        linear-gradient(
+            140deg,
+            rgba(7,15,42,.91),
+            rgba(13,9,42,.88)
+        );
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.42);
+
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    left:25%;
+    top:23%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(28,99,255,.11),
+            transparent 68%
+        );
+
+    pointer-events:none;
+}
+
+
+/* ==========================================================
+   06. TITLE
+========================================================== */
+
+.hero-title{
+    position:absolute;
+
+    left:35px;
+    top:33px;
+
+    z-index:10;
+
+    max-width:560px;
+}
+
+.eyebrow{
+    color:#6ab2ff;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.hero-title h2{
+    font-size:clamp(30px,4vw,53px);
+
+    line-height:1.02;
+
+    letter-spacing:-1px;
+}
+
+.hero-title h2 span{
+    display:block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6bd4ff,
+            #9789ff,
+            #d66fff
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-title p{
+    margin-top:13px;
+
+    color:#8295b8;
+
+    line-height:1.65;
+
+    font-size:12px;
+
+    max-width:500px;
+}
+
+
+/* ==========================================================
+   07. MAIN CANVAS
+========================================================== */
+
+#threeContainer{
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+}
+
+
+/* ==========================================================
+   08. TAB BAR
+========================================================== */
+
+.view-tabs{
+    position:absolute;
+
+    top:28px;
+    right:28px;
+
+    z-index:20;
+
+    display:flex;
+    gap:7px;
+
+    padding:5px;
+
+    border-radius:15px;
+
+    background:
+        rgba(4,10,28,.70);
+
+    border:
+        1px solid rgba(104,142,234,.15);
+
+    backdrop-filter:blur(15px);
+}
+
+.tab{
+    border:0;
+
+    padding:10px 14px;
+
+    border-radius:11px;
+
+    color:#778aad;
+
+    cursor:pointer;
+
+    background:transparent;
+
+    font-size:10px;
+
+    transition:.25s;
+}
+
+.tab:hover{
+    color:white;
+}
+
+.tab.active{
+    color:white;
+
+    background:
+        linear-gradient(135deg,#2266ff,#713dff);
+
+    box-shadow:
+        0 7px 20px rgba(44,78,255,.26);
+}
+
+
+/* ==========================================================
+   09. CONTROL PANEL
+========================================================== */
+
+.control-panel{
+    position:absolute;
+
+    right:24px;
+    top:105px;
+
+    z-index:20;
+
+    width:292px;
+
+    max-height:570px;
+
+    overflow:auto;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            150deg,
+            rgba(6,14,37,.88),
+            rgba(15,9,39,.86)
+        );
+
+    border:
+        1px solid rgba(112,148,239,.18);
+
+    backdrop-filter:blur(22px);
+
+    box-shadow:
+        0 20px 65px rgba(0,0,0,.34);
+}
+
+.control-panel::-webkit-scrollbar{
+    width:4px;
+}
+
+.control-panel::-webkit-scrollbar-thumb{
+    background:#344978;
+    border-radius:20px;
+}
+
+.panel-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.panel-icon{
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(135deg,#176fff,#7b3fff);
+}
+
+.panel-title strong{
+    font-size:14px;
+}
+
+.panel-title small{
+    display:block;
+
+    font-size:9px;
+
+    color:#61769a;
+
+    margin-top:2px;
+}
+
+.control-section{
+    padding:14px 0;
+
+    border-top:
+        1px solid rgba(107,138,206,.09);
+}
+
+.control-section-title{
+    color:#7893c0;
+
+    text-transform:uppercase;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:11px;
+}
+
+.control-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:9px 0;
+
+    color:#b4c1db;
+
+    font-size:11px;
+}
+
+
+/* SWITCH */
+
+.switch{
+    width:39px;
+    height:21px;
+
+    position:relative;
+
+    cursor:pointer;
+}
+
+.switch input{
+    display:none;
+}
+
+.switch-slider{
+    position:absolute;
+
+    inset:0;
+
+    border-radius:20px;
+
+    background:#17213b;
+
+    border:
+        1px solid #2c3c61;
+
+    transition:.25s;
+}
+
+.switch-slider::before{
+    content:"";
+
+    position:absolute;
+
+    width:15px;
+    height:15px;
+
+    left:2px;
+    top:2px;
+
+    border-radius:50%;
+
+    background:#71809c;
+
+    transition:.25s;
+}
+
+.switch input:checked + .switch-slider{
+    background:
+        linear-gradient(90deg,#196dff,#743fff);
+
+    border-color:#587cff;
+}
+
+.switch input:checked + .switch-slider::before{
+    transform:translateX(18px);
+    background:#fff;
+}
+
+
+/* RANGE */
+
+.range-block{
+    margin-top:13px;
+}
+
+.range-label{
+    display:flex;
+    justify-content:space-between;
+
+    color:#8296ba;
+
+    font-size:10px;
+
+    margin-bottom:7px;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:#5b69ff;
+}
+
+
+/* BUTTONS */
+
+.button-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+}
+
+.mini-btn{
+    padding:9px 7px;
+
+    color:#aebddb;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    border:
+        1px solid rgba(111,145,222,.14);
+
+    background:
+        rgba(31,46,85,.30);
+
+    font-size:9px;
+
+    transition:.22s;
+}
+
+.mini-btn:hover,
+.mini-btn.active{
+    color:white;
+
+    background:
+        linear-gradient(135deg,#2367ff,#7440ff);
+
+    transform:translateY(-2px);
+}
+
+
+/* ==========================================================
+   10. PLATES
+========================================================== */
+
+.plate-list{
+    display:grid;
+    gap:5px;
+}
+
+.plate-item{
+    display:grid;
+
+    grid-template-columns:
+        10px 1fr auto;
+
+    gap:8px;
+
+    align-items:center;
+
+    padding:7px 8px;
+
+    border-radius:9px;
+
+    color:#9baccb;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    transition:.2s;
+}
+
+.plate-item:hover{
+    background:
+        rgba(48,76,137,.20);
+
+    color:white;
+}
+
+.plate-dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 8px currentColor;
+}
+
+.plate-eye{
+    color:#5f7bab;
+}
+
+
+/* ==========================================================
+   11. INFO PANEL
+========================================================== */
+
+.info-card{
+    position:absolute;
+
+    z-index:20;
+
+    left:25px;
+    bottom:23px;
+
+    width:320px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            140deg,
+            rgba(7,15,38,.88),
+            rgba(15,10,39,.84)
+        );
+
+    border:
+        1px solid rgba(111,147,234,.16);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.30);
+}
+
+.info-tag{
+    color:#5ca7ff;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.info-card h3{
+    font-size:20px;
+
+    margin:6px 0 8px;
+}
+
+.info-card p{
+    color:#8293b3;
+
+    font-size:10px;
+
+    line-height:1.65;
+}
+
+.info-data{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:6px;
+
+    margin-top:11px;
+}
+
+.info-box{
+    padding:8px;
+
+    border-radius:9px;
+
+    background:
+        rgba(38,58,102,.18);
+
+    border:
+        1px solid rgba(98,132,205,.08);
+}
+
+.info-box small{
+    display:block;
+
+    color:#60749a;
+
+    font-size:7px;
+}
+
+.info-box strong{
+    display:block;
+
+    margin-top:3px;
+
+    color:#c6d3eb;
+
+    font-size:9px;
+}
+
+
+/* ==========================================================
+   12. MAP MODE
+========================================================== */
+
+.map-view{
+    position:absolute;
+
+    z-index:8;
+
+    inset:120px 335px 80px 350px;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.map-view.active{
+    display:flex;
+}
+
+.map-shell{
+    position:relative;
+
+    width:100%;
+    aspect-ratio:1.78;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at 50% 45%,#1d6990,#092c50 72%);
+
+    border:
+        1px solid rgba(93,154,235,.22);
+
+    box-shadow:
+        inset 0 0 60px rgba(0,0,0,.40),
+        0 20px 60px rgba(0,0,0,.25);
+}
+
+#plateMap{
+    width:100%;
+    height:100%;
+}
+
+.map-label{
+    font-size:12px;
+    font-weight:700;
+
+    fill:#d8eaff;
+
+    text-shadow:
+        0 2px 6px black;
+}
+
+.continent{
+    fill:#5b735f;
+
+    stroke:#899f83;
+
+    stroke-width:1;
+
+    opacity:.92;
+}
+
+.boundary{
+    fill:none;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    stroke-width:4;
+
+    filter:
+        drop-shadow(0 0 4px currentColor);
+
+    animation:
+        dashFlow 4s linear infinite;
+
+    stroke-dasharray:7 7;
+}
+
+.boundary.divergent{
+    stroke:#37efff;
+    color:#37efff;
+}
+
+.boundary.convergent{
+    stroke:#ff4257;
+    color:#ff4257;
+}
+
+.boundary.transform{
+    stroke:#a7ff56;
+    color:#a7ff56;
+}
+
+@keyframes dashFlow{
+
+    to{
+        stroke-dashoffset:-28;
+    }
+
+}
+
+
+/* ==========================================================
+   13. SIMULATOR MODE
+========================================================== */
+
+.simulator{
+    position:absolute;
+
+    z-index:8;
+
+    inset:120px 330px 70px 350px;
+
+    display:none;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.simulator.active{
+    display:flex;
+}
+
+.simulator-window{
+    position:relative;
+
+    width:min(750px,100%);
+
+    height:410px;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            #0a4f7c 0 26%,
+            #153048 26% 30%,
+            #c05a27 30% 65%,
+            #631e18 65% 100%
+        );
+
+    border:
+        1px solid rgba(106,150,237,.20);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.34);
+}
+
+.water{
+    position:absolute;
+
+    left:0;
+    right:0;
+    top:0;
+
+    height:27%;
+
+    background:
+        linear-gradient(
+            rgba(26,146,215,.7),
+            rgba(9,80,132,.6)
+        );
+
+    overflow:hidden;
+}
+
+.wave{
+    position:absolute;
+
+    width:150%;
+    height:20px;
+
+    left:-20%;
+    bottom:-3px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 100%,
+            transparent 45%,
+            rgba(132,229,255,.23) 46% 50%,
+            transparent 52%
+        );
+
+    background-size:45px 20px;
+
+    animation:
+        waveMove 2s linear infinite;
+}
+
+@keyframes waveMove{
+
+    to{
+        transform:translateX(45px);
+    }
+
+}
+
+.plate{
+    position:absolute;
+
+    top:105px;
+
+    width:51%;
+    height:64px;
+
+    background:
+        linear-gradient(
+            #664632,
+            #3a2b27
+        );
+
+    border-top:
+        10px solid #8aa9ac;
+
+    transition:
+        transform 1s ease;
+
+    z-index:5;
+}
+
+.plate.left{
+    left:-1%;
+}
+
+.plate.right{
+    right:-1%;
+}
+
+.magma-chamber{
+    position:absolute;
+
+    left:50%;
+    bottom:20px;
+
+    transform:
+        translateX(-50%);
+
+    width:230px;
+    height:170px;
+
+    border-radius:
+        50% 50% 20% 20%;
+
+    background:
+        radial-gradient(
+            circle at 50% 65%,
+            #fff17a,
+            #ff7a00 28%,
+            #e72800 58%,
+            transparent 69%
+        );
+
+    filter:
+        drop-shadow(0 0 24px #ff4300);
+
+    opacity:.9;
+}
+
+.magma-rise{
+    position:absolute;
+
+    width:30px;
+    height:160px;
+
+    left:50%;
+    top:110px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        linear-gradient(
+            #ffef77,
+            #ff6a00,
+            #dd1d00
+        );
+
+    clip-path:
+        polygon(
+            42% 0,
+            58% 0,
+            100% 100%,
+            0 100%
+        );
+
+    filter:
+        drop-shadow(0 0 12px #ff5b00);
+
+    opacity:0;
+
+    transition:.7s;
+}
+
+.mount{
+    position:absolute;
+
+    z-index:8;
+
+    left:50%;
+
+    top:73px;
+
+    width:150px;
+    height:80px;
+
+    transform:
+        translateX(-50%) scaleY(.05);
+
+    transform-origin:
+        bottom;
+
+    background:
+        linear-gradient(
+            135deg,
+            #70442b,
+            #38291f
+        );
+
+    clip-path:
+        polygon(
+            0 100%,
+            30% 48%,
+            42% 56%,
+            52% 10%,
+            65% 52%,
+            78% 42%,
+            100% 100%
+        );
+
+    transition:1s;
+}
+
+.trench{
+    position:absolute;
+
+    left:50%;
+    top:100px;
+
+    width:90px;
+    height:50px;
+
+    transform:
+        translateX(-50%) scaleY(0);
+
+    border-radius:
+        0 0 50% 50%;
+
+    background:#09121b;
+
+    z-index:9;
+
+    transition:.7s;
+}
+
+.quake{
+    position:absolute;
+
+    z-index:15;
+
+    font-size:25px;
+
+    opacity:0;
+
+    transition:.3s;
+}
+
+.quake.q1{
+    left:45%;
+    top:175px;
+}
+
+.quake.q2{
+    left:56%;
+    top:220px;
+}
+
+.sim-arrows{
+    position:absolute;
+
+    top:75px;
+
+    left:0;
+    right:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:145px;
+
+    z-index:20;
+
+    font-size:35px;
+
+    color:#64e7ff;
+
+    opacity:0;
+
+    transition:.4s;
+}
+
+.sim-caption{
+    margin-top:15px;
+
+    width:min(750px,100%);
+
+    padding:14px 17px;
+
+    border-radius:14px;
+
+    color:#92a5c6;
+
+    font-size:11px;
+
+    line-height:1.7;
+
+    background:
+        rgba(8,15,38,.60);
+
+    border:
+        1px solid rgba(106,143,222,.13);
+}
+
+
+/* ==========================================================
+   14. LEGEND
+========================================================== */
+
+.legend{
+    position:absolute;
+
+    left:25px;
+    top:205px;
+
+    z-index:20;
+
+    width:210px;
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:
+        rgba(5,12,33,.64);
+
+    border:
+        1px solid rgba(104,142,224,.13);
+
+    backdrop-filter:blur(15px);
+}
+
+.legend-title{
+    color:#7089b3;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.legend-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin:8px 0;
+
+    color:#a1b0cb;
+
+    font-size:9px;
+}
+
+.legend-line{
+    width:31px;
+    height:3px;
+
+    border-radius:10px;
+}
+
+.legend-line.div{
+    background:#37efff;
+
+    box-shadow:
+        0 0 9px #37efff;
+}
+
+.legend-line.conv{
+    background:#ff4257;
+
+    box-shadow:
+        0 0 9px #ff4257;
+}
+
+.legend-line.trans{
+    background:#a7ff56;
+
+    box-shadow:
+        0 0 9px #a7ff56;
+}
+
+
+/* ==========================================================
+   15. BOTTOM HELP
+========================================================== */
+
+.help{
+    position:absolute;
+
+    z-index:20;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    padding:8px 14px;
+
+    border-radius:100px;
+
+    background:
+        rgba(5,11,30,.48);
+
+    border:
+        1px solid rgba(107,142,214,.10);
+
+    color:#5f7397;
+
+    font-size:9px;
+
+    backdrop-filter:blur(10px);
+}
+
+
+/* ==========================================================
+   16. RESPONSIVE
+========================================================== */
+
+@media(max-width:1050px){
+
+    .control-panel{
+        width:245px;
+    }
+
+    .map-view,
+    .simulator{
+        right:275px;
+        left:260px;
+    }
+
+}
+
+@media(max-width:760px){
+
+    .hero{
+        min-height:1100px;
+    }
+
+    .hero-title{
+        left:20px;
+        top:90px;
+    }
+
+    .view-tabs{
+        left:20px;
+        right:auto;
+    }
+
+    .control-panel{
+        top:auto;
+        bottom:20px;
+        right:20px;
+        width:250px;
+        max-height:420px;
+    }
+
+    .info-card{
+        width:220px;
+        left:15px;
+        bottom:20px;
+    }
+
+    .legend{
+        display:none;
+    }
+
+    .map-view,
+    .simulator{
+        inset:280px 20px 470px 20px;
+    }
+
+    .help{
+        display:none;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ==========================================================
+     NỀN
+========================================================== -->
+
+<div
+    class="space"
+    id="space"
+>
+
+    <div class="nebula n1"></div>
+    <div class="nebula n2"></div>
+    <div class="nebula n3"></div>
+
+</div>
+
+
+<main class="app">
+
+
+<!-- ==========================================================
+     HEADER
+========================================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🌍
+        </div>
+
+        <div>
+
+            <small>
+                HỌC LIỆU SỐ • ĐỊA LÍ 6
+            </small>
+
+            <h1>
+                Phòng thí nghiệm kiến tạo
+            </h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-badge">
+        TECTONIC PLATE LAB • 3D INTERACTIVE
+    </div>
+
+</header>
+
+
+<!-- ==========================================================
+     HERO
+========================================================== -->
+
+<section class="hero">
+
+
+<!-- TITLE -->
+
+<div class="hero-title">
+
+    <div class="eyebrow">
+        ✦ KHÁM PHÁ LỚP VỎ TRÁI ĐẤT
+    </div>
+
+    <h2>
+
+        CÁC MẢNG
+
+        <span>
+            KIẾN TẠO
+        </span>
+
+    </h2>
+
+    <p>
+        Xoay quả địa cầu, quan sát ranh giới mảng,
+        chuyển sang lược đồ và mô phỏng sự tách giãn,
+        hội tụ, hút chìm và trượt bằng của thạch quyển.
+    </p>
+
+</div>
+
+
+<!-- TABS -->
+
+<div class="view-tabs">
+
+    <button
+        class="tab active"
+        data-view="globe"
+        onclick="changeView('globe',this)"
+    >
+        🌍 ĐỊA CẦU 3D
+    </button>
+
+    <button
+        class="tab"
+        data-view="map"
+        onclick="changeView('map',this)"
+    >
+        🗺 LƯỢC ĐỒ
+    </button>
+
+    <button
+        class="tab"
+        data-view="simulation"
+        onclick="changeView('simulation',this)"
+    >
+        ⚡ MÔ PHỎNG
+    </button>
+
+</div>
+
+
+<!-- ==========================================================
+     THREE.JS
+========================================================== -->
+
+<div id="threeContainer"></div>
+
+
+<!-- ==========================================================
+     LEGEND
+========================================================== -->
+
+<div class="legend">
+
+    <div class="legend-title">
+        CHÚ GIẢI RANH GIỚI
+    </div>
+
+    <div class="legend-row">
+
+        <span class="legend-line div"></span>
+
+        Tách giãn
+
+    </div>
+
+    <div class="legend-row">
+
+        <span class="legend-line conv"></span>
+
+        Hội tụ
+
+    </div>
+
+    <div class="legend-row">
+
+        <span class="legend-line trans"></span>
+
+        Trượt bằng
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================================
+     INFO CARD
+========================================================== -->
+
+<div class="info-card">
+
+    <div class="info-tag">
+        ĐỐI TƯỢNG ĐANG KHÁM PHÁ
+    </div>
+
+    <h3 id="infoName">
+        Các mảng kiến tạo
+    </h3>
+
+    <p id="infoDescription">
+        Thạch quyển Trái Đất không phải một khối liền
+        mà bị chia thành nhiều mảng lớn và nhỏ.
+        Các mảng chuyển động rất chậm trên lớp vật chất
+        có tính dẻo bên dưới.
+    </p>
+
+
+    <div class="info-data">
+
+        <div class="info-box">
+
+            <small>
+                CHUYỂN ĐỘNG
+            </small>
+
+            <strong id="infoMovement">
+                Rất chậm
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <small>
+                RANH GIỚI
+            </small>
+
+            <strong id="infoBoundary">
+                Hoạt động mạnh
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <small>
+                HIỆN TƯỢNG
+            </small>
+
+            <strong id="infoEffect">
+                Núi lửa • động đất
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <small>
+                QUAN SÁT
+            </small>
+
+            <strong>
+                Xoay • Zoom
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================================
+     CONTROL PANEL
+========================================================== -->
+
+<div class="control-panel">
+
+    <div class="panel-title">
+
+        <div class="panel-icon">
+            ⚙
+        </div>
+
+        <div>
+
+            <strong>
+                Bảng điều khiển
+            </strong>
+
+            <small>
+                Tectonic Explorer
+            </small>
+
+        </div>
+
+    </div>
+
+
+<!-- CHUYỂN ĐỘNG -->
+
+<div class="control-section">
+
+    <div class="control-section-title">
+        Chuyển động
+    </div>
+
+    <div class="control-row">
+
+        <span>
+            Tự động quay
+        </span>
+
+        <label class="switch">
+
+            <input
+                id="autoRotate"
+                type="checkbox"
+                checked
+            >
+
+            <span class="switch-slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <div class="range-block">
+
+        <div class="range-label">
+
+            <span>
+                Tốc độ
+            </span>
+
+            <span id="speedLabel">
+                0.25
+            </span>
+
+        </div>
+
+        <input
+            id="speedRange"
+            type="range"
+            min="0"
+            max="1"
+            step=".05"
+            value=".25"
+        >
+
+    </div>
+
+</div>
+
+
+<!-- HIỂN THỊ -->
+
+<div class="control-section">
+
+    <div class="control-section-title">
+        Hiển thị
+    </div>
+
+
+    <div class="control-row">
+
+        <span>
+            Ranh giới mảng
+        </span>
+
+        <label class="switch">
+
+            <input
+                id="boundaryToggle"
+                type="checkbox"
+                checked
+            >
+
+            <span class="switch-slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <div class="control-row">
+
+        <span>
+            Nhãn tên mảng
+        </span>
+
+        <label class="switch">
+
+            <input
+                id="labelToggle"
+                type="checkbox"
+                checked
+            >
+
+            <span class="switch-slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <div class="control-row">
+
+        <span>
+            Lưới địa cầu
+        </span>
+
+        <label class="switch">
+
+            <input
+                id="wireToggle"
+                type="checkbox"
+            >
+
+            <span class="switch-slider"></span>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- LOẠI RANH GIỚI -->
+
+<div class="control-section">
+
+    <div class="control-section-title">
+        Quan sát ranh giới
+    </div>
+
+    <div class="button-grid">
+
+        <button
+            class="mini-btn"
+            onclick="focusBoundary('divergent',this)"
+        >
+            ↔ Tách giãn
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="focusBoundary('convergent',this)"
+        >
+            →← Hội tụ
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="focusBoundary('transform',this)"
+        >
+            ⇄ Trượt bằng
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="focusBoundary('all',this)"
+        >
+            ◉ Tất cả
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- DANH SÁCH MẢNG -->
+
+<div class="control-section">
+
+    <div class="control-section-title">
+        Các mảng lớn
+    </div>
+
+    <div class="plate-list">
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('Pacific')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#40e5ff;color:#40e5ff"
+            ></span>
+
+            Mảng Thái Bình Dương
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('Eurasian')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#9d75ff;color:#9d75ff"
+            ></span>
+
+            Mảng Âu - Á
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('African')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#ffb65c;color:#ffb65c"
+            ></span>
+
+            Mảng Phi
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('NorthAmerican')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#48a0ff;color:#48a0ff"
+            ></span>
+
+            Mảng Bắc Mỹ
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('SouthAmerican')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#55df9a;color:#55df9a"
+            ></span>
+
+            Mảng Nam Mỹ
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('IndoAustralian')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#f170ff;color:#f170ff"
+            ></span>
+
+            Mảng Ấn - Úc
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+
+        <div
+            class="plate-item"
+            onclick="selectPlate('Antarctic')"
+        >
+
+            <span
+                class="plate-dot"
+                style="background:#c8e7ff;color:#c8e7ff"
+            ></span>
+
+            Mảng Nam Cực
+
+            <span class="plate-eye">
+                ◉
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CAMERA -->
+
+<div class="control-section">
+
+    <div class="control-section-title">
+        Góc quan sát
+    </div>
+
+    <div class="button-grid">
+
+        <button
+            class="mini-btn"
+            onclick="cameraPreset('asia')"
+        >
+            Châu Á
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="cameraPreset('america')"
+        >
+            Châu Mỹ
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="cameraPreset('pacific')"
+        >
+            Thái Bình Dương
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="cameraPreset('reset')"
+        >
+            ↻ Đặt lại
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- SIMULATION CONTROLS -->
+
+<div
+    class="control-section"
+    id="simulationControls"
+    style="display:none;"
+>
+
+    <div class="control-section-title">
+        Kiểu chuyển động
+    </div>
+
+    <div class="button-grid">
+
+        <button
+            class="mini-btn"
+            onclick="runSimulation('divergent',this)"
+        >
+            ↔ Tách giãn
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="runSimulation('continental',this)"
+        >
+            ⛰ Hội tụ lục địa
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="runSimulation('subduction',this)"
+        >
+            🌋 Hút chìm
+        </button>
+
+        <button
+            class="mini-btn"
+            onclick="runSimulation('transform',this)"
+        >
+            ⚡ Trượt bằng
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<!-- ==========================================================
+     MAP VIEW
+========================================================== -->
+
+<div
+    class="map-view"
+    id="mapView"
+>
+
+<div class="map-shell">
+
+<svg
+    id="plateMap"
+    viewBox="0 0 1000 560"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+
+<!-- BIỂN -->
+
+<rect
+    width="1000"
+    height="560"
+    fill="#0a4b78"
+/>
+
+
+<!-- CONTINENTS - DẠNG LƯỢC ĐỒ KHÁI QUÁT -->
+
+<path
+    class="continent"
+    d="
+    M90 125
+    L155 75
+    L245 70
+    L300 120
+    L270 170
+    L220 190
+    L180 225
+    L145 200
+    L105 165
+    Z
+    "
+/>
+
+<path
+    class="continent"
+    d="
+    M230 250
+    L290 240
+    L320 300
+    L300 360
+    L275 440
+    L240 400
+    L220 330
+    Z
+    "
+/>
+
+<path
+    class="continent"
+    d="
+    M455 115
+    L540 80
+    L675 95
+    L760 130
+    L820 170
+    L760 210
+    L685 200
+    L650 175
+    L590 180
+    L535 160
+    Z
+    "
+/>
+
+<path
+    class="continent"
+    d="
+    M500 205
+    L575 205
+    L620 255
+    L600 350
+    L555 420
+    L515 375
+    L490 290
+    Z
+    "
+/>
+
+<path
+    class="continent"
+    d="
+    M705 270
+    L755 260
+    L820 300
+    L835 350
+    L790 380
+    L730 355
+    Z
+    "
+/>
+
+<path
+    class="continent"
+    d="
+    M50 500
+    L940 500
+    L910 540
+    L100 540
+    Z
+    "
+/>
+
+
+<!-- RANH GIỚI TÁCH GIÃN -->
+
+<path
+    class="boundary divergent"
+    d="
+    M410 60
+    C400 120 430 160 415 215
+    C400 280 430 340 410 420
+    C405 465 420 505 430 540
+    "
+/>
+
+
+<path
+    class="boundary divergent"
+    d="
+    M740 490
+    C690 450 620 445 560 460
+    C500 480 450 490 410 485
+    "
+/>
+
+
+<!-- RANH GIỚI HỘI TỤ -->
+
+<path
+    class="boundary convergent"
+    d="
+    M800 80
+    C845 120 865 165 850 210
+    C835 260 855 305 820 355
+    "
+/>
+
+
+<path
+    class="boundary convergent"
+    d="
+    M205 230
+    C190 275 195 335 215 405
+    "
+/>
+
+
+<path
+    class="boundary convergent"
+    d="
+    M555 190
+    C610 175 655 165 710 180
+    "
+/>
+
+
+<!-- RANH GIỚI TRƯỢT -->
+
+<path
+    class="boundary transform"
+    d="
+    M150 170
+    C170 190 180 215 190 245
+    "
+/>
+
+
+<path
+    class="boundary transform"
+    d="
+    M760 210
+    C785 230 800 245 820 270
+    "
+/>
+
+
+<!-- PLATE LABELS -->
+
+<text
+    class="map-label"
+    x="80"
+    y="300"
+>
+    MẢNG THÁI BÌNH DƯƠNG
+</text>
+
+<text
+    class="map-label"
+    x="145"
+    y="115"
+>
+    MẢNG BẮC MỸ
+</text>
+
+<text
+    class="map-label"
+    x="230"
+    y="320"
+>
+    MẢNG NAM MỸ
+</text>
+
+<text
+    class="map-label"
+    x="520"
+    y="130"
+>
+    MẢNG ÂU - Á
+</text>
+
+<text
+    class="map-label"
+    x="520"
+    y="285"
+>
+    MẢNG PHI
+</text>
+
+<text
+    class="map-label"
+    x="710"
+    y="330"
+>
+    MẢNG ẤN - ÚC
+</text>
+
+<text
+    class="map-label"
+    x="430"
+    y="525"
+>
+    MẢNG NAM CỰC
+</text>
+
+</svg>
+
+</div>
+
+</div>
+
+
+<!-- ==========================================================
+     SIMULATION
+========================================================== -->
+
+<div
+    class="simulator"
+    id="simulator"
+>
+
+<div class="simulator-window">
+
+    <div class="water">
+
+        <div class="wave"></div>
+
+    </div>
+
+
+    <div
+        class="plate left"
+        id="leftPlate"
+    ></div>
+
+
+    <div
+        class="plate right"
+        id="rightPlate"
+    ></div>
+
+
+    <div
+        class="magma-chamber"
+        id="magma"
+    ></div>
+
+
+    <div
+        class="magma-rise"
+        id="magmaRise"
+    ></div>
+
+
+    <div
+        class="mount"
+        id="mountain"
+    ></div>
+
+
+    <div
+        class="trench"
+        id="trench"
+    ></div>
+
+
+    <div class="quake q1" id="quake1">
+        ⚡
+    </div>
+
+    <div class="quake q2" id="quake2">
+        ⚡
+    </div>
+
+
+    <div
+        class="sim-arrows"
+        id="simArrows"
+    >
+
+        <span id="leftArrow">
+            ←
+        </span>
+
+        <span id="rightArrow">
+            →
+        </span>
+
+    </div>
+
+</div>
+
+
+<div
+    class="sim-caption"
+    id="simCaption"
+>
+
+    Chọn một kiểu chuyển động trong bảng điều khiển để
+    quan sát sự tương tác giữa các mảng kiến tạo.
+
+</div>
+
+
+</div>
+
+
+<div class="help">
+
+    🖱 Kéo để xoay địa cầu
+    &nbsp; • &nbsp;
+    Cuộn để phóng to
+    &nbsp; • &nbsp;
+    Chọn mảng để khám phá
+
+</div>
+
+
+</section>
+
+</main>
+
+
+<!-- ==========================================================
+     THREE.JS
+========================================================== -->
+
+<script type="importmap">
+{
+    "imports":{
+        "three":"https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+        "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+    }
+}
+</script>
+
+
+<script type="module">
+
+import * as THREE from "three";
+
+import {
+    OrbitControls
+}
+from "three/addons/controls/OrbitControls.js";
+
+
+/* ==========================================================
+   THREE SETUP
+========================================================== */
+
+const container =
+    document.getElementById(
+        "threeContainer"
+    );
+
+
+const scene =
+    new THREE.Scene();
+
+
+const camera =
+    new THREE.PerspectiveCamera(
+        38,
+        container.clientWidth /
+        container.clientHeight,
+        .1,
+        1000
+    );
+
+
+camera.position.set(
+    0,
+    1,
+    14.5
+);
+
+
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias:true,
+        alpha:true,
+        powerPreference:"high-performance"
+    });
+
+
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
+);
+
+
+renderer.setSize(
+    container.clientWidth,
+    container.clientHeight
+);
+
+
+renderer.outputColorSpace =
+    THREE.SRGBColorSpace;
+
+
+renderer.toneMapping =
+    THREE.ACESFilmicToneMapping;
+
+
+renderer.toneMappingExposure =
+    1.15;
+
+
+container.appendChild(
+    renderer.domElement
+);
+
+
+/* ==========================================================
+   CONTROLS
+========================================================== */
+
+const controls =
+    new OrbitControls(
+        camera,
+        renderer.domElement
+    );
+
+
+controls.enableDamping =
+    true;
+
+
+controls.dampingFactor =
+    .06;
+
+
+controls.minDistance =
+    7;
+
+
+controls.maxDistance =
+    22;
+
+
+controls.target.set(
+    -.8,
+    .15,
+    0
+);
+
+
+/* ==========================================================
+   LIGHT
+========================================================== */
+
+scene.add(
+    new THREE.AmbientLight(
+        0xffffff,
+        1.4
+    )
+);
+
+
+const mainLight =
+    new THREE.DirectionalLight(
+        0xbfdcff,
+        3.3
+    );
+
+
+mainLight.position.set(
+    5,
+    6,
+    8
+);
+
+
+scene.add(
+    mainLight
+);
+
+
+const blueLight =
+    new THREE.PointLight(
+        0x1678ff,
+        25,
+        30
+    );
+
+
+blueLight.position.set(
+    -8,
+    2,
+    4
+);
+
+
+scene.add(
+    blueLight
+);
+
+
+/* ==========================================================
+   EARTH
+========================================================== */
+
+const earthGroup =
+    new THREE.Group();
+
+
+earthGroup.position.x =
+    -.8;
+
+
+scene.add(
+    earthGroup
+);
+
+
+/* ==========================================================
+   EARTH TEXTURE PROCEDURAL
+========================================================== */
+
+function createEarthTexture(){
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        1400;
+
+
+    canvas.height =
+        700;
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    const ocean =
+        ctx.createLinearGradient(
+            0,
+            0,
+            0,
+            canvas.height
+        );
+
+
+    ocean.addColorStop(
+        0,
+        "#177fb4"
+    );
+
+
+    ocean.addColorStop(
+        .5,
+        "#0b5d91"
+    );
+
+
+    ocean.addColorStop(
+        1,
+        "#063b68"
+    );
+
+
+    ctx.fillStyle =
+        ocean;
+
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    function land(
+        points,
+        color="#5e825c"
+    ){
+
+        ctx.beginPath();
+
+
+        points.forEach(
+            (p,i)=>{
+
+                if(i===0){
+
+                    ctx.moveTo(
+                        p[0],
+                        p[1]
+                    );
+
+                }
+
+                else{
+
+                    ctx.lineTo(
+                        p[0],
+                        p[1]
+                    );
+
+                }
+
+            }
+        );
+
+
+        ctx.closePath();
+
+
+        ctx.fillStyle =
+            color;
+
+
+        ctx.fill();
+
+
+        ctx.strokeStyle =
+            "#89a17f";
+
+
+        ctx.lineWidth =
+            3;
+
+
+        ctx.stroke();
+
+    }
+
+
+    /* NORTH AMERICA */
+
+    land([
+        [100,165],
+        [190,80],
+        [325,90],
+        [370,160],
+        [320,220],
+        [270,225],
+        [220,270],
+        [150,235]
+    ]);
+
+
+    /* SOUTH AMERICA */
+
+    land([
+        [320,300],
+        [385,300],
+        [420,360],
+        [390,490],
+        [350,595],
+        [310,500],
+        [290,390]
+    ]);
+
+
+    /* EUROPE / ASIA */
+
+    land([
+        [660,135],
+        [760,80],
+        [960,95],
+        [1110,150],
+        [1200,205],
+        [1110,255],
+        [985,245],
+        [900,215],
+        [800,230],
+        [710,190]
+    ]);
+
+
+    /* AFRICA */
+
+    land([
+        [735,270],
+        [835,260],
+        [895,330],
+        [865,470],
+        [800,565],
+        [750,480],
+        [720,350]
+    ]);
+
+
+    /* AUSTRALIA */
+
+    land([
+        [1080,395],
+        [1160,380],
+        [1235,430],
+        [1240,500],
+        [1170,535],
+        [1090,495]
+    ]);
+
+
+    /* ANTARCTICA */
+
+    land([
+        [100,640],
+        [1300,640],
+        [1240,690],
+        [180,690]
+    ],
+    "#c8d7c7");
+
+
+    /* TEXTURE NOISE */
+
+    for(
+        let i=0;
+        i<5000;
+        i++
+    ){
+
+        const x =
+            Math.random()
+            * canvas.width;
+
+
+        const y =
+            Math.random()
+            * canvas.height;
+
+
+        ctx.fillStyle =
+            `rgba(255,255,255,${
+                Math.random()*.018
+            })`;
+
+
+        ctx.fillRect(
+            x,
+            y,
+            2,
+            2
+        );
+
+    }
+
+
+    const texture =
+        new THREE.CanvasTexture(
+            canvas
+        );
+
+
+    texture.colorSpace =
+        THREE.SRGBColorSpace;
+
+
+    return texture;
+
+}
+
+
+/* ==========================================================
+   EARTH MESH
+========================================================== */
+
+const earthMaterial =
+    new THREE.MeshPhysicalMaterial({
+
+        map:
+            createEarthTexture(),
+
+        roughness:
+            .78,
+
+        metalness:
+            0,
+
+        clearcoat:
+            .07,
+
+        clearcoatRoughness:
+            .8
+
+    });
+
+
+const globe =
+    new THREE.Mesh(
+
+        new THREE.SphereGeometry(
+            4,
+            160,
+            110
+        ),
+
+        earthMaterial
+
+    );
+
+
+earthGroup.add(
+    globe
+);
+
+
+/* ==========================================================
+   ATMOSPHERE
+========================================================== */
+
+const atmosphere =
+    new THREE.Mesh(
+
+        new THREE.SphereGeometry(
+            4.11,
+            96,
+            72
+        ),
+
+        new THREE.MeshBasicMaterial({
+
+            color:
+                0x54bfff,
+
+            transparent:
+                true,
+
+            opacity:
+                .075,
+
+            side:
+                THREE.BackSide
+
+        })
+
+    );
+
+
+earthGroup.add(
+    atmosphere
+);
+
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+const wireGlobe =
+    new THREE.Mesh(
+
+        new THREE.SphereGeometry(
+            4.02,
+            32,
+            22
+        ),
+
+        new THREE.MeshBasicMaterial({
+
+            color:
+                0x76cfff,
+
+            wireframe:
+                true,
+
+            transparent:
+                true,
+
+            opacity:
+                .13
+
+        })
+
+    );
+
+
+wireGlobe.visible =
+    false;
+
+
+earthGroup.add(
+    wireGlobe
+);
+
+
+/* ==========================================================
+   LAT/LON TO VECTOR3
+========================================================== */
+
+function latLonToVector3(
+    lat,
+    lon,
+    radius=4.05
+){
+
+    const phi =
+        (
+            90-lat
+        )
+        * Math.PI/180;
+
+
+    const theta =
+        (
+            lon+180
+        )
+        * Math.PI/180;
+
+
+    const x =
+        -radius
+        * Math.sin(phi)
+        * Math.cos(theta);
+
+
+    const y =
+        radius
+        * Math.cos(phi);
+
+
+    const z =
+        radius
+        * Math.sin(phi)
+        * Math.sin(theta);
+
+
+    return new THREE.Vector3(
+        x,
+        y,
+        z
+    );
+
+}
+
+
+/* ==========================================================
+   BOUNDARIES
+   Đây là lược đồ mô phỏng giáo dục, không phải GIS chính xác.
+========================================================== */
+
+const boundaryGroup =
+    new THREE.Group();
+
+
+earthGroup.add(
+    boundaryGroup
+);
+
+
+const boundaryObjects =
+    [];
+
+
+function makeBoundary(
+    coords,
+    type
+){
+
+    const points =
+        coords.map(
+            p =>
+            latLonToVector3(
+                p[0],
+                p[1],
+                4.065
+            )
+        );
+
+
+    const curve =
+        new THREE.CatmullRomCurve3(
+            points
+        );
+
+
+    const colorMap = {
+
+        divergent:
+            0x35efff,
+
+        convergent:
+            0xff3e55,
+
+        transform:
+            0xa7ff59
+
+    };
+
+
+    const tube =
+        new THREE.Mesh(
+
+            new THREE.TubeGeometry(
+                curve,
+                130,
+                .025,
+                8,
+                false
+            ),
+
+            new THREE.MeshBasicMaterial({
+
+                color:
+                    colorMap[type],
+
+                transparent:
+                    true,
+
+                opacity:
+                    .95
+
+            })
+
+        );
+
+
+    tube.userData.type =
+        type;
+
+
+    boundaryObjects.push(
+        tube
+    );
+
+
+    boundaryGroup.add(
+        tube
+    );
+
+}
+
+
+/* MID ATLANTIC */
+
+makeBoundary(
+[
+    [70,-15],
+    [55,-25],
+    [40,-30],
+    [20,-30],
+    [0,-25],
+    [-20,-20],
+    [-40,-10],
+    [-55,-5]
+],
+"divergent"
+);
+
+
+/* EAST PACIFIC RISE */
+
+makeBoundary(
+[
+    [30,-115],
+    [10,-110],
+    [-10,-105],
+    [-30,-105],
+    [-50,-110]
+],
+"divergent"
+);
+
+
+/* WEST PACIFIC CONVERGENT */
+
+makeBoundary(
+[
+    [55,160],
+    [40,150],
+    [25,140],
+    [10,130],
+    [-5,125],
+    [-20,135],
+    [-35,155]
+],
+"convergent"
+);
+
+
+/* ANDES */
+
+makeBoundary(
+[
+    [10,-80],
+    [-5,-80],
+    [-20,-75],
+    [-35,-72],
+    [-50,-72]
+],
+"convergent"
+);
+
+
+/* HIMALAYA */
+
+makeBoundary(
+[
+    [28,65],
+    [30,78],
+    [30,90],
+    [27,100]
+],
+"convergent"
+);
+
+
+/* SAN ANDREAS APPROX */
+
+makeBoundary(
+[
+    [32,-117],
+    [36,-121],
+    [40,-124]
+],
+"transform"
+);
+
+
+/* TURKEY / WEST ASIA */
+
+makeBoundary(
+[
+    [39,25],
+    [39,35],
+    [38,45]
+],
+"transform"
+);
+
+
+/* ==========================================================
+   PLATE LABELS
+========================================================== */
+
+const labels =
+    [];
+
+
+function createTextSprite(
+    text,
+    lat,
+    lon,
+    color
+){
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        620;
+
+
+    canvas.height =
+        120;
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    ctx.fillStyle =
+        "rgba(3,9,27,.72)";
+
+
+    ctx.roundRect(
+        10,
+        15,
+        600,
+        90,
+        32
+    );
+
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        color;
+
+
+    ctx.lineWidth =
+        3;
+
+
+    ctx.stroke();
+
+
+    ctx.fillStyle =
+        "#ffffff";
+
+
+    ctx.font =
+        "bold 31px Segoe UI";
+
+
+    ctx.textAlign =
+        "center";
+
+
+    ctx.textBaseline =
+        "middle";
+
+
+    ctx.fillText(
+        text,
+        310,
+        60
+    );
+
+
+    const texture =
+        new THREE.CanvasTexture(
+            canvas
+        );
+
+
+    texture.colorSpace =
+        THREE.SRGBColorSpace;
+
+
+    const sprite =
+        new THREE.Sprite(
+
+            new THREE.SpriteMaterial({
+
+                map:
+                    texture,
+
+                transparent:
+                    true,
+
+                depthTest:
+                    false
+
+            })
+
+        );
+
+
+    sprite.position.copy(
+        latLonToVector3(
+            lat,
+            lon,
+            4.35
+        )
+    );
+
+
+    sprite.scale.set(
+        2.7,
+        .55,
+        1
+    );
+
+
+    earthGroup.add(
+        sprite
+    );
+
+
+    labels.push(
+        sprite
+    );
+
+
+    return sprite;
+
+}
+
+
+createTextSprite(
+    "BẮC MỸ",
+    43,
+    -105,
+    "#4aa0ff"
+);
+
+
+createTextSprite(
+    "NAM MỸ",
+    -20,
+    -58,
+    "#54df9a"
+);
+
+
+createTextSprite(
+    "ÂU - Á",
+    48,
+    65,
+    "#a677ff"
+);
+
+
+createTextSprite(
+    "PHI",
+    5,
+    25,
+    "#ffb45f"
+);
+
+
+createTextSprite(
+    "ẤN - ÚC",
+    -22,
+    110,
+    "#f376ff"
+);
+
+
+createTextSprite(
+    "THÁI BÌNH DƯƠNG",
+    5,
+    175,
+    "#40e6ff"
+);
+
+
+createTextSprite(
+    "NAM CỰC",
+    -70,
+    20,
+    "#c9e8ff"
+);
+
+
+/* ==========================================================
+   PLATE MARKERS
+========================================================== */
+
+const plateMarkers = {};
+
+
+function plateMarker(
+    key,
+    lat,
+    lon,
+    color
+){
+
+    const mesh =
+        new THREE.Mesh(
+
+            new THREE.SphereGeometry(
+                .075,
+                20,
+                20
+            ),
+
+            new THREE.MeshBasicMaterial({
+
+                color,
+                transparent:
+                    true,
+
+                opacity:
+                    .9
+
+            })
+
+        );
+
+
+    mesh.position.copy(
+        latLonToVector3(
+            lat,
+            lon,
+            4.12
+        )
+    );
+
+
+    plateMarkers[key] =
+        mesh;
+
+
+    earthGroup.add(
+        mesh
+    );
+
+}
+
+
+plateMarker(
+    "Pacific",
+    10,
+    170,
+    0x40e5ff
+);
+
+
+plateMarker(
+    "Eurasian",
+    50,
+    60,
+    0x9d75ff
+);
+
+
+plateMarker(
+    "African",
+    5,
+    25,
+    0xffb65c
+);
+
+
+plateMarker(
+    "NorthAmerican",
+    45,
+    -105,
+    0x48a0ff
+);
+
+
+plateMarker(
+    "SouthAmerican",
+    -20,
+    -58,
+    0x55df9a
+);
+
+
+plateMarker(
+    "IndoAustralian",
+    -20,
+    110,
+    0xf170ff
+);
+
+
+plateMarker(
+    "Antarctic",
+    -70,
+    30,
+    0xc8e7ff
+);
+
+
+/* ==========================================================
+   RING PARTICLES
+========================================================== */
+
+const particleGeometry =
+    new THREE.BufferGeometry();
+
+
+const particleCount =
+    400;
+
+
+const positions =
+    new Float32Array(
+        particleCount * 3
+    );
+
+
+for(
+    let i=0;
+    i<particleCount;
+    i++
+){
+
+    const r =
+        THREE.MathUtils.randFloat(
+            4.3,
+            5.6
+        );
+
+
+    const theta =
+        Math.random()
+        * Math.PI*2;
+
+
+    const phi =
+        Math.random()
+        * Math.PI;
+
+
+    positions[i*3] =
+        r
+        * Math.sin(phi)
+        * Math.cos(theta);
+
+
+    positions[i*3+1] =
+        r
+        * Math.cos(phi);
+
+
+    positions[i*3+2] =
+        r
+        * Math.sin(phi)
+        * Math.sin(theta);
+
+}
+
+
+particleGeometry.setAttribute(
+
+    "position",
+
+    new THREE.BufferAttribute(
+        positions,
+        3
+    )
+
+);
+
+
+const particles =
+    new THREE.Points(
+
+        particleGeometry,
+
+        new THREE.PointsMaterial({
+
+            color:
+                0x65bdff,
+
+            size:
+                .018,
+
+            transparent:
+                true,
+
+            opacity:
+                .40
+
+        })
+
+    );
+
+
+earthGroup.add(
+    particles
+);
+
+
+/* ==========================================================
+   UI VARIABLES
+========================================================== */
+
+const autoRotate =
+    document.getElementById(
+        "autoRotate"
+    );
+
+
+const speedRange =
+    document.getElementById(
+        "speedRange"
+    );
+
+
+const boundaryToggle =
+    document.getElementById(
+        "boundaryToggle"
+    );
+
+
+const labelToggle =
+    document.getElementById(
+        "labelToggle"
+    );
+
+
+const wireToggle =
+    document.getElementById(
+        "wireToggle"
+    );
+
+
+speedRange.addEventListener(
+    "input",
+    ()=>{
+
+        document
+        .getElementById(
+            "speedLabel"
+        )
+        .textContent =
+            Number(
+                speedRange.value
+            )
+            .toFixed(2);
+
+    }
+);
+
+
+boundaryToggle.addEventListener(
+    "change",
+    ()=>{
+
+        boundaryGroup.visible =
+            boundaryToggle.checked;
+
+    }
+);
+
+
+labelToggle.addEventListener(
+    "change",
+    ()=>{
+
+        labels.forEach(
+            l =>
+            l.visible =
+                labelToggle.checked
+        );
+
+    }
+);
+
+
+wireToggle.addEventListener(
+    "change",
+    ()=>{
+
+        wireGlobe.visible =
+            wireToggle.checked;
+
+    }
+);
+
+
+/* ==========================================================
+   GLOBAL FUNCTIONS
+========================================================== */
+
+window.focusBoundary =
+function(
+    type,
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".mini-btn"
+        )
+        .forEach(
+            b =>
+            b.classList.remove(
+                "active"
+            )
+        );
+
+
+    button
+        .classList
+        .add(
+            "active"
+        );
+
+
+    boundaryObjects.forEach(
+        object =>{
+
+            object.visible =
+                type === "all"
+                ||
+                object.userData.type
+                === type;
+
+        }
+    );
+
+
+    const infoMap = {
+
+        divergent:{
+            name:
+                "Ranh giới tách giãn",
+
+            desc:
+                "Hai mảng dịch chuyển xa nhau. Vật chất nóng từ bên dưới có thể dâng lên, tạo lớp vỏ mới; kiểu ranh giới này phổ biến ở các sống núi giữa đại dương.",
+
+            move:
+                "←   →",
+
+            boundary:
+                "Tách xa nhau",
+
+            effect:
+                "Sống núi • magma"
+        },
+
+        convergent:{
+            name:
+                "Ranh giới hội tụ",
+
+            desc:
+                "Hai mảng dịch chuyển lại gần nhau. Có thể xảy ra hút chìm hoặc va chạm lục địa, liên quan đến núi, vực sâu, động đất và hoạt động núi lửa.",
+
+            move:
+                "→   ←",
+
+            boundary:
+                "Tiến lại gần",
+
+            effect:
+                "Núi • núi lửa"
+        },
+
+        transform:{
+            name:
+                "Ranh giới trượt bằng",
+
+            desc:
+                "Hai mảng trượt ngang tương đối với nhau. Ma sát và sự giải phóng năng lượng đột ngột có thể gây động đất mạnh.",
+
+            move:
+                "⇄",
+
+            boundary:
+                "Trượt ngang",
+
+            effect:
+                "Động đất"
+        },
+
+        all:{
+            name:
+                "Các loại ranh giới mảng",
+
+            desc:
+                "Ranh giới giữa các mảng kiến tạo là khu vực hoạt động địa chất mạnh, tập trung nhiều động đất và núi lửa.",
+
+            move:
+                "Nhiều hướng",
+
+            boundary:
+                "3 kiểu chính",
+
+            effect:
+                "Kiến tạo mạnh"
+        }
+
+    };
+
+
+    updateInfo(
+        infoMap[type]
+    );
+
+};
+
+
+window.selectPlate =
+function(
+    key
+){
+
+    const data = {
+
+        Pacific:{
+            name:
+                "Mảng Thái Bình Dương",
+
+            desc:
+                "Một trong những mảng kiến tạo lớn nhất, chủ yếu là thạch quyển đại dương. Nhiều ranh giới quanh mảng liên quan đến hoạt động động đất và núi lửa mạnh.",
+
+            move:
+                "Dịch chuyển",
+
+            boundary:
+                "Nhiều kiểu",
+
+            effect:
+                "Vành đai lửa"
+        },
+
+        Eurasian:{
+            name:
+                "Mảng Âu - Á",
+
+            desc:
+                "Mảng lớn bao gồm phần lớn châu Âu và châu Á. Ở phía nam, sự tương tác với các mảng lân cận góp phần hình thành nhiều hệ thống núi lớn.",
+
+            move:
+                "Chậm",
+
+            boundary:
+                "Hội tụ",
+
+            effect:
+                "Tạo núi"
+        },
+
+        African:{
+            name:
+                "Mảng Phi",
+
+            desc:
+                "Mảng bao gồm phần lớn châu Phi và đáy đại dương lân cận. Một số khu vực có hoạt động tách giãn đáng chú ý.",
+
+            move:
+                "Chậm",
+
+            boundary:
+                "Đa dạng",
+
+            effect:
+                "Đứt gãy"
+        },
+
+        NorthAmerican:{
+            name:
+                "Mảng Bắc Mỹ",
+
+            desc:
+                "Bao gồm phần lớn Bắc Mỹ và một phần đáy Đại Tây Dương. Phía tây tiếp giáp các mảng Thái Bình Dương và mảng nhỏ khác.",
+
+            move:
+                "Chậm",
+
+            boundary:
+                "Trượt • hội tụ",
+
+            effect:
+                "Động đất"
+        },
+
+        SouthAmerican:{
+            name:
+                "Mảng Nam Mỹ",
+
+            desc:
+                "Ở phía tây Nam Mỹ, sự tương tác với mảng Nazca nhỏ hơn liên quan chặt chẽ đến hệ thống Andes và hoạt động địa chấn.",
+
+            move:
+                "Chậm",
+
+            boundary:
+                "Hội tụ",
+
+            effect:
+                "Andes"
+        },
+
+        IndoAustralian:{
+            name:
+                "Mảng Ấn - Úc",
+
+            desc:
+                "Trong mô hình giáo khoa thường được khái quát thành mảng Ấn - Úc. Khu vực tiếp giáp phía bắc liên quan đến các vùng va chạm và hút chìm phức tạp.",
+
+            move:
+                "Chậm",
+
+            boundary:
+                "Hội tụ",
+
+            effect:
+                "Núi • động đất"
+        },
+
+        Antarctic:{
+            name:
+                "Mảng Nam Cực",
+
+            desc:
+                "Mảng bao quanh lục địa Nam Cực và phần đáy đại dương rộng lớn xung quanh.",
+
+            move:
+                "Chậm",
+
+            boundary:
+                "Tách giãn",
+
+            effect:
+                "Sống núi"
+        }
+
+    };
+
+
+    updateInfo(
+        data[key]
+    );
+
+
+    const marker =
+        plateMarkers[key];
+
+
+    if(marker){
+
+        marker.scale.set(
+            2.4,
+            2.4,
+            2.4
+        );
+
+
+        setTimeout(
+            ()=>{
+
+                marker.scale.set(
+                    1,
+                    1,
+                    1
+                );
+
+            },
+            900
+        );
+
+    }
+
+};
+
+
+function updateInfo(
+    data
+){
+
+    document
+        .getElementById(
+            "infoName"
+        )
+        .textContent =
+        data.name;
+
+
+    document
+        .getElementById(
+            "infoDescription"
+        )
+        .textContent =
+        data.desc;
+
+
+    document
+        .getElementById(
+            "infoMovement"
+        )
+        .textContent =
+        data.move;
+
+
+    document
+        .getElementById(
+            "infoBoundary"
+        )
+        .textContent =
+        data.boundary;
+
+
+    document
+        .getElementById(
+            "infoEffect"
+        )
+        .textContent =
+        data.effect;
+
+}
+
+
+/* ==========================================================
+   CAMERA PRESETS
+========================================================== */
+
+window.cameraPreset =
+function(
+    type
+){
+
+    if(
+        type==="reset"
+    ){
+
+        camera.position.set(
+            0,
+            1,
+            14.5
+        );
+
+
+        earthGroup.rotation.set(
+            0,
+            0,
+            0
+        );
+
+    }
+
+
+    if(
+        type==="asia"
+    ){
+
+        earthGroup.rotation.y =
+            THREE.MathUtils.degToRad(
+                -90
+            );
+
+
+        camera.position.set(
+            0,
+            1,
+            12
+        );
+
+    }
+
+
+    if(
+        type==="america"
+    ){
+
+        earthGroup.rotation.y =
+            THREE.MathUtils.degToRad(
+                80
+            );
+
+
+        camera.position.set(
+            0,
+            .5,
+            12
+        );
+
+    }
+
+
+    if(
+        type==="pacific"
+    ){
+
+        earthGroup.rotation.y =
+            THREE.MathUtils.degToRad(
+                175
+            );
+
+
+        camera.position.set(
+            0,
+            .5,
+            12
+        );
+
+    }
+
+
+    controls.update();
+
+};
+
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+const clock =
+    new THREE.Clock();
+
+
+function animate(){
+
+    requestAnimationFrame(
+        animate
+    );
+
+
+    const delta =
+        clock.getDelta();
+
+
+    const elapsed =
+        clock.elapsedTime;
+
+
+    if(
+        autoRotate.checked
+        &&
+        currentView==="globe"
+    ){
+
+        earthGroup.rotation.y +=
+
+            Number(
+                speedRange.value
+            )
+
+            * delta
+            * .28;
+
+    }
+
+
+    particles.rotation.y +=
+        delta*.018;
+
+
+    boundaryObjects.forEach(
+        (b,i)=>{
+
+            const pulse =
+                1
+                +
+                Math.sin(
+                    elapsed*2.2+i
+                )
+                *.05;
+
+
+            b.scale.setScalar(
+                pulse
+            );
+
+        }
+    );
+
+
+    controls.update();
+
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+
+animate();
+
+
+/* ==========================================================
+   RESIZE
+========================================================== */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        camera.aspect =
+            container.clientWidth /
+            container.clientHeight;
+
+
+        camera.updateProjectionMatrix();
+
+
+        renderer.setSize(
+            container.clientWidth,
+            container.clientHeight
+        );
+
+    }
+);
+
+</script>
+
+
+<script>
+
+/* ==========================================================
+   VIEW SWITCH
+========================================================== */
+
+let currentView =
+    "globe";
+
+
+function changeView(
+    view,
+    button
+){
+
+    currentView =
+        view;
+
+
+    document
+        .querySelectorAll(
+            ".tab"
+        )
+        .forEach(
+            tab =>
+            tab.classList.remove(
+                "active"
+            )
+        );
+
+
+    button
+        .classList
+        .add(
+            "active"
+        );
+
+
+    const three =
+        document.getElementById(
+            "threeContainer"
+        );
+
+
+    const map =
+        document.getElementById(
+            "mapView"
+        );
+
+
+    const simulator =
+        document.getElementById(
+            "simulator"
+        );
+
+
+    const simControls =
+        document.getElementById(
+            "simulationControls"
+        );
+
+
+    map.classList.remove(
+        "active"
+    );
+
+
+    simulator.classList.remove(
+        "active"
+    );
+
+
+    three.style.display =
+        "none";
+
+
+    simControls.style.display =
+        "none";
+
+
+    if(
+        view==="globe"
+    ){
+
+        three.style.display =
+            "block";
+
+
+        document
+            .querySelector(
+                ".help"
+            )
+            .style.display =
+            "block";
+
+    }
+
+
+    if(
+        view==="map"
+    ){
+
+        map.classList.add(
+            "active"
+        );
+
+
+        document
+            .querySelector(
+                ".help"
+            )
+            .style.display =
+            "none";
+
+    }
+
+
+    if(
+        view==="simulation"
+    ){
+
+        simulator.classList.add(
+            "active"
+        );
+
+
+        simControls.style.display =
+            "block";
+
+
+        document
+            .querySelector(
+                ".help"
+            )
+            .style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ==========================================================
+   SIMULATION
+========================================================== */
+
+function resetSimulation(){
+
+    const left =
+        document.getElementById(
+            "leftPlate"
+        );
+
+
+    const right =
+        document.getElementById(
+            "rightPlate"
+        );
+
+
+    const mountain =
+        document.getElementById(
+            "mountain"
+        );
+
+
+    const trench =
+        document.getElementById(
+            "trench"
+        );
+
+
+    const magmaRise =
+        document.getElementById(
+            "magmaRise"
+        );
+
+
+    const arrows =
+        document.getElementById(
+            "simArrows"
+        );
+
+
+    const q1 =
+        document.getElementById(
+            "quake1"
+        );
+
+
+    const q2 =
+        document.getElementById(
+            "quake2"
+        );
+
+
+    left.style.transform =
+        "translateX(0) rotate(0deg)";
+
+
+    right.style.transform =
+        "translateX(0) rotate(0deg)";
+
+
+    mountain.style.transform =
+        "translateX(-50%) scaleY(.05)";
+
+
+    trench.style.transform =
+        "translateX(-50%) scaleY(0)";
+
+
+    magmaRise.style.opacity =
+        "0";
+
+
+    arrows.style.opacity =
+        "0";
+
+
+    q1.style.opacity =
+        "0";
+
+
+    q2.style.opacity =
+        "0";
+
+
+    left.style.top =
+        "105px";
+
+
+    right.style.top =
+        "105px";
+
+
+    left.style.borderTop =
+        "10px solid #8aa9ac";
+
+
+    right.style.borderTop =
+        "10px solid #8aa9ac";
+
+
+    left.style.background =
+        "linear-gradient(#664632,#3a2b27)";
+
+
+    right.style.background =
+        "linear-gradient(#664632,#3a2b27)";
+
+}
+
+
+function runSimulation(
+    type,
+    button
+){
+
+    resetSimulation();
+
+
+    document
+        .querySelectorAll(
+            "#simulationControls .mini-btn"
+        )
+        .forEach(
+            b =>
+            b.classList.remove(
+                "active"
+            )
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    const left =
+        document.getElementById(
+            "leftPlate"
+        );
+
+
+    const right =
+        document.getElementById(
+            "rightPlate"
+        );
+
+
+    const mountain =
+        document.getElementById(
+            "mountain"
+        );
+
+
+    const trench =
+        document.getElementById(
+            "trench"
+        );
+
+
+    const magmaRise =
+        document.getElementById(
+            "magmaRise"
+        );
+
+
+    const arrows =
+        document.getElementById(
+            "simArrows"
+        );
+
+
+    const leftArrow =
+        document.getElementById(
+            "leftArrow"
+        );
+
+
+    const rightArrow =
+        document.getElementById(
+            "rightArrow"
+        );
+
+
+    const caption =
+        document.getElementById(
+            "simCaption"
+        );
+
+
+    const quake1 =
+        document.getElementById(
+            "quake1"
+        );
+
+
+    const quake2 =
+        document.getElementById(
+            "quake2"
+        );
+
+
+    setTimeout(
+        ()=>{
+
+            if(
+                type==="divergent"
+            ){
+
+                left.style.transform =
+                    "translateX(-48px)";
+
+
+                right.style.transform =
+                    "translateX(48px)";
+
+
+                magmaRise.style.opacity =
+                    "1";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "←";
+
+
+                rightArrow.textContent =
+                    "→";
+
+
+                caption.innerHTML =
+                    "<b>Ranh giới tách giãn:</b> hai mảng dịch chuyển xa nhau. Vật chất nóng từ bên dưới dâng lên, nguội đi và góp phần tạo lớp vỏ mới. Ở đại dương có thể hình thành sống núi giữa đại dương.";
+
+            }
+
+
+            if(
+                type==="continental"
+            ){
+
+                left.style.transform =
+                    "translateX(42px)";
+
+
+                right.style.transform =
+                    "translateX(-42px)";
+
+
+                mountain.style.transform =
+                    "translateX(-50%) scaleY(1)";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "→";
+
+
+                rightArrow.textContent =
+                    "←";
+
+
+                quake1.style.opacity =
+                    "1";
+
+
+                caption.innerHTML =
+                    "<b>Hai mảng lục địa hội tụ:</b> khi hai khối lục địa va chạm, lớp đá có thể bị nén ép, uốn nếp và nâng lên, hình thành các hệ thống núi lớn; động đất thường xảy ra trong vùng va chạm.";
+
+            }
+
+
+            if(
+                type==="subduction"
+            ){
+
+                left.style.transform =
+                    "translateX(30px) rotate(8deg) translateY(22px)";
+
+
+                right.style.transform =
+                    "translateX(-24px) rotate(-1deg)";
+
+
+                trench.style.transform =
+                    "translateX(-50%) scaleY(1)";
+
+
+                magmaRise.style.opacity =
+                    ".88";
+
+
+                mountain.style.transform =
+                    "translateX(-20%) scaleY(.72)";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "↘";
+
+
+                rightArrow.textContent =
+                    "←";
+
+
+                quake1.style.opacity =
+                    "1";
+
+
+                quake2.style.opacity =
+                    "1";
+
+
+                caption.innerHTML =
+                    "<b>Hút chìm:</b> khi mảng đại dương gặp mảng lục địa, mảng đại dương thường có xu hướng chìm xuống bên dưới. Khu vực này có thể xuất hiện vực sâu đại dương, động đất mạnh và núi lửa.";
+
+            }
+
+
+            if(
+                type==="transform"
+            ){
+
+                left.style.transform =
+                    "translateY(-30px)";
+
+
+                right.style.transform =
+                    "translateY(30px)";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "↑";
+
+
+                rightArrow.textContent =
+                    "↓";
+
+
+                quake1.style.opacity =
+                    "1";
+
+
+                quake2.style.opacity =
+                    "1";
+
+
+                caption.innerHTML =
+                    "<b>Ranh giới trượt bằng:</b> hai mảng trượt ngang tương đối với nhau. Sự ma sát có thể tích lũy ứng suất; khi năng lượng được giải phóng đột ngột sẽ gây động đất.";
+
+            }
+
+        },
+        100
+    );
+
+}
+
+
+/* ==========================================================
+   STARS
+========================================================== */
+
+const space =
+    document.getElementById(
+        "space"
+    );
+
+
+for(
+    let i=0;
+    i<110;
+    i++
+){
+
+    const star =
+        document.createElement(
+            "div"
+        );
+
+
+    star.className =
+        "star";
+
+
+    const size =
+        Math.random()*2.5
+        + .4;
+
+
+    star.style.width =
+        size+"px";
+
+
+    star.style.height =
+        size+"px";
+
+
+    star.style.left =
+        Math.random()*100
+        +"%";
+
+
+    star.style.top =
+        Math.random()*100
+        +"%";
+
+
+    star.style.animationDelay =
+        Math.random()*4
+        +"s";
+
+
+    star.style.animationDuration =
+        2
+        + Math.random()*4
+        +"s";
+
+
+    space.appendChild(
+        star
+    );
+
+}
+
+</script>
+
+</body>
+</html>

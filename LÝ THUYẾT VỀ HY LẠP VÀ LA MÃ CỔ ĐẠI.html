@@ -1,0 +1,4184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hy Lạp và La Mã cổ đại - Học liệu số Lịch sử 6</title>
+
+<style>
+
+/* =========================================================
+   01. RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color:#efe9df;
+
+    background:
+        radial-gradient(
+            circle at 12% 8%,
+            rgba(44,125,173,.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 87% 17%,
+            rgba(163,57,37,.14),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(190,143,68,.12),
+            transparent 36%
+        ),
+        linear-gradient(
+            140deg,
+            #09131d,
+            #102433 42%,
+            #201915 70%,
+            #0a1016
+        );
+}
+
+button{
+    font-family:inherit;
+}
+
+/* =========================================================
+   02. BACKGROUND
+========================================================= */
+
+.background{
+    position:fixed;
+    inset:0;
+
+    z-index:-20;
+
+    overflow:hidden;
+
+    pointer-events:none;
+}
+
+.sun-glow{
+    position:absolute;
+
+    width:620px;
+    height:620px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,205,118,.14),
+            rgba(255,172,64,.05) 40%,
+            transparent 70%
+        );
+
+    right:-180px;
+    top:-170px;
+
+    filter:blur(20px);
+}
+
+.aegean-glow{
+    position:absolute;
+
+    width:560px;
+    height:560px;
+
+    left:-220px;
+    bottom:-200px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(32,132,195,.16),
+            transparent 68%
+        );
+
+    filter:blur(60px);
+}
+
+.dust{
+    position:absolute;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:#ffd995;
+
+    opacity:.45;
+
+    box-shadow:
+        0 0 8px
+        rgba(255,210,130,.55);
+
+    animation:
+        dustFloat 10s linear infinite;
+}
+
+@keyframes dustFloat{
+
+    from{
+        transform:
+            translateY(105vh)
+            translateX(0)
+            scale(.5);
+
+        opacity:0;
+    }
+
+    15%{
+        opacity:.5;
+    }
+
+    to{
+        transform:
+            translateY(-15vh)
+            translateX(45px)
+            scale(1.25);
+
+        opacity:0;
+    }
+
+}
+
+/* =========================================================
+   03. CONTAINER
+========================================================= */
+
+.app{
+    width:min(1400px,94%);
+    margin:auto;
+
+    padding:
+        25px 0
+        80px;
+}
+
+/* =========================================================
+   04. HEADER
+========================================================= */
+
+.topbar{
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:24px;
+}
+
+.brand{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.brand-icon{
+    width:52px;
+    height:52px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:17px;
+
+    font-size:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1c73a9,
+            #c18a3e
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 0 30px
+        rgba(36,120,170,.27);
+}
+
+.brand small{
+    display:block;
+
+    color:#7f9cad;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.brand strong{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:17px;
+}
+
+.top-badge{
+    padding:
+        10px 16px;
+
+    border-radius:100px;
+
+    background:
+        rgba(8,20,29,.62);
+
+    border:
+        1px solid
+        rgba(191,155,91,.16);
+
+    color:#b8a686;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    min-height:650px;
+
+    overflow:hidden;
+
+    border-radius:35px;
+
+    padding:58px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(12,31,45,.96),
+            rgba(33,27,22,.92)
+        );
+
+    border:
+        1px solid
+        rgba(195,159,95,.18);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.42);
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.06;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            #fff 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            -45deg,
+            #fff 1px,
+            transparent 1px
+        );
+
+    background-size:
+        32px 32px;
+}
+
+.hero-content{
+    position:relative;
+
+    z-index:5;
+
+    width:60%;
+}
+
+.eyebrow{
+    color:#e6b467;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    margin-bottom:15px;
+
+    text-transform:uppercase;
+}
+
+.hero h1{
+    font-size:
+        clamp(
+            46px,
+            7vw,
+            88px
+        );
+
+    line-height:.95;
+
+    letter-spacing:-3px;
+}
+
+.hero h1 span{
+    display:block;
+
+    margin-top:8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #78c9ed,
+            #f2d29a,
+            #d67d5c
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero p{
+    max-width:720px;
+
+    margin-top:25px;
+
+    color:#a7b2b5;
+
+    font-size:14px;
+
+    line-height:1.8;
+}
+
+.hero-actions{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:30px;
+}
+
+.hero-button{
+    padding:
+        13px 20px;
+
+    border:0;
+
+    border-radius:13px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e78ad,
+            #c69247
+        );
+
+    box-shadow:
+        0 12px 27px
+        rgba(37,112,158,.19);
+
+    transition:.25s;
+}
+
+.hero-button:hover{
+    transform:translateY(-3px);
+}
+
+.hero-button.secondary{
+    background:
+        rgba(39,34,28,.53);
+
+    border:
+        1px solid
+        rgba(208,177,121,.15);
+}
+
+/* =========================================================
+   06. TEMPLE VISUAL
+========================================================= */
+
+.temple-scene{
+    position:absolute;
+
+    right:2%;
+
+    top:10%;
+
+    width:39%;
+    height:78%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.temple{
+    position:relative;
+
+    width:390px;
+    max-width:100%;
+
+    height:360px;
+}
+
+.temple-roof{
+    position:absolute;
+
+    top:20px;
+    left:12%;
+
+    width:76%;
+    height:80px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e6d4b8,
+            #a7906f
+        );
+
+    clip-path:
+        polygon(
+            50% 0,
+            100% 100%,
+            0 100%
+        );
+
+    filter:
+        drop-shadow(
+            0 12px 20px
+            rgba(0,0,0,.25)
+        );
+}
+
+.temple-beam{
+    position:absolute;
+
+    top:97px;
+    left:8%;
+
+    width:84%;
+    height:28px;
+
+    border-radius:4px;
+
+    background:
+        linear-gradient(
+            #d9c7aa,
+            #8e7a61
+        );
+}
+
+.columns{
+    position:absolute;
+
+    left:10%;
+    right:10%;
+    top:123px;
+    bottom:44px;
+
+    display:flex;
+
+    justify-content:
+        space-between;
+}
+
+.column{
+    width:34px;
+
+    border-radius:
+        7px 7px 4px 4px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #d9c8ab 0 5px,
+            #aa9679 5px 8px
+        );
+
+    box-shadow:
+        inset 0 0 10px
+        rgba(0,0,0,.15);
+}
+
+.temple-base{
+    position:absolute;
+
+    left:4%;
+    right:4%;
+    bottom:28px;
+
+    height:24px;
+
+    background:
+        #b39a78;
+
+    box-shadow:
+        0 7px 0
+        #86715a;
+}
+
+.laurel{
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border:
+        7px solid
+        rgba(214,171,86,.18);
+
+    border-radius:50%;
+
+    right:-20px;
+    top:-20px;
+
+    box-shadow:
+        0 0 30px
+        rgba(214,171,86,.11);
+
+    animation:
+        laurelFloat
+        5s ease-in-out
+        infinite alternate;
+}
+
+@keyframes laurelFloat{
+    from{
+        transform:rotate(-8deg)
+        translateY(0);
+    }
+
+    to{
+        transform:rotate(4deg)
+        translateY(-12px);
+    }
+}
+
+/* =========================================================
+   07. QUICK NAV
+========================================================= */
+
+.quick-nav{
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:10px;
+
+    margin:28px 0;
+}
+
+.nav-card{
+    padding:15px 10px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    color:#9fa7a6;
+
+    background:
+        rgba(15,31,40,.68);
+
+    border:
+        1px solid
+        rgba(188,158,101,.12);
+
+    transition:.24s;
+}
+
+.nav-card:hover{
+    transform:
+        translateY(-4px);
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,106,155,.34),
+            rgba(138,80,49,.33)
+        );
+
+    border-color:
+        rgba(213,177,107,.3);
+}
+
+.nav-card span{
+    display:block;
+
+    font-size:23px;
+
+    margin-bottom:7px;
+}
+
+.nav-card strong{
+    font-size:9px;
+}
+
+/* =========================================================
+   08. SECTION
+========================================================= */
+
+.section{
+    margin-top:30px;
+
+    padding:31px;
+
+    border-radius:27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,28,38,.92),
+            rgba(34,28,23,.89)
+        );
+
+    border:
+        1px solid
+        rgba(197,162,100,.14);
+
+    box-shadow:
+        0 17px 55px
+        rgba(0,0,0,.22);
+}
+
+.section-heading{
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:23px;
+}
+
+.section-number{
+    width:50px;
+    height:50px;
+
+    flex-shrink:0;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:16px;
+
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #227baa,
+            #c48e45
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(46,120,164,.16);
+}
+
+.section-heading small{
+    display:block;
+
+    color:#a58b61;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.section-heading h2{
+    margin-top:4px;
+
+    font-size:27px;
+}
+
+.lead{
+    color:#b9c0c0;
+
+    line-height:1.85;
+
+    font-size:13px;
+}
+
+.highlight{
+    color:#e3b96e;
+
+    font-weight:700;
+}
+
+/* =========================================================
+   09. OBJECTIVES
+========================================================= */
+
+.objective-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.objective-card{
+    padding:18px;
+
+    border-radius:17px;
+
+    background:
+        rgba(25,45,55,.34);
+
+    border:
+        1px solid
+        rgba(190,156,97,.10);
+}
+
+.objective-icon{
+    font-size:26px;
+
+    margin-bottom:10px;
+}
+
+.objective-card h3{
+    margin-bottom:8px;
+
+    font-size:13px;
+
+    color:#e8d8ba;
+}
+
+.objective-card p{
+    color:#9da8aa;
+
+    font-size:10px;
+
+    line-height:1.65;
+}
+
+/* =========================================================
+   10. TIMELINE
+========================================================= */
+
+.timeline{
+    position:relative;
+
+    margin-top:25px;
+
+    padding-left:32px;
+}
+
+.timeline::before{
+    content:"";
+
+    position:absolute;
+
+    left:12px;
+    top:0;
+    bottom:0;
+
+    width:3px;
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            #2f8abd,
+            #d1a35a,
+            #a54435
+        );
+}
+
+.timeline-item{
+    position:relative;
+
+    margin-bottom:18px;
+
+    padding:
+        15px 17px;
+
+    border-radius:15px;
+
+    background:
+        rgba(24,44,54,.34);
+
+    border:
+        1px solid
+        rgba(190,158,101,.10);
+
+    transition:.22s;
+}
+
+.timeline-item:hover{
+    transform:
+        translateX(5px);
+
+    border-color:
+        rgba(213,174,102,.28);
+}
+
+.timeline-item::before{
+    content:"";
+
+    position:absolute;
+
+    left:-27px;
+    top:21px;
+
+    width:13px;
+    height:13px;
+
+    border-radius:50%;
+
+    background:#d6a75c;
+
+    box-shadow:
+        0 0 13px
+        rgba(214,167,92,.55);
+}
+
+.timeline-date{
+    color:#72c1e7;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+.timeline-item h3{
+    margin-top:4px;
+
+    font-size:14px;
+}
+
+.timeline-item p{
+    margin-top:6px;
+
+    color:#9fa9aa;
+
+    line-height:1.65;
+
+    font-size:10px;
+}
+
+/* =========================================================
+   11. NATURAL CONDITIONS
+========================================================= */
+
+.two-column{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:18px;
+
+    margin-top:22px;
+}
+
+.info-card{
+    padding:19px;
+
+    border-radius:18px;
+
+    background:
+        rgba(25,44,52,.33);
+
+    border:
+        1px solid
+        rgba(188,157,101,.10);
+}
+
+.info-icon{
+    font-size:27px;
+
+    margin-bottom:10px;
+}
+
+.info-card h3{
+    margin-bottom:8px;
+
+    font-size:14px;
+
+    color:#ead9b9;
+}
+
+.info-card p{
+    color:#9fa9aa;
+
+    line-height:1.7;
+
+    font-size:10px;
+}
+
+.info-card ul{
+    margin-top:10px;
+
+    padding-left:18px;
+
+    color:#a6afb0;
+
+    font-size:10px;
+
+    line-height:1.75;
+}
+
+/* =========================================================
+   12. POLIS
+========================================================= */
+
+.polis-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.polis-card{
+    padding:20px;
+
+    border-radius:18px;
+
+    background:
+        rgba(24,42,51,.35);
+
+    border:
+        1px solid
+        rgba(195,160,100,.11);
+}
+
+.polis-symbol{
+    font-size:33px;
+}
+
+.polis-card h3{
+    margin-top:9px;
+
+    font-size:14px;
+}
+
+.polis-card p{
+    margin-top:8px;
+
+    color:#9fa8aa;
+
+    font-size:10px;
+
+    line-height:1.65;
+}
+
+/* =========================================================
+   13. DEMOCRACY
+========================================================= */
+
+.democracy-layout{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:20px;
+
+    margin-top:22px;
+}
+
+.democracy-box{
+    padding:21px;
+
+    border-radius:19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,77,104,.25),
+            rgba(64,45,30,.25)
+        );
+
+    border:
+        1px solid
+        rgba(191,159,101,.12);
+}
+
+.democracy-box h3{
+    font-size:15px;
+}
+
+.democracy-box p{
+    margin-top:9px;
+
+    color:#a5aeaf;
+
+    line-height:1.7;
+
+    font-size:10px;
+}
+
+.flow{
+    display:grid;
+
+    gap:8px;
+
+    margin-top:14px;
+}
+
+.flow-item{
+    display:flex;
+
+    gap:10px;
+
+    align-items:flex-start;
+
+    padding:11px;
+
+    border-radius:11px;
+
+    background:
+        rgba(21,42,52,.32);
+}
+
+.flow-number{
+    width:28px;
+    height:28px;
+
+    flex-shrink:0;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:9px;
+
+    color:#f5d39b;
+
+    background:#285e77;
+
+    font-weight:800;
+}
+
+.flow-item strong{
+    font-size:11px;
+}
+
+.flow-item p{
+    margin-top:3px;
+
+    font-size:9px;
+}
+
+/* =========================================================
+   14. WARNING
+========================================================= */
+
+.note{
+    margin-top:18px;
+
+    padding:17px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(132,63,39,.24),
+            rgba(82,49,31,.22)
+        );
+
+    border:
+        1px solid
+        rgba(210,133,91,.18);
+}
+
+.note-title{
+    color:#dc9a78;
+
+    font-weight:800;
+
+    font-size:11px;
+}
+
+.note p{
+    margin-top:7px;
+
+    color:#b3a6a0;
+
+    line-height:1.7;
+
+    font-size:10px;
+}
+
+/* =========================================================
+   15. ROMAN STATE
+========================================================= */
+
+.roman-process{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:11px;
+
+    margin-top:22px;
+}
+
+.roman-stage{
+    position:relative;
+
+    padding:18px;
+
+    border-radius:17px;
+
+    background:
+        rgba(46,32,27,.38);
+
+    border:
+        1px solid
+        rgba(195,148,91,.11);
+}
+
+.roman-stage::after{
+    content:"→";
+
+    position:absolute;
+
+    right:-17px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#d2a35f;
+
+    font-size:21px;
+}
+
+.roman-stage:last-child::after{
+    display:none;
+}
+
+.roman-stage small{
+    color:#cb9972;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+}
+
+.roman-stage h3{
+    margin-top:6px;
+
+    font-size:13px;
+}
+
+.roman-stage p{
+    margin-top:8px;
+
+    color:#a99d97;
+
+    line-height:1.6;
+
+    font-size:9px;
+}
+
+/* =========================================================
+   16. CULTURE
+========================================================= */
+
+.culture-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:13px;
+
+    margin-top:22px;
+}
+
+.culture-card{
+    padding:20px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(24,43,51,.36),
+            rgba(53,35,27,.34)
+        );
+
+    border:
+        1px solid
+        rgba(195,161,100,.10);
+
+    transition:.23s;
+}
+
+.culture-card:hover{
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(214,177,105,.28);
+}
+
+.culture-icon{
+    font-size:30px;
+}
+
+.culture-card h3{
+    margin-top:8px;
+
+    font-size:14px;
+}
+
+.culture-card p{
+    margin-top:7px;
+
+    color:#a2abad;
+
+    font-size:10px;
+
+    line-height:1.65;
+}
+
+/* =========================================================
+   17. TABLE
+========================================================= */
+
+.table-wrap{
+    margin-top:22px;
+
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+
+    min-width:760px;
+
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:
+        14px 15px;
+
+    text-align:left;
+
+    border-bottom:
+        1px solid
+        rgba(194,158,98,.08);
+
+    line-height:1.6;
+
+    font-size:10px;
+}
+
+th{
+    color:#f0d5a6;
+
+    background:
+        #2c596f;
+}
+
+td{
+    color:#a7b0b1;
+
+    background:
+        rgba(25,43,50,.31);
+}
+
+/* =========================================================
+   18. PERSON CARDS
+========================================================= */
+
+.person-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.person{
+    padding:18px;
+
+    border-radius:17px;
+
+    background:
+        rgba(25,43,51,.34);
+
+    border:
+        1px solid
+        rgba(192,158,98,.10);
+}
+
+.person-avatar{
+    width:53px;
+    height:53px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    font-size:26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2a789d,
+            #b78448
+        );
+
+    margin-bottom:10px;
+}
+
+.person h3{
+    font-size:13px;
+}
+
+.person small{
+    display:block;
+
+    margin-top:3px;
+
+    color:#c59e67;
+
+    font-size:8px;
+}
+
+.person p{
+    margin-top:8px;
+
+    color:#9ca7a9;
+
+    line-height:1.6;
+
+    font-size:9px;
+}
+
+/* =========================================================
+   19. ACCORDION
+========================================================= */
+
+.accordion{
+    display:grid;
+
+    gap:9px;
+
+    margin-top:21px;
+}
+
+.accordion-item{
+    overflow:hidden;
+
+    border-radius:14px;
+
+    background:
+        rgba(25,43,50,.32);
+
+    border:
+        1px solid
+        rgba(191,157,98,.10);
+}
+
+.accordion-button{
+    width:100%;
+
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    align-items:center;
+
+    padding:15px 17px;
+
+    border:0;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    color:#e4d6bf;
+
+    background:transparent;
+
+    font-weight:700;
+}
+
+.accordion-content{
+    display:none;
+
+    padding:
+        0 17px
+        16px;
+
+    color:#9fa9aa;
+
+    font-size:10px;
+
+    line-height:1.75;
+}
+
+.accordion-item.open
+.accordion-content{
+    display:block;
+}
+
+.accordion-item.open
+.accordion-button span{
+    transform:rotate(45deg);
+}
+
+/* =========================================================
+   20. SUMMARY
+========================================================= */
+
+.summary-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:11px;
+
+    margin-top:20px;
+}
+
+.summary-card{
+    padding:17px;
+
+    text-align:center;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(26,64,81,.36),
+            rgba(68,43,29,.34)
+        );
+
+    border:
+        1px solid
+        rgba(191,158,101,.10);
+}
+
+.summary-card span{
+    display:block;
+
+    font-size:28px;
+}
+
+.summary-card strong{
+    display:block;
+
+    margin-top:7px;
+
+    font-size:10px;
+}
+
+.summary-card p{
+    margin-top:5px;
+
+    color:#9da7a8;
+
+    font-size:8px;
+
+    line-height:1.5;
+}
+
+/* =========================================================
+   21. FOOTER
+========================================================= */
+
+.footer{
+    margin-top:50px;
+
+    text-align:center;
+
+    color:#627984;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   22. RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+
+    .hero-content{
+        width:100%;
+    }
+
+    .temple-scene{
+        opacity:.22;
+        width:48%;
+    }
+
+    .quick-nav{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .objective-grid,
+    .culture-grid{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .person-grid{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .roman-process{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .roman-stage::after{
+        display:none;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .hero{
+        padding:
+            37px 24px;
+    }
+
+    .temple-scene{
+        right:-25%;
+        width:85%;
+    }
+
+    .quick-nav{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .objective-grid,
+    .two-column,
+    .polis-grid,
+    .democracy-layout,
+    .culture-grid,
+    .person-grid,
+    .roman-process,
+    .summary-grid{
+        grid-template-columns:1fr;
+    }
+
+    .top-badge{
+        display:none;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div
+    class="background"
+    id="background"
+>
+    <div class="sun-glow"></div>
+    <div class="aegean-glow"></div>
+</div>
+
+<main class="app">
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🏛️
+        </div>
+
+        <div>
+
+            <small>
+                HỌC LIỆU SỐ • LỊCH SỬ 6
+            </small>
+
+            <strong>
+                Thế giới cổ đại Địa Trung Hải
+            </strong>
+
+        </div>
+
+    </div>
+
+    <div class="top-badge">
+        ANCIENT GREECE • ANCIENT ROME
+    </div>
+
+</header>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            ✦ VĂN MINH ĐỊA TRUNG HẢI
+        </div>
+
+        <h1>
+            HY LẠP
+            <span>& LA MÃ CỔ ĐẠI</span>
+        </h1>
+
+        <p>
+            Từ những thành bang bên bờ biển Aegean đến một đế chế
+            bao quanh phần lớn Địa Trung Hải, Hy Lạp và La Mã cổ đại
+            đã để lại nhiều dấu ấn sâu sắc về tổ chức nhà nước,
+            tư tưởng chính trị, khoa học, văn học, kiến trúc,
+            pháp luật và nghệ thuật.
+        </p>
+
+        <div class="hero-actions">
+
+            <button
+                class="hero-button"
+                onclick="scrollToSection('objectives')"
+            >
+                BẮT ĐẦU KHÁM PHÁ
+            </button>
+
+            <button
+                class="hero-button secondary"
+                onclick="scrollToSection('summary')"
+            >
+                XEM KIẾN THỨC TRỌNG TÂM
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="temple-scene">
+
+        <div class="laurel"></div>
+
+        <div class="temple">
+
+            <div class="temple-roof"></div>
+
+            <div class="temple-beam"></div>
+
+            <div class="columns">
+
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+
+            </div>
+
+            <div class="temple-base"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     QUICK NAV
+========================================================= -->
+
+<nav class="quick-nav">
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('objectives')"
+    >
+        <span>🎯</span>
+        <strong>MỤC TIÊU</strong>
+    </button>
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('timeline')"
+    >
+        <span>⏳</span>
+        <strong>TIẾN TRÌNH</strong>
+    </button>
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('nature')"
+    >
+        <span>🌊</span>
+        <strong>TỰ NHIÊN</strong>
+    </button>
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('greece')"
+    >
+        <span>🏛️</span>
+        <strong>HY LẠP</strong>
+    </button>
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('rome')"
+    >
+        <span>🦅</span>
+        <strong>LA MÃ</strong>
+    </button>
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('culture')"
+    >
+        <span>📜</span>
+        <strong>VĂN HÓA</strong>
+    </button>
+
+    <button
+        class="nav-card"
+        onclick="scrollToSection('expand')"
+    >
+        <span>💡</span>
+        <strong>MỞ RỘNG</strong>
+    </button>
+
+</nav>
+
+<!-- =========================================================
+     01. OBJECTIVES
+========================================================= -->
+
+<section
+    class="section"
+    id="objectives"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            01
+        </div>
+
+        <div>
+
+            <small>
+                MỤC TIÊU BÀI HỌC
+            </small>
+
+            <h2>
+                Sau bài học, học sinh cần đạt được gì?
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="objective-grid">
+
+        <div class="objective-card">
+
+            <div class="objective-icon">
+                🗺️
+            </div>
+
+            <h3>
+                Nhận biết không gian
+            </h3>
+
+            <p>
+                Xác định được khu vực hình thành của
+                Hy Lạp và La Mã cổ đại,
+                nhận biết đặc điểm nổi bật
+                của môi trường Địa Trung Hải.
+            </p>
+
+        </div>
+
+        <div class="objective-card">
+
+            <div class="objective-icon">
+                ⏳
+            </div>
+
+            <h3>
+                Trình bày tiến trình
+            </h3>
+
+            <p>
+                Khái quát được quá trình hình thành,
+                phát triển của các thành bang Hy Lạp
+                và nhà nước La Mã từ cộng hòa đến đế chế.
+            </p>
+
+        </div>
+
+        <div class="objective-card">
+
+            <div class="objective-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Hiểu tổ chức nhà nước
+            </h3>
+
+            <p>
+                Giải thích được đặc điểm cơ bản
+                của nhà nước thành bang,
+                nền dân chủ Athens
+                và chế độ đế chế La Mã.
+            </p>
+
+        </div>
+
+        <div class="objective-card">
+
+            <div class="objective-icon">
+                🏺
+            </div>
+
+            <h3>
+                Nhận diện di sản
+            </h3>
+
+            <p>
+                Nêu và đánh giá được
+                một số thành tựu tiêu biểu
+                về chữ viết, khoa học,
+                văn học, kiến trúc,
+                nghệ thuật và thể thao.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     02. TIMELINE
+========================================================= -->
+
+<section
+    class="section"
+    id="timeline"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            02
+        </div>
+
+        <div>
+
+            <small>
+                TIẾN TRÌNH LỊCH SỬ
+            </small>
+
+            <h2>
+                Từ các cộng đồng Địa Trung Hải đến những nền văn minh lớn
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                THIÊN NIÊN KỈ II TCN
+            </div>
+
+            <h3>
+                Các nền văn minh sớm ở khu vực Hy Lạp
+            </h3>
+
+            <p>
+                Trước thời các thành bang cổ điển,
+                khu vực biển Aegean đã xuất hiện
+                những nền văn minh quan trọng như
+                Minoan trên đảo Crete và Mycenaean
+                ở đất liền Hy Lạp.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                THẾ KỈ VIII – VI TCN
+            </div>
+
+            <h3>
+                Các thành bang Hy Lạp phát triển
+            </h3>
+
+            <p>
+                Nhiều polis như Athens,
+                Sparta, Corinth, Thebes phát triển.
+                Người Hy Lạp cũng lập nhiều thuộc địa
+                ven Địa Trung Hải và Biển Đen.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                THẾ KỈ V TCN
+            </div>
+
+            <h3>
+                Thời kì phát triển rực rỡ của Athens
+            </h3>
+
+            <p>
+                Sau các cuộc chiến Hy Lạp – Ba Tư,
+                Athens bước vào giai đoạn hưng thịnh,
+                đặc biệt dưới thời Pericles.
+                Văn hóa, nghệ thuật và đời sống chính trị phát triển mạnh.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                338 TCN
+            </div>
+
+            <h3>
+                Macedonia kiểm soát phần lớn Hy Lạp
+            </h3>
+
+            <p>
+                Sau trận Chaeronea,
+                vua Philip II của Macedonia
+                thiết lập ảnh hưởng đối với phần lớn các thành bang Hy Lạp.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                336 – 323 TCN
+            </div>
+
+            <h3>
+                Alexander Đại đế và thế giới Hy Lạp hóa
+            </h3>
+
+            <p>
+                Alexander III của Macedonia
+                chinh phục một lãnh thổ rộng lớn
+                từ Ai Cập đến Tây Á và vùng cận Ấn Độ,
+                tạo điều kiện cho văn hóa Hy Lạp lan rộng.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                753 TCN – THEO TRUYỀN THỐNG LA MÃ
+            </div>
+
+            <h3>
+                Thành Roma được cho là ra đời
+            </h3>
+
+            <p>
+                Theo truyền thống La Mã,
+                thành Roma được thành lập năm 753 TCN.
+                Đây là mốc truyền thống,
+                không phải niên đại khảo cổ tuyệt đối.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                509 TCN
+            </div>
+
+            <h3>
+                Cộng hòa La Mã được thiết lập
+            </h3>
+
+            <p>
+                Chế độ quân chủ bị thay thế
+                bởi nền cộng hòa,
+                trong đó quyền lực được tổ chức
+                qua nhiều cơ quan và chức vụ.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                THẾ KỈ III – I TCN
+            </div>
+
+            <h3>
+                La Mã mở rộng lãnh thổ
+            </h3>
+
+            <p>
+                Sau khi thống nhất bán đảo Italia,
+                La Mã tiếp tục chiến tranh và chinh phục,
+                trở thành thế lực lớn quanh Địa Trung Hải.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                27 TCN
+            </div>
+
+            <h3>
+                Augustus mở đầu thời kì đế chế
+            </h3>
+
+            <p>
+                Octavian được trao tước hiệu Augustus.
+                Đây thường được xem là mốc
+                mở đầu chế độ đế chế La Mã.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                THẾ KỈ I – II
+            </div>
+
+            <h3>
+                Đế chế La Mã đạt quy mô rất lớn
+            </h3>
+
+            <p>
+                La Mã kiểm soát một không gian rộng
+                quanh Địa Trung Hải,
+                với hệ thống đường sá,
+                đô thị, quân đội và hành chính phát triển.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                395
+            </div>
+
+            <h3>
+                Đế chế được chia thành Đông và Tây
+            </h3>
+
+            <p>
+                Sau cái chết của Hoàng đế Theodosius I,
+                đế chế được cai trị thành hai phần
+                với trung tâm chính trị khác nhau.
+            </p>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-date">
+                476
+            </div>
+
+            <h3>
+                Đế chế La Mã phương Tây chấm dứt
+            </h3>
+
+            <p>
+                Hoàng đế Romulus Augustulus bị phế truất.
+                Mốc năm 476 thường được dùng
+                để đánh dấu sự kết thúc
+                của Đế chế La Mã phương Tây.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     03. NATURAL CONDITIONS
+========================================================= -->
+
+<section
+    class="section"
+    id="nature"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            03
+        </div>
+
+        <div>
+
+            <small>
+                ĐIỀU KIỆN TỰ NHIÊN
+            </small>
+
+            <h2>
+                Không gian Địa Trung Hải đã ảnh hưởng như thế nào?
+            </h2>
+
+        </div>
+
+    </div>
+
+    <p class="lead">
+        Hy Lạp và La Mã nằm trong không gian
+        <span class="highlight">
+            Địa Trung Hải
+        </span>,
+        nơi biển, bán đảo, đảo và các dãy núi
+        có ảnh hưởng mạnh đến đời sống kinh tế,
+        giao thông và sự hình thành các cộng đồng chính trị.
+    </p>
+
+    <div class="two-column">
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🇬🇷
+            </div>
+
+            <h3>
+                Hy Lạp cổ đại
+            </h3>
+
+            <p>
+                Lãnh thổ Hy Lạp gồm phần nam bán đảo Balkan,
+                nhiều đảo trên biển Aegean
+                và các khu vực ven biển lân cận.
+            </p>
+
+            <ul>
+                <li>
+                    Địa hình phần lớn là núi và đồi,
+                    các đồng bằng nhỏ,
+                    bị chia cắt thành nhiều khu vực.
+                </li>
+
+                <li>
+                    Bờ biển khúc khuỷu,
+                    nhiều vịnh và cảng tự nhiên.
+                </li>
+
+                <li>
+                    Nhiều đảo nằm gần nhau,
+                    thuận lợi cho giao thông đường biển.
+                </li>
+
+                <li>
+                    Đất nông nghiệp không rộng,
+                    nhưng một số loại cây như ôliu,
+                    nho phù hợp với khí hậu Địa Trung Hải.
+                </li>
+
+                <li>
+                    Biển trở thành tuyến giao lưu
+                    giữa các cộng đồng Hy Lạp
+                    với Tiểu Á, Ai Cập,
+                    Phoenicia và nhiều vùng khác.
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🇮🇹
+            </div>
+
+            <h3>
+                La Mã cổ đại
+            </h3>
+
+            <p>
+                Trung tâm ban đầu của La Mã
+                nằm trên bán đảo Italia,
+                ở vị trí gần trung tâm Địa Trung Hải.
+            </p>
+
+            <ul>
+                <li>
+                    Italia có nhiều vùng đồng bằng
+                    và đất canh tác thuận lợi hơn
+                    so với Hy Lạp.
+                </li>
+
+                <li>
+                    Dãy Apennine chạy dọc bán đảo,
+                    nhưng không chia cắt hoàn toàn
+                    như địa hình Hy Lạp.
+                </li>
+
+                <li>
+                    Sông Tiber tạo điều kiện
+                    cho cư dân Roma giao thông
+                    và tiếp cận biển.
+                </li>
+
+                <li>
+                    Vị trí giữa Địa Trung Hải
+                    thuận lợi cho giao thương
+                    và mở rộng ảnh hưởng.
+                </li>
+
+                <li>
+                    Khi La Mã chinh phục lãnh thổ,
+                    nguồn tài nguyên,
+                    sản phẩm và lao động
+                    từ nhiều vùng được đưa về đế chế.
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="note">
+
+        <div class="note-title">
+            💡 LIÊN HỆ ĐỊA LÍ – LỊCH SỬ
+        </div>
+
+        <p>
+            Địa hình núi chia cắt của Hy Lạp
+            không trực tiếp “tạo ra” thành bang,
+            nhưng là một trong những điều kiện
+            góp phần khiến các cộng đồng cư dân
+            phát triển tương đối độc lập với nhau.
+            Ngược lại, vị trí của bán đảo Italia
+            và điều kiện giao thông thuận lợi hơn
+            tạo cơ sở thuận lợi để La Mã mở rộng
+            kiểm soát trên một không gian lớn.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     04. GREEK POLIS
+========================================================= -->
+
+<section
+    class="section"
+    id="greece"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            04
+        </div>
+
+        <div>
+
+            <small>
+                NHÀ NƯỚC THÀNH BANG
+            </small>
+
+            <h2>
+                Polis – đơn vị chính trị đặc trưng của Hy Lạp cổ đại
+            </h2>
+
+        </div>
+
+    </div>
+
+    <p class="lead">
+
+        Từ khoảng thế kỉ VIII TCN,
+        nhiều cộng đồng Hy Lạp phát triển thành
+        <span class="highlight">
+            polis
+        </span>,
+        thường dịch là
+        <b>thành bang</b>.
+
+        Mỗi polis là một cộng đồng chính trị độc lập,
+        có lãnh thổ, dân cư,
+        thiết chế nhà nước và luật lệ riêng.
+    </p>
+
+    <div class="polis-grid">
+
+        <div class="polis-card">
+
+            <div class="polis-symbol">
+                🏙️
+            </div>
+
+            <h3>
+                Thành thị
+            </h3>
+
+            <p>
+                Trung tâm của polis thường là một thành phố
+                với quảng trường công cộng,
+                đền thờ, khu dân cư,
+                nơi họp hành và buôn bán.
+            </p>
+
+        </div>
+
+        <div class="polis-card">
+
+            <div class="polis-symbol">
+                🌾
+            </div>
+
+            <h3>
+                Vùng nông thôn phụ cận
+            </h3>
+
+            <p>
+                Polis không chỉ là thành phố.
+                Nó còn bao gồm vùng đất nông nghiệp,
+                làng mạc và cư dân xung quanh.
+            </p>
+
+        </div>
+
+        <div class="polis-card">
+
+            <div class="polis-symbol">
+                ⚖️
+            </div>
+
+            <h3>
+                Cộng đồng chính trị
+            </h3>
+
+            <p>
+                Công dân của polis có những quyền
+                và nghĩa vụ nhất định,
+                nhưng quyền công dân
+                không dành cho mọi cư dân.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="two-column">
+
+        <div class="info-card">
+
+            <h3>
+                Athens
+            </h3>
+
+            <p>
+                Athens nổi bật về thương mại,
+                hàng hải, văn hóa và đời sống chính trị.
+                Đây là nơi nền dân chủ trực tiếp cổ đại
+                phát triển rõ nét nhất.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>
+                Sparta
+            </h3>
+
+            <p>
+                Sparta nổi tiếng với tổ chức xã hội
+                mang tính quân sự cao,
+                chú trọng kỉ luật và huấn luyện chiến đấu.
+                Mô hình chính trị của Sparta
+                khác đáng kể so với Athens.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     05. DEMOCRACY
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            05
+        </div>
+
+        <div>
+
+            <small>
+                NỀN DÂN CHỦ CỔ ĐẠI
+            </small>
+
+            <h2>
+                Dân chủ Athens hoạt động như thế nào?
+            </h2>
+
+        </div>
+
+    </div>
+
+    <p class="lead">
+
+        Ở Athens,
+        qua nhiều cuộc cải cách chính trị
+        từ thế kỉ VI đến V TCN,
+        quyền tham gia chính trị của
+        <span class="highlight">
+            nam công dân tự do
+        </span>
+        được mở rộng.
+
+        Họ có thể trực tiếp tham dự
+        các cuộc họp của Đại hội công dân
+        và biểu quyết nhiều vấn đề của thành bang.
+    </p>
+
+    <div class="democracy-layout">
+
+        <div class="democracy-box">
+
+            <h3>
+                Các thiết chế quan trọng
+            </h3>
+
+            <div class="flow">
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        1
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Đại hội công dân
+                        </strong>
+
+                        <p>
+                            Nơi các nam công dân đủ điều kiện
+                            tham gia thảo luận
+                            và biểu quyết nhiều vấn đề
+                            như chiến tranh, hòa bình,
+                            tài chính và luật pháp.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        2
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Hội đồng 500
+                        </strong>
+
+                        <p>
+                            Chuẩn bị nhiều công việc
+                            cho Đại hội,
+                            giám sát một số hoạt động hành chính.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        3
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Tòa án nhân dân
+                        </strong>
+
+                        <p>
+                            Công dân có thể tham gia
+                            các bồi thẩm đoàn lớn,
+                            xét xử nhiều vụ việc.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        4
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Nhiều chức vụ được lựa chọn
+                        </strong>
+
+                        <p>
+                            Một số chức vụ được bầu,
+                            một số khác được lựa chọn
+                            bằng hình thức rút thăm,
+                            nhằm hạn chế việc quyền lực
+                            tập trung lâu dài vào một nhóm.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="democracy-box">
+
+            <h3>
+                Vì sao gọi là “dân chủ trực tiếp”?
+            </h3>
+
+            <p>
+                Vì nhiều công dân Athens
+                trực tiếp tham dự Đại hội
+                và biểu quyết,
+                thay vì chỉ bầu đại biểu
+                để quyết định thay cho mình
+                như trong nhiều nền dân chủ đại diện hiện đại.
+            </p>
+
+            <div class="note">
+
+                <div class="note-title">
+                    ⚠ GIỚI HẠN LỊCH SỬ
+                </div>
+
+                <p>
+                    Nền dân chủ Athens không bao gồm
+                    toàn bộ cư dân.
+                    Phụ nữ, nô lệ và người nước ngoài
+                    cư trú tại Athens
+                    không có đầy đủ quyền công dân chính trị.
+                    Vì vậy không nên đồng nhất
+                    dân chủ Athens với khái niệm
+                    quyền công dân phổ quát hiện đại.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     06. ROME
+========================================================= -->
+
+<section
+    class="section"
+    id="rome"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            06
+        </div>
+
+        <div>
+
+            <small>
+                NHÀ NƯỚC LA MÃ
+            </small>
+
+            <h2>
+                Từ thành Roma đến một đế chế rộng lớn
+            </h2>
+
+        </div>
+
+    </div>
+
+    <p class="lead">
+
+        La Mã bắt đầu từ một cộng đồng
+        trên bán đảo Italia,
+        sau đó phát triển thành
+        <span class="highlight">
+            Cộng hòa La Mã
+        </span>
+        và cuối cùng là
+        <span class="highlight">
+            Đế chế La Mã
+        </span>.
+
+        Sự thay đổi này diễn ra trong nhiều thế kỉ
+        và gắn với chiến tranh,
+        mở rộng lãnh thổ,
+        đấu tranh xã hội
+        và biến đổi trong bộ máy chính trị.
+    </p>
+
+    <div class="roman-process">
+
+        <div class="roman-stage">
+
+            <small>
+                GIAI ĐOẠN 1
+            </small>
+
+            <h3>
+                Thành Roma
+            </h3>
+
+            <p>
+                Từ một trung tâm ở vùng Latium,
+                Roma dần mở rộng ảnh hưởng
+                ở bán đảo Italia.
+            </p>
+
+        </div>
+
+        <div class="roman-stage">
+
+            <small>
+                GIAI ĐOẠN 2
+            </small>
+
+            <h3>
+                Cộng hòa
+            </h3>
+
+            <p>
+                Từ năm 509 TCN,
+                chế độ cộng hòa được thiết lập,
+                với Viện nguyên lão,
+                các quan chức và hội đồng công dân.
+            </p>
+
+        </div>
+
+        <div class="roman-stage">
+
+            <small>
+                GIAI ĐOẠN 3
+            </small>
+
+            <h3>
+                Khủng hoảng cuối cộng hòa
+            </h3>
+
+            <p>
+                Mở rộng lãnh thổ làm gia tăng
+                sự giàu có nhưng cũng tạo
+                nhiều mâu thuẫn chính trị,
+                chiến tranh và xung đột nội bộ.
+            </p>
+
+        </div>
+
+        <div class="roman-stage">
+
+            <small>
+                GIAI ĐOẠN 4
+            </small>
+
+            <h3>
+                Đế chế
+            </h3>
+
+            <p>
+                Năm 27 TCN,
+                Augustus trở thành nhân vật đứng đầu,
+                mở đầu thời kì đế chế.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     07. ROMAN EMPIRE
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            07
+        </div>
+
+        <div>
+
+            <small>
+                ĐẾ CHẾ LA MÃ
+            </small>
+
+            <h2>
+                Nhà nước đế chế được tổ chức ra sao?
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="two-column">
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                👑
+            </div>
+
+            <h3>
+                Hoàng đế
+            </h3>
+
+            <p>
+                Hoàng đế giữ vị trí quyền lực cao nhất
+                trong nhà nước,
+                kiểm soát quân đội
+                và có ảnh hưởng rất lớn
+                đối với bộ máy hành chính.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Viện nguyên lão
+            </h3>
+
+            <p>
+                Viện nguyên lão tiếp tục tồn tại,
+                nhưng vai trò thực tế thay đổi
+                tùy từng giai đoạn
+                và thường thấp hơn so với thời cộng hòa.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🦅
+            </div>
+
+            <h3>
+                Quân đội
+            </h3>
+
+            <p>
+                Quân đội La Mã là công cụ quan trọng
+                để bảo vệ biên giới,
+                mở rộng lãnh thổ
+                và duy trì quyền lực của hoàng đế.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🛣️
+            </div>
+
+            <h3>
+                Hành chính và giao thông
+            </h3>
+
+            <p>
+                Đế chế xây dựng hệ thống đường,
+                cầu, thành phố và các tỉnh,
+                giúp việc di chuyển quân đội,
+                thương mại và quản lí lãnh thổ thuận lợi hơn.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="note">
+
+        <div class="note-title">
+            📌 KHÔNG NÊN HIỂU “ĐẾ CHẾ” CHỈ LÀ LÃNH THỔ RỘNG
+        </div>
+
+        <p>
+            Khái niệm đế chế còn gắn với việc
+            một trung tâm quyền lực kiểm soát
+            nhiều vùng đất và cộng đồng khác nhau.
+            Ở La Mã,
+            quyền lực của hoàng đế,
+            quân đội,
+            bộ máy hành chính
+            và hệ thống các tỉnh
+            là những yếu tố quan trọng
+            giúp duy trì đế chế.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     08. CULTURE
+========================================================= -->
+
+<section
+    class="section"
+    id="culture"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            08
+        </div>
+
+        <div>
+
+            <small>
+                THÀNH TỰU VĂN HÓA
+            </small>
+
+            <h2>
+                Di sản tiêu biểu của Hy Lạp và La Mã
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="culture-grid">
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🔤
+            </div>
+
+            <h3>
+                Chữ viết
+            </h3>
+
+            <p>
+                Người Hy Lạp phát triển bảng chữ cái
+                dựa trên hệ chữ Phoenicia,
+                bổ sung kí hiệu cho nguyên âm.
+
+                Người La Mã phát triển chữ Latin,
+                trở thành cơ sở của nhiều hệ chữ
+                đang được sử dụng rộng rãi hiện nay.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                📚
+            </div>
+
+            <h3>
+                Văn học
+            </h3>
+
+            <p>
+                Các sử thi
+                <i>Iliad</i>
+                và
+                <i>Odyssey</i>
+                gắn với truyền thống Hy Lạp cổ đại.
+
+                Kịch bi và kịch hài
+                phát triển mạnh tại Athens.
+                La Mã tiếp thu và phát triển
+                nhiều thể loại văn học Hy Lạp.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🧠
+            </div>
+
+            <h3>
+                Triết học
+            </h3>
+
+            <p>
+                Socrates, Plato và Aristotle
+                là những tên tuổi nổi bật.
+                Các nhà tư tưởng Hy Lạp
+                đặt ra nhiều câu hỏi
+                về đạo đức, chính trị,
+                logic, tự nhiên và tri thức.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                📐
+            </div>
+
+            <h3>
+                Toán học
+            </h3>
+
+            <p>
+                Pythagoras gắn với truyền thống toán học,
+                Euclid hệ thống hóa hình học,
+                Archimedes có nhiều đóng góp
+                cho toán học và cơ học.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🌍
+            </div>
+
+            <h3>
+                Địa lí và thiên văn
+            </h3>
+
+            <p>
+                Eratosthenes ước tính chu vi Trái Đất
+                với độ chính xác đáng chú ý
+                đối với thời cổ đại.
+
+                Ptolemy sau này hệ thống hóa
+                nhiều tri thức địa lí
+                và thiên văn của thế giới cổ.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🩺
+            </div>
+
+            <h3>
+                Y học
+            </h3>
+
+            <p>
+                Hippocrates gắn với truyền thống
+                y học Hy Lạp,
+                nhấn mạnh việc quan sát bệnh nhân
+                và giải thích bệnh tật
+                bằng nguyên nhân tự nhiên.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Kiến trúc Hy Lạp
+            </h3>
+
+            <p>
+                Các kiểu cột Doric,
+                Ionic và Corinthian
+                trở thành đặc trưng nổi bật.
+                Đền Parthenon tại Athens
+                là một công trình tiêu biểu.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🏟️
+            </div>
+
+            <h3>
+                Kiến trúc La Mã
+            </h3>
+
+            <p>
+                Người La Mã phát triển mạnh
+                vòm cuốn,
+                mái vòm,
+                bê tông La Mã,
+                cầu dẫn nước
+                và các công trình quy mô lớn
+                như Colosseum và Pantheon.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🗿
+            </div>
+
+            <h3>
+                Điêu khắc
+            </h3>
+
+            <p>
+                Nghệ thuật Hy Lạp chú trọng
+                tỉ lệ, chuyển động
+                và lí tưởng hóa cơ thể người.
+
+                Điêu khắc La Mã phát triển mạnh
+                chân dung,
+                phù điêu lịch sử
+                và tượng các hoàng đế.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                ⚖️
+            </div>
+
+            <h3>
+                Luật pháp La Mã
+            </h3>
+
+            <p>
+                Truyền thống luật La Mã,
+                từ Luật XII bảng
+                đến các hệ thống pháp luật sau này,
+                ảnh hưởng sâu rộng
+                đến lịch sử pháp luật châu Âu.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🏅
+            </div>
+
+            <h3>
+                Thể thao
+            </h3>
+
+            <p>
+                Các lễ hội thể thao Hy Lạp cổ đại,
+                trong đó nổi tiếng nhất là
+                Olympic tại Olympia,
+                vừa mang ý nghĩa tôn giáo
+                vừa thể hiện tinh thần thi đấu.
+            </p>
+
+        </div>
+
+        <div class="culture-card">
+
+            <div class="culture-icon">
+                🕰️
+            </div>
+
+            <h3>
+                Lịch
+            </h3>
+
+            <p>
+                Lịch Julius được cải cách
+                dưới thời Julius Caesar
+                vào năm 46 TCN
+                và trở thành cơ sở quan trọng
+                cho lịch Gregory hiện đại.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     09. CULTURE TABLE
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            09
+        </div>
+
+        <div>
+
+            <small>
+                HỆ THỐNG HÓA
+            </small>
+
+            <h2>
+                Hy Lạp và La Mã đã đóng góp gì?
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Lĩnh vực</th>
+                    <th>Hy Lạp</th>
+                    <th>La Mã</th>
+                    <th>Ảnh hưởng lâu dài</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <b>Chính trị</b>
+                    </td>
+
+                    <td>
+                        Dân chủ trực tiếp
+                        tại Athens.
+                    </td>
+
+                    <td>
+                        Cộng hòa,
+                        Viện nguyên lão,
+                        hệ thống hành chính đế chế.
+                    </td>
+
+                    <td>
+                        Trở thành những mô hình
+                        thường được nghiên cứu
+                        trong lịch sử tư tưởng chính trị.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Chữ viết</b>
+                    </td>
+
+                    <td>
+                        Bảng chữ cái Hy Lạp.
+                    </td>
+
+                    <td>
+                        Chữ Latin.
+                    </td>
+
+                    <td>
+                        Nhiều hệ chữ châu Âu hiện đại
+                        có quan hệ với truyền thống này.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Khoa học</b>
+                    </td>
+
+                    <td>
+                        Toán học,
+                        triết học,
+                        y học,
+                        thiên văn,
+                        địa lí.
+                    </td>
+
+                    <td>
+                        Kĩ thuật,
+                        xây dựng,
+                        y học,
+                        luật,
+                        quản lí.
+                    </td>
+
+                    <td>
+                        Nhiều khái niệm,
+                        tác phẩm và phương pháp
+                        tiếp tục được nghiên cứu.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Kiến trúc</b>
+                    </td>
+
+                    <td>
+                        Hệ thống cột,
+                        đền thờ,
+                        tỉ lệ hài hòa.
+                    </td>
+
+                    <td>
+                        Vòm cuốn,
+                        mái vòm,
+                        cầu dẫn nước,
+                        đấu trường.
+                    </td>
+
+                    <td>
+                        Ảnh hưởng mạnh
+                        đến kiến trúc châu Âu
+                        và kiến trúc công cộng hiện đại.
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     10. FIGURES
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            10
+        </div>
+
+        <div>
+
+            <small>
+                NHÂN VẬT & HỌC GIẢ
+            </small>
+
+            <h2>
+                Một số tên tuổi nổi bật
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="person-grid">
+
+        <div class="person">
+
+            <div class="person-avatar">
+                🧠
+            </div>
+
+            <h3>
+                Socrates
+            </h3>
+
+            <small>
+                TRIẾT HỌC
+            </small>
+
+            <p>
+                Nổi tiếng với phương pháp
+                đặt câu hỏi,
+                đối thoại
+                và kiểm tra lập luận.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                📜
+            </div>
+
+            <h3>
+                Plato
+            </h3>
+
+            <small>
+                TRIẾT HỌC
+            </small>
+
+            <p>
+                Học trò của Socrates,
+                tác giả nhiều đối thoại triết học
+                và là người sáng lập Academy tại Athens.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                🔬
+            </div>
+
+            <h3>
+                Aristotle
+            </h3>
+
+            <small>
+                TRIẾT HỌC – KHOA HỌC
+            </small>
+
+            <p>
+                Nghiên cứu nhiều lĩnh vực
+                như logic,
+                sinh học,
+                chính trị,
+                đạo đức và triết học tự nhiên.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                📐
+            </div>
+
+            <h3>
+                Euclid
+            </h3>
+
+            <small>
+                TOÁN HỌC
+            </small>
+
+            <p>
+                Tác phẩm
+                <i>Elements</i>
+                hệ thống hóa kiến thức hình học
+                theo phương pháp tiên đề.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                ⚙️
+            </div>
+
+            <h3>
+                Archimedes
+            </h3>
+
+            <small>
+                TOÁN – CƠ HỌC
+            </small>
+
+            <p>
+                Có nhiều đóng góp
+                trong hình học,
+                cơ học và nghiên cứu
+                lực đẩy của chất lỏng.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                🌍
+            </div>
+
+            <h3>
+                Eratosthenes
+            </h3>
+
+            <small>
+                ĐỊA LÍ
+            </small>
+
+            <p>
+                Nổi tiếng với phép ước tính
+                chu vi Trái Đất
+                dựa trên quan sát góc chiếu
+                của ánh sáng Mặt Trời.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                🦅
+            </div>
+
+            <h3>
+                Julius Caesar
+            </h3>
+
+            <small>
+                CHÍNH TRỊ – QUÂN SỰ
+            </small>
+
+            <p>
+                Giữ vai trò lớn
+                trong giai đoạn cuối Cộng hòa La Mã.
+                Việc ông bị ám sát năm 44 TCN
+                mở ra một giai đoạn xung đột mới.
+            </p>
+
+        </div>
+
+        <div class="person">
+
+            <div class="person-avatar">
+                👑
+            </div>
+
+            <h3>
+                Augustus
+            </h3>
+
+            <small>
+                HOÀNG ĐẾ LA MÃ
+            </small>
+
+            <p>
+                Octavian nhận tước hiệu Augustus
+                năm 27 TCN
+                và thiết lập một trật tự chính trị
+                được xem là khởi đầu của Đế chế La Mã.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     11. EXPANSION
+========================================================= -->
+
+<section
+    class="section"
+    id="expand"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            11
+        </div>
+
+        <div>
+
+            <small>
+                KIẾN THỨC MỞ RỘNG
+            </small>
+
+            <h2>
+                Những điều thú vị ngoài kiến thức cơ bản
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="accordion">
+
+        <div class="accordion-item">
+
+            <button
+                class="accordion-button"
+                onclick="toggleAccordion(this)"
+            >
+                Vì sao Hy Lạp có rất nhiều thuộc địa?
+                <span>+</span>
+            </button>
+
+            <div class="accordion-content">
+                Từ thế kỉ VIII đến VI TCN,
+                người Hy Lạp lập nhiều khu định cư mới
+                quanh Địa Trung Hải và Biển Đen.
+                Nguyên nhân rất đa dạng:
+                nhu cầu đất đai,
+                thương mại,
+                xung đột nội bộ
+                và tìm nguồn tài nguyên.
+                Các khu định cư mới thường giữ
+                quan hệ văn hóa với thành bang gốc
+                nhưng không nhất thiết chịu sự cai trị trực tiếp.
+            </div>
+
+        </div>
+
+        <div class="accordion-item">
+
+            <button
+                class="accordion-button"
+                onclick="toggleAccordion(this)"
+            >
+                Athens có phải nơi duy nhất có dân chủ?
+                <span>+</span>
+            </button>
+
+            <div class="accordion-content">
+                Không.
+                Một số polis khác cũng có những hình thức
+                tham gia chính trị của công dân.
+                Tuy nhiên Athens là trường hợp
+                được nghiên cứu nhiều nhất
+                vì tài liệu còn lại phong phú
+                và hệ thống dân chủ tại đây phát triển rất rõ.
+            </div>
+
+        </div>
+
+        <div class="accordion-item">
+
+            <button
+                class="accordion-button"
+                onclick="toggleAccordion(this)"
+            >
+                “Mọi con đường đều dẫn tới Roma” có đúng không?
+                <span>+</span>
+            </button>
+
+            <div class="accordion-content">
+                Đây là một cách nói biểu tượng.
+                Đế chế La Mã thực sự xây dựng
+                một mạng lưới đường bộ rất rộng,
+                nhiều tuyến kết nối các tỉnh,
+                thành phố và căn cứ quân sự với Roma.
+                Nhưng không phải theo nghĩa đen
+                tất cả mọi con đường đều trực tiếp đi tới thành Roma.
+            </div>
+
+        </div>
+
+        <div class="accordion-item">
+
+            <button
+                class="accordion-button"
+                onclick="toggleAccordion(this)"
+            >
+                Người La Mã có “phát minh” toàn bộ văn hóa của họ?
+                <span>+</span>
+            </button>
+
+            <div class="accordion-content">
+                Không.
+                Văn hóa La Mã hình thành qua sự tiếp xúc
+                và tiếp thu nhiều truyền thống,
+                đặc biệt là Hy Lạp,
+                Etruscan
+                và các cộng đồng khác.
+                Người La Mã thường tiếp biến,
+                tổ chức lại
+                và phát triển chúng theo nhu cầu riêng.
+            </div>
+
+        </div>
+
+        <div class="accordion-item">
+
+            <button
+                class="accordion-button"
+                onclick="toggleAccordion(this)"
+            >
+                Olympic cổ đại có giống Olympic hiện nay không?
+                <span>+</span>
+            </button>
+
+            <div class="accordion-content">
+                Không hoàn toàn.
+                Olympic cổ đại gắn với nghi lễ tôn giáo
+                tại Olympia,
+                chỉ có một số nhóm người được tham gia
+                và số môn thi ít hơn nhiều.
+                Thế vận hội hiện đại
+                được phục hồi vào cuối thế kỉ XIX
+                và mang tính quốc tế rộng lớn hơn.
+            </div>
+
+        </div>
+
+        <div class="accordion-item">
+
+            <button
+                class="accordion-button"
+                onclick="toggleAccordion(this)"
+            >
+                Vì sao bê tông La Mã nổi tiếng?
+                <span>+</span>
+            </button>
+
+            <div class="accordion-content">
+                Người La Mã sử dụng hỗn hợp vật liệu
+                có khả năng tạo ra kết cấu bền,
+                đặc biệt trong một số công trình lớn.
+                Sự kết hợp giữa bê tông,
+                vòm cuốn
+                và mái vòm
+                cho phép họ xây dựng
+                không gian rộng hơn
+                so với nhiều kiểu kiến trúc trước đó.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     12. COMPARISON
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            12
+        </div>
+
+        <div>
+
+            <small>
+                SO SÁNH
+            </small>
+
+            <h2>
+                Hy Lạp và La Mã cổ đại khác nhau như thế nào?
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Tiêu chí</th>
+                    <th>Hy Lạp cổ đại</th>
+                    <th>La Mã cổ đại</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <b>Không gian ban đầu</b>
+                    </td>
+
+                    <td>
+                        Nam Balkan,
+                        biển Aegean,
+                        nhiều đảo.
+                    </td>
+
+                    <td>
+                        Bán đảo Italia,
+                        trung tâm là Roma.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Đặc điểm chính trị nổi bật</b>
+                    </td>
+
+                    <td>
+                        Nhiều thành bang độc lập,
+                        thể chế khác nhau.
+                    </td>
+
+                    <td>
+                        Từ thành phố,
+                        mở rộng thành cộng hòa
+                        rồi đế chế rộng lớn.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Mô hình tiêu biểu</b>
+                    </td>
+
+                    <td>
+                        Dân chủ trực tiếp Athens,
+                        quân sự Sparta.
+                    </td>
+
+                    <td>
+                        Cộng hòa La Mã,
+                        sau đó là chế độ đế chế.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Thế mạnh kinh tế</b>
+                    </td>
+
+                    <td>
+                        Hàng hải,
+                        thương mại,
+                        thủ công,
+                        cây nho và ôliu.
+                    </td>
+
+                    <td>
+                        Nông nghiệp,
+                        thương mại,
+                        thủ công,
+                        mạng lưới kinh tế quy mô đế chế.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Di sản tiêu biểu</b>
+                    </td>
+
+                    <td>
+                        Triết học,
+                        khoa học,
+                        dân chủ,
+                        nghệ thuật,
+                        kiến trúc.
+                    </td>
+
+                    <td>
+                        Luật pháp,
+                        kĩ thuật,
+                        kiến trúc,
+                        chữ Latin,
+                        tổ chức hành chính.
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     13. SUMMARY
+========================================================= -->
+
+<section
+    class="section"
+    id="summary"
+>
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            13
+        </div>
+
+        <div>
+
+            <small>
+                GHI NHỚ
+            </small>
+
+            <h2>
+                Sơ đồ kiến thức trọng tâm
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <span>🌊</span>
+
+            <strong>
+                ĐỊA TRUNG HẢI
+            </strong>
+
+            <p>
+                Biển,
+                đảo,
+                bán đảo
+                tạo điều kiện cho giao lưu.
+            </p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <span>🏛️</span>
+
+            <strong>
+                POLIS HY LẠP
+            </strong>
+
+            <p>
+                Nhiều thành bang
+                độc lập về chính trị.
+            </p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <span>🗳️</span>
+
+            <strong>
+                ATHENS
+            </strong>
+
+            <p>
+                Dân chủ trực tiếp,
+                nhưng quyền công dân còn hạn chế.
+            </p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <span>🦅</span>
+
+            <strong>
+                LA MÃ
+            </strong>
+
+            <p>
+                Cộng hòa
+                → khủng hoảng
+                → đế chế.
+            </p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <span>🏺</span>
+
+            <strong>
+                VĂN HÓA
+            </strong>
+
+            <p>
+                Chữ viết,
+                khoa học,
+                nghệ thuật,
+                luật pháp,
+                kiến trúc.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+    HỌC LIỆU SỐ • LỊCH SỬ 6 • HY LẠP VÀ LA MÃ CỔ ĐẠI
+</footer>
+
+</main>
+
+<script>
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollToSection(id){
+
+    const target =
+        document
+        .getElementById(id);
+
+    if(target){
+
+        target.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+
+    }
+
+}
+
+/* =========================================================
+   ACCORDION
+========================================================= */
+
+function toggleAccordion(button){
+
+    const item =
+        button.closest(
+            ".accordion-item"
+        );
+
+    const opened =
+        item.classList.contains(
+            "open"
+        );
+
+    document
+        .querySelectorAll(
+            ".accordion-item"
+        )
+        .forEach(
+            element=>{
+
+                element
+                    .classList
+                    .remove(
+                        "open"
+                    );
+
+            }
+        );
+
+    if(!opened){
+
+        item
+            .classList
+            .add(
+                "open"
+            );
+
+    }
+
+}
+
+/* =========================================================
+   BACKGROUND DUST
+========================================================= */
+
+const background =
+    document
+    .getElementById(
+        "background"
+    );
+
+for(
+    let i=0;
+    i<65;
+    i++
+){
+
+    const dust =
+        document
+        .createElement(
+            "div"
+        );
+
+    dust.className =
+        "dust";
+
+    const size =
+        Math.random()*3
+        +.5;
+
+    dust.style.width =
+        size+"px";
+
+    dust.style.height =
+        size+"px";
+
+    dust.style.left =
+        Math.random()*100
+        +"%";
+
+    dust.style.animationDelay =
+        Math.random()*10
+        +"s";
+
+    dust.style.animationDuration =
+        (
+            7
+            +
+            Math.random()*9
+        )
+        +"s";
+
+    background.appendChild(
+        dust
+    );
+
+}
+
+</script>
+
+</body>
+</html>

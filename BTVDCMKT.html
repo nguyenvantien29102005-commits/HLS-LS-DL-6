@@ -1,0 +1,4883 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Thử thách Các mảng kiến tạo</title>
+
+<style>
+
+/* =========================================================
+   01. RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color:#fff;
+
+    background:
+
+        radial-gradient(
+            circle at 12% 10%,
+            rgba(24,105,255,.22),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 88% 18%,
+            rgba(126,56,255,.18),
+            transparent 29%
+        ),
+
+        radial-gradient(
+            circle at 50% 95%,
+            rgba(0,190,255,.10),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            140deg,
+            #01030a,
+            #040817 42%,
+            #0a0821 73%,
+            #02030b
+        );
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+
+/* =========================================================
+   02. BACKGROUND
+========================================================= */
+
+.space{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-10;
+
+    overflow:hidden;
+}
+
+.nebula{
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(110px);
+
+    opacity:.23;
+}
+
+.nebula.one{
+    width:520px;
+    height:520px;
+
+    left:-230px;
+    top:-190px;
+
+    background:#1759ff;
+}
+
+.nebula.two{
+    width:560px;
+    height:560px;
+
+    right:-240px;
+    top:20%;
+
+    background:#7636ff;
+}
+
+.nebula.three{
+    width:460px;
+    height:460px;
+
+    left:36%;
+    bottom:-230px;
+
+    background:#008cff;
+}
+
+.star{
+    position:absolute;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    opacity:.5;
+
+    animation:
+        twinkle 3s ease-in-out
+        infinite alternate;
+}
+
+@keyframes twinkle{
+
+    from{
+        opacity:.15;
+        transform:scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.25);
+    }
+
+}
+
+
+/* =========================================================
+   03. APP
+========================================================= */
+
+.app{
+    width:min(1250px,93%);
+    margin:auto;
+
+    padding:
+        28px 0
+        80px;
+}
+
+
+/* =========================================================
+   04. HEADER
+========================================================= */
+
+.topbar{
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:35px;
+}
+
+.brand{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.brand-logo{
+    width:52px;
+    height:52px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:17px;
+
+    font-size:26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #176eff,
+            #713eff
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 0 32px
+        rgba(65,95,255,.35);
+}
+
+.brand small{
+    display:block;
+
+    color:#6b82ab;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.brand strong{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:17px;
+}
+
+.top-badge{
+    padding:
+        10px 16px;
+
+    border-radius:100px;
+
+    background:
+        rgba(5,12,34,.6);
+
+    border:
+        1px solid
+        rgba(112,147,232,.15);
+
+    color:#92a9d1;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        52px 55px;
+
+    border-radius:33px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(8,20,55,.93),
+            rgba(22,10,61,.86)
+        );
+
+    border:
+        1px solid
+        rgba(112,151,255,.20);
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.4);
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:460px;
+    height:460px;
+
+    right:-160px;
+    bottom:-220px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(36,112,255,.23),
+            transparent 67%
+        );
+}
+
+.eyebrow{
+    color:#66b9ff;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:14px;
+}
+
+.hero h1{
+    font-size:
+        clamp(
+            39px,
+            6vw,
+            72px
+        );
+
+    line-height:.98;
+
+    letter-spacing:-2px;
+}
+
+.hero h1 span{
+    display:block;
+
+    margin-top:7px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #66d4ff,
+            #9c8cff,
+            #da72ff
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-description{
+    max-width:760px;
+
+    margin-top:22px;
+
+    color:#91a2c2;
+
+    line-height:1.75;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   06. SCORE
+========================================================= */
+
+.score-area{
+    display:grid;
+
+    grid-template-columns:
+        1fr auto auto auto;
+
+    gap:13px;
+
+    align-items:center;
+
+    margin-top:30px;
+}
+
+.progress-shell{
+    height:10px;
+
+    overflow:hidden;
+
+    border-radius:50px;
+
+    background:#101b38;
+}
+
+.progress-bar{
+    width:0;
+    height:100%;
+
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1479ff,
+            #674dff,
+            #c24fff
+        );
+
+    transition:.4s;
+}
+
+.score-card{
+    min-width:100px;
+
+    padding:
+        10px 14px;
+
+    text-align:center;
+
+    border-radius:13px;
+
+    background:
+        rgba(8,17,45,.67);
+
+    border:
+        1px solid
+        rgba(112,146,224,.13);
+}
+
+.score-card small{
+    display:block;
+
+    color:#62789e;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+}
+
+.score-card strong{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   07. LEVEL MENU
+========================================================= */
+
+.level-menu{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
+
+    margin:
+        28px 0;
+}
+
+.level-button{
+    padding:
+        17px 15px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    border-radius:18px;
+
+    color:#899bbc;
+
+    background:
+        rgba(8,16,42,.72);
+
+    border:
+        1px solid
+        rgba(103,137,218,.14);
+
+    transition:.28s;
+}
+
+.level-button:hover,
+.level-button.active{
+    transform:
+        translateY(-4px);
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(31,88,211,.43),
+            rgba(91,40,182,.36)
+        );
+
+    border-color:
+        rgba(98,143,255,.42);
+}
+
+.level-button small{
+    display:block;
+
+    color:#64aaff;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+}
+
+.level-button strong{
+    display:block;
+
+    margin-top:5px;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   08. LEVEL
+========================================================= */
+
+.level{
+    display:none;
+}
+
+.level.active{
+    display:block;
+
+    animation:
+        levelIn .4s ease;
+}
+
+@keyframes levelIn{
+
+    from{
+        opacity:0;
+        transform:
+            translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0);
+    }
+
+}
+
+.section-heading{
+    margin:
+        38px 0
+        19px;
+}
+
+.section-heading small{
+    color:#639fff;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+.section-heading h2{
+    margin-top:5px;
+
+    font-size:29px;
+}
+
+
+/* =========================================================
+   09. QUESTION CARD
+========================================================= */
+
+.question{
+    position:relative;
+
+    margin-bottom:20px;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8,19,49,.92),
+            rgba(17,9,43,.89)
+        );
+
+    border:
+        1px solid
+        rgba(105,141,230,.16);
+
+    box-shadow:
+        0 16px 50px
+        rgba(0,0,0,.23);
+}
+
+.question-number{
+    color:#64aaff;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.question h3{
+    margin-top:9px;
+
+    font-size:19px;
+
+    line-height:1.5;
+}
+
+.question-note{
+    margin-top:7px;
+
+    color:#788cac;
+
+    line-height:1.6;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   10. ANSWERS
+========================================================= */
+
+.answers{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:19px;
+}
+
+.answer{
+    position:relative;
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:flex-start;
+
+    padding:14px;
+
+    cursor:pointer;
+
+    border-radius:14px;
+
+    color:#b6c2da;
+
+    background:
+        rgba(29,46,87,.29);
+
+    border:
+        1px solid
+        rgba(105,139,207,.12);
+
+    font-size:12px;
+
+    line-height:1.55;
+
+    transition:.22s;
+}
+
+.answer:hover{
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(86,145,255,.36);
+
+    background:
+        rgba(41,73,140,.25);
+}
+
+.answer input{
+    margin-top:3px;
+
+    accent-color:#645fff;
+}
+
+.answer.correct{
+    color:#adffe4;
+
+    background:
+        rgba(36,179,133,.13);
+
+    border-color:#36d7a5;
+}
+
+.answer.wrong{
+    color:#ffc1ca;
+
+    background:
+        rgba(204,53,84,.12);
+
+    border-color:#ff6378;
+}
+
+
+/* =========================================================
+   11. BUTTON
+========================================================= */
+
+.check-button{
+    margin-top:16px;
+
+    padding:
+        11px 18px;
+
+    border:0;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    font-weight:700;
+
+    font-size:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #176dff,
+            #7140ff
+        );
+
+    box-shadow:
+        0 10px 24px
+        rgba(53,77,255,.18);
+
+    transition:.22s;
+}
+
+.check-button:hover{
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   12. FEEDBACK
+========================================================= */
+
+.feedback{
+    display:none;
+
+    margin-top:14px;
+
+    padding:
+        12px 14px;
+
+    border-radius:12px;
+
+    line-height:1.6;
+
+    font-size:11px;
+}
+
+.feedback.show{
+    display:block;
+}
+
+.feedback.good{
+    color:#aaffdf;
+
+    background:
+        rgba(31,167,123,.10);
+
+    border:
+        1px solid
+        rgba(51,220,166,.20);
+}
+
+.feedback.bad{
+    color:#ffbdc8;
+
+    background:
+        rgba(196,55,84,.10);
+
+    border:
+        1px solid
+        rgba(255,92,119,.18);
+}
+
+
+/* =========================================================
+   13. SCHEMATIC MAP
+========================================================= */
+
+.map-task{
+    margin-top:20px;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.4fr)
+        minmax(250px,.6fr);
+
+    gap:22px;
+
+    align-items:center;
+}
+
+.map-board{
+    position:relative;
+
+    min-height:390px;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            #0b6593,
+            #06436d
+        );
+
+    border:
+        1px solid
+        rgba(101,160,240,.22);
+}
+
+.map-board::after{
+    content:"LƯỢC ĐỒ KHÁI QUÁT • KHÔNG THEO TỈ LỆ";
+
+    position:absolute;
+
+    left:12px;
+    bottom:8px;
+
+    color:
+        rgba(255,255,255,.42);
+
+    font-size:7px;
+
+    letter-spacing:1px;
+}
+
+.land{
+    position:absolute;
+
+    background:#617e63;
+
+    border:
+        2px solid
+        rgba(198,219,191,.35);
+}
+
+.land.na{
+    width:31%;
+    height:29%;
+
+    top:12%;
+    left:8%;
+
+    clip-path:
+        polygon(
+            10% 40%,
+            33% 5%,
+            78% 7%,
+            100% 45%,
+            72% 75%,
+            47% 70%,
+            25% 100%,
+            0 72%
+        );
+}
+
+.land.sa{
+    width:16%;
+    height:39%;
+
+    top:45%;
+    left:29%;
+
+    clip-path:
+        polygon(
+            15% 0,
+            75% 3%,
+            100% 26%,
+            78% 72%,
+            45% 100%,
+            15% 70%,
+            0 25%
+        );
+}
+
+.land.eurasia{
+    width:42%;
+    height:27%;
+
+    top:13%;
+    right:7%;
+
+    clip-path:
+        polygon(
+            0 37%,
+            15% 5%,
+            55% 0,
+            100% 35%,
+            88% 77%,
+            60% 72%,
+            38% 100%,
+            10% 77%
+        );
+}
+
+.land.africa{
+    width:19%;
+    height:37%;
+
+    top:39%;
+    left:52%;
+
+    clip-path:
+        polygon(
+            20% 0,
+            78% 5%,
+            100% 28%,
+            76% 80%,
+            45% 100%,
+            18% 70%,
+            0 25%
+        );
+}
+
+.land.australia{
+    width:15%;
+    height:18%;
+
+    right:8%;
+    bottom:19%;
+
+    clip-path:
+        polygon(
+            10% 15%,
+            55% 0,
+            100% 32%,
+            82% 90%,
+            25% 100%,
+            0 55%
+        );
+}
+
+
+/* CLICKABLE PLATES */
+
+.plate-marker{
+    position:absolute;
+
+    min-width:58px;
+    min-height:42px;
+
+    padding:
+        8px 10px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:#e7f3ff;
+
+    background:
+        rgba(3,13,33,.75);
+
+    border:
+        1px solid
+        rgba(255,255,255,.35);
+
+    font-size:9px;
+
+    font-weight:700;
+
+    transition:.2s;
+
+    z-index:10;
+}
+
+.plate-marker:hover,
+.plate-marker.selected{
+    transform:scale(1.08);
+
+    background:
+        linear-gradient(
+            135deg,
+            #176fff,
+            #7441ff
+        );
+
+    box-shadow:
+        0 0 20px
+        rgba(74,102,255,.40);
+}
+
+.plate-marker.pacific{
+    left:3%;
+    top:48%;
+}
+
+.plate-marker.north-america{
+    left:18%;
+    top:23%;
+}
+
+.plate-marker.south-america{
+    left:30%;
+    top:61%;
+}
+
+.plate-marker.eurasia{
+    left:66%;
+    top:23%;
+}
+
+.plate-marker.africa{
+    left:56%;
+    top:53%;
+}
+
+.plate-marker.indo{
+    right:9%;
+    top:60%;
+}
+
+.plate-marker.antarctic{
+    left:45%;
+    bottom:4%;
+}
+
+
+/* =========================================================
+   14. BOUNDARY SIMULATOR
+========================================================= */
+
+.boundary-lab{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.3fr)
+        minmax(240px,.7fr);
+
+    gap:22px;
+
+    margin-top:20px;
+}
+
+.simulation{
+    position:relative;
+
+    min-height:320px;
+
+    overflow:hidden;
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            #075d88 0 22%,
+            #21475d 22% 26%,
+            #ba592b 26% 66%,
+            #581d18 66%
+        );
+
+    border:
+        1px solid
+        rgba(105,151,239,.20);
+}
+
+.tectonic-plate{
+    position:absolute;
+
+    top:74px;
+
+    width:51%;
+    height:65px;
+
+    z-index:5;
+
+    background:
+        linear-gradient(
+            #674632,
+            #332824
+        );
+
+    border-top:
+        9px solid
+        #91a8aa;
+
+    transition:
+        transform .9s ease;
+}
+
+.tectonic-plate.left{
+    left:-1%;
+}
+
+.tectonic-plate.right{
+    right:-1%;
+}
+
+.magma{
+    position:absolute;
+
+    width:35px;
+    height:150px;
+
+    left:50%;
+    top:85px;
+
+    transform:
+        translateX(-50%);
+
+    opacity:0;
+
+    background:
+        linear-gradient(
+            #ffe971,
+            #ff7300,
+            #dc2300
+        );
+
+    clip-path:
+        polygon(
+            42% 0,
+            58% 0,
+            100% 100%,
+            0 100%
+        );
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            #ff4c00
+        );
+
+    transition:.6s;
+}
+
+.mountain{
+    position:absolute;
+
+    width:160px;
+    height:90px;
+
+    left:50%;
+    top:20px;
+
+    transform:
+        translateX(-50%)
+        scaleY(.05);
+
+    transform-origin:
+        bottom;
+
+    background:
+        linear-gradient(
+            135deg,
+            #805037,
+            #33251f
+        );
+
+    clip-path:
+        polygon(
+            0 100%,
+            25% 55%,
+            38% 65%,
+            52% 7%,
+            65% 60%,
+            80% 43%,
+            100% 100%
+        );
+
+    transition:.8s;
+}
+
+.quake{
+    position:absolute;
+
+    opacity:0;
+
+    font-size:24px;
+
+    z-index:20;
+
+    transition:.3s;
+}
+
+.quake.one{
+    left:45%;
+    top:145px;
+}
+
+.quake.two{
+    left:57%;
+    top:195px;
+}
+
+.direction-arrows{
+    position:absolute;
+
+    left:0;
+    right:0;
+    top:42px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:180px;
+
+    color:#67e4ff;
+
+    font-size:35px;
+
+    font-weight:bold;
+
+    opacity:0;
+
+    z-index:25;
+
+    transition:.3s;
+}
+
+.sim-controls{
+    display:grid;
+
+    gap:8px;
+}
+
+.sim-choice{
+    padding:13px;
+
+    cursor:pointer;
+
+    border-radius:13px;
+
+    color:#9fb0ce;
+
+    background:
+        rgba(29,45,83,.27);
+
+    border:
+        1px solid
+        rgba(101,137,213,.13);
+
+    text-align:left;
+
+    transition:.2s;
+}
+
+.sim-choice:hover,
+.sim-choice.active{
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,106,255,.50),
+            rgba(106,53,230,.42)
+        );
+
+    border-color:
+        rgba(99,146,255,.40);
+}
+
+
+/* =========================================================
+   15. DRAG MATCH
+========================================================= */
+
+.drag-layout{
+    display:grid;
+
+    grid-template-columns:
+        .8fr 1.2fr;
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+.drag-bank{
+    display:grid;
+
+    gap:8px;
+}
+
+.drag-item{
+    padding:
+        12px;
+
+    text-align:center;
+
+    cursor:grab;
+
+    border-radius:12px;
+
+    color:#c4d1e8;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(36,87,185,.38),
+            rgba(85,45,158,.30)
+        );
+
+    border:
+        1px solid
+        rgba(106,148,236,.21);
+}
+
+.drag-item.dragging{
+    opacity:.35;
+}
+
+.drop-row{
+    display:grid;
+
+    grid-template-columns:
+        155px 1fr;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:9px;
+}
+
+.drop-title{
+    color:#91a6ca;
+
+    font-size:11px;
+}
+
+.drop-box{
+    min-height:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:7px;
+
+    border-radius:12px;
+
+    color:#62779d;
+
+    border:
+        1px dashed
+        rgba(111,153,236,.35);
+
+    background:
+        rgba(13,25,58,.30);
+}
+
+.drop-box.over{
+    border-color:#57a1ff;
+
+    background:
+        rgba(38,91,191,.20);
+}
+
+
+/* =========================================================
+   16. CLAIM CARDS
+========================================================= */
+
+.claim-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:11px;
+
+    margin-top:20px;
+}
+
+.claim{
+    padding:16px;
+
+    border-radius:15px;
+
+    background:
+        rgba(27,42,78,.31);
+
+    border:
+        1px solid
+        rgba(103,137,206,.12);
+}
+
+.claim strong{
+    display:block;
+
+    color:#b8c7df;
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+.claim-options{
+    display:flex;
+
+    gap:6px;
+
+    margin-top:13px;
+}
+
+.claim-options button{
+    flex:1;
+
+    padding:9px;
+
+    cursor:pointer;
+
+    color:#879bbd;
+
+    background:#15264a;
+
+    border:
+        1px solid
+        rgba(100,136,212,.12);
+
+    border-radius:9px;
+}
+
+.claim-options button.selected{
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #176fff,
+            #7140ff
+        );
+}
+
+
+/* =========================================================
+   17. CASE STUDY
+========================================================= */
+
+.case-study{
+    margin-top:20px;
+
+    padding:21px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(33,85,180,.17),
+            rgba(93,40,170,.16)
+        );
+
+    border:
+        1px solid
+        rgba(105,145,230,.16);
+}
+
+.case-head{
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+}
+
+.case-icon{
+    width:48px;
+    height:48px;
+
+    display:grid;
+
+    place-items:center;
+
+    flex-shrink:0;
+
+    border-radius:15px;
+
+    font-size:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #176fff,
+            #7340ff
+        );
+}
+
+.case-study p{
+    margin-top:14px;
+
+    color:#97a8c6;
+
+    line-height:1.75;
+
+    font-size:12px;
+}
+
+textarea{
+    width:100%;
+
+    min-height:120px;
+
+    margin-top:15px;
+
+    padding:15px;
+
+    resize:vertical;
+
+    outline:none;
+
+    color:#fff;
+
+    line-height:1.6;
+
+    border-radius:14px;
+
+    background:
+        rgba(3,11,31,.61);
+
+    border:
+        1px solid
+        rgba(103,141,219,.19);
+}
+
+textarea:focus{
+    border-color:#577fff;
+}
+
+
+/* =========================================================
+   18. RESULT
+========================================================= */
+
+.result{
+    display:none;
+
+    margin-top:35px;
+
+    padding:40px;
+
+    text-align:center;
+
+    border-radius:29px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(12,38,91,.91),
+            rgba(42,13,84,.88)
+        );
+
+    border:
+        1px solid
+        rgba(112,148,255,.24);
+}
+
+.result.show{
+    display:block;
+
+    animation:
+        levelIn .5s ease;
+}
+
+.result-icon{
+    font-size:72px;
+}
+
+.final-score{
+    margin-top:8px;
+
+    font-size:62px;
+
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            90deg,
+            #63d0ff,
+            #9b86ff,
+            #df73ff
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.result h2{
+    margin-top:3px;
+}
+
+.result p{
+    max-width:660px;
+
+    margin:
+        12px auto
+        0;
+
+    color:#93a6c8;
+
+    line-height:1.7;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   19. FOOTER
+========================================================= */
+
+.footer{
+    margin-top:50px;
+
+    text-align:center;
+
+    color:#45597c;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   20. RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .level-menu{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .answers{
+        grid-template-columns:1fr;
+    }
+
+    .map-task,
+    .boundary-lab,
+    .drag-layout{
+        grid-template-columns:1fr;
+    }
+
+    .claim-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .hero{
+        padding:
+            35px 23px;
+    }
+
+    .score-area{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .progress-shell{
+        grid-column:1/-1;
+    }
+
+    .level-menu{
+        grid-template-columns:1fr;
+    }
+
+    .top-badge{
+        display:none;
+    }
+
+    .drop-row{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div
+    class="space"
+    id="space"
+>
+
+    <div class="nebula one"></div>
+    <div class="nebula two"></div>
+    <div class="nebula three"></div>
+
+</div>
+
+
+<main class="app">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            🌍
+        </div>
+
+        <div>
+
+            <small>
+                HỌC LIỆU SỐ • ĐỊA LÍ 6
+            </small>
+
+            <strong>
+                Thử thách kiến tạo Trái Đất
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-badge">
+        TECTONIC MISSION • INTERACTIVE LAB
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="eyebrow">
+        ✦ NHIỆM VỤ KHÁM PHÁ
+    </div>
+
+
+    <h1>
+
+        GIẢI MÃ
+
+        <span>
+            CÁC MẢNG KIẾN TẠO
+        </span>
+
+    </h1>
+
+
+    <p class="hero-description">
+
+        Quan sát lược đồ, nhận diện các mảng,
+        phân tích hướng chuyển động và giải thích
+        vì sao ranh giới mảng thường tập trung
+        nhiều động đất, núi lửa và hoạt động tạo núi.
+
+        Đây không chỉ là bài kiểm tra trí nhớ —
+        em cần sử dụng dữ kiện để suy luận.
+
+    </p>
+
+
+    <div class="score-area">
+
+        <div class="progress-shell">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <small>
+                ĐIỂM
+            </small>
+
+            <strong id="scoreText">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <small>
+                HOÀN THÀNH
+            </small>
+
+            <strong id="completeText">
+                0/12
+            </strong>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <small>
+                CẤP ĐỘ
+            </small>
+
+            <strong id="rankText">
+                Khởi động
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LEVEL MENU
+========================================================= -->
+
+<nav class="level-menu">
+
+    <button
+        class="level-button active"
+        onclick="openLevel(1,this)"
+    >
+
+        <small>
+            CẤP ĐỘ 01
+        </small>
+
+        <strong>
+            🔎 Nhận diện
+        </strong>
+
+    </button>
+
+
+    <button
+        class="level-button"
+        onclick="openLevel(2,this)"
+    >
+
+        <small>
+            CẤP ĐỘ 02
+        </small>
+
+        <strong>
+            🧭 Đọc lược đồ
+        </strong>
+
+    </button>
+
+
+    <button
+        class="level-button"
+        onclick="openLevel(3,this)"
+    >
+
+        <small>
+            CẤP ĐỘ 03
+        </small>
+
+        <strong>
+            🧠 Suy luận
+        </strong>
+
+    </button>
+
+
+    <button
+        class="level-button"
+        onclick="openLevel(4,this)"
+    >
+
+        <small>
+            CẤP ĐỘ 04
+        </small>
+
+        <strong>
+            🚀 Vận dụng
+        </strong>
+
+    </button>
+
+</nav>
+
+
+<!-- =========================================================
+     LEVEL 1
+========================================================= -->
+
+<section
+    class="level active"
+    id="level1"
+>
+
+
+<div class="section-heading">
+
+    <small>
+        CẤP ĐỘ 01
+    </small>
+
+    <h2>
+        🔎 Nhận diện kiến thức nền
+    </h2>
+
+</div>
+
+
+<!-- Q1 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 01 • TRẮC NGHIỆM
+    </div>
+
+    <h3>
+        Mảng kiến tạo được hiểu phù hợp nhất là gì?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="b"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q1"
+                value="a"
+            >
+
+            Một lục địa bất kì trên bề mặt Trái Đất.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q1"
+                value="b"
+            >
+
+            Một bộ phận của thạch quyển,
+            chuyển động rất chậm trên lớp vật chất
+            có tính dẻo bên dưới.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q1"
+                value="c"
+            >
+
+            Một đại dương lớn bao quanh lục địa.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q1"
+                value="d"
+            >
+
+            Một lớp nằm trong nhân Trái Đất.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+<!-- Q2 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 02 • NHẬN DIỆN
+    </div>
+
+    <h3>
+        Đặc điểm nào đúng với chuyển động
+        của các mảng kiến tạo?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="c"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q2"
+                value="a"
+            >
+
+            Các mảng đứng hoàn toàn yên.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q2"
+                value="b"
+            >
+
+            Chỉ di chuyển khi có động đất.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q2"
+                value="c"
+            >
+
+            Các mảng chuyển động liên tục
+            nhưng với tốc độ rất chậm.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q2"
+                value="d"
+            >
+
+            Tất cả mảng đều di chuyển
+            cùng một hướng.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+<!-- Q3 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 03 • KIẾN THỨC TRỌNG TÂM
+    </div>
+
+    <h3>
+        Khu vực nào thường có hoạt động kiến tạo mạnh?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="boundary"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q3"
+                value="centre"
+            >
+
+            Phần trung tâm ổn định của mọi mảng.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q3"
+                value="boundary"
+            >
+
+            Khu vực tiếp giáp giữa các mảng.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q3"
+                value="equator"
+            >
+
+            Chỉ riêng khu vực Xích đạo.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q3"
+                value="pole"
+            >
+
+            Chỉ riêng hai vùng cực.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     LEVEL 2
+========================================================= -->
+
+<section
+    class="level"
+    id="level2"
+>
+
+
+<div class="section-heading">
+
+    <small>
+        CẤP ĐỘ 02
+    </small>
+
+    <h2>
+        🧭 Khai thác lược đồ kiến tạo
+    </h2>
+
+</div>
+
+
+<!-- Q4 MAP -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 04 • ĐỌC LƯỢC ĐỒ
+    </div>
+
+    <h3>
+        Hãy nhấn vào vị trí đại diện
+        cho <b>Mảng Âu – Á</b>.
+    </h3>
+
+    <p class="question-note">
+        Lược đồ dưới đây chỉ được khái quát hóa
+        phục vụ bài tập, không thể hiện chính xác
+        mọi đường biên kiến tạo.
+    </p>
+
+
+    <div class="map-task">
+
+
+        <div class="map-board">
+
+
+            <div class="land na"></div>
+            <div class="land sa"></div>
+            <div class="land eurasia"></div>
+            <div class="land africa"></div>
+            <div class="land australia"></div>
+
+
+            <button
+                class="plate-marker pacific"
+                data-value="pacific"
+                onclick="chooseMapPlate(this)"
+            >
+                A
+            </button>
+
+
+            <button
+                class="plate-marker north-america"
+                data-value="north"
+                onclick="chooseMapPlate(this)"
+            >
+                B
+            </button>
+
+
+            <button
+                class="plate-marker south-america"
+                data-value="south"
+                onclick="chooseMapPlate(this)"
+            >
+                C
+            </button>
+
+
+            <button
+                class="plate-marker eurasia"
+                data-value="eurasia"
+                onclick="chooseMapPlate(this)"
+            >
+                D
+            </button>
+
+
+            <button
+                class="plate-marker africa"
+                data-value="africa"
+                onclick="chooseMapPlate(this)"
+            >
+                E
+            </button>
+
+
+            <button
+                class="plate-marker indo"
+                data-value="indo"
+                onclick="chooseMapPlate(this)"
+            >
+                F
+            </button>
+
+
+            <button
+                class="plate-marker antarctic"
+                data-value="antarctic"
+                onclick="chooseMapPlate(this)"
+            >
+                G
+            </button>
+
+
+        </div>
+
+
+        <div>
+
+            <div class="question-note">
+                Quan sát vị trí các lục địa trước khi lựa chọn.
+                Không cần nhớ chữ cái.
+            </div>
+
+
+            <button
+                class="check-button"
+                onclick="checkMapPlate(this)"
+            >
+                XÁC NHẬN
+            </button>
+
+
+            <div class="feedback"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Q5 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 05 • PHÂN TÍCH VỊ TRÍ
+    </div>
+
+    <h3>
+        Trên lược đồ kiến tạo,
+        nếu một đường ranh giới kéo dài dọc
+        phía tây Nam Mỹ, hiện tượng nào có
+        khả năng liên quan nhất?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="andes"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q5"
+                value="stable"
+            >
+
+            Hoàn toàn không có hoạt động kiến tạo.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q5"
+                value="andes"
+            >
+
+            Hoạt động hội tụ, động đất
+            và quá trình tạo núi Andes.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q5"
+                value="ice"
+            >
+
+            Chỉ hình thành băng hà.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q5"
+                value="river"
+            >
+
+            Chỉ làm thay đổi dòng chảy sông.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+<!-- Q6 DRAG -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 06 • GHÉP THÔNG TIN
+    </div>
+
+    <h3>
+        Ghép kiểu chuyển động với mô tả phù hợp.
+    </h3>
+
+
+    <div class="drag-layout">
+
+
+        <div
+            class="drag-bank"
+            id="dragBank"
+        >
+
+
+            <div
+                class="drag-item"
+                draggable="true"
+                data-id="div"
+            >
+                Hai mảng rời xa nhau
+            </div>
+
+
+            <div
+                class="drag-item"
+                draggable="true"
+                data-id="conv"
+            >
+                Hai mảng tiến lại gần nhau
+            </div>
+
+
+            <div
+                class="drag-item"
+                draggable="true"
+                data-id="trans"
+            >
+                Hai mảng trượt ngang
+            </div>
+
+
+        </div>
+
+
+        <div>
+
+
+            <div class="drop-row">
+
+                <div class="drop-title">
+                    Tách giãn
+                </div>
+
+                <div
+                    class="drop-box"
+                    data-answer="div"
+                >
+                    Thả mô tả vào đây
+                </div>
+
+            </div>
+
+
+            <div class="drop-row">
+
+                <div class="drop-title">
+                    Hội tụ
+                </div>
+
+                <div
+                    class="drop-box"
+                    data-answer="conv"
+                >
+                    Thả mô tả vào đây
+                </div>
+
+            </div>
+
+
+            <div class="drop-row">
+
+                <div class="drop-title">
+                    Trượt bằng
+                </div>
+
+                <div
+                    class="drop-box"
+                    data-answer="trans"
+                >
+                    Thả mô tả vào đây
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkDrag(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     LEVEL 3
+========================================================= -->
+
+<section
+    class="level"
+    id="level3"
+>
+
+
+<div class="section-heading">
+
+    <small>
+        CẤP ĐỘ 03
+    </small>
+
+    <h2>
+        🧠 Suy luận từ chuyển động mảng
+    </h2>
+
+</div>
+
+
+<!-- Q7 SIMULATION -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 07 • PHÒNG THÍ NGHIỆM
+    </div>
+
+    <h3>
+        Hãy tạo mô phỏng trong đó
+        hai mảng <b>rời xa nhau</b>,
+        sau đó xác định kiểu ranh giới.
+    </h3>
+
+
+    <div class="boundary-lab">
+
+
+        <div
+            class="simulation"
+            id="simulation"
+        >
+
+            <div
+                class="tectonic-plate left"
+                id="leftPlate"
+            ></div>
+
+
+            <div
+                class="tectonic-plate right"
+                id="rightPlate"
+            ></div>
+
+
+            <div
+                class="magma"
+                id="magma"
+            ></div>
+
+
+            <div
+                class="mountain"
+                id="mountain"
+            ></div>
+
+
+            <div
+                class="quake one"
+                id="quake1"
+            >
+                ⚡
+            </div>
+
+
+            <div
+                class="quake two"
+                id="quake2"
+            >
+                ⚡
+            </div>
+
+
+            <div
+                class="direction-arrows"
+                id="directionArrows"
+            >
+
+                <span id="leftArrow">
+                    ←
+                </span>
+
+                <span id="rightArrow">
+                    →
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="sim-controls">
+
+
+            <button
+                class="sim-choice"
+                data-type="divergent"
+                onclick="simulateBoundary('divergent',this)"
+            >
+                ↔ Hai mảng tách xa nhau
+            </button>
+
+
+            <button
+                class="sim-choice"
+                data-type="convergent"
+                onclick="simulateBoundary('convergent',this)"
+            >
+                →← Hai mảng tiến lại gần
+            </button>
+
+
+            <button
+                class="sim-choice"
+                data-type="transform"
+                onclick="simulateBoundary('transform',this)"
+            >
+                ⇅ Hai mảng trượt ngang
+            </button>
+
+
+            <button
+                class="check-button"
+                onclick="checkSimulation(this)"
+            >
+                XÁC NHẬN
+            </button>
+
+
+            <div class="feedback"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Q8 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 08 • SUY LUẬN NGUYÊN NHÂN
+    </div>
+
+    <h3>
+        Vì sao động đất và núi lửa thường tập trung
+        nhiều ở ranh giới các mảng kiến tạo?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="interaction"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q8"
+                value="sun"
+            >
+
+            Vì đây là nơi nhận nhiều ánh sáng Mặt Trời nhất.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q8"
+                value="interaction"
+            >
+
+            Vì đây là nơi các mảng tương tác mạnh:
+            tách ra, va chạm hoặc trượt ngang,
+            làm tích tụ và giải phóng năng lượng,
+            đồng thời tạo điều kiện cho magma hoạt động.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q8"
+                value="rain"
+            >
+
+            Vì các ranh giới mảng luôn có lượng mưa lớn.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q8"
+                value="ocean"
+            >
+
+            Vì mọi ranh giới mảng đều nằm dưới biển.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+<!-- Q9 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 09 • TƯ DUY PHẢN BIỆN
+    </div>
+
+    <h3>
+        Đọc ba nhận định và xác định
+        <b>Đúng / Sai</b>.
+    </h3>
+
+
+    <div class="claim-grid">
+
+
+        <div
+            class="claim"
+            data-answer="true"
+        >
+
+            <strong>
+                1. Ranh giới hội tụ có thể liên quan
+                đến hoạt động tạo núi.
+            </strong>
+
+            <div class="claim-options">
+
+                <button
+                    onclick="selectClaim(this,'true')"
+                >
+                    Đúng
+                </button>
+
+                <button
+                    onclick="selectClaim(this,'false')"
+                >
+                    Sai
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="claim"
+            data-answer="false"
+        >
+
+            <strong>
+                2. Mọi ranh giới tách giãn
+                đều hình thành dãy núi cao
+                giống Himalaya.
+            </strong>
+
+            <div class="claim-options">
+
+                <button
+                    onclick="selectClaim(this,'true')"
+                >
+                    Đúng
+                </button>
+
+                <button
+                    onclick="selectClaim(this,'false')"
+                >
+                    Sai
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="claim"
+            data-answer="true"
+        >
+
+            <strong>
+                3. Chuyển động của các mảng
+                diễn ra rất chậm nhưng
+                kéo dài trong thời gian địa chất.
+            </strong>
+
+            <div class="claim-options">
+
+                <button
+                    onclick="selectClaim(this,'true')"
+                >
+                    Đúng
+                </button>
+
+                <button
+                    onclick="selectClaim(this,'false')"
+                >
+                    Sai
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkClaims(this)"
+    >
+        KIỂM TRA 3 NHẬN ĐỊNH
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     LEVEL 4
+========================================================= -->
+
+<section
+    class="level"
+    id="level4"
+>
+
+
+<div class="section-heading">
+
+    <small>
+        CẤP ĐỘ 04
+    </small>
+
+    <h2>
+        🚀 Vận dụng giải quyết vấn đề
+    </h2>
+
+</div>
+
+
+<!-- Q10 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 10 • TÌNH HUỐNG
+    </div>
+
+    <h3>
+        Một khu vực nằm gần ranh giới hội tụ
+        giữa các mảng kiến tạo.
+        Người dân nên đặc biệt quan tâm đến
+        nhóm thiên tai nào?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="hazard"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q10"
+                value="hazard"
+            >
+
+            Động đất, núi lửa và ở một số vùng biển
+            có thể có nguy cơ sóng thần.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q10"
+                value="snow"
+            >
+
+            Chỉ có bão tuyết.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q10"
+                value="drought"
+            >
+
+            Chỉ có hạn hán.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q10"
+                value="none"
+            >
+
+            Không có nguy cơ địa chất đáng kể.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+<!-- Q11 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 11 • ĐÁNH GIÁ MÔ HÌNH
+    </div>
+
+    <h3>
+        Trong mô hình 3D của website,
+        các mảng được cho chuyển động rất nhanh
+        để học sinh dễ quan sát.
+        Nhận xét nào hợp lí?
+    </h3>
+
+
+    <div
+        class="answers single"
+        data-correct="model"
+    >
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q11"
+                value="real"
+            >
+
+            Điều đó chứng minh các mảng
+            ngoài thực tế cũng dịch chuyển
+            nhanh như trong hoạt ảnh.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q11"
+                value="model"
+            >
+
+            Đây là sự tăng tốc trong mô hình
+            để trực quan hóa quá trình rất chậm;
+            không được hiểu là tốc độ thực tế.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q11"
+                value="false"
+            >
+
+            Mọi mô hình có chuyển động
+            đều không có giá trị học tập.
+
+        </label>
+
+
+        <label class="answer">
+
+            <input
+                type="radio"
+                name="q11"
+                value="random"
+            >
+
+            Tốc độ mô phỏng không cần
+            liên quan đến mục tiêu học tập.
+
+        </label>
+
+    </div>
+
+
+    <button
+        class="check-button"
+        onclick="checkSingle(this)"
+    >
+        KIỂM TRA
+    </button>
+
+
+    <div class="feedback"></div>
+
+</div>
+
+
+<!-- Q12 -->
+
+<div
+    class="question"
+    data-done="false"
+>
+
+    <div class="question-number">
+        NHIỆM VỤ 12 • NHÀ ĐỊA CHẤT NHÍ
+    </div>
+
+    <h3>
+        Thử thách cuối:
+        giải thích một hiện tượng bằng lập luận của em.
+    </h3>
+
+
+    <div class="case-study">
+
+        <div class="case-head">
+
+            <div class="case-icon">
+                🧑‍🔬
+            </div>
+
+            <div>
+
+                <strong>
+                    TÌNH HUỐNG ĐỊA CHẤT
+                </strong>
+
+                <div class="question-note">
+                    Không có đáp án A – B – C – D.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p>
+
+            Một nhà nghiên cứu quan sát thấy
+            một khu vực thường xuyên xảy ra động đất,
+            có nhiều núi lửa và nằm gần nơi hai mảng
+            kiến tạo tiến lại gần nhau.
+
+            Hãy sử dụng kiến thức đã học để giải thích
+            vì sao ba dấu hiệu trên có thể liên quan
+            với nhau.
+
+        </p>
+
+
+        <textarea
+            id="essayAnswer"
+            placeholder="Gợi ý: ranh giới mảng, hội tụ, áp lực/ứng suất, magma, động đất, núi lửa..."
+        ></textarea>
+
+
+        <button
+            class="check-button"
+            onclick="checkEssay(this)"
+        >
+            PHÂN TÍCH CÂU TRẢ LỜI
+        </button>
+
+
+        <div class="feedback"></div>
+
+    </div>
+
+</div>
+
+
+<div
+    style="
+        text-align:center;
+        margin-top:30px;
+    "
+>
+
+    <button
+        class="check-button"
+        style="
+            padding:16px 32px;
+            font-size:13px;
+        "
+        onclick="finishMission()"
+    >
+
+        ✦ HOÀN THÀNH NHIỆM VỤ
+
+    </button>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div
+    class="result"
+    id="resultPanel"
+>
+
+    <div class="result-icon">
+        🌍
+    </div>
+
+
+    <div class="question-number">
+        KẾT QUẢ HÀNH TRÌNH
+    </div>
+
+
+    <div
+        class="final-score"
+        id="finalScore"
+    >
+        0/120
+    </div>
+
+
+    <h2 id="resultTitle">
+        Nhà thám hiểm kiến tạo
+    </h2>
+
+
+    <p id="resultMessage"></p>
+
+
+    <button
+        class="check-button"
+        onclick="location.reload()"
+    >
+        ↻ THỰC HIỆN LẠI
+    </button>
+
+</div>
+
+
+</section>
+
+
+<footer class="footer">
+
+    HỌC LIỆU SỐ • LỊCH SỬ VÀ ĐỊA LÍ 6
+    • CÁC MẢNG KIẾN TẠO
+
+</footer>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   01. GLOBAL STATE
+========================================================= */
+
+let score = 0;
+
+let completed = 0;
+
+const totalTasks = 12;
+
+let selectedMapPlate = null;
+
+let selectedSimulation = null;
+
+let draggedItem = null;
+
+
+/* =========================================================
+   02. LEVEL NAVIGATION
+========================================================= */
+
+function openLevel(
+    number,
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".level"
+        )
+        .forEach(
+            level =>{
+
+                level.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "level" + number
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    document
+        .querySelectorAll(
+            ".level-button"
+        )
+        .forEach(
+            b =>{
+
+                b.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    window.scrollTo({
+
+        top:340,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   03. SCORE
+========================================================= */
+
+function completeTask(
+    question,
+    points
+){
+
+    if(
+        question.dataset.done
+        ===
+        "true"
+    ){
+
+        return false;
+
+    }
+
+
+    question.dataset.done =
+        "true";
+
+
+    score += points;
+
+    completed++;
+
+
+    updateScore();
+
+
+    return true;
+
+}
+
+
+function updateScore(){
+
+    document
+        .getElementById(
+            "scoreText"
+        )
+        .textContent =
+        score;
+
+
+    document
+        .getElementById(
+            "completeText"
+        )
+        .textContent =
+        completed
+        +
+        "/"
+        +
+        totalTasks;
+
+
+    const percentage =
+        (
+            completed
+            /
+            totalTasks
+        )
+        *
+        100;
+
+
+    document
+        .getElementById(
+            "progressBar"
+        )
+        .style.width =
+        percentage
+        +
+        "%";
+
+
+    let rank =
+        "Khởi động";
+
+
+    if(
+        completed >= 3
+    ){
+
+        rank =
+            "Quan sát viên";
+
+    }
+
+
+    if(
+        completed >= 6
+    ){
+
+        rank =
+            "Nhà thám hiểm";
+
+    }
+
+
+    if(
+        completed >= 9
+    ){
+
+        rank =
+            "Nhà nghiên cứu";
+
+    }
+
+
+    if(
+        completed === 12
+    ){
+
+        rank =
+            "Chuyên gia";
+
+    }
+
+
+    document
+        .getElementById(
+            "rankText"
+        )
+        .textContent =
+        rank;
+
+}
+
+
+/* =========================================================
+   04. SINGLE CHOICE
+========================================================= */
+
+function checkSingle(
+    button
+){
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const group =
+        question.querySelector(
+            ".single"
+        );
+
+
+    const selected =
+        group.querySelector(
+            "input:checked"
+        );
+
+
+    const feedback =
+        question.querySelector(
+            ".feedback"
+        );
+
+
+    if(!selected){
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "⚠ Hãy chọn một phương án trước khi kiểm tra.";
+
+
+        return;
+
+    }
+
+
+    const correct =
+        group.dataset.correct;
+
+
+    group
+        .querySelectorAll(
+            ".answer"
+        )
+        .forEach(
+            label =>{
+
+                const input =
+                    label.querySelector(
+                        "input"
+                    );
+
+
+                label.classList.remove(
+                    "correct",
+                    "wrong"
+                );
+
+
+                if(
+                    input.value === correct
+                ){
+
+                    label.classList.add(
+                        "correct"
+                    );
+
+                }
+
+
+                if(
+                    input.checked
+                    &&
+                    input.value !== correct
+                ){
+
+                    label.classList.add(
+                        "wrong"
+                    );
+
+                }
+
+            }
+        );
+
+
+    if(
+        selected.value === correct
+    ){
+
+        const first =
+            completeTask(
+                question,
+                10
+            );
+
+
+        feedback.className =
+            "feedback show good";
+
+
+        feedback.innerHTML =
+            first
+            ?
+            "✓ Chính xác! Em đã xác định đúng kiến thức trọng tâm."
+            :
+            "✓ Đây là phương án chính xác.";
+
+    }
+
+    else{
+
+        completeTask(
+            question,
+            0
+        );
+
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "✦ Chưa chính xác. Hãy quan sát phương án màu xanh và giải thích vì sao nó phù hợp hơn.";
+
+    }
+
+}
+
+
+/* =========================================================
+   05. MAP TASK
+========================================================= */
+
+function chooseMapPlate(
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".plate-marker"
+        )
+        .forEach(
+            marker =>{
+
+                marker.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+    button.classList.add(
+        "selected"
+    );
+
+
+    selectedMapPlate =
+        button.dataset.value;
+
+}
+
+
+function checkMapPlate(
+    button
+){
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const feedback =
+        question.querySelector(
+            ".feedback"
+        );
+
+
+    if(!selectedMapPlate){
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "⚠ Hãy chọn một vị trí trên lược đồ.";
+
+        return;
+
+    }
+
+
+    if(
+        selectedMapPlate
+        ===
+        "eurasia"
+    ){
+
+        completeTask(
+            question,
+            10
+        );
+
+
+        feedback.className =
+            "feedback show good";
+
+
+        feedback.innerHTML =
+            "✓ Chính xác. Mảng Âu – Á nằm trên khu vực rộng lớn của châu Âu và châu Á.";
+
+    }
+
+    else{
+
+        completeTask(
+            question,
+            0
+        );
+
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "✦ Chưa đúng. Hãy xác định châu Âu – châu Á trên lược đồ trước.";
+
+    }
+
+}
+
+
+/* =========================================================
+   06. DRAG AND DROP
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".drag-item"
+    )
+    .forEach(
+        item =>{
+
+            item.addEventListener(
+                "dragstart",
+                ()=>{
+
+                    draggedItem =
+                        item;
+
+
+                    item.classList.add(
+                        "dragging"
+                    );
+
+                }
+            );
+
+
+            item.addEventListener(
+                "dragend",
+                ()=>{
+
+                    item.classList.remove(
+                        "dragging"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        ".drop-box"
+    )
+    .forEach(
+        box =>{
+
+            box.addEventListener(
+                "dragover",
+                event =>{
+
+                    event.preventDefault();
+
+
+                    box.classList.add(
+                        "over"
+                    );
+
+                }
+            );
+
+
+            box.addEventListener(
+                "dragleave",
+                ()=>{
+
+                    box.classList.remove(
+                        "over"
+                    );
+
+                }
+            );
+
+
+            box.addEventListener(
+                "drop",
+                event =>{
+
+                    event.preventDefault();
+
+
+                    box.classList.remove(
+                        "over"
+                    );
+
+
+                    if(
+                        !draggedItem
+                    ){
+
+                        return;
+
+                    }
+
+
+                    const previous =
+                        box.querySelector(
+                            ".drag-item"
+                        );
+
+
+                    if(previous){
+
+                        document
+                            .getElementById(
+                                "dragBank"
+                            )
+                            .appendChild(
+                                previous
+                            );
+
+                    }
+
+
+                    box.innerHTML =
+                        "";
+
+
+                    box.appendChild(
+                        draggedItem
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+function checkDrag(
+    button
+){
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const boxes =
+        question.querySelectorAll(
+            ".drop-box"
+        );
+
+
+    const feedback =
+        question.querySelector(
+            ".feedback"
+        );
+
+
+    let correct =
+        0;
+
+
+    boxes.forEach(
+        box =>{
+
+            const item =
+                box.querySelector(
+                    ".drag-item"
+                );
+
+
+            if(
+                item
+                &&
+                item.dataset.id
+                ===
+                box.dataset.answer
+            ){
+
+                correct++;
+
+
+                box.style.borderColor =
+                    "#39d8a8";
+
+            }
+
+            else{
+
+                box.style.borderColor =
+                    "#ff6378";
+
+            }
+
+        }
+    );
+
+
+    if(
+        correct === 3
+    ){
+
+        completeTask(
+            question,
+            10
+        );
+
+
+        feedback.className =
+            "feedback show good";
+
+
+        feedback.innerHTML =
+            "✓ Hoàn hảo: Tách giãn = rời xa; Hội tụ = tiến lại gần; Trượt bằng = trượt ngang.";
+
+    }
+
+    else{
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "✦ Em ghép đúng "
+            +
+            correct
+            +
+            "/3. Hãy tiếp tục thay đổi vị trí rồi kiểm tra lại.";
+
+    }
+
+}
+
+
+/* =========================================================
+   07. SIMULATION
+========================================================= */
+
+function resetSimulation(){
+
+    const left =
+        document.getElementById(
+            "leftPlate"
+        );
+
+
+    const right =
+        document.getElementById(
+            "rightPlate"
+        );
+
+
+    const magma =
+        document.getElementById(
+            "magma"
+        );
+
+
+    const mountain =
+        document.getElementById(
+            "mountain"
+        );
+
+
+    const q1 =
+        document.getElementById(
+            "quake1"
+        );
+
+
+    const q2 =
+        document.getElementById(
+            "quake2"
+        );
+
+
+    const arrows =
+        document.getElementById(
+            "directionArrows"
+        );
+
+
+    left.style.transform =
+        "translate(0,0)";
+
+
+    right.style.transform =
+        "translate(0,0)";
+
+
+    magma.style.opacity =
+        "0";
+
+
+    mountain.style.transform =
+        "translateX(-50%) scaleY(.05)";
+
+
+    q1.style.opacity =
+        "0";
+
+
+    q2.style.opacity =
+        "0";
+
+
+    arrows.style.opacity =
+        "0";
+
+}
+
+
+function simulateBoundary(
+    type,
+    button
+){
+
+    resetSimulation();
+
+
+    selectedSimulation =
+        type;
+
+
+    document
+        .querySelectorAll(
+            ".sim-choice"
+        )
+        .forEach(
+            element =>{
+
+                element.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    const left =
+        document.getElementById(
+            "leftPlate"
+        );
+
+
+    const right =
+        document.getElementById(
+            "rightPlate"
+        );
+
+
+    const magma =
+        document.getElementById(
+            "magma"
+        );
+
+
+    const mountain =
+        document.getElementById(
+            "mountain"
+        );
+
+
+    const q1 =
+        document.getElementById(
+            "quake1"
+        );
+
+
+    const q2 =
+        document.getElementById(
+            "quake2"
+        );
+
+
+    const arrows =
+        document.getElementById(
+            "directionArrows"
+        );
+
+
+    const leftArrow =
+        document.getElementById(
+            "leftArrow"
+        );
+
+
+    const rightArrow =
+        document.getElementById(
+            "rightArrow"
+        );
+
+
+    setTimeout(
+        ()=>{
+
+
+            if(
+                type ===
+                "divergent"
+            ){
+
+                left.style.transform =
+                    "translateX(-48px)";
+
+
+                right.style.transform =
+                    "translateX(48px)";
+
+
+                magma.style.opacity =
+                    "1";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "←";
+
+
+                rightArrow.textContent =
+                    "→";
+
+            }
+
+
+            if(
+                type ===
+                "convergent"
+            ){
+
+                left.style.transform =
+                    "translateX(40px)";
+
+
+                right.style.transform =
+                    "translateX(-40px)";
+
+
+                mountain.style.transform =
+                    "translateX(-50%) scaleY(1)";
+
+
+                q1.style.opacity =
+                    "1";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "→";
+
+
+                rightArrow.textContent =
+                    "←";
+
+            }
+
+
+            if(
+                type ===
+                "transform"
+            ){
+
+                left.style.transform =
+                    "translateY(-30px)";
+
+
+                right.style.transform =
+                    "translateY(30px)";
+
+
+                q1.style.opacity =
+                    "1";
+
+
+                q2.style.opacity =
+                    "1";
+
+
+                arrows.style.opacity =
+                    "1";
+
+
+                leftArrow.textContent =
+                    "↑";
+
+
+                rightArrow.textContent =
+                    "↓";
+
+            }
+
+
+        },
+        80
+    );
+
+}
+
+
+function checkSimulation(
+    button
+){
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const feedback =
+        question
+        .parentElement
+        .querySelector(
+            ".feedback"
+        )
+        ||
+        question.querySelector(
+            ".feedback"
+        );
+
+
+    if(
+        !selectedSimulation
+    ){
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "⚠ Hãy chạy một mô phỏng trước.";
+
+        return;
+
+    }
+
+
+    if(
+        selectedSimulation
+        ===
+        "divergent"
+    ){
+
+        completeTask(
+            question,
+            10
+        );
+
+
+        feedback.className =
+            "feedback show good";
+
+
+        feedback.innerHTML =
+            "✓ Chính xác. Hai mảng rời xa nhau là ranh giới tách giãn. Vật chất nóng có thể dâng lên ở khoảng trống giữa hai mảng.";
+
+    }
+
+    else{
+
+        completeTask(
+            question,
+            0
+        );
+
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "✦ Chưa đúng. Hãy tìm mô phỏng trong đó khoảng cách giữa hai mảng tăng lên.";
+
+    }
+
+}
+
+
+/* =========================================================
+   08. CLAIMS
+========================================================= */
+
+function selectClaim(
+    button,
+    value
+){
+
+    const claim =
+        button.closest(
+            ".claim"
+        );
+
+
+    claim
+        .querySelectorAll(
+            "button"
+        )
+        .forEach(
+            b =>{
+
+                b.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+    button.classList.add(
+        "selected"
+    );
+
+
+    claim.dataset.choice =
+        value;
+
+}
+
+
+function checkClaims(
+    button
+){
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const claims =
+        question.querySelectorAll(
+            ".claim"
+        );
+
+
+    const feedback =
+        question.querySelector(
+            ".feedback"
+        );
+
+
+    let answered =
+        0;
+
+
+    let correct =
+        0;
+
+
+    claims.forEach(
+        claim =>{
+
+            if(
+                claim.dataset.choice
+            ){
+
+                answered++;
+
+            }
+
+
+            if(
+                claim.dataset.choice
+                ===
+                claim.dataset.answer
+            ){
+
+                correct++;
+
+            }
+
+        }
+    );
+
+
+    if(
+        answered < 3
+    ){
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "⚠ Hãy đánh dấu Đúng hoặc Sai cho cả ba nhận định.";
+
+        return;
+
+    }
+
+
+    if(
+        correct === 3
+    ){
+
+        completeTask(
+            question,
+            10
+        );
+
+
+        feedback.className =
+            "feedback show good";
+
+
+        feedback.innerHTML =
+            "✓ Chính xác cả 3 nhận định. Em đã phân biệt được bản chất của hội tụ, tách giãn và tốc độ chuyển động mảng.";
+
+    }
+
+    else{
+
+        completeTask(
+            question,
+            0
+        );
+
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "✦ Em đúng "
+            +
+            correct
+            +
+            "/3. Gợi ý: Himalaya gắn với va chạm lục địa, không phải ranh giới tách giãn.";
+
+    }
+
+}
+
+
+/* =========================================================
+   09. ESSAY
+========================================================= */
+
+function checkEssay(
+    button
+){
+
+    const question =
+        button.closest(
+            ".question"
+        );
+
+
+    const text =
+        document
+        .getElementById(
+            "essayAnswer"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const feedback =
+        question.querySelector(
+            ".feedback"
+        );
+
+
+    if(
+        text.length < 60
+    ){
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "⚠ Câu trả lời còn ngắn. Hãy trình bày ít nhất hai mối quan hệ nguyên nhân – kết quả.";
+
+        return;
+
+    }
+
+
+    const conceptGroups = [
+
+        [
+            "mảng",
+            "kiến tạo"
+        ],
+
+        [
+            "hội tụ",
+            "va chạm",
+            "tiến lại"
+        ],
+
+        [
+            "động đất",
+            "ứng suất",
+            "năng lượng"
+        ],
+
+        [
+            "magma",
+            "núi lửa"
+        ],
+
+        [
+            "hút chìm"
+        ]
+
+    ];
+
+
+    let hits =
+        0;
+
+
+    conceptGroups.forEach(
+        group =>{
+
+            if(
+                group.some(
+                    term =>
+                    text.includes(
+                        term
+                    )
+                )
+            ){
+
+                hits++;
+
+            }
+
+        }
+    );
+
+
+    if(
+        hits >= 3
+    ){
+
+        completeTask(
+            question,
+            10
+        );
+
+
+        feedback.className =
+            "feedback show good";
+
+
+        feedback.innerHTML =
+            "✓ Lập luận có cơ sở. Em đã kết nối được ranh giới hội tụ với chuyển động mảng và các hiện tượng địa chất. Có thể nâng cấp câu trả lời bằng cấu trúc: “mảng hội tụ → ứng suất/hút chìm → động đất và magma → núi lửa”.";
+
+    }
+
+    else{
+
+        feedback.className =
+            "feedback show bad";
+
+
+        feedback.innerHTML =
+            "✦ Em đã có ý tưởng nhưng cần thêm căn cứ. Hãy sử dụng các khái niệm: hội tụ, ứng suất, động đất, hút chìm hoặc magma.";
+
+    }
+
+}
+
+
+/* =========================================================
+   10. FINISH
+========================================================= */
+
+function finishMission(){
+
+    const result =
+        document.getElementById(
+            "resultPanel"
+        );
+
+
+    result.classList.add(
+        "show"
+    );
+
+
+    document
+        .getElementById(
+            "finalScore"
+        )
+        .textContent =
+        score
+        +
+        "/120";
+
+
+    let title =
+        "";
+
+    let message =
+        "";
+
+
+    if(
+        score >= 110
+    ){
+
+        title =
+            "🏆 Chuyên gia kiến tạo trẻ";
+
+
+        message =
+            "Em không chỉ nhận diện được các mảng mà còn giải thích được quan hệ giữa chuyển động mảng, động đất, núi lửa và tạo núi. Đây chính là tư duy địa lí cần có khi học về kiến tạo.";
+
+    }
+
+    else if(
+        score >= 90
+    ){
+
+        title =
+            "🌍 Nhà nghiên cứu kiến tạo";
+
+
+        message =
+            "Em đã nắm khá chắc kiến thức và có khả năng suy luận tốt. Hãy thử quay lại mô hình 3D và giải thích từng kiểu ranh giới mà không nhìn đáp án.";
+
+    }
+
+    else if(
+        score >= 60
+    ){
+
+        title =
+            "🧭 Nhà thám hiểm mảng kiến tạo";
+
+
+        message =
+            "Em đã có nền tảng tốt. Hãy chú ý hơn đến mối quan hệ giữa kiểu chuyển động và hệ quả địa chất.";
+
+    }
+
+    else{
+
+        title =
+            "🚀 Nhiệm vụ vẫn đang tiếp diễn";
+
+
+        message =
+            "Hãy quay lại lược đồ và mô hình 3D, quan sát hướng chuyển động của hai mảng rồi mới trả lời. Hiểu cơ chế sẽ dễ nhớ hơn học thuộc.";
+
+    }
+
+
+    document
+        .getElementById(
+            "resultTitle"
+        )
+        .textContent =
+        title;
+
+
+    document
+        .getElementById(
+            "resultMessage"
+        )
+        .textContent =
+        message;
+
+
+    result.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"center"
+
+    });
+
+}
+
+
+/* =========================================================
+   11. STAR BACKGROUND
+========================================================= */
+
+const space =
+    document.getElementById(
+        "space"
+    );
+
+
+for(
+    let i = 0;
+    i < 105;
+    i++
+){
+
+    const star =
+        document.createElement(
+            "div"
+        );
+
+
+    star.className =
+        "star";
+
+
+    const size =
+        Math.random()
+        *
+        2.4
+        +
+        .4;
+
+
+    star.style.width =
+        size
+        +
+        "px";
+
+
+    star.style.height =
+        size
+        +
+        "px";
+
+
+    star.style.left =
+        Math.random()
+        *
+        100
+        +
+        "%";
+
+
+    star.style.top =
+        Math.random()
+        *
+        100
+        +
+        "%";
+
+
+    star.style.animationDelay =
+        Math.random()
+        *
+        4
+        +
+        "s";
+
+
+    star.style.animationDuration =
+        (
+            2
+            +
+            Math.random()
+            *
+            4
+        )
+        +
+        "s";
+
+
+    space.appendChild(
+        star
+    );
+
+}
+
+</script>
+
+</body>
+</html>

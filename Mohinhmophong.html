@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sơ Đồ Khối 3D Địa Chất Siêu Thực - Nội Sinh & Ngoại Sinh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background: radial-gradient(circle at center, #070913 0%, #010205 100%); 
+            font-family: 'Inter', sans-serif; 
+            user-select: none;
+        }
+        #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
+        
+        /* Sci-Fi Glassmorphism UI Layer */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .hologram-card {
+            background: rgba(8, 12, 28, 0.8);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            box-shadow: 0 0 30px rgba(244, 63, 94, 0.2), inset 0 0 20px rgba(244, 63, 94, 0.08);
+            pointer-events: auto;
+            backdrop-filter: blur(16px);
+            align-self: center;
+            max-width: 950px;
+            width: 95%;
+            border-radius: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Control Panel - Floating Left (Endogenic Exploded View Deck) */
+        .endogenic-control-deck {
+            pointer-events: auto;
+            background: rgba(6, 9, 22, 0.85);
+            border: 1.5px solid #f43f5e;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(244, 63, 94, 0.25);
+            border-radius: 1rem;
+            padding: 1rem;
+            position: absolute;
+            top: 7rem;
+            left: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            backdrop-filter: blur(12px);
+            width: 250px;
+        }
+
+        .deck-btn {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #fca5a5;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-align: left;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .deck-btn:hover {
+            background: rgba(244, 63, 94, 0.25);
+            border-color: #f43f5e;
+            color: #ffffff;
+            transform: translateX(4px);
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+        }
+
+        .deck-btn.active {
+            background: linear-gradient(90deg, #f43f5e 0%, #be123c 100%);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
+        }
+
+        /* Control Panel - Floating Right */
+        .control-panel {
+            pointer-events: auto;
+            background: rgba(6, 9, 22, 0.85);
+            border: 1.5px solid #06b6d4;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(6, 182, 212, 0.25);
+            border-radius: 1rem;
+            padding: 0.75rem;
+            position: absolute;
+            top: 7rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        /* Information Card styling */
+        #quest-card {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(40px);
+            background: linear-gradient(135deg, #070312 0%, #0c101f 100%);
+            border: 2px solid #f43f5e;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(244, 63, 94, 0.4);
+            border-radius: 1.25rem;
+            pointer-events: auto;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 760px;
+            width: 92%;
+            overflow: hidden;
+            backdrop-filter: blur(16px);
+        }
+
+        #quest-card.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .card-glow-bar {
+            height: 6px;
+            background: linear-gradient(90deg, #f43f5e, #fb923c, #06b6d4, #10b981);
+            width: 100%;
+            background-size: 300% 100%;
+            animation: flow-glow 4s linear infinite;
+        }
+
+        @keyframes flow-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #04060c;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .game-spinner {
+            width: 70px;
+            height: 70px;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            border-top-color: #f43f5e;
+            border-bottom-color: #06b6d4;
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Floating dynamic labels in HTML mapped in 3D */
+        .textbook-label {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background: rgba(4, 6, 12, 0.85);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 15;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 10px rgba(244, 63, 94, 0.15);
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(4px);
+        }
+
+        .textbook-label.right-label {
+            border-color: rgba(6, 182, 212, 0.35);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 10px rgba(6, 182, 212, 0.15);
+        }
+
+        .textbook-label::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px 5px 0;
+            border-style: solid;
+            border-color: rgba(4, 6, 12, 0.85) transparent;
+            display: block;
+            width: 0;
+        }
+
+        /* Glowing Hotspot Markers */
+        .hotspot-marker {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 25;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .marker-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid #f43f5e;
+            border-radius: 50%;
+            animation: pulse-ring 1.8s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+        }
+
+        .marker-dot {
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 18px #f43f5e, 0 0 35px #f43f5e;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 900;
+            color: #04060c;
+        }
+
+        .hotspot-marker.active .marker-dot {
+            background: #00ffff;
+            box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+            transform: scale(1.4);
+            color: #04060c;
+        }
+
+        .hotspot-marker.active .marker-ring {
+            border-color: #00ffff;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.5); opacity: 1; }
+            80%, 100% { transform: scale(2.6); opacity: 0; }
+        }
+
+        .label-switch {
+            cursor: pointer;
+            pointer-events: auto;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: #ffffff;
+            font-weight: 900;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .label-switch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6), 0 0 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .label-switch.inactive {
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+            box-shadow: none;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="game-spinner mb-6"></div>
+        <h2 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-orange-400 to-cyan-400 tracking-widest text-center px-4">
+            ĐANG KHỞI CHẠY MÔ HÌNH NỘI SINH PHÂN RÃ...
+        </h2>
+        <p class="text-xs text-slate-400 mt-2">Dựng kết cấu đứt gãy mảng kiến tạo, uốn nếp & lõi mác-ma cắt lớp...</p>
+    </div>
+
+    <div id="canvas-container"></div>
+    
+    <!-- Render layer overlays -->
+    <div id="labels-overlay" class="absolute top-0 left-0 w-full h-full pointer-events-none z-15"></div>
+    <div id="markers-overlay" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></div>
+
+    <div id="ui-layer">
+        <!-- Main Top Banner -->
+        <div class="hologram-card p-4 text-center mt-2">
+            <div class="flex justify-between items-center px-4 mb-2">
+                <span class="text-[10px] md:text-xs font-black text-rose-500 uppercase tracking-widest animate-pulse">🔥 PHÂN TÍCH CHUYÊN SÂU: QUÁ TRÌNH NỘI SINH</span>
+                <span class="text-[10px] md:text-xs font-black text-cyan-400 uppercase tracking-widest">☀️ QUÁ TRÌNH NGOẠI SINH</span>
+            </div>
+            <h1 class="text-lg md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-400 to-cyan-400 tracking-widest font-sans">
+                ĐỊA HÌNH TRÁI ĐẤT: NỘI SINH PHÂN RÃ
+            </h1>
+            <p class="text-[11px] md:text-sm text-slate-300 mt-1 font-medium">
+                Xoay không gian 3D bằng chuột. Dùng <span class="text-rose-400 font-bold">Bảng Điều Khiển bên trái</span> để "xẻ đôi" phân rã mô hình nội sinh!
+            </p>
+        </div>
+
+        <!-- Left Endogenic Exploded Control Deck -->
+        <div class="endogenic-control-deck">
+            <h3 class="text-xs text-rose-400 font-black tracking-widest uppercase mb-1 border-b border-rose-950 pb-1">🎛️ BỘ RÃ MÔ HÌNH</h3>
+            <button id="btn-mode-all" class="deck-btn active" onclick="setExplodeMode('all')">
+                🌐 0. Sơ Đồ Tổng Quan
+            </button>
+            <button id="btn-mode-plate" class="deck-btn" onclick="setExplodeMode('plate')">
+                ↔️ 1. Đứt Gãy Kiến Tạo
+            </button>
+            <button id="btn-mode-volcano" class="deck-btn" onclick="setExplodeMode('volcano')">
+                🌋 2. Phun Trào Mác-ma
+            </button>
+            <button id="btn-mode-fold" class="deck-btn" onclick="setExplodeMode('fold')">
+                〰️ 3. Địa Hình Uốn Nếp
+            </button>
+            <button id="btn-mode-xray" class="deck-btn" onclick="setExplodeMode('xray')">
+                💀 4. X-Ray Lòng Đất
+            </button>
+        </div>
+
+        <!-- Controls panel -->
+        <div class="control-panel">
+            <button id="toggle-labels-btn" class="label-switch">
+                Ẩn/Hiện Chú Thích (SGK)
+            </button>
+            <div class="text-[10px] text-indigo-400 font-black text-center mt-1 uppercase tracking-widest" id="quest-count">
+                Khám phá: 0/6 vùng
+            </div>
+        </div>
+
+        <!-- Interactive Dialog Card with RPG character dialogue tones -->
+        <div id="quest-card">
+            <div class="card-glow-bar"></div>
+            <div class="p-5 md:p-6 flex flex-col md:flex-row gap-5 items-center">
+                <div class="w-16 h-16 rounded-full bg-slate-950 flex items-center justify-center text-4xl border-2 border-rose-500 shadow-[0_0_20px_rgba(244,63,94,0.5)] flex-shrink-0 animate-bounce" id="card-avatar">
+                    🌋
+                </div>
+                <div class="flex-grow text-center md:text-left">
+                    <h3 class="text-xs uppercase tracking-widest text-rose-400 font-black mb-1" id="card-subtitle">HỌC GIẢ ĐỊA LÝ KHÁM PHÁ</h3>
+                    <h2 class="text-2xl font-black text-white mb-2 tracking-wide" id="card-title">Tên Địa Hình</h2>
+                    <p class="text-slate-200 text-sm md:text-base leading-relaxed font-semibold" id="card-desc">Bản tin học tập...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let scene, camera, renderer, controls;
+        let raycaster, mouse;
+        let hotspots = [];
+        let markers = [];
+        let textbookLabels = [];
+        let exploredHotspots = new Set();
+        let showTextbookLabels = true;
+
+        // Current Exploded Mode (all, plate, volcano, fold, xray)
+        let currentMode = 'all';
+
+        // Animated group references for Endogenic plate split!
+        let endogenicGroup;
+        let tectonicPlateLeft, tectonicPlateRight;
+        let plateLeftTargetX = 0, plateRightTargetX = 0; // Targets for smooth Lerp!
+
+        // Visual Objects
+        let magmaChamber, magmaDuct, lavaCrack, craterPool, sunMesh;
+        let leftCoreBlock, rightCoreBlock;
+        let lavaTexture, waterTexture;
+        let rainParticles, rainGeometry, rainCount = 450;
+        let ashParticles, ashGeometry, ashCount = 200;
+        let sedimentParticles, sedimentGeometry, sedimentCount = 80;
+        let sedimentData = [];
+        let mistParticles, mistGeometry, mistCount = 60;
+
+        // Dynamic lava-glow inside split plate fissure
+        let fissureLava, fissureLavaMat;
+
+        // Visual enhancement point lights
+        let volcanoFlickerLight, coreGlowLight, sunCoronaLight, splitFissureLight;
+
+        // Realistic textbook colors
+        const COLORS = {
+            volcanoGrey: 0x475569,
+            grassGreen: 0x16a34a,
+            valleyGreen: 0x14532d,
+            waterBlue: 0x0284c7,
+            shallowsTurquoise: 0x0f766e,
+            magmaOrange: 0xff4500,
+            sunYellow: 0xffd700,
+            darkCrust: 0x1e293b,
+            pedestalWhite: 0xf8fafc
+        };
+
+        const hotspotData = [
+            { 
+                id: 1, 
+                name: "Lõi lửa nội sinh", 
+                subtitle: "🔥 BIỆT ĐỘI XÂY DỰNG", 
+                avatar: "🔥",
+                desc: "Xin chào! Ta là Nội sinh, mang sức mạnh nhiệt năng khổng lồ từ tâm Trái Đất. Nhiệm vụ của ta là đẩy núi cao lên, tạo ra núi lửa và làm bề mặt Trái Đất trở nên gồ ghề, kỳ vĩ!", 
+                pos: [-3.0, -1.2, 1.3] 
+            },
+            { 
+                id: 2, 
+                name: "Dòng chảy Mác-ma", 
+                subtitle: "🌋 DŨNG SĨ LAVA", 
+                avatar: "🌋",
+                desc: "Áp suất cực đại đang đẩy ta trào lên! Khi ta nguội đi, ta sẽ tặng cho các bạn những vùng cao nguyên đất đỏ Ba-zan siêu màu mỡ để trồng cà phê và cao su đấy!", 
+                pos: [-3.3, 1.7, 0.3] 
+            },
+            { 
+                id: 3, 
+                name: "Năng lượng Mặt Trời", 
+                subtitle: "☀️ BIỆT ĐỘI ĐIÊU KHẮC", 
+                avatar: "☀️",
+                desc: "Còn ta là Ngoại sinh! Ta lấy năng lượng từ ánh nắng Mặt Trời, gió và mưa. Nhiệm vụ của ta là 'tuyên chiến' với Nội sinh, tìm cách san phẳng những chỗ gồ ghề!", 
+                pos: [3.8, 4.3, -2.0] 
+            },
+            { 
+                id: 4, 
+                name: "Vùng sạt lở trên sườn núi", 
+                subtitle: "💎 QUÁ TRÌNH PHONG HÓA", 
+                avatar: "💎",
+                desc: "Nắng chiếu nóng, mưa dội lạnh làm các tảng đá khổng lồ phong hóa, nứt vỡ thành các hạt cát nhỏ, rồi trọng lực kéo chúng sạt lở đổ dốc sườn núi đất!", 
+                pos: [2.1, 1.9, -1.0] 
+            },
+            { 
+                id: 5, 
+                name: "Dòng sông đang chảy xiết", 
+                subtitle: "🌊 SHIPPER TỐC ĐỘ", 
+                avatar: "🌊",
+                desc: "Ta là dòng nước sông và gió lớn! Ta thực hiện bóc mòn và 'ship' toàn bộ bùn đất phù sa từ sườn núi cao chạy thật nhanh xuống thung lũng thấp.", 
+                pos: [1.9, 0.8, 1.0] 
+            },
+            { 
+                id: 6, 
+                name: "Đồng bằng trù phú ở hạ lưu", 
+                subtitle: "🌾 QUÁ TRÌNH BỒI TỤ", 
+                avatar: "🌾",
+                desc: "Sau chuyến đi dài, đất cát bồi tụ dừng chân tại đây, bồi đắp nên những đồng bằng và châu thổ phẳng lặng, thẳng cánh cò bay cho con người sinh sống!", 
+                pos: [3.5, 0.25, 1.6] 
+            }
+        ];
+
+        const labelData = [
+            // Left Block (Nội sinh)
+            { text: "Cột khói núi lửa", pos: [-3.3, 3.4, 0.4], block: "left" },
+            { text: "Mảng kiến tạo tách rã", pos: [-5.0, -0.6, 1.0], block: "left" },
+            { text: "Khe đứt gãy sụt lún", pos: [-3.0, -0.3, 2.5], block: "left" },
+            { text: "Phun trào magma", pos: [-5.2, -1.4, 1.5], block: "left" },
+            { text: "Lõi mác-ma nóng chảy", pos: [-3.0, -1.9, 1.5], block: "left" },
+            { text: "Địa hình uốn nếp gồ ghề", pos: [-1.2, 2.0, -2.0], block: "left" },
+            { text: "Nội lực đẩy núi lên", pos: [-1.8, 2.5, -0.8], block: "left" },
+
+            // Right Block (Ngoại sinh)
+            { text: "Mưa rơi bào mòn", pos: [2.5, 3.2, -1.8], block: "right" },
+            { text: "Phong hóa đá sườn núi", pos: [1.1, 2.4, -2.2], block: "right" },
+            { text: "Xâm thực dòng sông", pos: [1.7, 1.3, 0.0], block: "right" },
+            { text: "Lở đất sườn dốc", pos: [2.3, 1.7, -1.1], block: "right" },
+            { text: "Bồi tụ cửa sông", pos: [2.6, 0.3, 1.3], block: "right" },
+            { text: "Đồng bằng châu thổ", pos: [3.6, 0.35, 1.5], block: "right" },
+            { text: "Vận chuyển cát bùn", pos: [3.2, 0.2, 2.3], block: "right" }
+        ];
+
+        // Animated textures generator
+        function generateLavaTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            
+            const grad = ctx.createLinearGradient(0,0,0,256);
+            grad.addColorStop(0, '#ff2200');
+            grad.addColorStop(0.3, '#ff7a00');
+            grad.addColorStop(0.7, '#ffcc00');
+            grad.addColorStop(1, '#700800');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0,0,256,256);
+
+            ctx.strokeStyle = '#2d0600';
+            ctx.lineWidth = 4;
+            for(let i=0; i<30; i++) {
+                ctx.beginPath();
+                ctx.moveTo(Math.random()*256, Math.random()*256);
+                ctx.lineTo(Math.random()*256, Math.random()*256);
+                ctx.stroke();
+            }
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            return texture;
+        }
+
+        function generateWaterTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#0ea5e9';
+            ctx.fillRect(0,0,128,128);
+
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 1.5;
+            for(let i=0; i<15; i++) {
+                ctx.beginPath();
+                ctx.arc(Math.random()*128, Math.random()*128, Math.random()*30, 0, Math.PI*2);
+                ctx.stroke();
+            }
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            return texture;
+        }
+
+        // Procedural Stratified Rock Layer Texture
+        function createStrataTexture(isFolded) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            const colors = ['#2e1b10', '#412618', '#543320', '#1c100a', '#683f28', '#110a06'];
+            const numLayers = 16;
+            const h = canvas.height / numLayers;
+
+            for (let i = 0; i < numLayers; i++) {
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.beginPath();
+                
+                if (isFolded) {
+                    ctx.moveTo(0, i * h);
+                    for (let x = 0; x <= canvas.width; x += 10) {
+                        const wave = Math.sin(x * 0.02) * 22 + Math.cos(x * 0.01) * 10;
+                        ctx.lineTo(x, i * h + wave);
+                    }
+                    ctx.lineTo(canvas.width, canvas.height);
+                    ctx.lineTo(0, canvas.height);
+                } else {
+                    ctx.moveTo(0, i * h);
+                    for (let x = 0; x <= canvas.width; x += 10) {
+                        const offset = (x > 256) ? 14 : 0;
+                        ctx.lineTo(x, i * h + offset);
+                    }
+                    ctx.lineTo(canvas.width, canvas.height);
+                    ctx.lineTo(0, canvas.height);
+                }
+                ctx.fill();
+            }
+
+            // Grains noise for rock texture
+            for (let i = 0; i < 4000; i++) {
+                ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.06})`;
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1, 2);
+                ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.15})`;
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 1);
+            }
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            return texture;
+        }
+
+        function createDeltaGrassTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#16a34a'; // Grass base
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Grids representing farming plots
+            ctx.strokeStyle = '#14532d';
+            ctx.lineWidth = 2.5;
+            for (let i = 0; i < canvas.width; i += 32) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+            }
+
+            const cropShades = ['#16a34a', '#22c55e', '#a3e635', '#84cc16', '#15803d'];
+            for(let x = 0; x < canvas.width; x += 32) {
+                for(let y = 0; y < canvas.height; y += 32) {
+                    if(Math.random() > 0.4) {
+                        ctx.fillStyle = cropShades[Math.floor(Math.random() * cropShades.length)];
+                        ctx.fillRect(x+1.5, y+1.5, 29, 29);
+                    }
+                }
+            }
+
+            const texture = new THREE.CanvasTexture(canvas);
+            return texture;
+        }
+
+        function init() {
+            const container = document.getElementById('canvas-container');
+
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x060814, 0.025);
+
+            camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(12, 7.5, 14);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.1;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 6;
+            controls.maxDistance = 22;
+            controls.maxPolarAngle = Math.PI/2 - 0.05;
+
+            // Lights
+            const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+            scene.add(ambient);
+
+            const hemiLight = new THREE.HemisphereLight(0xbae6fd, 0x090d16, 0.45);
+            scene.add(hemiLight);
+
+            // Sun directional light
+            const sunLight = new THREE.DirectionalLight(0xfffaed, 1.5);
+            sunLight.position.set(8, 14, 6);
+            sunLight.castShadow = true;
+            sunLight.shadow.mapSize.width = 2048;
+            sunLight.shadow.mapSize.height = 2048;
+            sunLight.shadow.bias = -0.0003;
+            scene.add(sunLight);
+
+            // Cinematic blue backlighting
+            const rimLight = new THREE.DirectionalLight(0x38bdf8, 0.85);
+            rimLight.position.set(-8, 4, -8);
+            scene.add(rimLight);
+
+            // Dynamic flickering lava light
+            volcanoFlickerLight = new THREE.PointLight(0xff3f00, 3.5, 7);
+            volcanoFlickerLight.position.set(-3.3, 3.2, 0.3);
+            scene.add(volcanoFlickerLight);
+
+            // Core inner magma light
+            coreGlowLight = new THREE.PointLight(0xff4500, 4.0, 6);
+            coreGlowLight.position.set(-2.8, -1.6, 1.3);
+            scene.add(coreGlowLight);
+
+            // Splitting Fissure Light
+            splitFissureLight = new THREE.PointLight(0xff2200, 0, 8);
+            splitFissureLight.position.set(-3.0, -1.0, 0);
+            scene.add(splitFissureLight);
+
+            // Pre-load dynamic textures
+            lavaTexture = generateLavaTexture();
+            waterTexture = generateWaterTexture();
+
+            buildDiorama();
+            setupInteractiveMarkers();
+            setupTextbookLabels();
+            setupPrecipitation();
+            setupEruptionSmoke();
+            setupSedimentTransport();
+            setupWeatheringMist();
+
+            window.addEventListener('resize', onWindowResize);
+
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 800);
+            }, 1200);
+
+            animate();
+        }
+
+        function deformGeometry(geometry, amp = 0.12, scale = 1.2) {
+            const pos = geometry.attributes.position;
+            for (let i = 0; i < pos.count; i++) {
+                const x = pos.getX(i);
+                const y = pos.getY(i);
+                const z = pos.getZ(i);
+                
+                const dX = Math.sin(z * scale) * Math.cos(y * scale) * amp;
+                const dY = Math.sin(x * scale) * Math.cos(z * scale) * amp;
+                const dZ = Math.cos(x * scale) * Math.sin(y * scale) * amp;
+                
+                pos.setX(i, x + dX);
+                pos.setY(i, y + dY);
+                pos.setZ(i, z + dZ);
+            }
+            geometry.computeVertexNormals();
+        }
+
+        function buildDiorama() {
+            // Display Pedestals - white marble bases
+            const pedestalMat = new THREE.MeshStandardMaterial({ 
+                color: COLORS.pedestalWhite, 
+                roughness: 0.1,
+                metalness: 0.15
+            });
+            const pedestalGeo = new THREE.BoxGeometry(4.8, 0.45, 7.3);
+
+            // Left Pedestal (Nội sinh)
+            const leftPedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+            leftPedestal.position.set(-3.0, -3.2, 0);
+            leftPedestal.receiveShadow = true;
+            scene.add(leftPedestal);
+
+            // Right Pedestal (Ngoại sinh)
+            const rightPedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+            rightPedestal.position.set(3.0, -3.2, 0);
+            rightPedestal.receiveShadow = true;
+            scene.add(rightPedestal);
+
+            // 1. LEFT BLOCK: NỘI SINH - SPLIT INTO TWO SLIDING TECTONIC PLATES!
+            endogenicGroup = new THREE.Group();
+            endogenicGroup.position.set(-3.0, -1.0, 0);
+
+            const leftStrataTex = createStrataTexture(true); // Wavefolded
+            const leftStrataMat = new THREE.MeshStandardMaterial({ map: leftStrataTex, roughness: 0.95 });
+            const grassMatLeft = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.85 });
+
+            // Splitting Plate Geometry (Dividing block width 4.4 into Left & Right plates)
+            const plateLeftGeo = new THREE.BoxGeometry(2.1, 3.2, 6.8);
+            const plateRightGeo = new THREE.BoxGeometry(2.1, 3.2, 6.8);
+
+            const plateLeftMaterials = [
+                leftStrataMat, // Right
+                leftStrataMat, // Left
+                grassMatLeft,  // Top
+                new THREE.MeshStandardMaterial({ color: 0x070312 }), // Bottom
+                leftStrataMat, // Front
+                leftStrataMat  // Back
+            ];
+
+            // Left Plate (Houses Volcano, Magma conduit)
+            tectonicPlateLeft = new THREE.Group();
+            tectonicPlateLeft.position.set(-1.1, 0, 0); // Local offset
+
+            const leftPlateBlock = new THREE.Mesh(plateLeftGeo, plateLeftMaterials);
+            leftPlateBlock.receiveShadow = true;
+            leftPlateBlock.castShadow = true;
+            tectonicPlateLeft.add(leftPlateBlock);
+
+            // MAGMA UNDERGROUND CHAMBER (Boiling molten core inside Left Plate)
+            const chamberGeo = new THREE.SphereGeometry(1.0, 32, 16);
+            deformGeometry(chamberGeo, 0.12, 5);
+            const magmaMat = new THREE.MeshStandardMaterial({
+                map: lavaTexture,
+                emissive: COLORS.magmaOrange,
+                emissiveMap: lavaTexture,
+                emissiveIntensity: 3.2,
+                roughness: 0.1
+            });
+            magmaChamber = new THREE.Mesh(chamberGeo, magmaMat);
+            magmaChamber.position.set(0.6, -0.6, 1.3);
+            tectonicPlateLeft.add(magmaChamber);
+
+            // Subterranean Magma Conduit
+            const ductGeo = new THREE.CylinderGeometry(0.2, 0.38, 2.8, 16);
+            deformGeometry(ductGeo, 0.06, 6);
+            magmaDuct = new THREE.Mesh(ductGeo, magmaMat);
+            magmaDuct.position.set(0.1, 0.8, 0.3);
+            tectonicPlateLeft.add(magmaDuct);
+
+            // Erupting Volcano Cone on Left Tectonic Plate
+            const volcanoGeo = new THREE.ConeGeometry(1.8, 2.9, 18, 8);
+            deformGeometry(volcanoGeo, 0.14, 3.5);
+            const volcanoMat = new THREE.MeshStandardMaterial({ color: COLORS.volcanoGrey, roughness: 0.9 });
+            const volcano = new THREE.Mesh(volcanoGeo, volcanoMat);
+            volcano.position.set(0.1, 2.9, 0.3);
+            volcano.castShadow = true;
+            volcano.receiveShadow = true;
+            tectonicPlateLeft.add(volcano);
+
+            // Liquid Lava Pool inside Crater
+            const craterPoolGeo = new THREE.CircleGeometry(0.3, 16);
+            craterPool = new THREE.Mesh(craterPoolGeo, magmaMat);
+            craterPool.rotation.x = -Math.PI / 2;
+            craterPool.position.set(0.1, 4.36, 0.3);
+            tectonicPlateLeft.add(craterPool);
+
+            // Side Crack flowing magma (Lava Stream)
+            const lavaCrackGeo = new THREE.CylinderGeometry(0.05, 0.12, 1.8, 8);
+            deformGeometry(lavaCrackGeo, 0.04, 5);
+            lavaCrack = new THREE.Mesh(lavaCrackGeo, magmaMat);
+            lavaCrack.rotation.z = -Math.PI / 7;
+            lavaCrack.position.set(0.6, 2.5, 0.5);
+            tectonicPlateLeft.add(lavaCrack);
+
+            endogenicGroup.add(tectonicPlateLeft);
+
+            // Right Plate (Houses Folding Mountain Peaks)
+            tectonicPlateRight = new THREE.Group();
+            tectonicPlateRight.position.set(1.1, 0, 0); // Local offset
+
+            const rightPlateBlock = new THREE.Mesh(plateRightGeo, plateLeftMaterials);
+            rightPlateBlock.receiveShadow = true;
+            rightPlateBlock.castShadow = true;
+            tectonicPlateRight.add(rightPlateBlock);
+
+            // Folding Mountain Peaks (Uốn Nếp)
+            const ridgeMat = new THREE.MeshStandardMaterial({ color: 0x3f3f46, roughness: 0.9 });
+            const foldRidge1 = new THREE.Mesh(new THREE.ConeGeometry(1.0, 2.4, 5), ridgeMat);
+            foldRidge1.position.set(0.0, 2.4, -1.8);
+            foldRidge1.rotation.y = 0.4;
+            foldRidge1.castShadow = true;
+            foldRidge1.receiveShadow = true;
+            tectonicPlateRight.add(foldRidge1);
+
+            const foldRidge2 = new THREE.Mesh(new THREE.ConeGeometry(0.8, 1.8, 5), ridgeMat);
+            foldRidge2.position.set(-0.5, 2.1, -2.6);
+            foldRidge2.rotation.y = -0.3;
+            foldRidge2.castShadow = true;
+            foldRidge2.receiveShadow = true;
+            tectonicPlateRight.add(foldRidge2);
+
+            endogenicGroup.add(tectonicPlateRight);
+
+            // Glowing magma plane hidden in the split gap (revealed in Explode Mode!)
+            fissureLavaMat = new THREE.MeshBasicMaterial({
+                map: lavaTexture,
+                transparent: true,
+                opacity: 0.0 // Invisible by default
+            });
+            fissureLava = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 3.1), fissureLavaMat);
+            fissureLava.rotation.y = -Math.PI / 2;
+            fissureLava.position.set(0, 0, 0);
+            endogenicGroup.add(fissureLava);
+
+            scene.add(endogenicGroup);
+
+            // 2. RIGHT BLOCK: NGOẠI SINH (Exogenic Processes)
+            const rightGroup = new THREE.Group();
+            rightGroup.position.set(3.0, -1.0, 0);
+
+            const rightStrataTex = createStrataTexture(false); // Horizontal, fault-shifted strata
+            const rightStrataMat = new THREE.MeshStandardMaterial({ map: rightStrataTex, roughness: 0.95 });
+            const grassTexDelta = createDeltaGrassTexture();
+            const grassMatRight = new THREE.MeshStandardMaterial({ map: grassTexDelta, roughness: 0.85 });
+
+            const rightMaterials = [
+                rightStrataMat, // Right
+                rightStrataMat, // Left
+                grassMatRight,  // Top
+                new THREE.MeshStandardMaterial({ color: 0x090d16 }), // Bottom
+                rightStrataMat, // Front
+                rightStrataMat  // Back
+            ];
+            const blockGeo = new THREE.BoxGeometry(4.4, 3.2, 6.8);
+            rightCoreBlock = new THREE.Mesh(blockGeo, rightMaterials);
+            rightCoreBlock.receiveShadow = true;
+            rightCoreBlock.castShadow = true;
+            rightGroup.add(rightCoreBlock);
+
+            // Weathering erosion mountain peaks (Sườn núi đá phong hóa)
+            const weatherGeo = new THREE.ConeGeometry(1.8, 3.4, 8, 6);
+            deformGeometry(weatherGeo, 0.22, 3);
+            const weatheringPeak = new THREE.Mesh(weatherGeo, ridgeMat);
+            weatheringPeak.position.set(-0.7, 3.0, -1.8);
+            weatheringPeak.castShadow = true;
+            weatheringPeak.receiveShadow = true;
+            rightGroup.add(weatheringPeak);
+
+            // Snow covered peak on top of mountain
+            const snowGeo = new THREE.ConeGeometry(0.85, 1.5, 6, 2);
+            const snowMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 });
+            const snowCap = new THREE.Mesh(snowGeo, snowMat);
+            snowCap.position.set(-0.7, 4.0, -1.8);
+            rightGroup.add(snowCap);
+
+            // LANDSLIDE (Sạt lở đất sườn núi)
+            const landslideScarMat = new THREE.MeshStandardMaterial({ color: 0x7c2d12, roughness: 0.95 });
+            const scarGeo = new THREE.BoxGeometry(0.9, 1.5, 0.3);
+            const scar = new THREE.Mesh(scarGeo, landslideScarMat);
+            scar.rotation.x = Math.PI / 4.2;
+            scar.position.set(-0.3, 1.8, -1.0);
+            rightGroup.add(scar);
+
+            // Crumbling rocks pile at sườn núi base
+            const boulderMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.9 });
+            const rockLocs = [
+                [0.1, 1.1, -1.0], [0.3, 0.9, -0.8], [0.2, 1.0, -1.2], 
+                [-0.1, 1.2, -0.8], [0.4, 0.9, -1.1]
+            ];
+            rockLocs.forEach(p => {
+                const boulder = new THREE.Mesh(new THREE.DodecahedronGeometry(0.12 + Math.random()*0.06), boulderMat);
+                boulder.position.set(p[0], p[1], p[2]);
+                boulder.castShadow = true;
+                rightGroup.add(boulder);
+            });
+
+            // Winding Flowing River carving through right block
+            const waterMat = new THREE.MeshStandardMaterial({
+                map: waterTexture,
+                roughness: 0.05,
+                metalness: 0.2,
+                transparent: true,
+                opacity: 0.94
+            });
+
+            const riverChannel = new THREE.Group();
+            const channelSegments = [
+                {w: 0.45, l: 2.0, pos: [-0.6, 1.45, -0.6], rot: [Math.PI/6.2, 0, 0]},
+                {w: 0.5, l: 2.3, pos: [-0.3, 0.9, 0.7], rot: [Math.PI/10.5, 0.15, 0]},
+                {w: 0.7, l: 2.8, pos: [0.3, 0.45, 1.6], rot: [Math.PI/22, 0.35, 0]}
+            ];
+            channelSegments.forEach(seg => {
+                const plane = new THREE.Mesh(new THREE.PlaneGeometry(seg.w, seg.l), waterMat);
+                plane.rotation.x = -Math.PI / 2 + seg.rot[0];
+                plane.rotation.y = seg.rot[1];
+                plane.position.set(seg.pos[0], seg.pos[1] + 0.15, seg.pos[2]);
+                riverChannel.add(plane);
+            });
+            rightGroup.add(riverChannel);
+
+            // Shallows Turquoise Sea Receiving Delta Silt
+            const seaGeo = new THREE.BoxGeometry(2.5, 0.32, 2.6);
+            const seaMat = new THREE.MeshStandardMaterial({
+                map: waterTexture,
+                color: COLORS.shallowsTurquoise,
+                roughness: 0.05,
+                transparent: true,
+                opacity: 0.9
+            });
+            const sea = new THREE.Mesh(seaGeo, seaMat);
+            sea.position.set(1.0, 0.16, 2.1);
+            rightGroup.add(sea);
+
+            // Branching Delta Distributaries
+            const deltaEstuary = new THREE.Group();
+            const deltaColors = [0x0f766e, 0x115e59, 0x14532d];
+            for (let i = 0; i < 4; i++) {
+                const branchMesh = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.25, 0.05, 1.5), 
+                    new THREE.MeshStandardMaterial({ color: deltaColors[i % 3], roughness: 0.9 })
+                );
+                branchMesh.position.set(0.5 + i * 0.35, 0.17, 1.7 + Math.sin(i)*0.18);
+                branchMesh.rotation.y = (Math.random() - 0.5) * 0.5;
+                deltaEstuary.add(branchMesh);
+            }
+            rightGroup.add(deltaEstuary);
+
+            // Stylized Sun Model with light emission
+            const sunMat = new THREE.MeshBasicMaterial({ color: COLORS.sunYellow });
+            sunMesh = new THREE.Mesh(new THREE.SphereGeometry(0.55, 32, 32), sunMat);
+            sunMesh.position.set(3.8, 4.3, -2.0);
+            rightGroup.add(sunMesh);
+
+            sunCoronaLight = new THREE.PointLight(0xffea00, 2.0, 6);
+            sunCoronaLight.position.set(3.8, 4.0, -2.0);
+            rightGroup.add(sunCoronaLight);
+
+            // Fluffy Cloud Sources for rain
+            const cloudMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.98 });
+            const clouds = new THREE.Group();
+            const cl1 = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8), cloudMat);
+            cl1.position.set(2.6, 3.9, -1.8);
+            clouds.add(cl1);
+            const cl2 = new THREE.Mesh(new THREE.SphereGeometry(0.55, 8, 8), cloudMat);
+            cl2.position.set(3.0, 4.1, -1.6);
+            clouds.add(cl2);
+            rightGroup.add(clouds);
+
+            // Landscape scaling pine trees
+            const treeLeafMat = new THREE.MeshStandardMaterial({ color: 0x14532d, roughness: 0.95 });
+            const treeBarkMat = new THREE.MeshStandardMaterial({ color: 0x451a03 });
+            const forestSectors = [
+                [1.3, 0.15, 0.4], [1.1, 0.15, -0.3], [1.6, 0.15, -0.1],
+                [0.7, 0.15, 1.9], [0.8, 0.15, 2.4], [1.5, 0.15, 2.1]
+            ];
+            forestSectors.forEach(pos => {
+                const tree = new THREE.Group();
+                const bark = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.22), treeBarkMat);
+                bark.position.y = 0.11;
+                tree.add(bark);
+                const foliage = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.38, 5), treeLeafMat);
+                foliage.position.y = 0.35;
+                tree.add(foliage);
+                tree.position.set(pos[0], pos[1] + 1.6, pos[2]);
+                rightGroup.add(tree);
+            });
+
+            scene.add(rightGroup);
+        }
+
+        // Explode / Separation Controller function!
+        function setExplodeMode(mode) {
+            currentMode = mode;
+            
+            // Play retro click sound
+            triggerBeepAudio();
+
+            // Reset deck active states
+            document.querySelectorAll('.deck-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-mode-${mode}`).classList.add('active');
+
+            // Reset materials and transparent grids before updates
+            resetTextbookLabelFilter();
+
+            switch(mode) {
+                case 'all':
+                    plateLeftTargetX = -1.1;
+                    plateRightTargetX = 1.1;
+                    fissureLavaMat.opacity = 0.0;
+                    splitFissureLight.intensity = 0;
+                    setMaterialXray(false);
+                    break;
+                case 'plate':
+                    // Separation wow effect! Plates shift out to reveal magma fissure
+                    plateLeftTargetX = -1.75;
+                    plateRightTargetX = 1.75;
+                    fissureLavaMat.opacity = 1.0;
+                    splitFissureLight.intensity = 4.0;
+                    setMaterialXray(false);
+                    filterLabelsToShow(["Mảng kiến tạo tách rã", "Khe đứt gãy sụt lún", "Phun trào magma"]);
+                    showDetailsCard("Đứt Gãy Kiến Tạo", "⛓️ ĐỘNG LỰC NỘI SINH", "Hiện tượng mảng kiến tạo di chuyển tách xa nhau hoặc va chạm xô lệch dọc theo đới đứt gãy sụt sâu, khiến magma phun trào bùng lên từ sâu trong thạch quyển!", "↔️");
+                    break;
+                case 'volcano':
+                    plateLeftTargetX = -1.1;
+                    plateRightTargetX = 1.1;
+                    fissureLavaMat.opacity = 0.0;
+                    splitFissureLight.intensity = 0;
+                    setMaterialXray(false);
+                    filterLabelsToShow(["Cột khói núi lửa", "Phun trào magma", "Lõi mác-ma nóng chảy"]);
+                    // Boost spark speed & erupt count temporarily
+                    showDetailsCard("Núi lửa & Phun Trào", "🌋 CƠN GIẬN CỦA ĐẤT", "Magma nóng chảy chịu áp suất khí khổng lồ bóp ép đẩy ngược theo ống dẫn phun lên miệng núi lửa, bồi đắp địa hình núi cao và tạo thảm đất đỏ bazan vô cùng màu mỡ!", "🌋");
+                    break;
+                case 'fold':
+                    plateLeftTargetX = -1.1;
+                    plateRightTargetX = 1.1;
+                    fissureLavaMat.opacity = 0.0;
+                    splitFissureLight.intensity = 0;
+                    setMaterialXray(false);
+                    filterLabelsToShow(["Địa hình uốn nếp gồ ghề", "Nội lực đẩy núi lên"]);
+                    showDetailsCard("Hiện Tượng Uốn Nếp", "〰️ SÓNG ĐÁ KIẾN TẠO", "Lực ép nén ngang của các mảng kiến tạo ép chặt các lớp đá dẻo trầm tích, khiến chúng bị uốn lượn nhấp nhô liên tục thành những dãy núi uốn nếp sừng sững mà không hề đứt gãy phá hủy!", "〰️");
+                    break;
+                case 'xray':
+                    // Make external crust layers semi-transparent wireframe to reveal core magma structures!
+                    plateLeftTargetX = -1.1;
+                    plateRightTargetX = 1.1;
+                    fissureLavaMat.opacity = 0.0;
+                    splitFissureLight.intensity = 0;
+                    setMaterialXray(true);
+                    filterLabelsToShow(["Lõi mác-ma nóng chảy", "Phun trào magma"]);
+                    showDetailsCard("Cắt Lớp X-Ray", "💀 KHÁM PHÁ LÒNG ĐẤT", "Bằng phương pháp sóng địa chấn siêu việt, chúng ta có thể xuyên thủng thạch quyển để tận mắt chứng kiến hệ thống bầu mác-ma và dòng đối lưu nhiệt năng đẩy thạch quyển dâng cao!", "💀");
+                    break;
+            }
+        }
+
+        // Apply visual transparency to plate boxes to allow X-Ray scanning
+        function setMaterialXray(enable) {
+            tectonicPlateLeft.children[0].material.forEach(mat => {
+                mat.transparent = enable;
+                mat.opacity = enable ? 0.25 : 1.0;
+                mat.wireframe = enable;
+            });
+            tectonicPlateRight.children[0].material.forEach(mat => {
+                mat.transparent = enable;
+                mat.opacity = enable ? 0.25 : 1.0;
+                mat.wireframe = enable;
+            });
+            if (rightCoreBlock) {
+                rightCoreBlock.material.forEach(mat => {
+                    mat.transparent = enable;
+                    mat.opacity = enable ? 0.3 : 1.0;
+                });
+            }
+        }
+
+        function filterLabelsToShow(allowedTexts) {
+            textbookLabels.forEach(label => {
+                // Remove label matching and string checks
+                const match = allowedTexts.some(text => label.element.innerHTML.includes(text));
+                label.element.style.opacity = match ? '1' : '0.15';
+            });
+        }
+
+        function resetTextbookLabelFilter() {
+            textbookLabels.forEach(label => {
+                label.element.style.opacity = '1';
+            });
+        }
+
+        // HEAVY WEATHERING RAIN
+        function setupPrecipitation() {
+            rainGeometry = new THREE.BufferGeometry();
+            const posArr = new Float32Array(rainCount * 3);
+            const velocities = [];
+
+            for (let i = 0; i < rainCount; i++) {
+                posArr[i*3] = 1.0 + Math.random() * 4.3;
+                posArr[i*3+1] = 2.0 + Math.random() * 3.5;
+                posArr[i*3+2] = -3.2 + Math.random() * 5.8;
+
+                velocities.push(0.08 + Math.random() * 0.06);
+            }
+
+            rainGeometry.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+            const rainMat = new THREE.PointsMaterial({
+                color: 0x38bdf8,
+                size: 0.04,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            rainParticles = new THREE.Points(rainGeometry, rainMat);
+            rainParticles.userData = { velocities };
+            scene.add(rainParticles);
+        }
+
+        // VOLCANO ERUPTION DUST & PHYSICAL SPARK EMBERS
+        function setupEruptionSmoke() {
+            ashGeometry = new THREE.BufferGeometry();
+            const posArr = new Float32Array(ashCount * 3);
+            const particlesData = [];
+
+            for (let i = 0; i < ashCount; i++) {
+                posArr[i*3] = -4.3 + (Math.random() - 0.5) * 0.15;
+                posArr[i*3+1] = 3.3;
+                posArr[i*3+2] = 0.3 + (Math.random() - 0.5) * 0.15;
+
+                particlesData.push({
+                    speedY: 0.015 + Math.random() * 0.02,
+                    speedX: (Math.random() - 0.45) * 0.012,
+                    speedZ: (Math.random() - 0.5) * 0.01,
+                    isFiery: Math.random() > 0.4
+                });
+            }
+
+            ashGeometry.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+            
+            const ashMat = new THREE.PointsMaterial({
+                color: 0xe11d48, // Fire coral red
+                size: 0.12,
+                transparent: true,
+                opacity: 0.85
+            });
+
+            ashParticles = new THREE.Points(ashGeometry, ashMat);
+            ashParticles.userData = { data: particlesData };
+            scene.add(ashParticles);
+        }
+
+        // SILT & SILICA FLOWING SUSPENDED SEDIMENTS
+        function setupSedimentTransport() {
+            sedimentGeometry = new THREE.BufferGeometry();
+            const posArr = new Float32Array(sedimentCount * 3);
+
+            for (let i = 0; i < sedimentCount; i++) {
+                const progress = Math.random();
+                const pos = getRiverPoint(progress);
+                posArr[i*3] = pos.x;
+                posArr[i*3+1] = pos.y;
+                posArr[i*3+2] = pos.z;
+
+                sedimentData.push({
+                    progress: progress,
+                    speed: 0.004 + Math.random() * 0.006
+                });
+            }
+
+            sedimentGeometry.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+            const sedimentMat = new THREE.PointsMaterial({
+                color: 0xf59e0b, // Amber glowing sediment
+                size: 0.075,
+                transparent: true,
+                opacity: 0.95
+            });
+
+            sedimentParticles = new THREE.Points(sedimentGeometry, sedimentMat);
+            scene.add(sedimentParticles);
+        }
+
+        // SƯƠNG MÙ BÀO MÒN SƯỜN NÚI
+        function setupWeatheringMist() {
+            mistGeometry = new THREE.BufferGeometry();
+            const posArr = new Float32Array(mistCount * 3);
+            const velocities = [];
+
+            for (let i = 0; i < mistCount; i++) {
+                posArr[i*3] = 1.5 + (Math.random() - 0.5) * 1.5;
+                posArr[i*3+1] = 0.8 + Math.random() * 0.6;
+                posArr[i*3+2] = -1.2 + (Math.random() - 0.5) * 1.2;
+
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.005,
+                    y: 0.001 + Math.random() * 0.003,
+                    z: (Math.random() - 0.5) * 0.005
+                });
+            }
+
+            mistGeometry.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+            const mistMat = new THREE.PointsMaterial({
+                color: 0xe2e8f0,
+                size: 0.28,
+                transparent: true,
+                opacity: 0.4
+            });
+
+            mistParticles = new THREE.Points(mistGeometry, mistMat);
+            mistParticles.userData = { velocities };
+            scene.add(mistParticles);
+        }
+
+        function getRiverPoint(progress) {
+            const rx = 3.0;
+            const ry = -1.0 + 0.15;
+            
+            if (progress < 0.33) {
+                const localProg = progress / 0.33;
+                return new THREE.Vector3(
+                    rx - 0.6 + localProg * 0.3,
+                    ry + 1.45 - localProg * 0.55,
+                    -0.6 + localProg * 1.3
+                );
+            } else if (progress < 0.66) {
+                const localProg = (progress - 0.33) / 0.33;
+                return new THREE.Vector3(
+                    rx - 0.3 + localProg * 0.6,
+                    ry + 0.9 - localProg * 0.45,
+                    0.7 + localProg * 0.9
+                );
+            } else {
+                const localProg = (progress - 0.66) / 0.34;
+                const branchOffset = Math.sin(localProg * 6.0) * 0.35;
+                return new THREE.Vector3(
+                    rx + 0.3 + localProg * 0.7 + branchOffset,
+                    ry + 0.45 - localProg * 0.29,
+                    1.6 + localProg * 0.8
+                );
+            }
+        }
+
+        function setupInteractiveMarkers() {
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+
+            const markerTouchSphere = new THREE.SphereGeometry(0.38, 16, 16);
+            const markersOverlay = document.getElementById('markers-overlay');
+
+            hotspotData.forEach(data => {
+                const touchMesh = new THREE.Mesh(
+                    markerTouchSphere, 
+                    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+                );
+                touchMesh.position.set(...data.pos);
+                touchMesh.userData = { ...data, isHotspot: true };
+
+                scene.add(touchMesh);
+                hotspots.push(touchMesh);
+
+                const htmlMarker = document.createElement('div');
+                htmlMarker.className = 'hotspot-marker';
+                htmlMarker.id = `marker-${data.id}`;
+
+                const ring = document.createElement('div');
+                ring.className = 'marker-ring';
+                const dot = document.createElement('div');
+                dot.className = 'marker-dot';
+                dot.textContent = data.id;
+
+                htmlMarker.appendChild(ring);
+                htmlMarker.appendChild(dot);
+                markersOverlay.appendChild(htmlMarker);
+
+                markers.push({ element: htmlMarker, object3D: touchMesh });
+            });
+
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('click', onClick);
+            window.addEventListener('touchstart', onTouch, { passive: false });
+        }
+
+        function setupTextbookLabels() {
+            const labelsContainer = document.getElementById('labels-overlay');
+
+            labelData.forEach((label) => {
+                const labelElement = document.createElement('div');
+                
+                if (label.block === "left") {
+                    labelElement.className = 'textbook-label';
+                    labelElement.innerHTML = `<span class="text-rose-500">●</span> ${label.text}`;
+                } else {
+                    labelElement.className = 'textbook-label right-label';
+                    labelElement.innerHTML = `<span class="text-cyan-400">●</span> ${label.text}`;
+                }
+
+                labelsContainer.appendChild(labelElement);
+
+                const xOffset = label.block === "left" ? -3.0 : 3.0;
+                const posVector = new THREE.Vector3(label.pos[0] + xOffset, label.pos[1] - 1.0, label.pos[2]);
+
+                textbookLabels.push({
+                    element: labelElement,
+                    worldPos: posVector
+                });
+            });
+        }
+
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            checkRaycastIntersections();
+        }
+
+        function onTouch(event) {
+            if(event.touches.length > 0) {
+                mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+                checkRaycastIntersections();
+                onClick();
+            }
+        }
+
+        let currentlyHovered = null;
+
+        function checkRaycastIntersections() {
+            raycaster.setFromCamera(mouse, camera);
+            const intersections = raycaster.intersectObjects(hotspots, false);
+
+            if (intersections.length > 0) {
+                const target = intersections[0].object;
+
+                if (currentlyHovered !== target) {
+                    clearInteractiveHighlights();
+
+                    currentlyHovered = target;
+                    document.body.style.cursor = 'pointer';
+
+                    const element = document.getElementById(`marker-${currentlyHovered.userData.id}`);
+                    if (element) element.classList.add('active');
+
+                    highlightGeologyFeature(currentlyHovered.userData.id, true);
+                }
+            } else {
+                if (currentlyHovered) {
+                    clearInteractiveHighlights();
+                    currentlyHovered = null;
+                }
+            }
+        }
+
+        function highlightGeologyFeature(id, isLit) {
+            const intensity = isLit ? 5.5 : 3.2;
+            const sunScale = isLit ? 1.45 : 1.0;
+
+            switch(id) {
+                case 1:
+                    if (magmaChamber) magmaChamber.material.emissiveIntensity = intensity;
+                    break;
+                case 2:
+                    if (magmaDuct) magmaDuct.material.emissiveIntensity = intensity;
+                    if (lavaCrack) lavaCrack.material.emissiveIntensity = intensity;
+                    break;
+                case 3:
+                    if (sunMesh) sunMesh.scale.setScalar(sunScale);
+                    break;
+            }
+        }
+
+        function clearInteractiveHighlights() {
+            document.body.style.cursor = 'default';
+            markers.forEach(m => m.element.classList.remove('active'));
+
+            if (magmaChamber) magmaChamber.material.emissiveIntensity = 3.2;
+            if (magmaDuct) magmaDuct.material.emissiveIntensity = 3.2;
+            if (lavaCrack) lavaCrack.material.emissiveIntensity = 3.2;
+            if (sunMesh) sunMesh.scale.setScalar(1.0);
+        }
+
+        function onClick() {
+            if (currentlyHovered) {
+                const details = currentlyHovered.userData;
+                exploredHotspots.add(details.id);
+
+                triggerBeepAudio();
+
+                document.getElementById('quest-count').textContent = `Khám phá: ${exploredHotspots.size}/6 vùng`;
+                showDetailsCard(details.name, details.subtitle, details.desc, details.avatar);
+            } else {
+                hideDetailsCard();
+            }
+        }
+
+        function showDetailsCard(title, subtitle, desc, avatar) {
+            const card = document.getElementById('quest-card');
+            document.getElementById('card-title').textContent = title;
+            document.getElementById('card-subtitle').textContent = subtitle;
+            document.getElementById('card-desc').textContent = desc;
+            document.getElementById('card-avatar').textContent = avatar;
+            card.classList.add('visible');
+        }
+
+        function hideDetailsCard() {
+            document.getElementById('quest-card').classList.remove('visible');
+        }
+
+        function triggerBeepAudio() {
+            try {
+                const actx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = actx.createOscillator();
+                const node = actx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(520, actx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1100, actx.currentTime + 0.15);
+                node.gain.setValueAtTime(0.12, actx.currentTime);
+                node.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.18);
+                osc.connect(node);
+                node.connect(actx.destination);
+                osc.start();
+                osc.stop(actx.currentTime + 0.2);
+            } catch(err) {}
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const timestamp = Date.now() * 0.001;
+
+            // 0. SMOOTH LERP INTERPOLATION FOR ACCURATE EXPLODED MODE SEPARATION!
+            if (tectonicPlateLeft) {
+                tectonicPlateLeft.position.x = THREE.MathUtils.lerp(tectonicPlateLeft.position.x, plateLeftTargetX, 0.08);
+            }
+            if (tectonicPlateRight) {
+                tectonicPlateRight.position.x = THREE.MathUtils.lerp(tectonicPlateRight.position.x, plateRightTargetX, 0.08);
+            }
+
+            // Update fissure lava position dynamically on gap centers
+            if (fissureLava && tectonicPlateLeft && tectonicPlateRight) {
+                const gap = Math.abs(tectonicPlateLeft.position.x - (-1.1));
+                fissureLava.scale.x = gap * 1.5 + 0.01;
+            }
+
+            // 1. Dynamic scale pulsing on active hotspots
+            hotspots.forEach(spot => {
+                const pulse = 1.0 + Math.sin(timestamp * 5.0 + spot.position.y) * 0.12;
+                spot.scale.set(pulse, pulse, pulse);
+                
+                // Track hotspot positions dynamically attached to moving plate groups!
+                if (spot.userData.id === 1 || spot.userData.id === 2) {
+                    // Magma core and Volcano attached to moving tectonicPlateLeft
+                    const baseOffset = spot.userData.id === 1 ? [-3.0, -1.2, 1.3] : [-3.3, 1.7, 0.3];
+                    const plateShift = (tectonicPlateLeft.position.x - (-1.1));
+                    spot.position.x = baseOffset[0] + plateShift;
+                }
+            });
+
+            // 2. Map 3D coordinates to HTML Game elements for Quest Markers
+            markers.forEach(marker => {
+                const vector = marker.object3D.position.clone();
+                vector.project(camera);
+
+                const scrX = (vector.x * 0.5 + 0.5) * window.innerWidth;
+                const scrY = (vector.y * -0.5 + 0.5) * window.innerHeight;
+
+                if (vector.z < 1) {
+                    marker.element.style.left = `${scrX}px`;
+                    marker.element.style.top = `${scrY}px`;
+                    marker.element.style.display = 'flex';
+                } else {
+                    marker.element.style.display = 'none';
+                }
+            });
+
+            // 3. Map 3D coordinates to static Textbook labels
+            if (showTextbookLabels) {
+                textbookLabels.forEach(label => {
+                    const vector = label.worldPos.clone();
+                    
+                    // Compensate labels dynamically if they are on the moving plates!
+                    if (label.element.innerHTML.includes("Lõi mác-ma") || 
+                        label.element.innerHTML.includes("Mảng kiến tạo") || 
+                        label.element.innerHTML.includes("núi lửa") ||
+                        label.element.innerHTML.includes("phun trào magma")) {
+                        const plateShift = (tectonicPlateLeft.position.x - (-1.1));
+                        vector.x += plateShift;
+                    } else if (label.element.innerHTML.includes("uốn nếp") || 
+                               label.element.innerHTML.includes("đẩy núi lên")) {
+                        const plateShift = (tectonicPlateRight.position.x - (1.1));
+                        vector.x += plateShift;
+                    }
+
+                    vector.project(camera);
+
+                    const scrX = (vector.x * 0.5 + 0.5) * window.innerWidth;
+                    const scrY = (vector.y * -0.5 + 0.5) * window.innerHeight;
+
+                    if (vector.z < 1) {
+                        label.element.style.left = `${scrX}px`;
+                        label.element.style.top = `${scrY}px`;
+                        label.element.style.display = 'flex';
+                    } else {
+                        label.element.style.display = 'none';
+                    }
+                });
+            }
+
+            // 4. ANIMATED FLOWING LAVA TEXTURE (Dung nham nóng chảy)
+            if (lavaTexture) {
+                lavaTexture.offset.y -= 0.006;
+                lavaTexture.offset.x += 0.002;
+            }
+
+            // 5. ANIMATED FLOWING RIVER WATER (Dòng sông chảy lấp lánh)
+            if (waterTexture) {
+                waterTexture.offset.x -= 0.008;
+                waterTexture.offset.y -= 0.003;
+            }
+
+            // 6. Volcano Light Flickers simulating fire crackles
+            if (volcanoFlickerLight) {
+                volcanoFlickerLight.intensity = 3.0 + Math.random() * 1.5;
+            }
+            if (coreGlowLight) {
+                coreGlowLight.intensity = 3.5 + Math.sin(timestamp * 4.0) * 0.8;
+            }
+
+            // 7. Dynamic Sun Corona Flare breathing
+            if (sunCoronaLight) {
+                sunCoronaLight.intensity = 1.8 + Math.cos(timestamp * 3.0) * 0.4;
+            }
+
+            // 8. Heavy Rainfall Vector Movement
+            if (rainParticles) {
+                const positions = rainGeometry.attributes.position.array;
+                const velocities = rainParticles.userData.velocities;
+
+                for (let i = 0; i < rainCount; i++) {
+                    positions[i*3+1] -= velocities[i];
+                    positions[i*3] -= 0.015;
+
+                    if (positions[i*3+1] < 0.2) {
+                        positions[i*3+1] = 3.5 + Math.random() * 2.5;
+                        positions[i*3] = 1.0 + Math.random() * 4.3;
+                    }
+                }
+                rainGeometry.attributes.position.needsUpdate = true;
+            }
+
+            // 9. Fiery Volcano Eruption particles physics
+            if (ashParticles) {
+                const positions = ashGeometry.attributes.position.array;
+                const data = ashParticles.userData.data;
+
+                const plateShift = (tectonicPlateLeft.position.x - (-1.1));
+
+                for (let i = 0; i < ashCount; i++) {
+                    positions[i*3] += data[i].speedX;
+                    positions[i*3+1] += data[i].speedY;
+                    positions[i*3+2] += data[i].speedZ;
+
+                    // Reset once they scale high or diffuse
+                    if (positions[i*3+1] > 5.5) {
+                        positions[i*3] = (-4.3 + plateShift) + (Math.random() - 0.5) * 0.12;
+                        positions[i*3+1] = 3.3;
+                        positions[i*3+2] = 0.3 + (Math.random() - 0.5) * 0.12;
+                    }
+                }
+                ashGeometry.attributes.position.needsUpdate = true;
+            }
+
+            // 10. Sediment Sand Grains Transportation (Phù sa bồi tụ dòng sông)
+            if (sedimentParticles) {
+                const positions = sedimentGeometry.attributes.position.array;
+
+                for (let i = 0; i < sedimentCount; i++) {
+                    const data = sedimentData[i];
+                    data.progress += data.speed;
+
+                    if (data.progress >= 1.0) {
+                        data.progress = 0.0;
+                    }
+
+                    const point = getRiverPoint(data.progress);
+                    positions[i*3] = point.x;
+                    positions[i*3+1] = point.y;
+                    positions[i*3+2] = point.z;
+                }
+                sedimentGeometry.attributes.position.needsUpdate = true;
+            }
+
+            // 11. Weathering Mist/Fog dynamics
+            if (mistParticles) {
+                const positions = mistGeometry.attributes.position.array;
+                const velocities = mistParticles.userData.velocities;
+
+                for (let i = 0; i < mistCount; i++) {
+                    positions[i*3] += velocities[i].x;
+                    positions[i*3+1] += velocities[i].y;
+                    positions[i*3+2] += velocities[i].z;
+
+                    if (positions[i*3+1] > 1.8) {
+                        positions[i*3] = 1.5 + (Math.random() - 0.5) * 1.5;
+                        positions[i*3+1] = 0.8;
+                        positions[i*3+2] = -1.2 + (Math.random() - 0.5) * 1.2;
+                    }
+                }
+                mistGeometry.attributes.position.needsUpdate = true;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

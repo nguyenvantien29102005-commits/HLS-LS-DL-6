@@ -1,0 +1,4206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ai Cập và Lưỡng Hà cổ đại | Học liệu số Lịch sử 6</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   01. RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+:root{
+
+    --bg:#100b08;
+    --bg2:#1d120c;
+
+    --panel:#21150d;
+    --panel2:#2c1d11;
+
+    --gold:#d9a954;
+    --gold2:#f3d48a;
+    --gold3:#8d5f29;
+
+    --cream:#f7e6bb;
+    --paper:#ead6a7;
+
+    --green:#1f6964;
+    --green2:#318f84;
+
+    --blue:#214e64;
+
+    --brown:#704522;
+    --red:#873f2e;
+
+    --white:#fffaf0;
+
+    --muted:rgba(255,255,255,.68);
+
+    --line:rgba(236,192,109,.20);
+
+    --shadow:
+    0 25px 70px rgba(0,0,0,.38);
+}
+
+body{
+
+    font-family:"Montserrat",sans-serif;
+
+    background:
+    radial-gradient(circle at 10% 10%,
+    rgba(213,157,68,.12),
+    transparent 27%),
+
+    radial-gradient(circle at 90% 50%,
+    rgba(30,112,104,.12),
+    transparent 28%),
+
+    linear-gradient(
+    135deg,
+    #0d0907,
+    #21130b 52%,
+    #0d1d1b
+    );
+
+    color:white;
+
+    min-height:100vh;
+}
+
+/* =========================================================
+   02. THANH TIẾN ĐỘ
+========================================================= */
+
+#progressBar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    height:4px;
+    width:0%;
+
+    z-index:10000;
+
+    background:
+    linear-gradient(
+    90deg,
+    #b47b32,
+    #ffe6a0,
+    #35a79a
+    );
+
+    box-shadow:
+    0 0 16px rgba(255,215,130,.7);
+
+}
+
+/* =========================================================
+   03. NỀN TRANG TRÍ
+========================================================= */
+
+.background-symbols{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    opacity:.12;
+
+    z-index:0;
+}
+
+.symbol{
+
+    position:absolute;
+
+    color:#e7b963;
+
+    font-family:serif;
+
+    animation:floatSymbol 10s ease-in-out infinite;
+}
+
+.symbol:nth-child(1){
+    top:8%;
+    left:4%;
+    font-size:70px;
+}
+
+.symbol:nth-child(2){
+    top:35%;
+    right:4%;
+    font-size:90px;
+    animation-delay:-3s;
+}
+
+.symbol:nth-child(3){
+    bottom:10%;
+    left:8%;
+    font-size:80px;
+    animation-delay:-6s;
+}
+
+.symbol:nth-child(4){
+    bottom:22%;
+    right:10%;
+    font-size:70px;
+    animation-delay:-2s;
+}
+
+@keyframes floatSymbol{
+
+    50%{
+        transform:
+        translateY(-30px)
+        rotate(8deg);
+    }
+
+}
+
+/* =========================================================
+   04. HEADER
+========================================================= */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:500;
+
+    backdrop-filter:blur(18px);
+
+    background:
+    rgba(15,10,7,.78);
+
+    border-bottom:
+    1px solid var(--line);
+}
+
+.header-inner{
+
+    width:min(1450px,calc(100% - 40px));
+
+    margin:auto;
+
+    height:78px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+}
+
+.brand-icon{
+
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:15px;
+
+    font-size:25px;
+
+    background:
+    linear-gradient(
+    145deg,
+    #f0d18d,
+    #a76e2b
+    );
+
+    color:#24150d;
+}
+
+.brand small{
+
+    display:block;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2.2px;
+
+    color:var(--gold);
+}
+
+.brand strong{
+
+    font-size:13px;
+
+    color:#f1dfb8;
+}
+
+.back-btn{
+
+    text-decoration:none;
+
+    color:#efd18d;
+
+    border:1px solid var(--line);
+
+    background:
+    rgba(255,255,255,.05);
+
+    padding:11px 16px;
+
+    border-radius:12px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.back-btn:hover{
+
+    transform:translateX(-4px);
+
+    background:
+    rgba(215,164,77,.12);
+}
+
+/* =========================================================
+   05. HERO
+========================================================= */
+
+.hero{
+
+    position:relative;
+
+    z-index:2;
+
+    width:min(1450px,calc(100% - 40px));
+
+    margin:auto;
+
+    min-height:670px;
+
+    display:grid;
+
+    grid-template-columns:
+    1.05fr .95fr;
+
+    align-items:center;
+
+    gap:55px;
+
+    padding:
+    70px 0 60px;
+}
+
+.eyebrow{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+    8px 13px;
+
+    margin-bottom:20px;
+
+    border-radius:999px;
+
+    background:
+    rgba(216,166,79,.11);
+
+    border:
+    1px solid rgba(230,185,101,.22);
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    font-weight:700;
+
+    color:#f4d38c;
+
+    text-transform:uppercase;
+}
+
+.eyebrow::before{
+
+    content:"";
+
+    width:7px;
+    height:7px;
+
+    background:var(--gold);
+
+    border-radius:50%;
+
+    box-shadow:
+    0 0 13px var(--gold);
+}
+
+.hero h1{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(55px,7vw,100px);
+
+    line-height:.86;
+
+    letter-spacing:-3px;
+
+    color:#f7e4b7;
+
+    max-width:800px;
+}
+
+.hero h1 span{
+
+    display:block;
+
+    background:
+    linear-gradient(
+    120deg,
+    #f4deb0,
+    #d49a43,
+    #fff1bd,
+    #9a692e
+    );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-desc{
+
+    margin-top:28px;
+
+    max-width:720px;
+
+    line-height:1.85;
+
+    font-size:14px;
+
+    color:var(--muted);
+}
+
+.hero-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:27px;
+}
+
+.hero-tag{
+
+    padding:
+    9px 12px;
+
+    border-radius:10px;
+
+    background:
+    rgba(255,255,255,.045);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    font-size:10px;
+
+    color:#e7cc94;
+}
+
+/* =========================================================
+   06. HERO ART
+========================================================= */
+
+.hero-art{
+
+    min-height:520px;
+
+    display:grid;
+
+    place-items:center;
+
+    position:relative;
+}
+
+.history-globe{
+
+    width:480px;
+
+    max-width:92%;
+
+    aspect-ratio:1;
+
+    position:relative;
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(
+    circle,
+    transparent 43%,
+    rgba(230,180,90,.12) 44% 45%,
+    transparent 46% 61%,
+    rgba(230,180,90,.17) 62% 63%,
+    transparent 64%
+    ),
+
+    linear-gradient(
+    145deg,
+    rgba(219,159,65,.12),
+    rgba(27,108,101,.12)
+    );
+
+    border:
+    1px solid
+    rgba(232,187,105,.22);
+
+    box-shadow:
+
+    inset 0 0 80px
+    rgba(225,171,77,.08),
+
+    0 35px 80px
+    rgba(0,0,0,.35);
+}
+
+.nile{
+
+    position:absolute;
+
+    width:18px;
+
+    height:330px;
+
+    border-radius:50%;
+
+    left:33%;
+
+    top:70px;
+
+    transform:
+    rotate(4deg);
+
+    background:
+    linear-gradient(
+    #4daaa4,
+    #246e79
+    );
+
+    box-shadow:
+    0 0 20px
+    rgba(71,175,167,.28);
+}
+
+.nile::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:110px;
+    height:90px;
+
+    left:-46px;
+    top:-25px;
+
+    clip-path:
+    polygon(
+    50% 100%,
+    0 0,
+    100% 0
+    );
+
+    background:
+    rgba(53,142,143,.75);
+}
+
+.pyramid{
+
+    position:absolute;
+
+    bottom:78px;
+
+    left:70px;
+
+    width:0;
+    height:0;
+
+    border-left:
+    85px solid transparent;
+
+    border-right:
+    85px solid transparent;
+
+    border-bottom:
+    140px solid #b67a38;
+
+    filter:
+    drop-shadow(
+    0 18px 20px
+    rgba(0,0,0,.35)
+    );
+}
+
+.ziggurat{
+
+    position:absolute;
+
+    right:55px;
+
+    bottom:80px;
+
+    width:155px;
+
+    height:140px;
+}
+
+.ziggurat .level{
+
+    position:absolute;
+
+    left:50%;
+
+    transform:
+    translateX(-50%);
+
+    background:
+    linear-gradient(
+    90deg,
+    #6b4222,
+    #b57c42,
+    #78502d
+    );
+
+    border-top:
+    2px solid
+    rgba(255,220,155,.2);
+}
+
+.level.one{
+
+    width:155px;
+    height:42px;
+    bottom:0;
+}
+
+.level.two{
+
+    width:120px;
+    height:40px;
+    bottom:42px;
+}
+
+.level.three{
+
+    width:83px;
+    height:36px;
+    bottom:82px;
+}
+
+.level.four{
+
+    width:45px;
+    height:28px;
+    bottom:118px;
+}
+
+/* =========================================================
+   07. NAVIGATION
+========================================================= */
+
+.contents{
+
+    position:relative;
+
+    z-index:3;
+
+    width:min(1450px,calc(100% - 40px));
+
+    margin:
+    -25px auto 70px;
+
+    padding:20px;
+
+    border-radius:22px;
+
+    background:
+    rgba(255,255,255,.04);
+
+    border:
+    1px solid var(--line);
+
+    backdrop-filter:blur(12px);
+}
+
+.contents-title{
+
+    color:#efd092;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    font-weight:800;
+
+    margin-bottom:13px;
+}
+
+.contents-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:9px;
+}
+
+.contents a{
+
+    text-decoration:none;
+
+    color:
+    rgba(255,255,255,.7);
+
+    padding:
+    13px 12px;
+
+    border-radius:12px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    background:
+    rgba(255,255,255,.035);
+
+    border:
+    1px solid
+    rgba(255,255,255,.05);
+
+    transition:.25s;
+}
+
+.contents a:hover{
+
+    color:#f6d995;
+
+    transform:
+    translateY(-3px);
+
+    border-color:
+    rgba(234,189,103,.35);
+
+    background:
+    rgba(224,169,77,.1);
+}
+
+/* =========================================================
+   08. SECTION
+========================================================= */
+
+.section{
+
+    position:relative;
+
+    z-index:2;
+
+    width:min(1350px,calc(100% - 40px));
+
+    margin:auto;
+
+    padding:
+    80px 0;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,.07);
+}
+
+.section-heading{
+
+    margin-bottom:38px;
+
+    max-width:900px;
+}
+
+.section-number{
+
+    color:var(--gold);
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+}
+
+.section-heading h2{
+
+    margin-top:8px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:
+    clamp(40px,5vw,64px);
+
+    line-height:1;
+
+    color:#f3dfb2;
+}
+
+.section-heading p{
+
+    margin-top:15px;
+
+    line-height:1.8;
+
+    font-size:13px;
+
+    color:var(--muted);
+}
+
+/* =========================================================
+   09. CARDS
+========================================================= */
+
+.grid-2{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:22px;
+}
+
+.grid-3{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+}
+
+.card{
+
+    position:relative;
+
+    padding:27px;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+    145deg,
+    rgba(255,255,255,.065),
+    rgba(255,255,255,.025)
+    );
+
+    border:
+    1px solid
+    rgba(235,190,107,.16);
+
+    box-shadow:
+    0 17px 45px
+    rgba(0,0,0,.18);
+
+    transition:.35s;
+}
+
+.card:hover{
+
+    transform:
+    translateY(-7px);
+
+    border-color:
+    rgba(236,190,108,.4);
+
+    background:
+    linear-gradient(
+    145deg,
+    rgba(224,170,76,.11),
+    rgba(32,116,106,.06)
+    );
+}
+
+.card-icon{
+
+    width:54px;
+    height:54px;
+
+    display:grid;
+    place-items:center;
+
+    margin-bottom:18px;
+
+    border-radius:16px;
+
+    font-size:26px;
+
+    background:
+    rgba(221,170,79,.13);
+
+    border:
+    1px solid
+    rgba(232,187,104,.15);
+}
+
+.card h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    color:#f3ddb0;
+
+    font-size:27px;
+
+    margin-bottom:12px;
+}
+
+.card p,
+.card li{
+
+    color:
+    rgba(255,255,255,.66);
+
+    font-size:12.5px;
+
+    line-height:1.8;
+}
+
+.card ul{
+
+    padding-left:18px;
+
+    margin-top:10px;
+}
+
+.card strong{
+
+    color:#f0ce88;
+}
+
+/* =========================================================
+   10. RIVER SECTION
+========================================================= */
+
+.river-card{
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.river-line{
+
+    height:5px;
+
+    width:100%;
+
+    margin:
+    20px 0;
+
+    border-radius:10px;
+
+    background:
+    linear-gradient(
+    90deg,
+    transparent,
+    #347e85,
+    #51aaa4,
+    transparent
+    );
+}
+
+.quote{
+
+    padding:
+    24px;
+
+    margin-top:25px;
+
+    border-left:
+    4px solid var(--gold);
+
+    background:
+    rgba(218,165,74,.08);
+
+    border-radius:
+    0 15px 15px 0;
+}
+
+.quote p{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:24px;
+
+    color:#f2d89f;
+
+    line-height:1.4;
+}
+
+.quote small{
+
+    display:block;
+
+    margin-top:8px;
+
+    color:
+    rgba(255,255,255,.45);
+
+    font-size:10px;
+}
+
+/* =========================================================
+   11. TIMELINE
+========================================================= */
+
+.timeline{
+
+    position:relative;
+
+    max-width:1050px;
+
+    margin:auto;
+}
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:26px;
+
+    top:0;
+    bottom:0;
+
+    width:2px;
+
+    background:
+    linear-gradient(
+    #ddae58,
+    #2e817a
+    );
+}
+
+.timeline-item{
+
+    position:relative;
+
+    padding-left:76px;
+
+    margin-bottom:24px;
+}
+
+.timeline-dot{
+
+    position:absolute;
+
+    left:15px;
+    top:18px;
+
+    width:24px;
+    height:24px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:#c58c40;
+
+    border:
+    5px solid
+    #20130d;
+
+    box-shadow:
+    0 0 0 2px
+    rgba(227,181,95,.4);
+}
+
+.timeline-content{
+
+    padding:23px;
+
+    border-radius:17px;
+
+    border:
+    1px solid
+    rgba(233,188,104,.15);
+
+    background:
+    rgba(255,255,255,.045);
+}
+
+.timeline-time{
+
+    color:#e2b667;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+}
+
+.timeline-content h3{
+
+    margin:
+    7px 0 8px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:24px;
+
+    color:#f4ddb0;
+}
+
+.timeline-content p{
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    color:
+    rgba(255,255,255,.62);
+}
+
+/* =========================================================
+   12. COMPARE
+========================================================= */
+
+.compare-table{
+
+    width:100%;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    border:
+    1px solid var(--line);
+}
+
+.compare-row{
+
+    display:grid;
+
+    grid-template-columns:
+    .65fr 1fr 1fr;
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.07);
+}
+
+.compare-row:last-child{
+    border-bottom:0;
+}
+
+.compare-row div{
+
+    padding:
+    18px 20px;
+
+    font-size:12px;
+
+    line-height:1.7;
+}
+
+.compare-head{
+
+    background:
+    rgba(214,160,70,.12);
+
+    color:#f2d28f;
+
+    font-weight:800;
+}
+
+.compare-label{
+
+    color:#eac880;
+
+    font-weight:700;
+
+    background:
+    rgba(255,255,255,.025);
+}
+
+.compare-text{
+
+    color:
+    rgba(255,255,255,.65);
+}
+
+/* =========================================================
+   13. ACHIEVEMENTS
+========================================================= */
+
+.achievement{
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+    160deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.018)
+    );
+
+    border:
+    1px solid
+    rgba(235,188,103,.15);
+
+    min-height:260px;
+
+    transition:.35s;
+}
+
+.achievement:hover{
+
+    transform:
+    translateY(-7px)
+    rotate(.3deg);
+
+    border-color:
+    rgba(238,194,110,.42);
+}
+
+.achievement-icon{
+
+    font-size:34px;
+
+    margin-bottom:22px;
+}
+
+.achievement small{
+
+    color:var(--gold);
+
+    letter-spacing:1.5px;
+
+    font-weight:800;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+}
+
+.achievement h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:26px;
+
+    color:#f1d9aa;
+
+    margin:
+    7px 0 10px;
+}
+
+.achievement p{
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    color:
+    rgba(255,255,255,.62);
+}
+
+/* =========================================================
+   14. EM CÓ BIẾT
+========================================================= */
+
+.did-you-know{
+
+    display:grid;
+
+    grid-template-columns:
+    110px 1fr;
+
+    gap:24px;
+
+    padding:30px;
+
+    margin-bottom:18px;
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(216,165,77,.12),
+    rgba(29,116,105,.08)
+    );
+
+    border:
+    1px solid
+    rgba(235,190,106,.19);
+}
+
+.know-icon{
+
+    width:95px;
+    height:95px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:43px;
+
+    background:
+    linear-gradient(
+    145deg,
+    #d9a655,
+    #795021
+    );
+
+    color:#20130d;
+
+    box-shadow:
+    0 15px 35px
+    rgba(0,0,0,.25);
+}
+
+.did-you-know small{
+
+    color:#e5b963;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.did-you-know h3{
+
+    margin:
+    5px 0 9px;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    color:#f5dfb2;
+
+    font-size:28px;
+}
+
+.did-you-know p{
+
+    color:
+    rgba(255,255,255,.66);
+
+    font-size:12.5px;
+
+    line-height:1.8;
+}
+
+/* =========================================================
+   15. ACCORDION
+========================================================= */
+
+.accordion-item{
+
+    margin-bottom:12px;
+
+    overflow:hidden;
+
+    border-radius:17px;
+
+    border:
+    1px solid
+    rgba(235,190,105,.16);
+
+    background:
+    rgba(255,255,255,.035);
+}
+
+.accordion-button{
+
+    width:100%;
+
+    border:0;
+
+    cursor:pointer;
+
+    padding:
+    20px 23px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    text-align:left;
+
+    background:transparent;
+
+    color:#efd6a2;
+
+    font-family:
+    "Montserrat",
+    sans-serif;
+
+    font-weight:700;
+
+    font-size:12px;
+}
+
+.acc-plus{
+
+    width:29px;
+    height:29px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    color:#e5b95e;
+
+    background:
+    rgba(220,168,75,.1);
+
+    transition:.3s;
+}
+
+.accordion-item.open .acc-plus{
+
+    transform:rotate(45deg);
+}
+
+.accordion-content{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:
+    max-height .45s ease;
+}
+
+.accordion-inner{
+
+    padding:
+    0 23px 22px;
+
+    color:
+    rgba(255,255,255,.63);
+
+    font-size:12.5px;
+
+    line-height:1.9;
+}
+
+/* =========================================================
+   16. KEYWORDS
+========================================================= */
+
+.keywords{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.keyword{
+
+    cursor:pointer;
+
+    padding:
+    11px 14px;
+
+    border-radius:999px;
+
+    border:
+    1px solid
+    rgba(231,184,100,.18);
+
+    background:
+    rgba(255,255,255,.04);
+
+    color:#ead09a;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.keyword:hover{
+
+    transform:
+    translateY(-3px);
+
+    background:
+    rgba(221,167,72,.13);
+}
+
+/* =========================================================
+   17. SUMMARY
+========================================================= */
+
+.summary-box{
+
+    padding:35px;
+
+    border-radius:26px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(201,145,57,.18),
+    rgba(24,107,101,.13)
+    );
+
+    border:
+    1px solid
+    rgba(238,194,111,.22);
+
+    box-shadow:var(--shadow);
+}
+
+.summary-box h3{
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:35px;
+
+    color:#f5dfaf;
+
+    margin-bottom:20px;
+}
+
+.summary-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+}
+
+.summary-item{
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:
+    rgba(0,0,0,.13);
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.summary-item strong{
+
+    color:#edc77c;
+
+    display:block;
+
+    margin-bottom:6px;
+
+    font-size:11px;
+}
+
+.summary-item p{
+
+    font-size:11px;
+
+    line-height:1.65;
+
+    color:
+    rgba(255,255,255,.61);
+}
+
+/* =========================================================
+   18. FOOTER
+========================================================= */
+
+.footer{
+
+    position:relative;
+
+    z-index:2;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,.08);
+
+    padding:
+    40px 20px;
+
+    text-align:center;
+
+    color:
+    rgba(255,255,255,.38);
+
+    font-size:10px;
+
+    line-height:1.8;
+}
+
+.footer strong{
+
+    color:#daba79;
+}
+
+/* =========================================================
+   19. RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .hero{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .hero-art{
+
+        min-height:430px;
+    }
+
+    .contents-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    .grid-3{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    .summary-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .header-inner,
+    .hero,
+    .contents,
+    .section{
+
+        width:
+        min(100% - 24px,1450px);
+
+    }
+
+    .hero{
+
+        min-height:auto;
+
+        padding-top:50px;
+    }
+
+    .hero h1{
+
+        font-size:55px;
+
+        letter-spacing:-2px;
+    }
+
+    .hero-art{
+
+        min-height:330px;
+    }
+
+    .history-globe{
+
+        width:320px;
+    }
+
+    .nile{
+
+        transform:
+        rotate(4deg)
+        scale(.68);
+
+        transform-origin:top;
+    }
+
+    .pyramid{
+
+        transform:scale(.65);
+
+        transform-origin:
+        left bottom;
+    }
+
+    .ziggurat{
+
+        transform:scale(.65);
+
+        transform-origin:
+        right bottom;
+    }
+
+    .grid-2,
+    .grid-3,
+    .summary-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .contents-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .compare-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .compare-label{
+
+        border-top:
+        1px solid
+        rgba(255,255,255,.05);
+    }
+
+    .did-you-know{
+
+        grid-template-columns:1fr;
+    }
+
+    .know-icon{
+
+        width:70px;
+        height:70px;
+    }
+
+    .brand strong{
+
+        font-size:10px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="progressBar"></div>
+
+<div class="background-symbols">
+
+    <span class="symbol">𓂀</span>
+    <span class="symbol">𓋹</span>
+    <span class="symbol">𒀭</span>
+    <span class="symbol">𒆠</span>
+
+</div>
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+<div class="header-inner">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🏺
+        </div>
+
+        <div>
+
+            <small>
+                Học liệu số
+            </small>
+
+            <strong>
+                Lịch sử và Địa lí 6
+            </strong>
+
+        </div>
+
+    </div>
+
+    <a
+    href="index.html"
+    class="back-btn">
+
+        ← Xã hội cổ đại
+
+    </a>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+<div>
+
+    <div class="eyebrow">
+
+        Văn minh phương Đông cổ đại
+
+    </div>
+
+    <h1>
+
+        AI CẬP VÀ
+
+        <span>
+            LƯỠNG HÀ
+        </span>
+
+        CỔ ĐẠI
+
+    </h1>
+
+    <p class="hero-desc">
+
+        Từ lưu vực sông Nin đến vùng đất nằm giữa
+        sông Ti-grơ và sông Ơ-phơ-rát, cư dân cổ đại
+        đã xây dựng nên những trung tâm văn minh sớm
+        của nhân loại. Điều kiện tự nhiên, nhu cầu trị
+        thủy, sản xuất nông nghiệp và tổ chức xã hội
+        đã góp phần thúc đẩy sự hình thành các nhà nước,
+        đô thị, chữ viết, luật pháp, toán học,
+        kiến trúc và nhiều thành tựu văn hóa đặc sắc.
+
+    </p>
+
+    <div class="hero-tags">
+
+        <span class="hero-tag">
+            🌊 Văn minh sông Nin
+        </span>
+
+        <span class="hero-tag">
+            🌾 Văn minh Lưỡng Hà
+        </span>
+
+        <span class="hero-tag">
+            👑 Nhà nước cổ đại
+        </span>
+
+        <span class="hero-tag">
+            📜 Chữ viết
+        </span>
+
+        <span class="hero-tag">
+            🏛️ Kiến trúc
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="hero-art">
+
+    <div class="history-globe">
+
+        <div class="nile"></div>
+
+        <div class="pyramid"></div>
+
+        <div class="ziggurat">
+
+            <div class="level one"></div>
+            <div class="level two"></div>
+            <div class="level three"></div>
+            <div class="level four"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MỤC LỤC
+====================================================== -->
+
+<nav class="contents">
+
+<div class="contents-title">
+
+    HÀNH TRÌNH KHÁM PHÁ
+
+</div>
+
+<div class="contents-grid">
+
+    <a href="#khaiquat">
+        01 • Khái quát chung
+    </a>
+
+    <a href="#dong-song">
+        02 • Tặng phẩm của dòng sông
+    </a>
+
+    <a href="#lap-quoc">
+        03 • Hành trình lập quốc
+    </a>
+
+    <a href="#tien-trinh">
+        04 • Tiến trình lịch sử
+    </a>
+
+    <a href="#xa-hoi">
+        05 • Tổ chức xã hội
+    </a>
+
+    <a href="#van-hoa">
+        06 • Thành tựu văn hóa
+    </a>
+
+    <a href="#em-co-biet">
+        07 • Em có biết?
+    </a>
+
+    <a href="#mo-rong">
+        08 • Mở rộng kiến thức
+    </a>
+
+</div>
+
+</nav>
+
+
+<!-- =====================================================
+     01 KHÁI QUÁT
+====================================================== -->
+
+<section
+class="section"
+id="khaiquat">
+
+<div class="section-heading">
+
+    <div class="section-number">
+
+        PHẦN 01
+
+    </div>
+
+    <h2>
+        Khái quát chung
+    </h2>
+
+    <p>
+
+        Ai Cập và Lưỡng Hà là hai khu vực hình thành
+        những nền văn minh sớm ở phương Đông cổ đại.
+        Sự phát triển của hai khu vực gắn chặt với
+        các hệ thống sông lớn và nền nông nghiệp
+        tưới tiêu.
+
+    </p>
+
+</div>
+
+
+<div class="grid-2">
+
+    <div class="card">
+
+        <div class="card-icon">
+            🐫
+        </div>
+
+        <h3>
+            Ai Cập cổ đại
+        </h3>
+
+        <p>
+
+            Ai Cập nằm ở khu vực
+            <strong>Đông Bắc châu Phi</strong>,
+            phần lớn lãnh thổ là hoang mạc.
+
+            Dòng <strong>sông Nin</strong>
+            chảy xuyên qua lãnh thổ từ phía nam
+            lên phía bắc và đổ ra Địa Trung Hải.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Trung tâm cư trú tập trung dọc
+                thung lũng và châu thổ sông Nin.
+            </li>
+
+            <li>
+                Nền kinh tế ban đầu chủ yếu dựa
+                vào nông nghiệp.
+            </li>
+
+            <li>
+                Việc quản lí nước và xây dựng
+                công trình thủy lợi đòi hỏi sự
+                hợp tác của cộng đồng.
+            </li>
+
+            <li>
+                Khoảng cuối thiên niên kỉ IV TCN,
+                quá trình thống nhất lãnh thổ
+                dẫn đến sự hình thành một nhà nước
+                tập quyền.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            🌾
+        </div>
+
+        <h3>
+            Lưỡng Hà cổ đại
+        </h3>
+
+        <p>
+
+            Lưỡng Hà là tên gọi vùng đất nằm
+            giữa hai con sông lớn
+            <strong>Ti-grơ</strong>
+            và
+            <strong>Ơ-phơ-rát</strong>,
+            phần lớn thuộc lãnh thổ Iraq
+            ngày nay.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Đồng bằng rộng và tương đối bằng phẳng.
+            </li>
+
+            <li>
+                Đất phù sa thuận lợi cho sản xuất nông nghiệp.
+            </li>
+
+            <li>
+                Lũ của các con sông tương đối khó dự đoán.
+            </li>
+
+            <li>
+                Khu vực ít có những rào cản tự nhiên lớn,
+                nên thường xuyên có sự di chuyển,
+                giao lưu và xung đột giữa các cộng đồng.
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     02 DÒNG SÔNG
+====================================================== -->
+
+<section
+class="section"
+id="dong-song">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 02
+    </div>
+
+    <h2>
+        “Tặng phẩm” của những dòng sông
+    </h2>
+
+    <p>
+
+        Những dòng sông không trực tiếp
+        “tạo ra” văn minh, nhưng chúng cung cấp
+        nguồn nước, phù sa và điều kiện quan trọng
+        để con người định cư, sản xuất và tổ chức
+        đời sống cộng đồng.
+
+    </p>
+
+</div>
+
+
+<div class="grid-2">
+
+    <!-- NILE -->
+
+    <div class="card river-card">
+
+        <div class="card-icon">
+            🌊
+        </div>
+
+        <h3>
+            Sông Nin – mạch sống của Ai Cập
+        </h3>
+
+        <div class="river-line"></div>
+
+        <p>
+
+            Phần lớn Ai Cập có khí hậu khô hạn.
+            Trong môi trường đó, sông Nin
+            trở thành nguồn nước đặc biệt quan trọng.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Cung cấp nước cho sinh hoạt và tưới tiêu.
+            </li>
+
+            <li>
+                Bồi đắp phù sa cho thung lũng và
+                khu vực châu thổ.
+            </li>
+
+            <li>
+                Tạo điều kiện trồng lúa mì,
+                lúa mạch, rau và nhiều loại cây khác.
+            </li>
+
+            <li>
+                Là tuyến giao thông quan trọng
+                kết nối các khu vực của Ai Cập.
+            </li>
+
+            <li>
+                Cung cấp cá và nhiều tài nguyên
+                cho đời sống cư dân.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- MESOPOTAMIA -->
+
+    <div class="card river-card">
+
+        <div class="card-icon">
+            🌱
+        </div>
+
+        <h3>
+            Ti-grơ và Ơ-phơ-rát
+        </h3>
+
+        <div class="river-line"></div>
+
+        <p>
+
+            Hai con sông Ti-grơ và Ơ-phơ-rát
+            bồi đắp một vùng đồng bằng rộng lớn,
+            tạo điều kiện cho các cộng đồng
+            nông nghiệp phát triển.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Cung cấp nước cho sản xuất nông nghiệp.
+            </li>
+
+            <li>
+                Bồi đắp phù sa cho đồng bằng.
+            </li>
+
+            <li>
+                Thúc đẩy việc đào kênh,
+                xây đê và hệ thống tưới.
+            </li>
+
+            <li>
+                Tạo điều kiện cho các thành thị
+                và trung tâm kinh tế hình thành.
+            </li>
+
+            <li>
+                Góp phần thúc đẩy trao đổi hàng hóa
+                giữa các cộng đồng.
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+<div class="quote">
+
+    <p>
+        “Ai Cập là tặng phẩm của sông Nin.”
+    </p>
+
+    <small>
+
+        Cách diễn đạt thường gắn với sử gia
+        Hy Lạp Herodotus, nhấn mạnh vai trò
+        đặc biệt của sông Nin đối với Ai Cập.
+
+    </small>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MỐI QUAN HỆ ĐỊA LÍ - LỊCH SỬ
+====================================================== -->
+
+<section class="section">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        GÓC ĐỊA LÍ – LỊCH SỬ
+    </div>
+
+    <h2>
+        Từ dòng sông đến nhà nước
+    </h2>
+
+    <p>
+
+        Đây là mối liên hệ quan trọng giúp
+        giải thích vì sao những nhà nước
+        cổ đại sớm hình thành tại các lưu vực
+        sông lớn.
+
+    </p>
+
+</div>
+
+
+<div class="grid-3">
+
+    <div class="card">
+
+        <div class="card-icon">
+            🌊
+        </div>
+
+        <h3>
+            1. Nguồn nước
+        </h3>
+
+        <p>
+
+            Các dòng sông cung cấp nước và
+            phù sa, tạo điều kiện để cư dân
+            phát triển nông nghiệp và định cư
+            tương đối ổn định.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            ⛏️
+        </div>
+
+        <h3>
+            2. Trị thủy
+        </h3>
+
+        <p>
+
+            Con người phải cùng nhau đào kênh,
+            đắp đê, dẫn nước và phân phối nước
+            phục vụ sản xuất.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            👑
+        </div>
+
+        <h3>
+            3. Tổ chức cộng đồng
+        </h3>
+
+        <p>
+
+            Việc tổ chức sản xuất,
+            quản lí công trình thủy lợi,
+            bảo vệ cộng đồng và phân phối
+            nguồn lực góp phần thúc đẩy
+            các thiết chế chính trị phát triển.
+
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     03 LẬP QUỐC
+====================================================== -->
+
+<section
+class="section"
+id="lap-quoc">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 03
+    </div>
+
+    <h2>
+        Hành trình hình thành nhà nước
+    </h2>
+
+    <p>
+
+        Ai Cập và Lưỡng Hà đều hình thành
+        nhà nước từ sớm, nhưng con đường
+        phát triển chính trị của hai khu vực
+        có những điểm khác biệt đáng chú ý.
+
+    </p>
+
+</div>
+
+
+<div class="grid-2">
+
+    <div class="card">
+
+        <div class="card-icon">
+            👑
+        </div>
+
+        <h3>
+            Ai Cập: từ các cộng đồng đến quốc gia thống nhất
+        </h3>
+
+        <p>
+
+            Ban đầu, cư dân sống trong những
+            cộng đồng nông nghiệp dọc sông Nin.
+            Quá trình phát triển kinh tế và
+            cạnh tranh quyền lực góp phần
+            hình thành các đơn vị chính trị
+            lớn hơn.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Khu vực phía nam được gọi là
+                <strong>Thượng Ai Cập</strong>.
+            </li>
+
+            <li>
+                Khu vực châu thổ phía bắc được gọi là
+                <strong>Hạ Ai Cập</strong>.
+            </li>
+
+            <li>
+                Khoảng năm
+                <strong>3100 TCN</strong>,
+                hai vùng được thống nhất
+                dưới quyền một vị vua.
+            </li>
+
+            <li>
+                Vua
+                <strong>Narmer</strong>
+                thường được các nhà Ai Cập học
+                gắn với quá trình thống nhất này.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            🏙️
+        </div>
+
+        <h3>
+            Lưỡng Hà: từ thành bang đến các đế chế
+        </h3>
+
+        <p>
+
+            Khác với Ai Cập,
+            Lưỡng Hà trong thời kì đầu
+            không hình thành ngay một quốc gia
+            thống nhất lâu dài.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Người Sumer xây dựng nhiều
+                <strong>thành bang</strong>
+                như Ur, Uruk, Lagash.
+            </li>
+
+            <li>
+                Mỗi thành bang thường có
+                trung tâm đô thị,
+                vùng đất nông nghiệp
+                và chính quyền riêng.
+            </li>
+
+            <li>
+                Các thành bang vừa trao đổi,
+                vừa cạnh tranh và chiến tranh.
+            </li>
+
+            <li>
+                Sau đó nhiều vương quốc
+                và đế chế lớn lần lượt xuất hiện.
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     04 TIMELINE
+====================================================== -->
+
+<section
+class="section"
+id="tien-trinh">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 04
+    </div>
+
+    <h2>
+        Tiến trình lịch sử
+    </h2>
+
+    <p>
+
+        Các mốc dưới đây được giản lược nhằm
+        giúp học sinh lớp 6 hình dung dòng chảy
+        lịch sử mà không biến bài học thành
+        việc ghi nhớ quá nhiều niên đại.
+
+    </p>
+
+</div>
+
+
+<div class="timeline">
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Thiên niên kỉ IV TCN
+            </div>
+
+            <h3>
+                Các cộng đồng nông nghiệp phát triển
+            </h3>
+
+            <p>
+
+                Tại lưu vực sông Nin và
+                đồng bằng Ti-grơ – Ơ-phơ-rát,
+                dân cư ngày càng đông,
+                sản xuất nông nghiệp và
+                các khu định cư phát triển.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Khoảng 3500 – 3000 TCN
+            </div>
+
+            <h3>
+                Đô thị và chữ viết xuất hiện
+            </h3>
+
+            <p>
+
+                Ở miền nam Lưỡng Hà,
+                các đô thị của người Sumer phát triển.
+                Trong cùng thời kì,
+                các hình thức chữ viết sớm xuất hiện
+                ở Lưỡng Hà và Ai Cập.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Khoảng 3100 TCN
+            </div>
+
+            <h3>
+                Ai Cập được thống nhất
+            </h3>
+
+            <p>
+
+                Thượng Ai Cập và Hạ Ai Cập
+                được thống nhất dưới một
+                quyền lực trung ương,
+                đặt nền móng cho nhà nước
+                Ai Cập cổ đại.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Khoảng thế kỉ XXVII – XXII TCN
+            </div>
+
+            <h3>
+                Thời Cổ vương quốc Ai Cập
+            </h3>
+
+            <p>
+
+                Quyền lực nhà vua được củng cố.
+                Đây là thời kì gắn với sự xuất hiện
+                của nhiều công trình kim tự tháp,
+                trong đó nổi tiếng nhất là
+                quần thể kim tự tháp Giza.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Khoảng thế kỉ XXIV TCN
+            </div>
+
+            <h3>
+                Đế chế Akkad
+            </h3>
+
+            <p>
+
+                Sargon xứ Akkad mở rộng quyền lực
+                trên một phần lớn Lưỡng Hà,
+                hình thành một trong những
+                đế chế lãnh thổ sớm
+                được biết đến trong lịch sử.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Khoảng thế kỉ XXI – XVIII TCN
+            </div>
+
+            <h3>
+                Trung vương quốc Ai Cập
+            </h3>
+
+            <p>
+
+                Ai Cập được tái thống nhất,
+                sản xuất và thương mại phục hồi,
+                các công trình thủy lợi tiếp tục
+                được phát triển.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Thế kỉ XVIII TCN
+            </div>
+
+            <h3>
+                Babylon và Hammurabi
+            </h3>
+
+            <p>
+
+                Babylon trở thành một trung tâm
+                quyền lực quan trọng dưới thời
+                vua Hammurabi.
+                Bộ luật gắn với tên ông
+                là một trong những văn bản pháp luật
+                cổ nổi tiếng nhất còn được biết đến.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-time">
+                Khoảng thế kỉ XVI – XI TCN
+            </div>
+
+            <h3>
+                Tân vương quốc Ai Cập
+            </h3>
+
+            <p>
+
+                Ai Cập bước vào thời kì
+                có ảnh hưởng mạnh tại
+                Đông Bắc Phi và Tây Á.
+                Nhiều đền thờ, tượng đài
+                và công trình kiến trúc
+                quy mô lớn được xây dựng.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     05 XÃ HỘI
+====================================================== -->
+
+<section
+class="section"
+id="xa-hoi">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 05
+    </div>
+
+    <h2>
+        Nhà nước và xã hội
+    </h2>
+
+</div>
+
+
+<div class="grid-2">
+
+    <div class="card">
+
+        <div class="card-icon">
+            👑
+        </div>
+
+        <h3>
+            Ai Cập
+        </h3>
+
+        <p>
+
+            Đứng đầu nhà nước là nhà vua,
+            thường được gọi bằng danh hiệu
+            <strong>pharaoh</strong>
+            trong cách gọi phổ biến hiện nay.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Nhà vua nắm quyền lực lớn.
+            </li>
+
+            <li>
+                Quan lại và tư tế giữ vai trò quan trọng.
+            </li>
+
+            <li>
+                Thợ thủ công và nông dân tạo ra
+                phần lớn của cải vật chất.
+            </li>
+
+            <li>
+                Xã hội có sự phân hóa về địa vị
+                và quyền lợi.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            ⚖️
+        </div>
+
+        <h3>
+            Lưỡng Hà
+        </h3>
+
+        <p>
+
+            Các thành bang và vương quốc
+            Lưỡng Hà có những hình thức
+            tổ chức chính trị khác nhau
+            qua từng thời kì.
+
+        </p>
+
+        <ul>
+
+            <li>
+                Vua đứng đầu chính quyền.
+            </li>
+
+            <li>
+                Tư tế giữ vị trí đáng kể
+                trong đời sống tôn giáo.
+            </li>
+
+            <li>
+                Thương nhân và thợ thủ công
+                phát triển cùng các đô thị.
+            </li>
+
+            <li>
+                Nông dân là lực lượng đông đảo.
+            </li>
+
+            <li>
+                Nô lệ tồn tại nhưng cơ cấu xã hội
+                phức tạp hơn việc chỉ chia thành
+                “chủ nô và nô lệ”.
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SO SÁNH
+====================================================== -->
+
+<section class="section">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        HỆ THỐNG HÓA
+    </div>
+
+    <h2>
+        Ai Cập và Lưỡng Hà có gì giống và khác?
+    </h2>
+
+</div>
+
+
+<div class="compare-table">
+
+    <div class="compare-row compare-head">
+
+        <div>
+            Tiêu chí
+        </div>
+
+        <div>
+            AI CẬP
+        </div>
+
+        <div>
+            LƯỠNG HÀ
+        </div>
+
+    </div>
+
+
+    <div class="compare-row">
+
+        <div class="compare-label">
+            Vị trí
+        </div>
+
+        <div class="compare-text">
+            Đông Bắc châu Phi
+        </div>
+
+        <div class="compare-text">
+            Tây Á, giữa Ti-grơ và Ơ-phơ-rát
+        </div>
+
+    </div>
+
+
+    <div class="compare-row">
+
+        <div class="compare-label">
+            Dòng sông
+        </div>
+
+        <div class="compare-text">
+            Sông Nin
+        </div>
+
+        <div class="compare-text">
+            Ti-grơ và Ơ-phơ-rát
+        </div>
+
+    </div>
+
+
+    <div class="compare-row">
+
+        <div class="compare-label">
+            Tự nhiên
+        </div>
+
+        <div class="compare-text">
+
+            Thung lũng hẹp,
+            xung quanh có nhiều hoang mạc,
+            tạo một mức độ biệt lập tự nhiên
+            tương đối.
+
+        </div>
+
+        <div class="compare-text">
+
+            Đồng bằng rộng,
+            ít rào cản tự nhiên lớn,
+            dễ giao lưu nhưng cũng dễ chịu
+            các cuộc di chuyển và xung đột.
+
+        </div>
+
+    </div>
+
+
+    <div class="compare-row">
+
+        <div class="compare-label">
+            Chính trị ban đầu
+        </div>
+
+        <div class="compare-text">
+
+            Hình thành một nhà nước
+            thống nhất tương đối sớm.
+
+        </div>
+
+        <div class="compare-text">
+
+            Nhiều thành bang,
+            sau đó mới xuất hiện
+            các vương quốc và đế chế lớn.
+
+        </div>
+
+    </div>
+
+
+    <div class="compare-row">
+
+        <div class="compare-label">
+            Chữ viết
+        </div>
+
+        <div class="compare-text">
+            Chữ tượng hình Ai Cập
+        </div>
+
+        <div class="compare-text">
+            Chữ hình nêm
+        </div>
+
+    </div>
+
+
+    <div class="compare-row">
+
+        <div class="compare-label">
+            Công trình
+        </div>
+
+        <div class="compare-text">
+            Kim tự tháp, đền thờ
+        </div>
+
+        <div class="compare-text">
+            Ziggurat, cung điện, thành quách
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     06 THÀNH TỰU
+====================================================== -->
+
+<section
+class="section"
+id="van-hoa">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 06
+    </div>
+
+    <h2>
+        Những thành tựu văn hóa chủ yếu
+    </h2>
+
+    <p>
+
+        Các thành tựu của cư dân Ai Cập và
+        Lưỡng Hà phản ánh nhu cầu quản lí
+        xã hội, sản xuất, tôn giáo,
+        đo đạc, tính toán và quan sát tự nhiên.
+
+    </p>
+
+</div>
+
+
+<div class="grid-3">
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            ✍️
+        </div>
+
+        <small>
+            AI CẬP
+        </small>
+
+        <h3>
+            Chữ tượng hình
+        </h3>
+
+        <p>
+
+            Người Ai Cập phát triển hệ thống
+            chữ tượng hình từ cuối thiên niên kỉ IV TCN.
+
+            Chữ được khắc trên đá,
+            tường đền, lăng mộ và
+            viết trên vật liệu như papyrus.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            𒀭
+        </div>
+
+        <small>
+            LƯỠNG HÀ
+        </small>
+
+        <h3>
+            Chữ hình nêm
+        </h3>
+
+        <p>
+
+            Cư dân Sumer phát triển một trong những
+            hệ thống chữ viết sớm nhất.
+            Người viết dùng dụng cụ tạo các dấu
+            hình nêm trên bảng đất sét.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            🔢
+        </div>
+
+        <small>
+            KHOA HỌC
+        </small>
+
+        <h3>
+            Toán học
+        </h3>
+
+        <p>
+
+            Toán học phát triển nhằm đáp ứng
+            nhu cầu đo ruộng đất,
+            xây dựng, thương mại
+            và quản lí sản xuất.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            ⏱️
+        </div>
+
+        <small>
+            LƯỠNG HÀ
+        </small>
+
+        <h3>
+            Hệ đếm cơ số 60
+        </h3>
+
+        <p>
+
+            Toán học Lưỡng Hà sử dụng hệ thống
+            dựa trên cơ số 60.
+
+            Dấu vết của cách tính này còn thấy
+            trong việc chia
+            <strong>1 giờ thành 60 phút</strong>
+            và
+            <strong>1 phút thành 60 giây</strong>.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            ☀️
+        </div>
+
+        <small>
+            AI CẬP
+        </small>
+
+        <h3>
+            Lịch
+        </h3>
+
+        <p>
+
+            Việc quan sát thiên nhiên,
+            đặc biệt là chu kì sông Nin
+            và bầu trời,
+            giúp người Ai Cập xây dựng
+            lịch có khoảng
+            <strong>365 ngày</strong>.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            🌌
+        </div>
+
+        <small>
+            LƯỠNG HÀ
+        </small>
+
+        <h3>
+            Thiên văn học
+        </h3>
+
+        <p>
+
+            Các học giả Lưỡng Hà quan sát
+            Mặt Trời, Mặt Trăng và
+            các thiên thể,
+            ghi chép nhiều hiện tượng trên bầu trời
+            và xây dựng lịch phục vụ đời sống.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            🔺
+        </div>
+
+        <small>
+            KIẾN TRÚC
+        </small>
+
+        <h3>
+            Kim tự tháp
+        </h3>
+
+        <p>
+
+            Kim tự tháp là những công trình
+            kiến trúc đặc sắc của Ai Cập,
+            phần lớn gắn với lăng mộ
+            của các nhà vua thời Cổ vương quốc.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            🛕
+        </div>
+
+        <small>
+            KIẾN TRÚC
+        </small>
+
+        <h3>
+            Ziggurat
+        </h3>
+
+        <p>
+
+            Ziggurat là những công trình
+            tôn giáo dạng tháp tầng
+            đặc trưng của nhiều đô thị
+            Lưỡng Hà cổ đại.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            ⚖️
+        </div>
+
+        <small>
+            LUẬT PHÁP
+        </small>
+
+        <h3>
+            Luật Hammurabi
+        </h3>
+
+        <p>
+
+            Bộ luật gắn với vua Hammurabi
+            cho thấy nhà nước Babylon
+            đã sử dụng luật thành văn
+            để quy định nhiều quan hệ
+            trong xã hội.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            ⚱️
+        </div>
+
+        <small>
+            Y HỌC
+        </small>
+
+        <h3>
+            Ướp xác
+        </h3>
+
+        <p>
+
+            Tín ngưỡng về thế giới sau khi chết
+            thúc đẩy người Ai Cập phát triển
+            các kĩ thuật bảo quản thi hài.
+
+            Hoạt động này cũng góp phần tạo ra
+            những hiểu biết nhất định
+            về cơ thể người.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            📖
+        </div>
+
+        <small>
+            VĂN HỌC
+        </small>
+
+        <h3>
+            Sử thi Gilgamesh
+        </h3>
+
+        <p>
+
+            Những câu chuyện về Gilgamesh
+            được lưu giữ trên các bảng đất sét
+            chữ hình nêm và trở thành
+            một trong những tác phẩm văn học
+            cổ nổi tiếng của Lưỡng Hà.
+
+        </p>
+
+    </div>
+
+
+    <div class="achievement">
+
+        <div class="achievement-icon">
+            📜
+        </div>
+
+        <small>
+            VẬT LIỆU VIẾT
+        </small>
+
+        <h3>
+            Papyrus
+        </h3>
+
+        <p>
+
+            Người Ai Cập chế tạo vật liệu viết
+            từ cây papyrus mọc ở vùng sông Nin.
+
+            Nhờ đó nhiều văn bản hành chính,
+            tôn giáo và tri thức được ghi lại.
+
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     07 EM CÓ BIẾT
+====================================================== -->
+
+<section
+class="section"
+id="em-co-biet">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 07
+    </div>
+
+    <h2>
+        Em có biết?
+    </h2>
+
+    <p>
+
+        Những câu chuyện nhỏ giúp kết nối
+        kiến thức lịch sử với đời sống,
+        khảo cổ học và thế giới hiện đại.
+
+    </p>
+
+</div>
+
+
+<div class="did-you-know">
+
+    <div class="know-icon">
+        🔺
+    </div>
+
+    <div>
+
+        <small>
+            EM CÓ BIẾT? • 01
+        </small>
+
+        <h3>
+            Kim tự tháp không chỉ là “một đống đá khổng lồ”
+        </h3>
+
+        <p>
+
+            Việc xây dựng kim tự tháp
+            đòi hỏi khả năng tổ chức lao động,
+            khai thác và vận chuyển vật liệu,
+            đo đạc, tính toán và quản lí nguồn lực
+            ở quy mô rất lớn.
+
+            Vì vậy, công trình này cũng phản ánh
+            trình độ tổ chức của nhà nước Ai Cập cổ đại.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="did-you-know">
+
+    <div class="know-icon">
+        🧭
+    </div>
+
+    <div>
+
+        <small>
+            EM CÓ BIẾT? • 02
+        </small>
+
+        <h3>
+            Vì sao “Thượng Ai Cập” lại nằm ở phía nam?
+        </h3>
+
+        <p>
+
+            Tên gọi “thượng” và “hạ”
+            được xác định theo độ cao
+            và hướng chảy của sông Nin,
+            không phải theo hướng bắc – nam
+            trên bản đồ.
+
+            Sông Nin chảy từ vùng cao
+            ở phía nam xuống vùng thấp
+            rồi đổ ra Địa Trung Hải
+            ở phía bắc.
+
+            Vì vậy,
+            <strong>Thượng Ai Cập ở phía nam</strong>
+            còn
+            <strong>Hạ Ai Cập ở phía bắc</strong>.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="did-you-know">
+
+    <div class="know-icon">
+        ⏰
+    </div>
+
+    <div>
+
+        <small>
+            EM CÓ BIẾT? • 03
+        </small>
+
+        <h3>
+            Con số 60 vẫn hiện diện mỗi ngày
+        </h3>
+
+        <p>
+
+            Cư dân Lưỡng Hà đã sử dụng
+            hệ thống toán học dựa trên cơ số 60.
+
+            Ngày nay,
+            chúng ta vẫn quen với
+            60 giây trong một phút,
+            60 phút trong một giờ
+            và 360 độ của một vòng tròn.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="did-you-know">
+
+    <div class="know-icon">
+        📜
+    </div>
+
+    <div>
+
+        <small>
+            EM CÓ BIẾT? • 04
+        </small>
+
+        <h3>
+            Rosetta giúp “mở khóa” chữ tượng hình Ai Cập
+        </h3>
+
+        <p>
+
+            Phiến đá Rosetta mang cùng một nội dung
+            được viết bằng nhiều hệ chữ.
+
+            Việc so sánh các văn bản
+            đã góp phần quan trọng giúp
+            Jean-François Champollion
+            giải mã chữ tượng hình Ai Cập
+            vào đầu thế kỉ XIX.
+
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     08 MỞ RỘNG
+====================================================== -->
+
+<section
+class="section"
+id="mo-rong">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        PHẦN 08
+    </div>
+
+    <h2>
+        Mở rộng kiến thức
+    </h2>
+
+    <p>
+
+        Nhấn vào từng câu hỏi để mở phần giải thích.
+
+    </p>
+
+</div>
+
+
+<div class="accordion">
+
+    <div class="accordion-item">
+
+        <button class="accordion-button">
+
+            Vì sao cư dân cổ đại thường tập trung bên các dòng sông lớn?
+
+            <span class="acc-plus">
+                +
+            </span>
+
+        </button>
+
+        <div class="accordion-content">
+
+            <div class="accordion-inner">
+
+                Nước là điều kiện thiết yếu
+                cho sinh hoạt và sản xuất.
+
+                Các lưu vực sông còn có
+                đất phù sa màu mỡ,
+                nguồn thủy sản và
+                thuận lợi cho giao thông.
+
+                Khi sản xuất nông nghiệp phát triển,
+                lương thực ổn định hơn,
+                dân cư có thể tập trung đông hơn,
+                từ đó thúc đẩy sự hình thành
+                làng xóm, đô thị và các thiết chế
+                tổ chức xã hội phức tạp hơn.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="accordion-item">
+
+        <button class="accordion-button">
+
+            Có phải chỉ vì có sông mà Ai Cập và Lưỡng Hà hình thành văn minh?
+
+            <span class="acc-plus">
+                +
+            </span>
+
+        </button>
+
+        <div class="accordion-content">
+
+            <div class="accordion-inner">
+
+                Không.
+
+                Điều kiện tự nhiên tạo ra
+                những thuận lợi và thách thức,
+                nhưng con người mới là chủ thể
+                tổ chức sản xuất và biến đổi môi trường.
+
+                Cư dân phải biết đào kênh,
+                đắp đê, canh tác,
+                tổ chức lao động,
+                trao đổi sản phẩm,
+                xây dựng chính quyền
+                và phát triển tri thức.
+
+                Vì vậy, khi giải thích
+                sự hình thành văn minh,
+                cần xem xét cả
+                <strong>điều kiện tự nhiên</strong>
+                và
+                <strong>hoạt động của con người</strong>.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="accordion-item">
+
+        <button class="accordion-button">
+
+            Vì sao Ai Cập sớm hình thành một nhà nước thống nhất hơn Lưỡng Hà?
+
+            <span class="acc-plus">
+                +
+            </span>
+
+        </button>
+
+        <div class="accordion-content">
+
+            <div class="accordion-inner">
+
+                Có nhiều yếu tố.
+
+                Thung lũng sông Nin tạo thành
+                một trục giao thông tự nhiên
+                theo hướng bắc – nam.
+
+                Hoang mạc ở hai bên
+                tạo mức độ biệt lập tương đối.
+
+                Trong khi đó,
+                đồng bằng Lưỡng Hà rộng mở hơn,
+                có nhiều thành bang
+                và thường xuyên chịu sự cạnh tranh,
+                di chuyển và xung đột giữa
+                nhiều cộng đồng.
+
+                Tuy nhiên,
+                đây chỉ là một cách giải thích
+                dựa trên mối quan hệ giữa
+                điều kiện địa lí và lịch sử;
+                không nên coi địa lí là
+                nguyên nhân duy nhất.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="accordion-item">
+
+        <button class="accordion-button">
+
+            Tại sao chữ viết lại quan trọng đối với sự phát triển nhà nước?
+
+            <span class="acc-plus">
+                +
+            </span>
+
+        </button>
+
+        <div class="accordion-content">
+
+            <div class="accordion-inner">
+
+                Khi xã hội trở nên phức tạp,
+                người ta cần ghi lại
+                số lượng lương thực,
+                thuế,
+                hàng hóa,
+                đất đai,
+                lao động,
+                hoạt động tôn giáo
+                và quyết định của chính quyền.
+
+                Chữ viết giúp lưu giữ thông tin
+                vượt khỏi trí nhớ cá nhân,
+                hỗ trợ quản lí nhà nước
+                và truyền lại tri thức
+                qua nhiều thế hệ.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="accordion-item">
+
+        <button class="accordion-button">
+
+            Bộ luật Hammurabi cho chúng ta biết điều gì?
+
+            <span class="acc-plus">
+                +
+            </span>
+
+        </button>
+
+        <div class="accordion-content">
+
+            <div class="accordion-inner">
+
+                Bộ luật cho thấy nhà nước Babylon
+                đã có những quy định thành văn
+                về nhiều quan hệ xã hội
+                như tài sản, thương mại,
+                gia đình, lao động và hình phạt.
+
+                Các quy định cũng phản ánh
+                xã hội có sự phân hóa về
+                địa vị và quyền lợi.
+
+                Khi học,
+                không nên hiểu đây là
+                “bộ luật đầu tiên của loài người”,
+                bởi trước Hammurabi
+                đã tồn tại những tập hợp
+                luật pháp khác ở Lưỡng Hà.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TỪ KHÓA
+====================================================== -->
+
+<section class="section">
+
+<div class="section-heading">
+
+    <div class="section-number">
+        TỪ KHÓA CẦN NHỚ
+    </div>
+
+    <h2>
+        Bản đồ từ khóa
+    </h2>
+
+</div>
+
+
+<div class="keywords">
+
+    <span class="keyword">
+        Sông Nin
+    </span>
+
+    <span class="keyword">
+        Ti-grơ
+    </span>
+
+    <span class="keyword">
+        Ơ-phơ-rát
+    </span>
+
+    <span class="keyword">
+        Thượng Ai Cập
+    </span>
+
+    <span class="keyword">
+        Hạ Ai Cập
+    </span>
+
+    <span class="keyword">
+        Narmer
+    </span>
+
+    <span class="keyword">
+        Pharaoh
+    </span>
+
+    <span class="keyword">
+        Sumer
+    </span>
+
+    <span class="keyword">
+        Thành bang
+    </span>
+
+    <span class="keyword">
+        Akkad
+    </span>
+
+    <span class="keyword">
+        Babylon
+    </span>
+
+    <span class="keyword">
+        Hammurabi
+    </span>
+
+    <span class="keyword">
+        Chữ tượng hình
+    </span>
+
+    <span class="keyword">
+        Chữ hình nêm
+    </span>
+
+    <span class="keyword">
+        Kim tự tháp
+    </span>
+
+    <span class="keyword">
+        Ziggurat
+    </span>
+
+    <span class="keyword">
+        Papyrus
+    </span>
+
+    <span class="keyword">
+        Gilgamesh
+    </span>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TỔNG KẾT
+====================================================== -->
+
+<section class="section">
+
+<div class="summary-box">
+
+    <h3>
+        ✦ Ghi nhớ bài học
+    </h3>
+
+    <div class="summary-grid">
+
+        <div class="summary-item">
+
+            <strong>
+                01 • KHÔNG GIAN
+            </strong>
+
+            <p>
+
+                Ai Cập phát triển bên sông Nin;
+                Lưỡng Hà phát triển giữa
+                sông Ti-grơ và Ơ-phơ-rát.
+
+            </p>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <strong>
+                02 • KINH TẾ
+            </strong>
+
+            <p>
+
+                Nông nghiệp tưới tiêu là
+                một cơ sở kinh tế quan trọng
+                của các xã hội cổ đại này.
+
+            </p>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <strong>
+                03 • NHÀ NƯỚC
+            </strong>
+
+            <p>
+
+                Ai Cập thống nhất tương đối sớm;
+                Lưỡng Hà ban đầu gồm nhiều
+                thành bang rồi xuất hiện
+                các vương quốc và đế chế.
+
+            </p>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <strong>
+                04 • VĂN HÓA
+            </strong>
+
+            <p>
+
+                Hai khu vực để lại
+                nhiều thành tựu về chữ viết,
+                toán học, thiên văn,
+                kiến trúc, luật pháp
+                và văn học.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="footer">
+
+    <strong>
+        HỌC LIỆU SỐ LỊCH SỬ VÀ ĐỊA LÍ 6
+    </strong>
+
+    <br>
+
+    Chủ đề:
+    Xã hội cổ đại •
+    Ai Cập và Lưỡng Hà cổ đại
+
+    <br>
+
+    Thiết kế theo hướng
+    khám phá – trực quan – kết nối
+    Lịch sử và Địa lí.
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   THANH TIẾN ĐỘ ĐỌC
+========================================================= */
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        const scrollTop =
+        document.documentElement.scrollTop
+        ||
+        document.body.scrollTop;
+
+        const scrollHeight =
+        document.documentElement.scrollHeight
+        -
+        document.documentElement.clientHeight;
+
+        const progress =
+        (scrollTop / scrollHeight) * 100;
+
+        document.getElementById(
+            "progressBar"
+        ).style.width =
+        progress + "%";
+
+    }
+);
+
+
+/* =========================================================
+   ACCORDION
+========================================================= */
+
+const accordionItems =
+document.querySelectorAll(
+    ".accordion-item"
+);
+
+accordionItems.forEach(
+item => {
+
+    const button =
+    item.querySelector(
+        ".accordion-button"
+    );
+
+    const content =
+    item.querySelector(
+        ".accordion-content"
+    );
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const isOpen =
+            item.classList.contains(
+                "open"
+            );
+
+            accordionItems.forEach(
+            other => {
+
+                other.classList.remove(
+                    "open"
+                );
+
+                const otherContent =
+                other.querySelector(
+                    ".accordion-content"
+                );
+
+                otherContent.style.maxHeight =
+                null;
+
+            });
+
+
+            if(!isOpen){
+
+                item.classList.add(
+                    "open"
+                );
+
+                content.style.maxHeight =
+                content.scrollHeight
+                +
+                "px";
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   HIỆU ỨNG TỪ KHÓA
+========================================================= */
+
+const keywords =
+document.querySelectorAll(
+    ".keyword"
+);
+
+keywords.forEach(
+word => {
+
+    word.addEventListener(
+        "click",
+        () => {
+
+            word.animate(
+
+                [
+                    {
+                        transform:
+                        "scale(1)"
+                    },
+
+                    {
+                        transform:
+                        "scale(1.1)"
+                    },
+
+                    {
+                        transform:
+                        "scale(1)"
+                    }
+                ],
+
+                {
+                    duration:350,
+                    easing:"ease"
+                }
+
+            );
+
+        }
+    );
+
+});
+
+</script>
+
+</body>
+</html>

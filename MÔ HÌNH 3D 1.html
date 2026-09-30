@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mô hình 3D cấu tạo Trái Đất</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    overflow:hidden;
+    font-family:"Segoe UI", Arial, sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at 25% 20%,rgba(55,83,180,.22),transparent 28%),
+        radial-gradient(circle at 80% 70%,rgba(109,42,180,.18),transparent 30%),
+        linear-gradient(135deg,#02040c,#050918 40%,#0b0920 70%,#02030a);
+}
+
+/* =========================
+   NỀN VŨ TRỤ
+========================= */
+
+.space{
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    background:white;
+    border-radius:50%;
+    opacity:.7;
+    box-shadow:0 0 10px currentColor;
+    animation:twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle{
+    from{
+        opacity:.25;
+        transform:scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.25);
+    }
+}
+
+.nebula{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.25;
+}
+
+.nebula.n1{
+    width:500px;
+    height:500px;
+    background:#194dff;
+    left:-180px;
+    top:-150px;
+}
+
+.nebula.n2{
+    width:550px;
+    height:550px;
+    background:#7834ff;
+    right:-190px;
+    bottom:-190px;
+}
+
+/* =========================
+   THREE JS
+========================= */
+
+#scene{
+    position:fixed;
+    inset:0;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.top-bar{
+    position:fixed;
+    top:20px;
+    left:24px;
+    right:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:20;
+    pointer-events:none;
+}
+
+.brand{
+    pointer-events:auto;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:11px 17px;
+    border-radius:17px;
+    background:rgba(4,9,27,.68);
+    border:1px solid rgba(114,152,255,.18);
+    backdrop-filter:blur(17px);
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.2),
+        inset 0 0 30px rgba(80,120,255,.04);
+}
+
+.brand-icon{
+    width:45px;
+    height:45px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,#225bff,#7d3dff);
+    box-shadow:0 0 25px rgba(57,103,255,.4);
+    font-size:23px;
+}
+
+.brand small{
+    display:block;
+    color:#7993c6;
+    font-size:10px;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+}
+
+.brand h1{
+    font-size:16px;
+    margin-top:3px;
+}
+
+.help{
+    pointer-events:auto;
+    padding:11px 16px;
+    border-radius:50px;
+    font-size:12px;
+    color:#aabce0;
+    border:1px solid rgba(130,160,255,.15);
+    background:rgba(5,9,27,.6);
+    backdrop-filter:blur(15px);
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title-area{
+    position:fixed;
+    left:50%;
+    top:90px;
+    transform:translateX(-50%);
+    width:min(700px,75vw);
+    z-index:10;
+    text-align:center;
+    pointer-events:none;
+}
+
+.title-small{
+    font-size:11px;
+    letter-spacing:3px;
+    color:#70a6ff;
+    margin-bottom:9px;
+}
+
+.title-area h2{
+    font-size:clamp(27px,3vw,45px);
+    background:linear-gradient(90deg,#ffffff,#8fd1ff,#c68aff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.title-area p{
+    color:#778aad;
+    font-size:13px;
+    margin-top:8px;
+}
+
+/* =========================
+   PANEL ĐIỀU KHIỂN
+========================= */
+
+.controls{
+    position:fixed;
+    right:22px;
+    top:95px;
+    width:305px;
+    max-height:calc(100vh - 120px);
+    z-index:30;
+    overflow:auto;
+    padding:20px;
+    border-radius:24px;
+    background:
+        linear-gradient(
+            150deg,
+            rgba(7,14,36,.9),
+            rgba(13,9,35,.88)
+        );
+    border:1px solid rgba(118,148,255,.2);
+    backdrop-filter:blur(22px);
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.4),
+        inset 0 0 50px rgba(64,83,255,.025);
+}
+
+.controls::-webkit-scrollbar{
+    width:4px;
+}
+
+.controls::-webkit-scrollbar-thumb{
+    background:#354c86;
+    border-radius:20px;
+}
+
+.panel-heading{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.panel-heading-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#255fff,#823dff);
+    box-shadow:0 0 25px rgba(76,91,255,.25);
+}
+
+.panel-heading h3{
+    font-size:15px;
+}
+
+.panel-heading p{
+    color:#60769c;
+    font-size:10px;
+    margin-top:2px;
+}
+
+.control-section{
+    padding:16px 0;
+    border-top:1px solid rgba(120,150,255,.09);
+}
+
+.control-title{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:12px;
+    color:#8fa5d0;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:10px;
+}
+
+.control-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:10px 0;
+    color:#c0cae0;
+    font-size:12px;
+}
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch{
+    position:relative;
+    width:40px;
+    height:22px;
+    cursor:pointer;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    background:#17213b;
+    border:1px solid #2d3c62;
+    transition:.3s;
+}
+
+.slider::before{
+    content:"";
+    position:absolute;
+    width:16px;
+    height:16px;
+    left:2px;
+    top:2px;
+    border-radius:50%;
+    background:#677897;
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:linear-gradient(90deg,#2459ff,#803bff);
+    border-color:#5a76ff;
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(18px);
+    background:#fff;
+}
+
+/* =========================
+   RANGE
+========================= */
+
+.range-wrap{
+    margin-top:12px;
+}
+
+.range-label{
+    display:flex;
+    justify-content:space-between;
+    color:#94a5c8;
+    font-size:11px;
+    margin-bottom:8px;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:#6d5dff;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.button-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.control-button{
+    border:1px solid rgba(119,151,255,.18);
+    background:
+        linear-gradient(
+            140deg,
+            rgba(30,46,88,.55),
+            rgba(23,18,65,.55)
+        );
+    color:#c8d6ef;
+    padding:10px 9px;
+    font-size:11px;
+    border-radius:11px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.control-button:hover{
+    background:linear-gradient(135deg,#245cff,#773eff);
+    color:white;
+    transform:translateY(-2px);
+}
+
+/* =========================
+   DANH SÁCH LỚP
+========================= */
+
+.layer-item{
+    display:grid;
+    grid-template-columns:18px 1fr auto;
+    gap:9px;
+    align-items:center;
+    padding:9px;
+    border-radius:11px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.layer-item:hover{
+    background:rgba(71,93,155,.16);
+}
+
+.layer-color{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    box-shadow:0 0 10px currentColor;
+}
+
+/* VỎ TRÁI ĐẤT ĐÃ ĐỔI SANG XANH DƯƠNG */
+.crust-dot{
+    background:#3d8bff;
+    color:#85d4ff;
+}
+
+.mantle-dot{
+    background:#ff8753;
+    color:#ff8753;
+}
+
+.outer-dot{
+    background:#da270d;
+    color:#ff3e19;
+}
+
+.inner-dot{
+    background:#ff1313;
+    color:#ff1313;
+}
+
+.layer-item strong{
+    display:block;
+    font-size:11px;
+}
+
+.layer-item small{
+    font-size:9px;
+    color:#637696;
+}
+
+.eye{
+    font-size:12px;
+    color:#7192cf;
+}
+
+/* =========================
+   INFO PANEL
+========================= */
+
+.info-panel{
+    position:fixed;
+    left:22px;
+    bottom:25px;
+    width:310px;
+    z-index:20;
+    border-radius:21px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,14,34,.88),
+            rgba(12,8,34,.85)
+        );
+    border:1px solid rgba(124,150,255,.18);
+    backdrop-filter:blur(20px);
+    padding:19px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.info-label{
+    color:#69a9ff;
+    text-transform:uppercase;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.info-panel h3{
+    font-size:20px;
+    margin:7px 0 10px;
+}
+
+.info-panel p{
+    color:#8192b2;
+    font-size:11px;
+    line-height:1.65;
+}
+
+.data-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    margin-top:13px;
+    gap:7px;
+}
+
+.data-box{
+    padding:9px;
+    border-radius:10px;
+    background:rgba(43,61,107,.12);
+    border:1px solid rgba(105,135,205,.08);
+}
+
+.data-box small{
+    display:block;
+    color:#5d7299;
+    font-size:8px;
+}
+
+.data-box strong{
+    display:block;
+    margin-top:4px;
+    font-size:11px;
+    color:#d1daf0;
+}
+
+/* =========================
+   LABEL
+========================= */
+
+.label3d{
+    position:absolute;
+    padding:7px 10px;
+    color:white;
+    border-radius:9px;
+    font-size:10px;
+    background:rgba(5,9,25,.78);
+    border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(8px);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    white-space:nowrap;
+    box-shadow:0 8px 25px rgba(0,0,0,.22);
+}
+
+.mouse-help{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%);
+    z-index:15;
+    color:#60779e;
+    font-size:10px;
+    padding:8px 15px;
+    border-radius:20px;
+    background:rgba(5,9,27,.4);
+    border:1px solid rgba(99,132,202,.08);
+    backdrop-filter:blur(8px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+    .controls{
+        width:260px;
+    }
+
+    .title-area{
+        width:60%;
+        left:34%;
+    }
+
+    .info-panel{
+        width:250px;
+    }
+}
+
+@media(max-width:700px){
+    .title-area{
+        display:none;
+    }
+
+    .help{
+        display:none;
+    }
+
+    .controls{
+        width:220px;
+        right:8px;
+        top:85px;
+    }
+
+    .info-panel{
+        width:210px;
+        left:8px;
+        bottom:10px;
+    }
+
+    .mouse-help{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="space" id="space">
+    <div class="nebula n1"></div>
+    <div class="nebula n2"></div>
+</div>
+
+<div id="scene"></div>
+
+<header class="top-bar">
+
+    <div class="brand">
+        <div class="brand-icon">🌍</div>
+
+        <div>
+            <small>Học liệu số Địa lí 6</small>
+            <h1>Mô hình cấu tạo Trái Đất</h1>
+        </div>
+    </div>
+
+    <div class="help">
+        🖱 KÉO ĐỂ XOAY &nbsp; • &nbsp; CUỘN ĐỂ THU PHÓNG
+    </div>
+
+</header>
+
+<div class="title-area">
+
+    <div class="title-small">
+        MÔ HÌNH TƯƠNG TÁC 3D
+    </div>
+
+    <h2>
+        CẤU TẠO BÊN TRONG TRÁI ĐẤT
+    </h2>
+
+    <p>
+        Quan sát • xoay • tách lớp • khám phá từng bộ phận
+    </p>
+
+</div>
+
+<div class="controls">
+
+    <div class="panel-heading">
+
+        <div class="panel-heading-icon">
+            ⚙
+        </div>
+
+        <div>
+            <h3>Bảng điều khiển</h3>
+            <p>Earth Internal Structure</p>
+        </div>
+
+    </div>
+
+    <div class="control-section">
+
+        <div class="control-title">
+            <span>Chuyển động</span>
+        </div>
+
+        <div class="control-row">
+
+            <span>Tự động quay</span>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="autoRotate"
+                    checked
+                >
+
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="range-wrap">
+
+            <div class="range-label">
+                <span>Tốc độ quay</span>
+                <span id="speedText">0.30</span>
+            </div>
+
+            <input
+                type="range"
+                id="rotationSpeed"
+                min="0"
+                max="1"
+                value="0.30"
+                step="0.05"
+            >
+
+        </div>
+
+    </div>
+
+    <div class="control-section">
+
+        <div class="control-title">
+            <span>Phân tách cấu tạo</span>
+        </div>
+
+        <div class="control-row">
+
+            <span>Tách các lớp</span>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="explode"
+                >
+
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="range-wrap">
+
+            <div class="range-label">
+                <span>Mức độ tách</span>
+                <span id="explodeText">55%</span>
+            </div>
+
+            <input
+                type="range"
+                id="explodeAmount"
+                min="0"
+                max="100"
+                value="55"
+            >
+
+        </div>
+
+    </div>
+
+    <div class="control-section">
+
+        <div class="control-title">
+            <span>Hiển thị</span>
+        </div>
+
+        <div class="control-row">
+
+            <span>Nhãn thông tin</span>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="showLabels"
+                    checked
+                >
+
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="control-row">
+
+            <span>Lưới mô hình</span>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="showWireframe"
+                >
+
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="control-row">
+
+            <span>Chế độ xuyên thấu</span>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="transparentMode"
+                >
+
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+    </div>
+
+    <div class="control-section">
+
+        <div class="control-title">
+            <span>Các lớp Trái Đất</span>
+        </div>
+
+        <div class="layer-item" data-layer="crust">
+
+            <div class="layer-color crust-dot"></div>
+
+            <div>
+                <strong>Vỏ Trái Đất</strong>
+                <small>5 – 70 km</small>
+            </div>
+
+            <div class="eye">◉</div>
+
+        </div>
+
+        <div class="layer-item" data-layer="mantle">
+
+            <div class="layer-color mantle-dot"></div>
+
+            <div>
+                <strong>Manti</strong>
+                <small>Đến khoảng 2 900 km</small>
+            </div>
+
+            <div class="eye">◉</div>
+
+        </div>
+
+        <div class="layer-item" data-layer="outerCore">
+
+            <div class="layer-color outer-dot"></div>
+
+            <div>
+                <strong>Nhân ngoài</strong>
+                <small>Trạng thái lỏng</small>
+            </div>
+
+            <div class="eye">◉</div>
+
+        </div>
+
+        <div class="layer-item" data-layer="innerCore">
+
+            <div class="layer-color inner-dot"></div>
+
+            <div>
+                <strong>Nhân trong</strong>
+                <small>Trạng thái rắn</small>
+            </div>
+
+            <div class="eye">◉</div>
+
+        </div>
+
+    </div>
+
+    <div class="control-section">
+
+        <div class="control-title">
+            <span>Góc quan sát</span>
+        </div>
+
+        <div class="button-grid">
+
+            <button
+                class="control-button"
+                id="frontView"
+            >
+                Chính diện
+            </button>
+
+            <button
+                class="control-button"
+                id="topView"
+            >
+                Từ trên
+            </button>
+
+            <button
+                class="control-button"
+                id="cutView"
+            >
+                Mặt cắt
+            </button>
+
+            <button
+                class="control-button"
+                id="resetView"
+            >
+                ↻ Đặt lại
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="info-panel">
+
+    <div class="info-label">
+        Lớp đang khám phá
+    </div>
+
+    <h3 id="infoName">
+        Trái Đất
+    </h3>
+
+    <p id="infoDescription">
+        Mô hình thể hiện cấu tạo bên trong Trái Đất.
+        Hãy nhấp vào từng lớp của mô hình hoặc lựa chọn
+        trong bảng điều khiển để xem thông tin.
+    </p>
+
+    <div class="data-grid">
+
+        <div class="data-box">
+            <small>Độ sâu / độ dày</small>
+            <strong id="infoDepth">≈ 6 371 km bán kính</strong>
+        </div>
+
+        <div class="data-box">
+            <small>Trạng thái</small>
+            <strong id="infoState">Rắn – lỏng</strong>
+        </div>
+
+        <div class="data-box">
+            <small>Nhiệt độ</small>
+            <strong id="infoTemp">Tăng theo độ sâu</strong>
+        </div>
+
+        <div class="data-box">
+            <small>Vị trí</small>
+            <strong id="infoPosition">Từ bề mặt đến tâm</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="mouse-help">
+    🖱 Chuột trái: xoay &nbsp; • &nbsp;
+    Bánh xe: phóng to / thu nhỏ &nbsp; • &nbsp;
+    Nhấp lớp: xem thông tin
+</div>
+
+<script type="importmap">
+{
+    "imports":{
+        "three":"https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+        "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+
+import * as THREE from "three";
+
+import {
+    OrbitControls
+}
+from "three/addons/controls/OrbitControls.js";
+
+
+const container =
+    document.getElementById("scene");
+
+const scene =
+    new THREE.Scene();
+
+
+const camera =
+    new THREE.PerspectiveCamera(
+        42,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+    );
+
+camera.position.set(
+    8.4,
+    3.3,
+    10.8
+);
+
+
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias:true,
+        alpha:true,
+        powerPreference:"high-performance"
+    });
+
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
+);
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+renderer.outputColorSpace =
+    THREE.SRGBColorSpace;
+
+renderer.toneMapping =
+    THREE.ACESFilmicToneMapping;
+
+renderer.toneMappingExposure =
+    1.18;
+
+renderer.localClippingEnabled =
+    true;
+
+container.appendChild(
+    renderer.domElement
+);
+
+
+const controls =
+    new OrbitControls(
+        camera,
+        renderer.domElement
+    );
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.minDistance = 6.5;
+controls.maxDistance = 24;
+
+controls.target.set(
+    -0.5,
+    0,
+    0
+);
+
+
+const ambient =
+    new THREE.AmbientLight(
+        0xffffff,
+        1.55
+    );
+
+scene.add(ambient);
+
+
+const keyLight =
+    new THREE.DirectionalLight(
+        0xffe0c2,
+        3
+    );
+
+keyLight.position.set(
+    6,
+    8,
+    7
+);
+
+scene.add(keyLight);
+
+
+const blueLight =
+    new THREE.PointLight(
+        0x427eff,
+        25,
+        30
+    );
+
+blueLight.position.set(
+    -6,
+    3,
+    3
+);
+
+scene.add(blueLight);
+
+
+const warmLight =
+    new THREE.PointLight(
+        0xff4d13,
+        30,
+        15
+    );
+
+warmLight.position.set(
+    1,
+    -1,
+    2
+);
+
+scene.add(warmLight);
+
+
+const earth =
+    new THREE.Group();
+
+earth.rotation.x =
+    THREE.MathUtils.degToRad(-8);
+
+earth.rotation.y =
+    THREE.MathUtils.degToRad(-24);
+
+scene.add(earth);
+
+
+function material(
+    color,
+    emissive,
+    emissiveIntensity,
+    roughness = 0.65,
+    metalness = 0.05
+){
+
+    return new THREE.MeshPhysicalMaterial({
+
+        color,
+        emissive,
+        emissiveIntensity,
+        roughness,
+        metalness,
+
+        clearcoat:.12,
+        clearcoatRoughness:.7,
+
+        side:THREE.DoubleSide
+
+    });
+
+}
+
+
+function createLayer(
+    radius,
+    color,
+    emissive,
+    emissiveIntensity
+){
+
+    const geometry =
+        new THREE.SphereGeometry(
+            radius,
+            128,
+            96,
+            Math.PI * .25,
+            Math.PI * 1.5,
+            0,
+            Math.PI
+        );
+
+    const mat =
+        material(
+            color,
+            emissive,
+            emissiveIntensity
+        );
+
+    const mesh =
+        new THREE.Mesh(
+            geometry,
+            mat
+        );
+
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    earth.add(mesh);
+
+    return mesh;
+}
+
+
+/* =========================================================
+   CÁC LỚP
+========================================================= */
+
+/* VỎ TRÁI ĐẤT ĐÃ ĐỔI SANG XANH DƯƠNG */
+
+const crust =
+    createLayer(
+        4.02,
+        0x3d8bff,
+        0x1446a0,
+        .16
+    );
+
+crust.userData.layer =
+    "crust";
+
+
+const mantle =
+    createLayer(
+        3.86,
+        0xff8556,
+        0xb52c0c,
+        .18
+    );
+
+mantle.userData.layer =
+    "mantle";
+
+
+const outerCore =
+    createLayer(
+        2.25,
+        0xd52a0c,
+        0xff2600,
+        .45
+    );
+
+outerCore.userData.layer =
+    "outerCore";
+
+
+const innerCore =
+    createLayer(
+        1.22,
+        0xff1717,
+        0xff2f00,
+        1.3
+    );
+
+innerCore.material.roughness =
+    .4;
+
+innerCore.userData.layer =
+    "innerCore";
+
+
+/* =========================
+   KHÍ QUYỂN
+========================= */
+
+const atmosphereGeo =
+    new THREE.SphereGeometry(
+        4.12,
+        96,
+        64,
+        Math.PI*.25,
+        Math.PI*1.5
+    );
+
+const atmosphereMat =
+    new THREE.MeshPhysicalMaterial({
+
+        color:0x4cb5ff,
+
+        transparent:true,
+
+        opacity:.07,
+
+        transmission:.2,
+
+        roughness:.1,
+
+        side:THREE.DoubleSide,
+
+        depthWrite:false
+
+    });
+
+const atmosphere =
+    new THREE.Mesh(
+        atmosphereGeo,
+        atmosphereMat
+    );
+
+earth.add(atmosphere);
+
+
+/* =========================
+   GLOW
+========================= */
+
+const glowGeo =
+    new THREE.SphereGeometry(
+        4.20,
+        64,
+        48,
+        Math.PI*.25,
+        Math.PI*1.5
+    );
+
+const glowMat =
+    new THREE.MeshBasicMaterial({
+
+        color:0x388bff,
+
+        transparent:true,
+
+        opacity:.035,
+
+        side:THREE.BackSide
+
+    });
+
+const glow =
+    new THREE.Mesh(
+        glowGeo,
+        glowMat
+    );
+
+earth.add(glow);
+
+
+/* =========================
+   RING
+========================= */
+
+function ring(
+    radius,
+    color,
+    opacity=.55
+){
+
+    const geometry =
+        new THREE.TorusGeometry(
+            radius,
+            .015,
+            8,
+            180,
+            Math.PI*1.48
+        );
+
+    const mat =
+        new THREE.MeshBasicMaterial({
+            color,
+            transparent:true,
+            opacity
+        });
+
+    const mesh =
+        new THREE.Mesh(
+            geometry,
+            mat
+        );
+
+    mesh.rotation.x =
+        Math.PI/2;
+
+    earth.add(mesh);
+
+    return mesh;
+}
+
+
+const mantleBoundary =
+    ring(
+        3.86,
+        0xffbe87,
+        .4
+    );
+
+const outerBoundary =
+    ring(
+        2.25,
+        0xff5833,
+        .6
+    );
+
+const innerBoundary =
+    ring(
+        1.22,
+        0xffc44f,
+        .8
+    );
+
+
+/* =========================
+   HẠT CHUYỂN ĐỘNG TRONG MANTI
+========================= */
+
+const particleCount =
+    130;
+
+const positions =
+    new Float32Array(
+        particleCount * 3
+    );
+
+const convectionData = [];
+
+
+for(
+    let i=0;
+    i<particleCount;
+    i++
+){
+
+    const r =
+        THREE.MathUtils.randFloat(
+            2.4,
+            3.65
+        );
+
+    const theta =
+        Math.random()
+        * Math.PI
+        * 2;
+
+    const phi =
+        Math.random()
+        * Math.PI;
+
+    const x =
+        r *
+        Math.sin(phi) *
+        Math.cos(theta);
+
+    const y =
+        r *
+        Math.cos(phi);
+
+    const z =
+        r *
+        Math.sin(phi) *
+        Math.sin(theta);
+
+    positions[i*3] = x;
+    positions[i*3+1] = y;
+    positions[i*3+2] = z;
+
+    convectionData.push({
+        r,
+        theta,
+        phi,
+        speed:
+            THREE.MathUtils.randFloat(
+                .03,
+                .08
+            )
+    });
+
+}
+
+
+const particleGeometry =
+    new THREE.BufferGeometry();
+
+particleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+        positions,
+        3
+    )
+);
+
+
+const particleMaterial =
+    new THREE.PointsMaterial({
+
+        color:0xffd28f,
+
+        size:.035,
+
+        transparent:true,
+
+        opacity:.38,
+
+        depthWrite:false
+
+    });
+
+
+const mantleParticles =
+    new THREE.Points(
+        particleGeometry,
+        particleMaterial
+    );
+
+earth.add(
+    mantleParticles
+);
+
+
+/* =========================
+   GLOW NHÂN
+========================= */
+
+const coreGlowGeo =
+    new THREE.SphereGeometry(
+        1.33,
+        64,
+        48
+    );
+
+const coreGlowMat =
+    new THREE.MeshBasicMaterial({
+
+        color:0xff3600,
+
+        transparent:true,
+
+        opacity:.14,
+
+        side:THREE.BackSide,
+
+        depthWrite:false
+
+    });
+
+const coreGlow =
+    new THREE.Mesh(
+        coreGlowGeo,
+        coreGlowMat
+    );
+
+earth.add(
+    coreGlow
+);
+
+
+/* =========================
+   LABEL
+========================= */
+
+const labels = {
+
+    crust:
+        createLabel(
+            "Vỏ Trái Đất"
+        ),
+
+    mantle:
+        createLabel(
+            "Manti"
+        ),
+
+    outerCore:
+        createLabel(
+            "Nhân ngoài"
+        ),
+
+    innerCore:
+        createLabel(
+            "Nhân trong"
+        )
+
+};
+
+
+function createLabel(
+    text
+){
+
+    const el =
+        document.createElement(
+            "div"
+        );
+
+    el.className =
+        "label3d";
+
+    el.textContent =
+        text;
+
+    document.body.appendChild(
+        el
+    );
+
+    return el;
+
+}
+
+
+const labelPositions = {
+
+    crust:
+        new THREE.Vector3(
+            -3.15,
+            2.45,
+            .5
+        ),
+
+    mantle:
+        new THREE.Vector3(
+            -2.25,
+            .8,
+            1.3
+        ),
+
+    outerCore:
+        new THREE.Vector3(
+            -1.38,
+            -.55,
+            1
+        ),
+
+    innerCore:
+        new THREE.Vector3(
+            -.55,
+            -.2,
+            .7
+        )
+
+};
+
+
+/* =========================
+   THÔNG TIN
+========================= */
+
+const info = {
+
+    crust:{
+
+        name:
+            "Vỏ Trái Đất",
+
+        description:
+            "Lớp ngoài cùng của Trái Đất, ở trạng thái rắn. Vỏ lục địa thường dày hơn vỏ đại dương. Trong SGK lớp 6, độ dày thường được khái quát khoảng 5 – 70 km.",
+
+        depth:
+            "Khoảng 5 – 70 km",
+
+        state:
+            "Rắn",
+
+        temp:
+            "Tăng theo độ sâu",
+
+        position:
+            "Ngoài cùng"
+
+    },
+
+    mantle:{
+
+        name:
+            "Manti",
+
+        description:
+            "Nằm dưới vỏ Trái Đất và kéo dài tới độ sâu khoảng 2 900 km. Vật chất chủ yếu ở trạng thái rắn nhưng có tính dẻo ở một số khu vực; nhiệt độ và áp suất tăng mạnh theo độ sâu.",
+
+        depth:
+            "≈ 2 900 km",
+
+        state:
+            "Quánh dẻo → rắn",
+
+        temp:
+            "≈ 1 500 – 4 700°C",
+
+        position:
+            "Dưới vỏ"
+
+    },
+
+    outerCore:{
+
+        name:
+            "Nhân ngoài",
+
+        description:
+            "Phần ngoài của nhân Trái Đất, chủ yếu gồm sắt và niken ở trạng thái lỏng. Sự chuyển động của vật chất dẫn điện trong nhân ngoài có liên hệ với từ trường Trái Đất.",
+
+        depth:
+            "≈ 2 260 km",
+
+        state:
+            "Lỏng",
+
+        temp:
+            "≈ 4 000 – 5 500°C",
+
+        position:
+            "Quanh nhân trong"
+
+    },
+
+    innerCore:{
+
+        name:
+            "Nhân trong",
+
+        description:
+            "Phần trung tâm của Trái Đất. Mặc dù nhiệt độ rất cao, áp suất cực lớn làm vật chất chủ yếu gồm sắt và niken tồn tại ở trạng thái rắn.",
+
+        depth:
+            "Bán kính ≈ 1 220 km",
+
+        state:
+            "Rắn",
+
+        temp:
+            "≈ 5 000 – 6 000°C",
+
+        position:
+            "Tâm Trái Đất"
+
+    }
+
+};
+
+
+function showInfo(
+    key
+){
+
+    const d =
+        info[key];
+
+    if(!d) return;
+
+    document
+        .getElementById(
+            "infoName"
+        )
+        .textContent =
+        d.name;
+
+    document
+        .getElementById(
+            "infoDescription"
+        )
+        .textContent =
+        d.description;
+
+    document
+        .getElementById(
+            "infoDepth"
+        )
+        .textContent =
+        d.depth;
+
+    document
+        .getElementById(
+            "infoState"
+        )
+        .textContent =
+        d.state;
+
+    document
+        .getElementById(
+            "infoTemp"
+        )
+        .textContent =
+        d.temp;
+
+    document
+        .getElementById(
+            "infoPosition"
+        )
+        .textContent =
+        d.position;
+
+}
+
+
+/* =========================
+   CLICK MÔ HÌNH
+========================= */
+
+const raycaster =
+    new THREE.Raycaster();
+
+const pointer =
+    new THREE.Vector2();
+
+
+const clickable = [
+    crust,
+    mantle,
+    outerCore,
+    innerCore
+];
+
+
+renderer.domElement
+.addEventListener(
+    "pointerdown",
+    e=>{
+
+        pointer.x =
+            (
+                e.clientX /
+                window.innerWidth
+            ) * 2 - 1;
+
+        pointer.y =
+            -(
+                e.clientY /
+                window.innerHeight
+            ) * 2 + 1;
+
+
+        raycaster.setFromCamera(
+            pointer,
+            camera
+        );
+
+
+        const hit =
+            raycaster
+            .intersectObjects(
+                clickable,
+                false
+            );
+
+
+        if(
+            hit.length
+        ){
+
+            const key =
+                hit[0]
+                .object
+                .userData
+                .layer;
+
+            showInfo(
+                key
+            );
+
+            pulseLayer(
+                hit[0].object
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   PULSE
+========================= */
+
+let pulseTarget = null;
+let pulseTime = 0;
+
+
+function pulseLayer(
+    mesh
+){
+
+    pulseTarget =
+        mesh;
+
+    pulseTime =
+        0;
+
+}
+
+
+/* =========================
+   TÁCH LỚP
+========================= */
+
+let explodeEnabled =
+    false;
+
+let explodeValue =
+    .55;
+
+
+function updateExplosion(){
+
+    const t =
+        explodeEnabled
+        ? explodeValue
+        : 0;
+
+
+    crust.position.x =
+        THREE.MathUtils.lerp(
+            crust.position.x,
+            2.7*t,
+            .08
+        );
+
+    mantle.position.x =
+        THREE.MathUtils.lerp(
+            mantle.position.x,
+            .85*t,
+            .08
+        );
+
+    outerCore.position.x =
+        THREE.MathUtils.lerp(
+            outerCore.position.x,
+            -1.4*t,
+            .08
+        );
+
+    innerCore.position.x =
+        THREE.MathUtils.lerp(
+            innerCore.position.x,
+            -3.2*t,
+            .08
+        );
+
+}
+
+
+/* =========================
+   UI
+========================= */
+
+const autoRotate =
+    document.getElementById(
+        "autoRotate"
+    );
+
+const speedSlider =
+    document.getElementById(
+        "rotationSpeed"
+    );
+
+const speedText =
+    document.getElementById(
+        "speedText"
+    );
+
+const explodeSwitch =
+    document.getElementById(
+        "explode"
+    );
+
+const explodeSlider =
+    document.getElementById(
+        "explodeAmount"
+    );
+
+const explodeText =
+    document.getElementById(
+        "explodeText"
+    );
+
+const showLabels =
+    document.getElementById(
+        "showLabels"
+    );
+
+const wireframe =
+    document.getElementById(
+        "showWireframe"
+    );
+
+const transparency =
+    document.getElementById(
+        "transparentMode"
+    );
+
+
+speedSlider.addEventListener(
+    "input",
+    ()=>{
+
+        speedText.textContent =
+            Number(
+                speedSlider.value
+            )
+            .toFixed(2);
+
+    }
+);
+
+
+explodeSwitch.addEventListener(
+    "change",
+    ()=>{
+
+        explodeEnabled =
+            explodeSwitch.checked;
+
+    }
+);
+
+
+explodeSlider.addEventListener(
+    "input",
+    ()=>{
+
+        explodeValue =
+            explodeSlider.value /
+            100;
+
+        explodeText.textContent =
+            explodeSlider.value
+            + "%";
+
+    }
+);
+
+
+showLabels.addEventListener(
+    "change",
+    ()=>{
+
+        Object.values(
+            labels
+        )
+        .forEach(
+            label=>{
+
+                label.style.display =
+                    showLabels.checked
+                    ? "block"
+                    : "none";
+
+            }
+        );
+
+    }
+);
+
+
+wireframe.addEventListener(
+    "change",
+    ()=>{
+
+        [
+            crust,
+            mantle,
+            outerCore,
+            innerCore
+        ]
+        .forEach(
+            mesh=>{
+
+                mesh.material.wireframe =
+                    wireframe.checked;
+
+            }
+        );
+
+    }
+);
+
+
+transparency.addEventListener(
+    "change",
+    ()=>{
+
+        if(
+            transparency.checked
+        ){
+
+            crust.material.transparent =
+                true;
+
+            mantle.material.transparent =
+                true;
+
+            crust.material.opacity =
+                .32;
+
+            mantle.material.opacity =
+                .45;
+
+            crust.material.depthWrite =
+                false;
+
+            mantle.material.depthWrite =
+                false;
+
+        }
+
+        else{
+
+            crust.material.opacity =
+                1;
+
+            mantle.material.opacity =
+                1;
+
+            crust.material.transparent =
+                false;
+
+            mantle.material.transparent =
+                false;
+
+            crust.material.depthWrite =
+                true;
+
+            mantle.material.depthWrite =
+                true;
+
+        }
+
+    }
+);
+
+
+/* =========================
+   BẬT TẮT LỚP
+========================= */
+
+document
+.querySelectorAll(
+    ".layer-item"
+)
+.forEach(
+    item=>{
+
+        item.addEventListener(
+            "click",
+            ()=>{
+
+                const key =
+                    item.dataset.layer;
+
+                const object =
+                    ({
+                        crust,
+                        mantle,
+                        outerCore,
+                        innerCore
+                    })[key];
+
+
+                object.visible =
+                    !object.visible;
+
+                item.querySelector(
+                    ".eye"
+                )
+                .textContent =
+                    object.visible
+                    ? "◉"
+                    : "○";
+
+                showInfo(
+                    key
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================
+   CAMERA
+========================= */
+
+function moveCamera(
+    target
+){
+
+    camera.position.copy(
+        target
+    );
+
+    controls.target.set(
+        0,
+        0,
+        0
+    );
+
+    controls.update();
+
+}
+
+
+document
+.getElementById(
+    "frontView"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        moveCamera(
+            new THREE.Vector3(
+                0,
+                .4,
+                12
+            )
+        );
+
+    }
+);
+
+
+document
+.getElementById(
+    "topView"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        moveCamera(
+            new THREE.Vector3(
+                0,
+                12,
+                .1
+            )
+        );
+
+    }
+);
+
+
+document
+.getElementById(
+    "cutView"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        moveCamera(
+            new THREE.Vector3(
+                8,
+                2.5,
+                10
+            )
+        );
+
+        earth.rotation.y =
+            -.42;
+
+    }
+);
+
+
+document
+.getElementById(
+    "resetView"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        camera.position.set(
+            8.4,
+            3.3,
+            10.8
+        );
+
+        controls.target.set(
+            -.5,
+            0,
+            0
+        );
+
+        earth.rotation.x =
+            THREE.MathUtils
+            .degToRad(-8);
+
+        earth.rotation.y =
+            THREE.MathUtils
+            .degToRad(-24);
+
+        explodeEnabled =
+            false;
+
+        explodeSwitch.checked =
+            false;
+
+        controls.update();
+
+    }
+);
+
+
+/* =========================
+   UPDATE LABEL
+========================= */
+
+function updateLabels(){
+
+    for(
+        const key
+        in labels
+    ){
+
+        const position =
+            labelPositions[key]
+            .clone();
+
+        earth.localToWorld(
+            position
+        );
+
+        position.project(
+            camera
+        );
+
+        const x =
+            (
+                position.x*.5
+                + .5
+            )
+            * window.innerWidth;
+
+        const y =
+            (
+                -position.y*.5
+                + .5
+            )
+            * window.innerHeight;
+
+        labels[key]
+            .style
+            .left =
+            x+"px";
+
+        labels[key]
+            .style
+            .top =
+            y+"px";
+
+    }
+
+}
+
+
+/* =========================
+   HẠT MANTI
+========================= */
+
+function updateMantleParticles(
+    delta
+){
+
+    const pos =
+        particleGeometry
+        .attributes
+        .position
+        .array;
+
+
+    for(
+        let i=0;
+        i<particleCount;
+        i++
+    ){
+
+        const d =
+            convectionData[i];
+
+        d.theta +=
+            d.speed
+            * delta;
+
+        d.phi +=
+            Math.sin(
+                performance.now()
+                *.00025
+                + i
+            )
+            *.0003;
+
+
+        pos[i*3] =
+            d.r
+            * Math.sin(d.phi)
+            * Math.cos(d.theta);
+
+        pos[i*3+1] =
+            d.r
+            * Math.cos(d.phi);
+
+        pos[i*3+2] =
+            d.r
+            * Math.sin(d.phi)
+            * Math.sin(d.theta);
+
+    }
+
+
+    particleGeometry
+    .attributes
+    .position
+    .needsUpdate =
+        true;
+
+}
+
+
+/* =========================
+   SAO
+========================= */
+
+const space =
+    document.getElementById(
+        "space"
+    );
+
+
+for(
+    let i=0;
+    i<90;
+    i++
+){
+
+    const star =
+        document.createElement(
+            "div"
+        );
+
+    star.className =
+        "star";
+
+    const size =
+        Math.random()*2.5
+        + .5;
+
+    star.style.width =
+        size+"px";
+
+    star.style.height =
+        size+"px";
+
+    star.style.left =
+        Math.random()*100
+        +"%";
+
+    star.style.top =
+        Math.random()*100
+        +"%";
+
+    star.style.animationDelay =
+        Math.random()*3
+        +"s";
+
+    star.style.animationDuration =
+        2
+        + Math.random()*4
+        +"s";
+
+    space.appendChild(
+        star
+    );
+
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+const clock =
+    new THREE.Clock();
+
+
+function animate(){
+
+    requestAnimationFrame(
+        animate
+    );
+
+
+    const delta =
+        clock.getDelta();
+
+    const elapsed =
+        clock.elapsedTime;
+
+
+    if(
+        autoRotate.checked
+    ){
+
+        earth.rotation.y +=
+            Number(
+                speedSlider.value
+            )
+            * delta
+            * .32;
+
+    }
+
+
+    updateExplosion();
+
+
+    updateMantleParticles(
+        delta
+    );
+
+
+    const corePulse =
+        1
+        + Math.sin(
+            elapsed*2.6
+        )
+        *.035;
+
+    coreGlow.scale.setScalar(
+        corePulse
+    );
+
+    coreGlow.material.opacity =
+        .10
+        + Math.sin(
+            elapsed*2.6
+        )
+        *.035;
+
+
+    mantleParticles.rotation.y +=
+        delta*.025;
+
+
+    if(
+        pulseTarget
+    ){
+
+        pulseTime +=
+            delta*5;
+
+        const s =
+            1
+            + Math.sin(
+                pulseTime
+            )
+            *.025;
+
+        pulseTarget.scale.setScalar(
+            s
+        );
+
+        if(
+            pulseTime >
+            Math.PI*2
+        ){
+
+            pulseTarget.scale.set(
+                1,
+                1,
+                1
+            );
+
+            pulseTarget =
+                null;
+
+        }
+
+    }
+
+
+    controls.update();
+
+    updateLabels();
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+
+animate();
+
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        camera.aspect =
+            window.innerWidth /
+            window.innerHeight;
+
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+
+        renderer.setPixelRatio(
+            Math.min(
+                window.devicePixelRatio,
+                2
+            )
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>

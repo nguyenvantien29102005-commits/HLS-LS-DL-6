@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ĐỊA HÌNH TRÁI ĐẤT: NGOẠI SINH SAN BẰNG</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: radial-gradient(circle at center, #0c1020 0%, #05050a 100%); 
+            color: #ffffff;
+            user-select: none;
+        }
+        #app-container { position: relative; width: 100vw; height: 100vh; }
+        canvas { position: absolute; inset: 0; z-index: 1; display: block; cursor: grab; }
+        canvas:active { cursor: grabbing; }
+
+        /* GIAO DIỆN HUD ĐÈ LÊN MÔ HÌNH */
+        .hud-overlay {
+            position: absolute;
+            inset: 0;
+            padding: 24px;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .interactive { pointer-events: auto; }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .subtitle { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: #fb923c; }
+        .main-title { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #22d3ee; text-align: center; flex: 1; }
+        .guide-text { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 4px; }
+
+        /* Bố cục trung tâm */
+        .main-content { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; height: calc(100% - 140px); margin: 20px 0; }
+
+        /* Hộp kính mờ */
+        .glass-panel {
+            background: rgba(10, 14, 30, 0.85);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Menu bên Trái */
+        .menu-left { width: 280px; display: flex; flex-direction: column; gap: 8px; }
+        .menu-title { font-size: 11px; font-weight: bold; color: #9ca3af; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 4px; }
+        
+        .nav-btn {
+            width: 100%;
+            text-align: left;
+            font-size: 13px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.02);
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover { background: rgba(34, 211, 238, 0.1); color: #fff; }
+        .nav-btn.active {
+            border-color: rgba(34, 211, 238, 0.5);
+            background: rgba(8, 47, 73, 0.8);
+            color: #22d3ee;
+            font-weight: bold;
+        }
+
+        /* Thanh trượt điều khiển phong hóa ở góc dưới Menu Trái */
+        .control-panel {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .control-label { font-size: 11px; color: #67e8f9; font-weight: bold; display: flex; justify-content: space-between; }
+        .slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #1e293b;
+            outline: none;
+            cursor: pointer;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #22d3ee;
+            box-shadow: 0 0 10px #22d3ee;
+        }
+
+        /* Hộp thông tin Phải */
+        .info-right { width: 320px; border-color: rgba(249, 115, 22, 0.3); display: flex; flex-direction: column; gap: 12px; height: 100%; overflow-y: auto; }
+        .info-tag { font-size: 11px; font-weight: bold; color: #fb923c; letter-spacing: 1px; }
+        .info-heading { font-size: 19px; font-weight: bold; border-bottom: 1px solid #451a03; padding-bottom: 8px; }
+        .info-body { font-size: 12px; color: #d1d5db; line-height: 1.6; }
+        .bullet-item { font-size: 11px; color: #fdba74; margin-top: 4px; }
+
+        /* Footer */
+        .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #111827; padding-top: 12px; font-size: 11px; color: #4b5563; }
+        .badge { padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(34, 211, 238, 0.3); color: #22d3ee; font-family: monospace; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+        <!-- ENGINE ĐỒ HỌA XOAY 3D THUỒN -->
+        <canvas id="geoEngine"></canvas>
+
+        <!-- LỚP HUD GIAO DIỆN CHÚ THÍCH -->
+        <div class="hud-overlay">
+            <div class="header">
+                <div class="subtitle">● PHÂN TÍCH CHUYÊN SÂU: QUÁ TRÌNH NGOẠI SINH</div>
+                <h1 class="main-title">ĐỊA HÌNH TRÁI ĐẤT: NGOẠI SINH SAN BẰNG</h1>
+                <div class="subtitle" style="color:#22d3ee">● MÔ HÌNH CHÈN MÃ ĐÓNG</div>
+            </div>
+            <div class="guide-text interactive">🖱️ <b>Giữ & Kéo chuột trái</b> để xoay mô hình 3D | 🔴 <b>Bấm vào các nút tròn đỏ</b> để xem chú thích địa hình!</div>
+
+            <div class="main-content">
+                <!-- Khung điều khiển bên trái -->
+                <div class="glass-panel menu-left interactive">
+                    <div class="menu-title">📦 BỘ RÃ MÔ HÌNH NGOẠI SINH</div>
+                    <button onclick="setStage(0)" id="btn-0" class="nav-btn active">🌐 0. Sơ Đồ Tổng Quan</button>
+                    <button onclick="setStage(1)" id="btn-1" class="nav-btn">🌧️ 1. Phong Hóa Lý Học</button>
+                    <button onclick="setStage(2)" id="btn-2" class="nav-btn">🧪 2. Phong Hóa Hóa Học</button>
+                    <button onclick="setStage(3)" id="btn-3" class="nav-btn">🌊 3. Xâm Thực Dòng Sông</button>
+                    <button onclick="setStage(4)" id="btn-4" class="nav-btn">⏳ 4. Vận Chuyển & Bồi Tụ</button>
+
+                    <!-- THANH KÉO ĐIỀU KHIỂN PHONG HÓA -->
+                    <div class="control-panel">
+                        <div class="control-label">
+                            <span>TIẾN TRÌNH PHONG HÓA</span>
+                            <span id="slider-val">0%</span>
+                        </div>
+                        <input type="range" id="weatheringSlider" min="0" max="100" value="0" class="slider">
+                    </div>
+                </div>
+
+                <!-- Bảng thông tin hiển thị học tập bên phải -->
+                <div class="glass-panel info-right interactive">
+                    <div class="info-tag" id="lbl-tag">TỔNG QUAN</div>
+                    <h2 class="info-heading" id="lbl-title">Ngoại Sinh San Phẳng</h2>
+                    <p class="info-body" id="lbl-desc">Hệ thống các lực phá hủy địa hình cao do nội sinh tạo ra, đồng thời lấp đầy vùng trũng bằng các lớp vật liệu mới bồi đắp.</p>
+                    <div id="lbl-bullets">
+                        <div class="bullet-item">▪ Giai đoạn: Phong hóa ➔ Vận chuyển ➔ Bồi tụ</div>
+                        <div class="bullet-item">▪ Tác nhân chính: Nhiệt độ, nước chảy, gió</div>
+                        <div class="bullet-item">▪ Kết quả: Hạ thấp và san phẳng bề mặt Trái Đất</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div>Engine Không Gian Tự Phối Cảnh Độc Lập 100%</div>
+                <div class="glass-panel badge">MÔ HÌNH TƯƠNG TÁC HS ĐẦY ĐỦ</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CƠ SỞ DỮ LIỆU ĐỘNG CHO CÁC GIAI ĐOẠN VÀ HOTSPOT
+        const contentDb = [
+            { tag: "TỔNG QUAN", title: "Ngoại Sinh San Phẳng", desc: "Hệ thống các lực phá hủy địa hình cao do nội sinh tạo ra, đồng thời lấp đầy vùng trũng bằng các lớp vật liệu mới bồi đắp.", bullets: ["▪ Giai đoạn: Phong hóa ➔ Vận chuyển ➔ Bồi tụ", "▪ Tác nhân chính: Nhiệt độ, nước chảy, gió", "▪ Kết quả: Hạ thấp và san phẳng bề mặt Trái Đất"] },
+            { tag: "PHONG HÓA LÝ HỌC", title: "Phá Vỡ Cơ Học", desc: "Sự thay đổi nhiệt độ đột ngột giữa ngày và đêm khiến kết cấu đá co giãn không đều, sinh ra các vết nứt và vỡ vụn cơ học mà không đổi thành phần.", bullets: ["▪ Nguyên nhân: Nhiệt độ khắc nghiệt, nước đóng băng", "▪ Khu vực mạnh: Hoang mạc bốc nóng, vùng núi cao", "▪ Kết quả: Tạo ra cát, sỏi, khối đá vụn chân sườn"] },
+            { tag: "PHONG HÓA HÓA HỌC", title: "Biến Đổi Chất Đá", desc: "Nước mưa hòa tan khí CO2 tạo ra axit yếu, tác động hóa học làm thay đổi hoàn toàn cấu trúc khoáng vật của đá gốc, phá hủy sâu từ bên trong lòng đá.", bullets: ["▪ Hiện tượng tiêu biểu: Karst hóa bào mòn đá vôi", "▪ Dạng địa hình: Hang động ngầm, tháp đá nhọn", "▪ Khu vực mạnh: Các vùng nhiệt đới nóng ẩm nhiều mưa"] },
+            { tag: "XÂM THỰC DÒNG SÔNG", title: "Xói Mòn & Cắt Xẻ", desc: "Dòng nước chảy tập trung cắt xẻ sâu vào các lớp địa tầng sườn dốc, tạo nên các thung lũng chữ V sâu hoắm và bóc mòn mạnh bề mặt đất đá.", bullets: ["▪ Động năng: Độ dốc của thung lũng sông và lưu lượng", "▪ Kết quả thượng nguồn: Thung lũng sâu, thác nước lớn", "▪ Hệ quả: Kích hoạt hiện tượng lở đất sườn dốc"] },
+            { tag: "VẬN CHUYỂN & BỒI TỤ", title: "Lắng Đọng Trầm Tích", desc: "Khi dòng nước hạ dốc tiến về đồng bằng, vận tốc giảm làm rơi các hạt phù sa mịn bồi đắp nên những vùng trũng thấp bằng phẳng màu mỡ.", bullets: ["▪ Vận chuyển: Cuốn phù sa mịn đi xa hàng ngàn km", "▪ Bồi tụ: Hình thành các đồng bằng châu thổ diện rộng", "▪ Địa hình ven bờ: Bãi biển cát, đầm phá bồi tụ"] }
+        ];
+
+        const hotspotDb = [
+            { x: -70, y: 110, z: -20, title: "Đỉnh Núi Cao (Nội Sinh)", desc: "Địa hình cao, dốc, chịu tác động trực tiếp và mạnh mẽ nhất của bức xạ Mặt Trời, gió và mưa bão đầu nguồn." },
+            { x: -30, y: 50, z: 20, title: "Vách Sườn Dốc (Xâm Thực)", desc: "Nơi diễn ra quá trình bóc mòn và sạt lở mạnh. Vật liệu vụn sau khi vỡ sẽ bị nước lũ hoặc trọng lực cuốn trượt xuống dưới." },
+            { x: 30, y: 15, z: 0, title: "Dòng Sông Ngoại Sinh", desc: "Tác nhân vận chuyển huyết mạch, bào mòn lòng sông tạo thung lũng sông và mang vật liệu đi xa." },
+            { x: 90, y: 5, z: -50, title: "Vùng Đồng Bằng (Bồi Tụ)", desc: "Nơi dòng nước chảy chậm lại, động năng giảm làm trầm tích và phù sa lắng đọng, bồi đắp nên địa hình bằng phẳng." }
+        ];
+
+        const canvas = document.getElementById('geoEngine');
+        const ctx = canvas.getContext('2d');
+        const slider = document.getElementById('weatheringSlider');
+        const sliderVal = document.getElementById('slider-val');
+
+        let currentStage = 0;
+        let weatherFactor = 0; // Giá trị từ 0 -> 1 lấy từ slider
+        let angleX = 0.4;  // Góc xoay đứng mặc định
+        let angleY = -0.6; // Góc xoay ngang mặc định
+        let isDragging = false;
+        let previousMouseX, previousMouseY;
+        let renderedHotspots = []; // Lưu tọa độ 2D thực tế trên màn hình để check click
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // 🛠️ TOÁN HỌC XOAY KHÔNG GIAN KHÔNG THƯ VIỆN (3D PROJECTION)
+        function project3D(x, y, z) {
+            // Xoay quanh trục Y (Ngang)
+            let cosY = Math.cos(angleY), sinY = Math.sin(angleY);
+            let x1 = x * cosY - z * sinY;
+            let z1 = x * sinY + z * cosY;
+
+            // Xoay quanh trục X (Đứng)
+            let cosX = Math.cos(angleX), sinX = Math.sin(angleX);
+            let y2 = y * cosX - z1 * sinX;
+            let z2 = y * sinX + z1 * cosX;
+
+            // Phối cảnh tâm màn hình
+            const scale = 400 / (400 + z2); 
+            return {
+                x: canvas.width / 2 + x1 * scale,
+                y: canvas.height / 2 - y2 * scale
+            };
+        }
+
+        // HÀM VẼ KHỐI ĐỊA TẦNG XOAY ĐƯỢC THEO KHÔNG GIAN
+        function drawPoly(points, color, strokeColor = null) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for(let i=1; i<points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+            ctx.closePath();
+            ctx.fill();
+            if(strokeColor) {
+                ctx.strokeStyle = strokeColor;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        function draw3DBlock(x, y, z, w, l, h, topC, leftC, rightC) {
+            // Định nghĩa 8 đỉnh của một hộp 3D trong không gian
+            let p0 = project3D(x - w/2, y + h/2, z - l/2);
+            let p1 = project3D(x + w/2, y + h/2, z - l/2);
+            let p2 = project3D(x + w/2, y + h/2, z + l/2);
+            let p3 = project3D(x - w/2, y + h/2, z + l/2);
+            let p4 = project3D(x - w/2, y - h/2, z - l/2);
+            let p5 = project3D(x + w/2, y - h/2, z - l/2);
+            let p6 = project3D(x + w/2, y - h/2, z + l/2);
+            let p7 = project3D(x - w/2, y - h/2, z + l/2);
+
+            // Tùy góc xoay vẽ thứ tự mặt để tránh đè lỗi mặt khuất
+            drawPoly([p3, p2, p6, p7], rightC); // Mặt bên phải
+            drawPoly([p0, p3, p7, p4], leftC);  // Mặt bên trái
+            drawPoly([p0, p1, p2, p3], topC);   // Mặt đỉnh trên
+        }
+
+        // VÒNG LẶP RENDER CHÍNH CỦA ENGINE
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. Vẽ các tầng địa chất cắt lớp (5 tầng)
+            const layers = [
+                {h: 24, t:"#deb887", l:"#b5905b", r:"#cd9a62"},
+                {h: 28, t:"#cd853f", l:"#a0522d", r:"#8b5a2b"},
+                {h: 28, t:"#8b5a2b", l:"#5c4033", r:"#6e4720"},
+                {h: 32, t:"#5c4033", l:"#3d2b22", r:"#4a3525"},
+                {h: 40, t:"#2f3e46", l:"#202c31", r:"#28353b"}
+            ];
+
+            let baseH = -100;
+            for(let i = layers.length - 1; i >= 0; i--) {
+                let offsetZ = (currentStage === 0) ? (4 - i) * 15 : 0; // Tách lớp sơ đồ tổng quan
+                draw3DBlock(0, baseH, offsetZ, 260, 200, layers[i].h, layers[i].t, layers[i].l, layers[i].r);
+                baseH += layers[i].h;
+            }
+
+            // 2. Vẽ Núi và tác động Phong Hóa (Độ cao sụt giảm trực tiếp theo thanh kéo Slider)
+            let currentMtnH = 140 * (1 - weatherFactor * 0.4); 
+            let peak = project3D(-70, baseH + currentMtnH, 0);
+            let b1 = project3D(-130, baseH + 10, -60);
+            let b2 = project3D(-10, baseH + 10, -60);
+            let b3 = project3D(-10, baseH + 10, 60);
+            let b4 = project3D(-130, baseH + 10, 60);
+
+            // Vẽ khối đa diện cho núi dốc sườn
+            drawPoly([peak, b1, b2], "#535661");
+            drawPoly([peak, b2, b3], "#6b7280");
+            drawPoly([peak, b3, b4], "#848794");
+            drawPoly([peak, b4, b1], "#4b5563");
+
+            // 3. Vẽ Dòng Sông
+            let riverColor = "rgba(34, 211, 238, 0.75)";
+            if(currentStage === 2) riverColor = "rgba(52, 211, 153, 0.8)"; // Axit hóa
+            if(currentStage === 4 || weatherFactor > 0.5) riverColor = "rgba(180, 83, 9, 0.85)"; // Đục phù sa do phong hóa nhiều
+
+            let r1 = project3D(-20, baseH + 10, 0);
+            let r2 = project3D(-40, baseH + 10, 30);
+            let r3 = project3D(130, baseH + 8, 80);
+            let r4 = project3D(130, baseH + 8, -20);
+            drawPoly([r1, r2, r3, r4], riverColor);
+
+            // 4. Vẽ Vùng Bồi Tụ Phù Sa hạ lưu (Càng kéo phong hóa, bãi bồi càng nở rộng ra)
+            let deltaSize = 40 + weatherFactor * 30;
+            let d1 = project3D(130 - deltaSize, baseH + 9, 30);
+            let d2 = project3D(130, baseH + 9, 80);
+            let d3 = project3D(130, baseH + 9, -20);
+            drawPoly([d1, d2, d3], "rgba(74, 222, 128, 0.65)");
+
+            // 5. HIỂN THỊ ĐIỂM GHIM TRÒN ĐỎ (HOTSPOTS) VÀ LƯU TỌA ĐỘ ĐỂ HỌC SINH TƯƠNG TÁC TÌM KIẾM
+            renderedHotspots = [];
+            hotspotDb.forEach((hs, index) => {
+                // Nếu là điểm ở đỉnh núi, tính toán tọa độ hạ thấp theo slider phong hóa luôn
+                let currentY = hs.y;
+                if(index === 0) currentY = hs.y * (1 - weatherFactor * 0.4);
+
+                let pos2D = project3D(hs.x, baseH + currentY, hs.z);
+
+                // Vẽ vòng tròn phát sáng hiệu ứng radar
+                ctx.fillStyle = "rgba(239, 68, 68, 0.3)";
+                ctx.beginPath();
+                ctx.arc(pos2D.x, pos2D.y, 14 + Math.sin(Date.now()*0.005)*3, 0, Math.PI*2);
+                ctx.fill();
+
+                // Lõi tâm nút ghim đỏ
+                ctx.fillStyle = "#ef4444";
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(pos2D.x, pos2D.y, 7, 0, Math.PI*2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Vẽ số nhãn định vị bên trong
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 9px sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(index + 1, pos2D.x, pos2D.y);
+
+                // Lưu lại thông tin click
+                renderedHotspots.push({ x: pos2D.x, y: pos2D.y, r: 15, data: hs });
+            });
+        }
+
+        // CONTROL: THAY ĐỔI MENU TRẠNG THÁI GIAO DIỆN
+        function setStage(idx) {
+            currentStage = idx;
+            const data = contentDb[idx];
+            document.getElementById('lbl-tag').innerText = data.tag;
+            document.getElementById('lbl-title').innerText = data.title;
+            document.getElementById('lbl-desc').innerText = data.desc;
+            
+            let bHtml = "";
+            data.bullets.forEach(b => bHtml += `<div class="bullet-item">${b}</div>`);
+            document.getElementById('lbl-bullets').innerHTML = bHtml;
+
+            for(let i=0; i<=4; i++) document.getElementById(`btn-${i}`).classList.remove('active');
+            document.getElementById(`btn-${idx}`).classList.add('active');
+            
+            // Thiết lập giá trị Slider tương ứng tự động nếu học sinh lười kéo
+            if(idx === 1 || idx === 4) { slider.value = 70; } 
+            else if (idx === 0) { slider.value = 0; }
+            slider.dispatchEvent(new Event('input'));
+        }
+
+        // TƯƠNG TÁC THANH TRƯỢT SLIDER PHONG HÓA
+        slider.addEventListener('input', (e) => {
+            weatherFactor = e.target.value / 100;
+            sliderVal.innerText = e.target.value + "%";
+            render();
+        });
+
+        // TƯƠNG TÁC XOAY CHUỘT TRÊN CANVAS
+        canvas.addEventListener('mousedown', (e) => {
+            // Kiểm tra xem có bấm trúng điểm Hotspot nào trước không
+            let hit = false;
+            for(let hs of renderedHotspots) {
+                let dist = Math.hypot(e.clientX - hs.x, e.clientY - hs.y);
+                if(dist <= hs.r) {
+                    document.getElementById('lbl-tag').innerText = "VÙNG CHÚ THÍCH TƯƠNG TÁC";
+                    document.getElementById('lbl-title').innerText = hs.data.title;
+                    document.getElementById('lbl-desc').innerText = hs.data.desc;
+                    document.getElementById('lbl-bullets').innerHTML = `<div class="bullet-item" style="color:#67e8f9">▪ Toạ độ địa chất 3D: [${hs.data.x}, ${hs.data.y}, ${hs.data.z}]</div>`;
+                    hit = true;
+                    break;
+                }
+            }
+            
+            // Nếu không trúng hotspot thì kích hoạt kéo xoay mô hình
+            if(!hit) {
+                isDragging = true;
+                previousMouseX = e.clientX;
+                previousMouseY = e.clientY;
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let deltaX = e.clientX - previousMouseX;
+            let deltaY = e.clientY - previousMouseY;
+
+            angleY += deltaX * 0.01; // Xoay ngang
+            angleX += deltaY * 0.01; // Xoay dọc
+
+            // Giới hạn góc nhìn dọc tránh bị lật úp mô hình địa tầng
+            angleX = Math.max(0.1, Math.min(Math.PI / 2 - 0.1, angleX));
+
+            previousMouseX = e.clientX;
+            previousMouseY = e.clientY;
+            render();
+        });
+
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        // Chạy khởi tạo render khung hình đầu tiên
+        render();
+    </script>
+</body>
+</html>
