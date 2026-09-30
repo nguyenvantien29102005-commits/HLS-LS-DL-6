@@ -1,0 +1,2703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Học liệu số - Các mô hình 3D</title>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: "Be Vietnam Pro", "Inter", sans-serif;
+            color: #F5FAFF;
+
+            background:
+                radial-gradient(circle at 18% 20%, rgba(24,217,255,.14), transparent 28%),
+                radial-gradient(circle at 82% 24%, rgba(98,92,255,.15), transparent 30%),
+                radial-gradient(circle at 50% 90%, rgba(8,127,232,.16), transparent 35%),
+                linear-gradient(
+                    135deg,
+                    #03101f 0%,
+                    #061A33 38%,
+                    #082a55 70%,
+                    #17164c 100%
+                );
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .background::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(rgba(24,217,255,.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(24,217,255,.035) 1px, transparent 1px);
+
+            background-size: 60px 60px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,.8),
+                    transparent 92%
+                );
+        }
+
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .4;
+            animation: glowFloat 11s ease-in-out infinite alternate;
+        }
+
+        .glow-1 {
+            width: 420px;
+            height: 420px;
+            background: #18D9FF;
+            top: -160px;
+            left: -130px;
+        }
+
+        .glow-2 {
+            width: 460px;
+            height: 460px;
+            background: #625CFF;
+            right: -170px;
+            top: 15%;
+            animation-delay: -3s;
+        }
+
+        .glow-3 {
+            width: 360px;
+            height: 360px;
+            background: #087FE8;
+            bottom: -180px;
+            left: 35%;
+            animation-delay: -6s;
+        }
+
+        @keyframes glowFloat {
+            from {
+                transform:
+                    translate3d(-10px, -20px, 0)
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    translate3d(35px, 35px, 0)
+                    scale(1.15);
+            }
+        }
+
+        /* =========================================================
+           PARTICLES
+        ========================================================= */
+
+        .particles {
+            position: absolute;
+            inset: 0;
+        }
+
+        .particle {
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
+            border-radius: 50%;
+
+            background: #bff7ff;
+
+            box-shadow:
+                0 0 8px #18D9FF,
+                0 0 18px rgba(24,217,255,.7);
+
+            opacity: .45;
+
+            animation:
+                particleMove linear infinite;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform:
+                    translateY(30px);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: .7;
+            }
+
+            80% {
+                opacity: .35;
+            }
+
+            100% {
+                transform:
+                    translateY(-140px);
+                opacity: 0;
+            }
+        }
+
+        /* =========================================================
+           SCAN LIGHT
+        ========================================================= */
+
+        .scan-light {
+            position: absolute;
+            top: -30%;
+            left: -40%;
+
+            width: 45%;
+            height: 160%;
+
+            transform:
+                rotate(18deg);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(24,217,255,.03),
+                    rgba(24,217,255,.1),
+                    transparent
+                );
+
+            filter:
+                blur(10px);
+
+            animation:
+                scan 12s linear infinite;
+        }
+
+        @keyframes scan {
+            from {
+                transform:
+                    translateX(-20vw)
+                    rotate(18deg);
+            }
+
+            to {
+                transform:
+                    translateX(180vw)
+                    rotate(18deg);
+            }
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 80px 24px;
+
+            overflow: hidden;
+        }
+
+        .hero-content {
+            width: min(100%, 1100px);
+
+            text-align: center;
+
+            position: relative;
+            z-index: 5;
+        }
+
+        .mini-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding:
+                9px 17px;
+
+            border-radius: 999px;
+
+            border:
+                1px solid rgba(94,226,255,.22);
+
+            background:
+                rgba(7,43,75,.38);
+
+            backdrop-filter:
+                blur(14px);
+
+            color: #bff6ff;
+
+            font-size: .78rem;
+            font-weight: 700;
+
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+
+            margin-bottom: 28px;
+
+            box-shadow:
+                inset 0 0 25px rgba(24,217,255,.04);
+
+            animation:
+                fadeDown .9s ease both;
+        }
+
+        .mini-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #20E0B2;
+
+            box-shadow:
+                0 0 12px #20E0B2;
+        }
+
+        .main-title {
+            font-family:
+                "Poppins",
+                "Be Vietnam Pro",
+                sans-serif;
+
+            text-transform: uppercase;
+
+            font-weight: 800;
+
+            line-height: .98;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 26px;
+
+            animation:
+                heroTitle
+                1s
+                cubic-bezier(.16,1,.3,1)
+                both;
+        }
+
+        .title-small {
+            display: block;
+
+            font-size:
+                clamp(2.5rem, 6vw, 5.8rem);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #ffffff 0%,
+                    #dffbff 32%,
+                    #18D9FF 65%,
+                    #75a9ff 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            filter:
+                drop-shadow(
+                    0 0 16px
+                    rgba(24,217,255,.14)
+                );
+        }
+
+        .title-big {
+            display: block;
+
+            font-size:
+                clamp(3.5rem, 8.7vw, 8.5rem);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #ffffff 0%,
+                    #65ebff 32%,
+                    #1687ff 62%,
+                    #8b85ff 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            text-shadow:
+                0 0 50px rgba(24,217,255,.13);
+        }
+
+        @keyframes heroTitle {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(34px)
+                    scale(.97);
+
+                filter:
+                    blur(8px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+                filter:
+                    blur(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size:
+                clamp(1rem, 2vw, 1.25rem);
+
+            line-height: 1.8;
+
+            color:
+                rgba(229,245,255,.72);
+
+            max-width: 700px;
+
+            margin:
+                0 auto 38px;
+
+            font-weight: 500;
+
+            animation:
+                fadeUp 1s .2s both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(26px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0);
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(-18px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0);
+            }
+        }
+
+        /* =========================================================
+           BUTTON
+        ========================================================= */
+
+        .explore-btn {
+            border: none;
+
+            cursor: pointer;
+
+            position: relative;
+
+            padding:
+                17px 31px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #18D9FF 0%,
+                    #087FE8 55%,
+                    #625CFF 100%
+                );
+
+            color: white;
+
+            font-size: .95rem;
+            font-weight: 800;
+
+            letter-spacing: .7px;
+
+            box-shadow:
+                0 14px 40px rgba(0,140,255,.24),
+                0 0 30px rgba(24,217,255,.19);
+
+            overflow: hidden;
+
+            transition:
+                transform .35s ease,
+                box-shadow .35s ease;
+
+            animation:
+                fadeUp 1s .35s both;
+        }
+
+        .explore-btn::before {
+            content: "";
+
+            position: absolute;
+
+            top: -100%;
+            left: -80%;
+
+            width: 50%;
+            height: 300%;
+
+            transform:
+                rotate(25deg);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.46),
+                    transparent
+                );
+
+            transition:
+                .8s;
+        }
+
+        .explore-btn:hover {
+            transform:
+                translateY(-4px)
+                scale(1.025);
+
+            box-shadow:
+                0 18px 50px rgba(0,140,255,.36),
+                0 0 42px rgba(24,217,255,.27);
+        }
+
+        .explore-btn:hover::before {
+            left: 150%;
+        }
+
+        /* =========================================================
+           EARTH BACKGROUND
+        ========================================================= */
+
+        .earth-system {
+            position: absolute;
+
+            width:
+                min(75vw, 720px);
+
+            aspect-ratio: 1;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -46%);
+
+            opacity: .2;
+
+            z-index: 1;
+        }
+
+        .orbit {
+            position: absolute;
+
+            inset: 5%;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(24,217,255,.16);
+
+            animation:
+                orbitSpin 25s linear infinite;
+        }
+
+        .orbit:nth-child(2) {
+            inset: 15%;
+
+            border-color:
+                rgba(98,92,255,.2);
+
+            animation-duration:
+                18s;
+
+            animation-direction:
+                reverse;
+        }
+
+        .orbit:nth-child(3) {
+            inset: 27%;
+
+            border-style:
+                dashed;
+
+            border-color:
+                rgba(32,224,178,.17);
+
+            animation-duration:
+                31s;
+        }
+
+        @keyframes orbitSpin {
+            from {
+                transform:
+                    rotate(0deg);
+            }
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+        .earth {
+            position: absolute;
+
+            width: 46%;
+            aspect-ratio: 1;
+
+            border-radius: 50%;
+
+            left: 27%;
+            top: 27%;
+
+            background:
+                radial-gradient(circle at 32% 27%, rgba(255,255,255,.42), transparent 6%),
+                radial-gradient(circle at 38% 38%, #20E0B2 0 7%, transparent 8%),
+                radial-gradient(circle at 63% 31%, #20E0B2 0 10%, transparent 11%),
+                radial-gradient(circle at 55% 65%, #18D9FF 0 7%, transparent 8%),
+                radial-gradient(circle at 40% 70%, #20E0B2 0 11%, transparent 12%),
+                radial-gradient(circle at 35% 28%, #1687FF, #0650a5 44%, #02162f 100%);
+
+            box-shadow:
+                inset -30px -30px 60px rgba(0,0,0,.44),
+                inset 20px 14px 45px rgba(104,236,255,.17),
+                0 0 50px rgba(24,217,255,.12);
+
+            animation:
+                earthFloat 7s ease-in-out infinite;
+        }
+
+        @keyframes earthFloat {
+            0%,
+            100% {
+                transform:
+                    translateY(0)
+                    rotate(-4deg);
+            }
+
+            50% {
+                transform:
+                    translateY(-10px)
+                    rotate(4deg);
+            }
+        }
+
+        /* =========================================================
+           MODELS SECTION
+        ========================================================= */
+
+        .models-section {
+            min-height: 100vh;
+
+            position: relative;
+
+            padding:
+                110px 24px 120px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-inner {
+            width:
+                min(100%, 1280px);
+
+            margin: auto;
+        }
+
+        .section-header {
+            text-align: center;
+
+            margin-bottom: 58px;
+        }
+
+        .section-tag {
+            display: inline-block;
+
+            color: #7cecff;
+
+            font-weight: 800;
+
+            font-size: .78rem;
+
+            letter-spacing: 2.4px;
+
+            margin-bottom: 12px;
+
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family:
+                "Poppins",
+                "Be Vietnam Pro",
+                sans-serif;
+
+            font-size:
+                clamp(2rem, 4.5vw, 4.3rem);
+
+            letter-spacing: -1.2px;
+
+            line-height: 1.1;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #fff,
+                    #a7f5ff,
+                    #68a7ff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .section-desc {
+            color:
+                rgba(220,240,255,.59);
+
+            margin:
+                16px auto 0;
+
+            line-height: 1.7;
+
+            max-width: 650px;
+
+            font-size: .95rem;
+        }
+
+        /* =========================================================
+           CARDS
+        ========================================================= */
+
+        .cards-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 24px;
+        }
+
+        .model-card {
+            --accent: #18D9FF;
+            --accent2: #087FE8;
+
+            position: relative;
+
+            min-height: 430px;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            border:
+                1px solid rgba(154,230,255,.16);
+
+            background:
+                radial-gradient(
+                    circle at 75% 20%,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 14%,
+                        transparent
+                    ),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(17,57,94,.72),
+                    rgba(5,25,50,.78)
+                );
+
+            backdrop-filter:
+                blur(20px);
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.08),
+                0 25px 70px rgba(0,0,0,.24);
+
+            transition:
+                transform .45s cubic-bezier(.2,.8,.2,1),
+                box-shadow .45s ease,
+                border-color .45s ease;
+        }
+
+        .card-inner {
+            position: relative;
+
+            height: 100%;
+
+            min-height: 430px;
+
+            padding: 29px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            z-index: 3;
+        }
+
+        .model-card::before {
+            content: "";
+
+            position: absolute;
+
+            inset: -1px;
+
+            border-radius: inherit;
+
+            padding: 1px;
+
+            background:
+                linear-gradient(
+                    140deg,
+                    transparent 15%,
+                    color-mix(
+                        in srgb,
+                        var(--accent) 70%,
+                        transparent
+                    ),
+                    transparent 60%
+                );
+
+            -webkit-mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+
+            -webkit-mask-composite: xor;
+
+            mask-composite: exclude;
+
+            opacity: .28;
+
+            transition:
+                opacity .35s ease;
+        }
+
+        .model-card::after {
+            content: "";
+
+            position: absolute;
+
+            top: -70%;
+            left: -100%;
+
+            width: 45%;
+            height: 240%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.12),
+                    transparent
+                );
+
+            transform:
+                rotate(22deg);
+
+            transition:
+                left .8s cubic-bezier(.2,.8,.2,1);
+        }
+
+        .model-card:hover {
+            transform:
+                translateY(-12px)
+                scale(1.025);
+
+            border-color:
+                color-mix(
+                    in srgb,
+                    var(--accent) 55%,
+                    transparent
+                );
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.14),
+                0 34px 90px rgba(0,0,0,.33),
+                0 0 42px color-mix(
+                    in srgb,
+                    var(--accent) 14%,
+                    transparent
+                );
+        }
+
+        .model-card:hover::before {
+            opacity: .82;
+        }
+
+        .model-card:hover::after {
+            left: 150%;
+        }
+
+        .card-internal {
+            --accent: #625CFF;
+            --accent2: #087FE8;
+        }
+
+        .card-external {
+            --accent: #20E0B2;
+            --accent2: #18D9FF;
+        }
+
+        .card-mountain {
+            --accent: #FFB84D;
+            --accent2: #087FE8;
+        }
+
+        .card-number {
+            font-family:
+                "Poppins",
+                sans-serif;
+
+            font-size: 1rem;
+
+            letter-spacing: 2px;
+
+            font-weight: 700;
+
+            color:
+                color-mix(
+                    in srgb,
+                    var(--accent) 88%,
+                    white
+                );
+
+            opacity: .9;
+        }
+
+        /* =========================================================
+           3D VISUALS
+        ========================================================= */
+
+        .visual {
+            position: relative;
+
+            height: 220px;
+
+            margin:
+                4px 0 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            perspective: 700px;
+        }
+
+        .visual-glow {
+            width: 150px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            background:
+                var(--accent);
+
+            opacity: .11;
+
+            filter:
+                blur(34px);
+
+            transition:
+                .4s;
+        }
+
+        .model-card:hover .visual-glow {
+            transform:
+                scale(1.3);
+
+            opacity: .21;
+        }
+
+        /* NỘI SINH */
+
+        .earth-cut {
+            position: relative;
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #ffd768 0 18%,
+                    #ff9e3e 19% 33%,
+                    #f2555c 34% 49%,
+                    #625CFF 50% 68%,
+                    #087FE8 69% 100%
+                );
+
+            box-shadow:
+                inset -18px -18px 35px rgba(0,0,0,.22),
+                0 0 30px rgba(98,92,255,.25);
+
+            animation:
+                modelFloat 4.4s ease-in-out infinite;
+
+            transform-style:
+                preserve-3d;
+        }
+
+        .earth-cut::before {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            top: -7px;
+            bottom: -7px;
+
+            width: 3px;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(255,255,255,.75),
+                    transparent
+                );
+
+            box-shadow:
+                0 0 10px rgba(255,255,255,.45);
+        }
+
+        .earth-cut::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 8px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(255,255,255,.2);
+        }
+
+        /* NGOẠI SINH */
+
+        .terrain {
+            position: relative;
+
+            width: 180px;
+            height: 135px;
+
+            transform:
+                rotateX(52deg)
+                rotateZ(-10deg);
+
+            transform-style:
+                preserve-3d;
+
+            animation:
+                terrainFloat 5s ease-in-out infinite;
+        }
+
+        .terrain::before,
+        .terrain::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+        }
+
+        .terrain::before {
+            bottom: 22px;
+
+            width: 180px;
+            height: 90px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    transparent 48%,
+                    #20E0B2 49% 62%,
+                    transparent 63%
+                ),
+                linear-gradient(
+                    45deg,
+                    transparent 43%,
+                    #087FE8 44% 63%,
+                    transparent 64%
+                );
+
+            clip-path:
+                polygon(
+                    0 100%,
+                    14% 65%,
+                    29% 78%,
+                    47% 24%,
+                    64% 66%,
+                    76% 51%,
+                    100% 100%
+                );
+
+            filter:
+                drop-shadow(
+                    0 10px 16px
+                    rgba(24,217,255,.25)
+                );
+        }
+
+        .terrain::after {
+            bottom: 0;
+
+            width: 175px;
+            height: 44px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid rgba(24,217,255,.55);
+
+            box-shadow:
+                0 0 20px rgba(24,217,255,.28),
+                inset 0 0 18px rgba(32,224,178,.12);
+        }
+
+        @keyframes terrainFloat {
+            0%,
+            100% {
+                transform:
+                    rotateX(52deg)
+                    rotateZ(-10deg)
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    rotateX(52deg)
+                    rotateZ(-6deg)
+                    translateY(-10px);
+            }
+        }
+
+        /* TẠO NÚI */
+
+        .mountain-system {
+            position: relative;
+
+            width: 190px;
+            height: 145px;
+
+            animation:
+                modelFloat 4.8s ease-in-out infinite;
+        }
+
+        .mountain {
+            position: absolute;
+
+            bottom: 20px;
+
+            clip-path:
+                polygon(
+                    50% 0,
+                    100% 100%,
+                    0 100%
+                );
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e7f8ff 0 12%,
+                    #8ec6e9 13% 26%,
+                    #087FE8 27% 66%,
+                    #04284d 67%
+                );
+
+            filter:
+                drop-shadow(
+                    0 10px 20px
+                    rgba(8,127,232,.28)
+                );
+        }
+
+        .mountain-a {
+            width: 126px;
+            height: 112px;
+
+            left: 8px;
+        }
+
+        .mountain-b {
+            width: 100px;
+            height: 92px;
+
+            right: 4px;
+            bottom: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff7df 0 10%,
+                    #FFB84D 11% 24%,
+                    #087FE8 25% 70%,
+                    #04284d 71%
+                );
+        }
+
+        .fault-line {
+            position: absolute;
+
+            left: 22px;
+            right: 15px;
+
+            bottom: 9px;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #FFB84D,
+                    #18D9FF,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 10px rgba(255,184,77,.6);
+        }
+
+        @keyframes modelFloat {
+            0%,
+            100% {
+                transform:
+                    translateY(0)
+                    rotateY(-7deg);
+            }
+
+            50% {
+                transform:
+                    translateY(-11px)
+                    rotateY(7deg);
+            }
+        }
+
+        /* =========================================================
+           CARD TEXT
+        ========================================================= */
+
+        .card-category {
+            color:
+                rgba(215,237,255,.53);
+
+            font-size: .7rem;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            font-weight: 700;
+
+            margin-bottom: 9px;
+        }
+
+        .card-title {
+            font-family:
+                "Poppins",
+                "Be Vietnam Pro",
+                sans-serif;
+
+            font-size: 1.55rem;
+
+            font-weight: 800;
+
+            letter-spacing: -.5px;
+
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color:
+                rgba(220,239,255,.62);
+
+            line-height: 1.7;
+
+            font-size: .88rem;
+
+            max-width: 320px;
+        }
+
+        .card-bottom {
+            margin-top: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-top: 20px;
+        }
+
+        .open-label {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color:
+                color-mix(
+                    in srgb,
+                    var(--accent) 82%,
+                    white
+                );
+
+            font-size: .78rem;
+
+            font-weight: 800;
+
+            letter-spacing: .5px;
+
+            text-transform: uppercase;
+        }
+
+        .arrow-circle {
+            width: 39px;
+            height: 39px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                color-mix(
+                    in srgb,
+                    var(--accent) 12%,
+                    transparent
+                );
+
+            border:
+                1px solid
+                color-mix(
+                    in srgb,
+                    var(--accent) 25%,
+                    transparent
+                );
+
+            transition:
+                .35s;
+        }
+
+        .model-card:hover .arrow-circle {
+            transform:
+                rotate(-35deg)
+                scale(1.09);
+
+            background:
+                color-mix(
+                    in srgb,
+                    var(--accent) 22%,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 18px
+                color-mix(
+                    in srgb,
+                    var(--accent) 25%,
+                    transparent
+                );
+        }
+
+        /* =========================================================
+           CONTENT VIEWER
+        ========================================================= */
+
+        .content-viewer {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 99999;
+
+            display: flex;
+            flex-direction: column;
+
+            background:
+                radial-gradient(
+                    circle at 20% 10%,
+                    rgba(24,217,255,.12),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #03101f,
+                    #061A33 45%,
+                    #0a2851 100%
+                );
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transform:
+                translateY(30px)
+                scale(.985);
+
+            transition:
+                opacity .45s ease,
+                visibility .45s ease,
+                transform .45s cubic-bezier(.16,1,.3,1);
+        }
+
+        .content-viewer.active {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        /* =========================================================
+           VIEWER TOPBAR
+        ========================================================= */
+
+        .viewer-topbar {
+            flex-shrink: 0;
+
+            min-height: 76px;
+
+            padding:
+                12px clamp(15px,3vw,40px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-bottom:
+                1px solid rgba(108,221,255,.15);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5,23,47,.95),
+                    rgba(7,45,88,.92)
+                );
+
+            backdrop-filter:
+                blur(24px);
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,.22),
+                inset 0 -1px 0 rgba(24,217,255,.04);
+        }
+
+        .viewer-topbar::after {
+            content: "";
+
+            position: absolute;
+
+            bottom: 0;
+            left: -30%;
+
+            width: 30%;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #18D9FF,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 12px #18D9FF;
+
+            animation:
+                viewerLine 5s linear infinite;
+        }
+
+        @keyframes viewerLine {
+            from {
+                left: -30%;
+            }
+
+            to {
+                left: 120%;
+            }
+        }
+
+        /* =========================================================
+           BACK BUTTON
+        ========================================================= */
+
+        .back-models-btn {
+            border:
+                1px solid rgba(24,217,255,.26);
+
+            outline: none;
+
+            cursor: pointer;
+
+            min-height: 48px;
+
+            padding:
+                10px 18px 10px 11px;
+
+            border-radius: 14px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            font-family:
+                "Be Vietnam Pro",
+                sans-serif;
+
+            font-size: .78rem;
+
+            font-weight: 800;
+
+            letter-spacing: .4px;
+
+            color: #F5FAFF;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(24,217,255,.13),
+                    rgba(8,127,232,.12)
+                );
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.08),
+                0 8px 25px rgba(0,0,0,.16);
+
+            transition:
+                transform .3s ease,
+                background .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .back-icon {
+            width: 31px;
+            height: 31px;
+
+            border-radius: 10px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 1.3rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #18D9FF,
+                    #087FE8
+                );
+
+            color: white;
+
+            box-shadow:
+                0 0 16px rgba(24,217,255,.28);
+
+            transition:
+                transform .3s ease;
+        }
+
+        .back-models-btn:hover {
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(24,217,255,.55);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(24,217,255,.22),
+                    rgba(8,127,232,.19)
+                );
+
+            box-shadow:
+                0 12px 35px rgba(8,127,232,.19),
+                0 0 24px rgba(24,217,255,.08);
+        }
+
+        .back-models-btn:hover .back-icon {
+            transform:
+                translateX(-4px);
+        }
+
+        .viewer-title {
+            font-family:
+                "Poppins",
+                "Be Vietnam Pro",
+                sans-serif;
+
+            font-size:
+                clamp(.78rem,1.4vw,1rem);
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-align: right;
+
+            color:
+                rgba(209,243,255,.72);
+        }
+
+        /* =========================================================
+           IFRAME
+        ========================================================= */
+
+        .model-frame {
+            width: 100%;
+
+            flex: 1;
+
+            display: block;
+
+            border: none;
+
+            background:
+                #061A33;
+
+            opacity: 0;
+
+            transition:
+                opacity .4s ease;
+        }
+
+        .model-frame.loaded {
+            opacity: 1;
+        }
+
+        /* =========================================================
+           LOADING SCREEN
+        ========================================================= */
+
+        .viewer-loading {
+            position: absolute;
+
+            inset:
+                76px 0 0 0;
+
+            z-index: 5;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #03101f,
+                    #061A33
+                );
+
+            color:
+                rgba(220,244,255,.72);
+
+            font-size: .85rem;
+
+            letter-spacing: .5px;
+
+            transition:
+                opacity .35s ease,
+                visibility .35s ease;
+        }
+
+        .viewer-loading.hide {
+            opacity: 0;
+
+            visibility: hidden;
+        }
+
+        .loader-ring {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 50%;
+
+            border:
+                3px solid rgba(24,217,255,.12);
+
+            border-top-color:
+                #18D9FF;
+
+            border-right-color:
+                #087FE8;
+
+            box-shadow:
+                0 0 25px rgba(24,217,255,.12);
+
+            animation:
+                loaderRotate .8s linear infinite;
+        }
+
+        @keyframes loaderRotate {
+            to {
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            text-align: center;
+
+            padding:
+                0 24px 35px;
+
+            color:
+                rgba(192,222,241,.38);
+
+            font-size: .75rem;
+
+            letter-spacing: .5px;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .cards-grid {
+                grid-template-columns:
+                    1fr;
+
+                max-width: 690px;
+
+                margin: auto;
+            }
+
+            .model-card,
+            .card-inner {
+                min-height: 395px;
+            }
+
+            .earth-system {
+                width: 90vw;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero {
+                padding-inline: 18px;
+            }
+
+            .main-title {
+                letter-spacing: -1px;
+            }
+
+            .models-section {
+                padding:
+                    90px 16px;
+            }
+
+            .card-inner {
+                padding: 23px;
+            }
+
+            .model-card {
+                border-radius: 24px;
+            }
+
+            .visual {
+                height: 190px;
+            }
+
+            .earth-system {
+                width: 115vw;
+                opacity: .15;
+            }
+
+            .viewer-topbar {
+                min-height: 68px;
+
+                padding:
+                    10px 12px;
+            }
+
+            .back-models-btn {
+                min-height: 44px;
+
+                padding:
+                    7px 12px 7px 8px;
+
+                font-size: .68rem;
+            }
+
+            .back-icon {
+                width: 29px;
+                height: 29px;
+            }
+
+            .viewer-title {
+                display: none;
+            }
+
+            .viewer-loading {
+                inset:
+                    68px 0 0 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    .001ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                scroll-behavior:
+                    auto !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================= -->
+
+    <div class="background">
+
+        <div class="bg-glow glow-1"></div>
+
+        <div class="bg-glow glow-2"></div>
+
+        <div class="bg-glow glow-3"></div>
+
+        <div class="scan-light"></div>
+
+        <div
+            class="particles"
+            id="particles"
+        ></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <section
+        class="hero"
+        id="home"
+    >
+
+        <div class="earth-system">
+
+            <div class="orbit"></div>
+
+            <div class="orbit"></div>
+
+            <div class="orbit"></div>
+
+            <div class="earth"></div>
+
+        </div>
+
+
+        <div class="hero-content">
+
+            <div class="mini-label">
+
+                <span class="mini-dot"></span>
+
+                DIGITAL GEOLOGY LEARNING
+
+            </div>
+
+
+            <h1 class="main-title">
+
+                <span class="title-small">
+                    HỌC LIỆU SỐ
+                </span>
+
+                <span class="title-big">
+                    CÁC MÔ HÌNH 3D
+                </span>
+
+            </h1>
+
+
+            <p class="hero-subtitle">
+                Khám phá thế giới địa chất bằng không gian số
+            </p>
+
+
+            <button
+                class="explore-btn"
+                id="exploreButton"
+                type="button"
+            >
+                KHÁM PHÁ NGAY →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         MODELS
+    ========================================================= -->
+
+    <section
+        class="models-section"
+        id="models"
+    >
+
+        <div class="section-inner">
+
+            <div class="section-header">
+
+                <span class="section-tag">
+                    Explore 3D Models
+                </span>
+
+                <h2 class="section-title">
+                    KHÁM PHÁ CÁC MÔ HÌNH 3D
+                </h2>
+
+                <p class="section-desc">
+                    Lựa chọn mô hình bạn muốn khám phá.
+                </p>
+
+            </div>
+
+
+            <div class="cards-grid">
+
+                <!-- NỘI SINH -->
+
+                <article
+                    class="model-card card-internal"
+                    data-model="noi-sinh"
+                    tabindex="0"
+                    role="button"
+                >
+
+                    <div class="card-inner">
+
+                        <span class="card-number">
+                            01
+                        </span>
+
+                        <div class="visual">
+
+                            <div class="visual-glow"></div>
+
+                            <div class="earth-cut"></div>
+
+                        </div>
+
+                        <span class="card-category">
+                            Internal Process
+                        </span>
+
+                        <h3 class="card-title">
+                            NỘI SINH
+                        </h3>
+
+                        <p class="card-description">
+                            Khám phá các quá trình địa chất diễn ra bên trong Trái Đất.
+                        </p>
+
+                        <div class="card-bottom">
+
+                            <span class="open-label">
+                                Khám phá
+                            </span>
+
+                            <span class="arrow-circle">
+                                ↗
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- NGOẠI SINH -->
+
+                <article
+                    class="model-card card-external"
+                    data-model="ngoai-sinh"
+                    tabindex="0"
+                    role="button"
+                >
+
+                    <div class="card-inner">
+
+                        <span class="card-number">
+                            02
+                        </span>
+
+                        <div class="visual">
+
+                            <div class="visual-glow"></div>
+
+                            <div class="terrain"></div>
+
+                        </div>
+
+                        <span class="card-category">
+                            External Process
+                        </span>
+
+                        <h3 class="card-title">
+                            NGOẠI SINH
+                        </h3>
+
+                        <p class="card-description">
+                            Quan sát các quá trình bên ngoài làm biến đổi bề mặt Trái Đất.
+                        </p>
+
+                        <div class="card-bottom">
+
+                            <span class="open-label">
+                                Khám phá
+                            </span>
+
+                            <span class="arrow-circle">
+                                ↗
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TẠO NÚI -->
+
+                <article
+                    class="model-card card-mountain"
+                    data-model="tao-nui"
+                    tabindex="0"
+                    role="button"
+                >
+
+                    <div class="card-inner">
+
+                        <span class="card-number">
+                            03
+                        </span>
+
+                        <div class="visual">
+
+                            <div class="visual-glow"></div>
+
+                            <div class="mountain-system">
+
+                                <div class="mountain mountain-a"></div>
+
+                                <div class="mountain mountain-b"></div>
+
+                                <div class="fault-line"></div>
+
+                            </div>
+
+                        </div>
+
+                        <span class="card-category">
+                            Mountain Formation
+                        </span>
+
+                        <h3 class="card-title">
+                            HIỆN TƯỢNG TẠO NÚI
+                        </h3>
+
+                        <p class="card-description">
+                            Quan sát sự vận động địa chất hình thành các hệ thống núi.
+                        </p>
+
+                        <div class="card-bottom">
+
+                            <span class="open-label">
+                                Khám phá
+                            </span>
+
+                            <span class="arrow-circle">
+                                ↗
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+        HỌC LIỆU SỐ ĐỊA LÍ • 3D GEOLOGY EXPERIENCE
+    </footer>
+
+
+    <!-- =========================================================
+         VIEWER NỘI DUNG HTML
+    ========================================================= -->
+
+    <section
+        class="content-viewer"
+        id="contentViewer"
+    >
+
+        <div class="viewer-topbar">
+
+            <button
+                class="back-models-btn"
+                id="backModelsBtn"
+                type="button"
+            >
+
+                <span class="back-icon">
+                    ←
+                </span>
+
+                <span>
+                    QUAY LẠI CÁC MÔ HÌNH 3D
+                </span>
+
+            </button>
+
+
+            <div
+                class="viewer-title"
+                id="viewerTitle"
+            >
+                MÔ HÌNH 3D
+            </div>
+
+        </div>
+
+
+        <div
+            class="viewer-loading"
+            id="viewerLoading"
+        >
+
+            <div class="loader-ring"></div>
+
+            <span>
+                Đang tải không gian học tập...
+            </span>
+
+        </div>
+
+
+        <iframe
+            id="modelFrame"
+            class="model-frame"
+            src=""
+            title="Nội dung mô hình 3D"
+        ></iframe>
+
+    </section>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+        /* =========================================================
+           =========================================================
+           CHỈ CẦN THAY TÊN FILE HTML TẠI ĐÂY
+           =========================================================
+           ========================================================= */
+
+        const NOI_SINH_LINK =
+            "Mohinhmophong.html";
+
+        const NGOAI_SINH_LINK =
+            "QTNS.html";
+
+        const TAO_NUI_LINK =
+            "hientuongtaonui.html";
+
+
+        /* =========================================================
+           DỮ LIỆU MÔ HÌNH
+        ========================================================= */
+
+        const modelsData = {
+
+            "noi-sinh": {
+                title: "01 • NỘI SINH",
+                link: NOI_SINH_LINK
+            },
+
+            "ngoai-sinh": {
+                title: "02 • NGOẠI SINH",
+                link: NGOAI_SINH_LINK
+            },
+
+            "tao-nui": {
+                title: "03 • HIỆN TƯỢNG TẠO NÚI",
+                link: TAO_NUI_LINK
+            }
+
+        };
+
+
+        /* =========================================================
+           NÚT KHÁM PHÁ NGAY
+        ========================================================= */
+
+        const exploreButton =
+            document.getElementById(
+                "exploreButton"
+            );
+
+
+        exploreButton.addEventListener(
+            "click",
+            function () {
+
+                document
+                    .getElementById("models")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+            }
+        );
+
+
+        /* =========================================================
+           VIEWER
+        ========================================================= */
+
+        const contentViewer =
+            document.getElementById(
+                "contentViewer"
+            );
+
+        const modelFrame =
+            document.getElementById(
+                "modelFrame"
+            );
+
+        const backModelsBtn =
+            document.getElementById(
+                "backModelsBtn"
+            );
+
+        const viewerTitle =
+            document.getElementById(
+                "viewerTitle"
+            );
+
+        const viewerLoading =
+            document.getElementById(
+                "viewerLoading"
+            );
+
+
+        /* =========================================================
+           MỞ NỘI DUNG
+        ========================================================= */
+
+        function openModel(card) {
+
+            const modelName =
+                card.dataset.model;
+
+
+            const model =
+                modelsData[
+                    modelName
+                ];
+
+
+            if (!model) {
+                return;
+            }
+
+
+            viewerTitle.textContent =
+                model.title;
+
+
+            viewerLoading
+                .classList
+                .remove(
+                    "hide"
+                );
+
+
+            modelFrame
+                .classList
+                .remove(
+                    "loaded"
+                );
+
+
+            contentViewer
+                .classList
+                .add(
+                    "active"
+                );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+
+            modelFrame.src =
+                model.link;
+
+        }
+
+
+        /* =========================================================
+           KHI HTML ĐÃ TẢI XONG
+        ========================================================= */
+
+        modelFrame.addEventListener(
+            "load",
+            function () {
+
+                viewerLoading
+                    .classList
+                    .add(
+                        "hide"
+                    );
+
+
+                modelFrame
+                    .classList
+                    .add(
+                        "loaded"
+                    );
+
+            }
+        );
+
+
+        /* =========================================================
+           QUAY LẠI
+        ========================================================= */
+
+        function closeModelViewer() {
+
+            contentViewer
+                .classList
+                .remove(
+                    "active"
+                );
+
+
+            document.body.style.overflow =
+                "";
+
+
+            setTimeout(
+                function () {
+
+                    modelFrame.src =
+                        "";
+
+
+                    modelFrame
+                        .classList
+                        .remove(
+                            "loaded"
+                        );
+
+
+                    viewerLoading
+                        .classList
+                        .remove(
+                            "hide"
+                        );
+
+                },
+                450
+            );
+
+        }
+
+
+        backModelsBtn.addEventListener(
+            "click",
+            closeModelViewer
+        );
+
+
+        /* =========================================================
+           PHÍM ESC CŨNG QUAY LẠI
+        ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    contentViewer
+                        .classList
+                        .contains(
+                            "active"
+                        )
+                ) {
+
+                    closeModelViewer();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CARD CLICK
+        ========================================================= */
+
+        const cards =
+            document.querySelectorAll(
+                ".model-card"
+            );
+
+
+        cards.forEach(
+            function (card) {
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        openModel(card);
+
+                    }
+                );
+
+
+                card.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ) {
+
+                            event.preventDefault();
+
+                            openModel(card);
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =========================================================
+           PARTICLES
+        ========================================================= */
+
+        const particlesContainer =
+            document.getElementById(
+                "particles"
+            );
+
+
+        function createParticles() {
+
+            const numberOfParticles =
+                45;
+
+
+            for (
+                let i = 0;
+                i < numberOfParticles;
+                i++
+            ) {
+
+                const particle =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                particle.className =
+                    "particle";
+
+
+                particle.style.left =
+                    Math.random() *
+                    100 +
+                    "%";
+
+
+                particle.style.top =
+                    Math.random() *
+                    100 +
+                    "%";
+
+
+                const particleSize =
+                    Math.random() *
+                    2.5 +
+                    1;
+
+
+                particle.style.width =
+                    particleSize +
+                    "px";
+
+
+                particle.style.height =
+                    particleSize +
+                    "px";
+
+
+                particle.style.animationDuration =
+                    (
+                        Math.random() *
+                        8 +
+                        7
+                    ) +
+                    "s";
+
+
+                particle.style.animationDelay =
+                    (
+                        Math.random() *
+                        -12
+                    ) +
+                    "s";
+
+
+                particlesContainer
+                    .appendChild(
+                        particle
+                    );
+
+            }
+
+        }
+
+
+        createParticles();
+
+
+        /* =========================================================
+           PARALLAX CARD
+        ========================================================= */
+
+        if (
+            window.matchMedia(
+                "(pointer: fine)"
+            ).matches
+        ) {
+
+            cards.forEach(
+                function (card) {
+
+                    card.addEventListener(
+                        "mousemove",
+                        function (event) {
+
+                            const rect =
+                                card
+                                    .getBoundingClientRect();
+
+
+                            const x =
+                                event.clientX -
+                                rect.left;
+
+
+                            const y =
+                                event.clientY -
+                                rect.top;
+
+
+                            const rotateY =
+                                (
+                                    x /
+                                    rect.width -
+                                    .5
+                                ) *
+                                4;
+
+
+                            const rotateX =
+                                (
+                                    y /
+                                    rect.height -
+                                    .5
+                                ) *
+                                -4;
+
+
+                            card.style.transform =
+                                `
+                                translateY(-12px)
+                                scale(1.025)
+                                rotateX(${rotateX}deg)
+                                rotateY(${rotateY}deg)
+                                `;
+
+                        }
+                    );
+
+
+                    card.addEventListener(
+                        "mouseleave",
+                        function () {
+
+                            card.style.transform =
+                                "";
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
